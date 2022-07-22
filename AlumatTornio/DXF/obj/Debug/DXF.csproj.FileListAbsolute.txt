@@ -1,0 +1,7 @@
+C:\Users\aris_\Desktop\Alumat Projects\AlumatTornio\AlumatTornio\DXF\bin\Debug\DXF.exe.config
+C:\Users\aris_\Desktop\Alumat Projects\AlumatTornio\AlumatTornio\DXF\bin\Debug\DXF.exe
+C:\Users\aris_\Desktop\Alumat Projects\AlumatTornio\AlumatTornio\DXF\bin\Debug\DXF.pdb
+C:\Users\aris_\Desktop\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.csproj.AssemblyReference.cache
+C:\Users\aris_\Desktop\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.csproj.CoreCompileInputs.cache
+C:\Users\aris_\Desktop\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.exe
+C:\Users\aris_\Desktop\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.pdb
