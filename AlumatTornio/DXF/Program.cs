@@ -13,15 +13,9 @@ namespace DXF
 		[STAThread]
 		static void Main(string[] args)
 		{
-
 			List<string> entities = DxfFile.Read();
-			foreach (var item in entities)
-			{
-				Console.WriteLine(item);
-			}
-			Console.ReadLine();
-
-
+			List<Line> lines = Entities.GetLines(entities);
+			List<Arc> arcs = Entities.GetArcs(entities);
 		}
 	}
 }

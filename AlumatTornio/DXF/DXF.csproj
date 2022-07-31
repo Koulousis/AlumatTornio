@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Arc.cs" />
     <Compile Include="DxfFile.cs" />
+    <Compile Include="Entities.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
