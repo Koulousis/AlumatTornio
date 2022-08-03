@@ -5,3 +5,5 @@ C:\Users\aris_\Desktop\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\D
 C:\Users\aris_\Desktop\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.csproj.CoreCompileInputs.cache
 C:\Users\aris_\Desktop\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.exe
 C:\Users\aris_\Desktop\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.pdb
+C:\Users\aris_\Desktop\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.csproj.GenerateResource.cache
+C:\Users\aris_\Desktop\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.MainApp.resources

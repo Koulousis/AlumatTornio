@@ -8,14 +8,19 @@ using System.Windows.Forms;
 
 namespace DXF
 {
-	class Program
+	public class Program
 	{
-		[STAThread]
+		//[STAThread]
 		static void Main(string[] args)
 		{
-			List<string> entities = DxfFile.Read();
-			List<Line> lines = Entities.GetLines(entities);
-			List<Arc> arcs = Entities.GetArcs(entities);
+			//List<string> entities = DxfFile.Read();
+			//List<Line> lines = Entities.GetLines(entities);
+			//List<Arc> arcs = Entities.GetArcs(entities);
+
+			//Console.WriteLine(lines.Count.ToString());
+			//Console.WriteLine(arcs.Count.ToString());
+
+			Application.Run(new MainApp());
 		}
 	}
 }
