@@ -18,10 +18,10 @@ namespace DXF
 				if (entitiesList.ElementAt(i) == "AcDbLine")
 				{
 					//Since is double datatype, dot must be replaced with comma
-					double startX = Convert.ToDouble(entitiesList.ElementAt(i + 2).Replace('.', ','));
-					double startY = Convert.ToDouble(entitiesList.ElementAt(i + 4).Replace('.', ','));
-					double endX = Convert.ToDouble(entitiesList.ElementAt(i + 8).Replace('.', ','));
-					double endY = Convert.ToDouble(entitiesList.ElementAt(i + 10).Replace('.', ','));
+					float startX = float.Parse(entitiesList.ElementAt(i + 2).Replace('.', ','));
+					float startY = float.Parse(entitiesList.ElementAt(i + 4).Replace('.', ','));
+					float endX = float.Parse(entitiesList.ElementAt(i + 8).Replace('.', ','));
+					float endY = float.Parse(entitiesList.ElementAt(i + 10).Replace('.', ','));
 
 					//Create the found line and add it on the list
 					lines.Add(new Line(startX, startY, endX, endY));
@@ -40,11 +40,11 @@ namespace DXF
 				if (entitiesList.ElementAt(i) == "AcDbCircle")
 				{
 					//Since is double datatype, dot must be replaced with comma
-					double centerX = Convert.ToDouble(entitiesList.ElementAt(i + 2).Replace('.', ','));
-					double centerY= Convert.ToDouble(entitiesList.ElementAt(i + 4).Replace('.', ','));
-					double radius = Convert.ToDouble(entitiesList.ElementAt(i + 8).Replace('.', ','));
-					double startAngle = Convert.ToDouble(entitiesList.ElementAt(i + 12).Replace('.', ','));
-					double endAngle = Convert.ToDouble(entitiesList.ElementAt(i + 14).Replace('.', ','));
+					float centerX = float.Parse(entitiesList.ElementAt(i + 2).Replace('.', ','));
+					float centerY = float.Parse(entitiesList.ElementAt(i + 4).Replace('.', ','));
+					float radius = float.Parse(entitiesList.ElementAt(i + 8).Replace('.', ','));
+					float startAngle = float.Parse(entitiesList.ElementAt(i + 12).Replace('.', ','));
+					float endAngle = float.Parse(entitiesList.ElementAt(i + 14).Replace('.', ','));
 
 					//Create the found arc and add it on the list
 					arcs.Add(new Arc(centerX, centerY, radius, startAngle, endAngle));

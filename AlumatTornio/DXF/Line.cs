@@ -8,12 +8,12 @@ namespace DXF
 {
 	public class Line
 	{
-		public double StartX; //Value 10 in DXF
-		public double StartY; //Value 20 in DXF
-		public double EndX;   //Value 11 in DXF
-		public double EndY;   //Value 21 in DXF
+		public float StartX; //Value 10 in DXF
+		public float StartY; //Value 20 in DXF
+		public float EndX;   //Value 11 in DXF
+		public float EndY;   //Value 21 in DXF
 
-		public Line(double startX, double startY, double endX, double endY)
+		public Line(float startX, float startY, float endX, float endY)
 		{
 			StartX = startX;
 			StartY = startY;

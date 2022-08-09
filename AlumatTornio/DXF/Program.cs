@@ -10,16 +10,11 @@ namespace DXF
 {
 	public class Program
 	{
-		//[STAThread]
+		[STAThread]
 		static void Main(string[] args)
 		{
-			//List<string> entities = DxfFile.Read();
-			//List<Line> lines = Entities.GetLines(entities);
-			//List<Arc> arcs = Entities.GetArcs(entities);
-
-			//Console.WriteLine(lines.Count.ToString());
-			//Console.WriteLine(arcs.Count.ToString());
-
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new MainApp());
 		}
 	}
