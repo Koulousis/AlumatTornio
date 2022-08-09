@@ -14,10 +14,17 @@ namespace DXF
 	{		
 		public MainApp()
 		{
-			InitializeComponent();
+			InitializeComponent();			
 		}
 
-		private void MainForm_Paint(object sender, PaintEventArgs e)
+		
+
+		private void View_MouseMove(object sender, MouseEventArgs e)
+		{
+			coordinates.Text = string.Format("{0}, {1}", e.Location.X, e.Location.Y);
+		}
+
+		private void loadDXFToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			List<string> entities = DxfFile.Read();
 			List<Line> lines = Entities.GetLines(entities);
@@ -25,17 +32,6 @@ namespace DXF
 
 			Console.WriteLine(lines.Count.ToString());
 			Console.WriteLine(arcs.Count.ToString());
-
-			Graphics graphics = e.Graphics;
-			Pen pen = new Pen(Color.Black);
-			Brush brush = new SolidBrush(Color.Red);
-
-			foreach (var line in lines)
-			{
-				graphics.DrawLine(pen, line.StartX, line.StartY, line.EndX, line.EndY);
-				
-			}
-
 			Console.ReadLine();
 		}
 	}
