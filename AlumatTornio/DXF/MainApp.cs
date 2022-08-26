@@ -36,7 +36,9 @@ namespace DXF
 			
 			//Filter the data
 			lines = Entities.GetLines(entities);
+			lines = Entities.RemoveDuplicateLines(lines);
 			arcs = Entities.GetArcs(entities);
+			arcs = Entities.RemoveDuplicateArcs(arcs);
 
 			//Modify the data
 			float gap = Position.Gap(lines);

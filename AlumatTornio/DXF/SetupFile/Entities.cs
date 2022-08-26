@@ -148,7 +148,23 @@ namespace DXF.SetupFile
 					arcs.Add(new Arc(centerX, centerY, radius, startAngle, endAngle));
 				}				
 			}
-			return arcs;
+			return arcs;			
+		}
+
+		public static List<Line> RemoveDuplicateLines(List<Line> lines)
+		{
+			List<Line> newLines = new List<Line>();
+			newLines = lines.GroupBy(x => new { x.StartX, x.StartY, x.EndX, x.EndY }).Select(x => x.First()).ToList();
+			
+			return newLines;
+		}
+
+		public static List<Arc> RemoveDuplicateArcs(List<Arc> arcs)
+		{
+			List<Arc> newArcs = new List<Arc>();
+			newArcs = arcs.GroupBy(x => new { x.CenterX, x.CenterY, x.Radius, x.StartAngle, x.EndAngle }).Select(x => x.First()).ToList();
+
+			return newArcs;
 		}
 	}
 }
