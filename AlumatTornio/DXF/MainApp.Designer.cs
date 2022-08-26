@@ -39,60 +39,54 @@ namespace DXF
 			// 
 			// View
 			// 
-			this.View.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.View.BackColor = System.Drawing.SystemColors.Window;
-			this.View.Location = new System.Drawing.Point(24, 52);
-			this.View.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.View.Location = new System.Drawing.Point(12, 27);
 			this.View.Name = "View";
-			this.View.Size = new System.Drawing.Size(1528, 765);
+			this.View.Size = new System.Drawing.Size(250, 500);
 			this.View.TabIndex = 0;
 			this.View.TabStop = false;
-			this.View.SizeChanged += new System.EventHandler(this.View_SizeChanged);
 			this.View.Paint += new System.Windows.Forms.PaintEventHandler(this.View_Paint);
 			this.View.MouseMove += new System.Windows.Forms.MouseEventHandler(this.View_MouseMove);
 			// 
 			// coordinates
 			// 
 			this.coordinates.AutoSize = true;
-			this.coordinates.Location = new System.Drawing.Point(24, 823);
-			this.coordinates.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.coordinates.Location = new System.Drawing.Point(12, 538);
 			this.coordinates.Name = "coordinates";
-			this.coordinates.Size = new System.Drawing.Size(204, 25);
+			this.coordinates.Size = new System.Drawing.Size(101, 13);
 			this.coordinates.TabIndex = 1;
 			this.coordinates.Text = "Coordinates Reader";
 			// 
 			// menuStrip1
 			// 
-			this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
 			this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadDXFToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
-			this.menuStrip1.Size = new System.Drawing.Size(1576, 40);
+			this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
+			this.menuStrip1.Size = new System.Drawing.Size(902, 24);
 			this.menuStrip1.TabIndex = 2;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
 			// loadDXFToolStripMenuItem
 			// 
 			this.loadDXFToolStripMenuItem.Name = "loadDXFToolStripMenuItem";
-			this.loadDXFToolStripMenuItem.Size = new System.Drawing.Size(135, 36);
+			this.loadDXFToolStripMenuItem.Size = new System.Drawing.Size(69, 22);
 			this.loadDXFToolStripMenuItem.Text = "Load DXF";
 			this.loadDXFToolStripMenuItem.Click += new System.EventHandler(this.loadDXFToolStripMenuItem_Click);
 			// 
 			// MainApp
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1576, 873);
+			this.ClientSize = new System.Drawing.Size(902, 565);
 			this.Controls.Add(this.coordinates);
 			this.Controls.Add(this.View);
 			this.Controls.Add(this.menuStrip1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MainMenuStrip = this.menuStrip1;
-			this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.MaximizeBox = false;
 			this.Name = "MainApp";
 			this.Text = "MainApp";
 			((System.ComponentModel.ISupportInitialize)(this.View)).EndInit();

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DXF.Modify;
+using DXF.SetupFile;
+using DXF.SetupView;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,12 +17,12 @@ namespace DXF
 	public partial class MainApp : Form
 	{
 		public static List<string> entities;
+		public static List<Line> lines;
+		public static List<Arc> arcs;
 		public MainApp()
 		{
 			InitializeComponent();			
-		}
-
-		
+		}		
 
 		private void View_MouseMove(object sender, MouseEventArgs e)
 		{
@@ -28,7 +31,19 @@ namespace DXF
 
 		private void loadDXFToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			entities = DxfFile.Read();
+			//Read the file
+			entities = File.Read();
+			
+			//Filter the data
+			lines = Entities.GetLines(entities);
+			arcs = Entities.GetArcs(entities);
+
+			//Modify the data
+			float gap = Position.Gap(lines);
+			lines = Position.OffsetLines(lines,gap);
+			arcs = Position.OffsetArcs(arcs,gap);
+
+			//Revisualize the data
 			View.Refresh();
 		}
 				
@@ -36,67 +51,16 @@ namespace DXF
 		{
 			if (entities != null)
 			{				
-				SolidBrush mySolidBrush1 = new SolidBrush(Color.Red);
-				SolidBrush mySolidBrush2 = new SolidBrush(Color.Yellow);
-
-
 				Graphics myGraphics = e.Graphics;
-				Matrix myMatrix = new Matrix(1, 0, 0, -1, 0, 0); //Mirror Axis
-				myGraphics.Transform = myMatrix;
-				myGraphics.TranslateTransform(View.Width/2, View.Height/2, MatrixOrder.Append); //Moves Origin Point
-				
-				myGraphics.DrawLine(new Pen(Color.Black), -View.Width / 2, 0, View.Width / 2, 0);
-				myGraphics.DrawLine(new Pen(Color.Black), 0, -View.Height / 2, 0, View.Height / 2);
+				//Mirror Axis
+				Matrix cartesian = new Matrix(1, 0, 0, -1, 0, 0);
+				myGraphics.Transform = cartesian;
+				//Moves Origin Point
+				myGraphics.TranslateTransform(View.Width - (View.Width/10), View.Height / 2, MatrixOrder.Append);
 
-				List<Line> lines = Entities.GetLines(entities);
-				List<Arc> arcs = Entities.GetArcs(entities);
-
-				foreach (Line line in lines)
-				{
-					myGraphics.DrawLine(new Pen(Color.Black), line.StartX, line.StartY, line.EndX, line.EndY);
-				}
-
-				Pen pen = new Pen(Color.Red);
-				RectangleF rectangle;
-				float cornerX;
-				float cornerY;
-				float width;
-				float height;
-				float startAngle;
-				float sweepAngle;
-				foreach (Arc arc in arcs)
-				{
-					cornerX = arc.CenterX - arc.Radius;
-					cornerY = arc.CenterY - arc.Radius;
-					width = arc.Radius * 2;
-					height = arc.Radius * 2;
-
-					rectangle = new RectangleF(cornerX, cornerY, width, height);
-					startAngle = arc.StartAngle;
-					if (arc.StartAngle > arc.EndAngle)
-					{
-						sweepAngle = 360 - (arc.StartAngle - arc.EndAngle);
-					} 
-					else
-					{
-						sweepAngle = arc.EndAngle - arc.StartAngle;
-					}
-					
-					
-					myGraphics.DrawArc(pen, rectangle, startAngle, sweepAngle);
-				}
-
-				//Rectangle rec = new Rectangle(50,-150,100,100);
-				//myGraphics.DrawArc(new Pen(Color.Red), rec, 225, 225 - 74);
-
-				//myGraphics.DrawArc(new Pen(Color.DarkViolet), rec, 0, 90);
-
+				Visualize.Axes(myGraphics, View.Width, View.Height);
+				Visualize.Die(myGraphics,lines,arcs);
 			}
-		}
-
-		private void View_SizeChanged(object sender, EventArgs e)
-		{
-			View.Refresh();
-		}
+		}				
 	}
 }
