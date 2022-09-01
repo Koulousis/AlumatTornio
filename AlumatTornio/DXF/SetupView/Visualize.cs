@@ -12,7 +12,7 @@ namespace DXF.SetupView
 {
 	public class Visualize
 	{
-		public static void Die(Graphics graphics, List<Line> lines, List<Arc> arcs)
+		public static void Instant(Graphics graphics, List<Line> lines, List<Arc> arcs)
 		{
 			//Lines
 			Pen linePen = new Pen(Color.Black);
@@ -48,7 +48,50 @@ namespace DXF.SetupView
 					sweepAngle = arc.EndAngle - arc.StartAngle;
 				}
 				graphics.DrawArc(arcPen, rectangle, startAngle, sweepAngle);
+			}			
+		}
+
+		public static void WithPath(Graphics graphics, List<Line> lines, List<Arc> arcs)
+		{
+			//Lines
+			Pen linePen = new Pen(Color.Black);
+			GraphicsPath graphicsPath = new GraphicsPath();
+
+			float startX, startY, endX, endY;
+			foreach (Line line in lines)
+			{
+				startX = line.StartX;
+				startY = line.StartY;
+				endX = line.EndX;
+				endY = line.EndY;
+				graphicsPath.AddLine(startX, startY, endX, endY);
 			}
+
+			//Arcs
+			Pen arcPen = new Pen(Color.Red);
+			RectangleF rectangle;
+			float cornerX, cornerY, width, height, startAngle, sweepAngle;
+			foreach (Arc arc in arcs)
+			{
+				cornerX = arc.CenterX - arc.Radius;
+				cornerY = arc.CenterY - arc.Radius;
+				width = arc.Radius * 2;
+				height = arc.Radius * 2;
+
+				rectangle = new RectangleF(cornerX, cornerY, width, height);
+				startAngle = arc.StartAngle;
+				if (arc.StartAngle > arc.EndAngle)
+				{
+					sweepAngle = 360 - (arc.StartAngle - arc.EndAngle);
+				}
+				else
+				{
+					sweepAngle = arc.EndAngle - arc.StartAngle;
+				}
+				graphicsPath.AddArc(rectangle, startAngle, sweepAngle);
+			}
+
+			;
 		}
 
 		public static void Axes(Graphics graphics, int crossX, int crossY)

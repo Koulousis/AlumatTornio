@@ -39,7 +39,7 @@ namespace DXF
 			// 
 			// View
 			// 
-			this.View.BackColor = System.Drawing.SystemColors.Window;
+			this.View.BackColor = System.Drawing.SystemColors.WindowText;
 			this.View.Location = new System.Drawing.Point(12, 27);
 			this.View.Name = "View";
 			this.View.Size = new System.Drawing.Size(250, 500);
@@ -65,7 +65,7 @@ namespace DXF
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
-			this.menuStrip1.Size = new System.Drawing.Size(902, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(632, 24);
 			this.menuStrip1.TabIndex = 2;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -80,7 +80,7 @@ namespace DXF
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(902, 565);
+			this.ClientSize = new System.Drawing.Size(632, 556);
 			this.Controls.Add(this.coordinates);
 			this.Controls.Add(this.View);
 			this.Controls.Add(this.menuStrip1);

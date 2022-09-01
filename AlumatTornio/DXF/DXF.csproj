@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modify\Create.cs" />
     <Compile Include="Modify\Position.cs" />
     <Compile Include="SetupFile\Arc.cs" />
     <Compile Include="SetupFile\File.cs" />

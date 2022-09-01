@@ -59,9 +59,27 @@ namespace DXF
 				myGraphics.Transform = cartesian;
 				//Moves Origin Point
 				myGraphics.TranslateTransform(View.Width - (View.Width/10), View.Height / 2, MatrixOrder.Append);
+				//myGraphics.ScaleTransform(1.5f, 1.5f);
 
 				Visualize.Axes(myGraphics, View.Width, View.Height);
-				Visualize.Die(myGraphics,lines,arcs);
+				//Visualize.Instant(myGraphics, lines, arcs);
+
+				GraphicsPath graphicsPath = Create.Path(lines,arcs);
+
+				//Visualize.WithPath(myGraphics, lines, arcs);
+				Pen pen = new Pen(Color.DarkCyan);
+				myGraphics.DrawPath(pen, graphicsPath);
+				myGraphics.FillPath(new SolidBrush(Color.DarkCyan), graphicsPath);
+
+				//GraphicsPath graphicsPath = new GraphicsPath();
+
+				//graphicsPath.AddLine(-10, 0, -10, 100);
+				//graphicsPath.AddArc(new RectangleF(-100,100,50,50), 0, 90);
+				////graphicsPath.AddLine(-100, 0, -100, 100);
+				//myGraphics.DrawPath(new Pen(Color.Green), graphicsPath);
+
+
+
 			}
 		}				
 	}
