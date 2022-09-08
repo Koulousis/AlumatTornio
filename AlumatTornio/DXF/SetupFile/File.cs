@@ -8,28 +8,44 @@ using System.IO;
 
 namespace DXF.SetupFile
 {
-	public class File
+	public static class File
 	{
+		public static bool choosedFile;
 		public static List<string> Read()
 		{
-			//Open a file dialog to choose a dxf file
+			//Set File Dialog properties
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 			openFileDialog.InitialDirectory = "C:\\";
 			openFileDialog.Filter = "dxf files (*.dxf)|*.dxf|All files (*.*)|*.*";
 			openFileDialog.FilterIndex = 1;
-			openFileDialog.ShowDialog();
 
-			//Read the file and set it on a string list
-			string selectedDxf = openFileDialog.FileName;
-			string[] entitiesArray = System.IO.File.ReadAllLines(selectedDxf);
-			List<string> entitiesList = entitiesArray.ToList();
+			//Instanciate file variables
+			string[] entitiesArray;
+			List<string> entitiesList;
+			string selectedDxf;
 
-			//Keep the lines from "ENTITIES" until the first "ENDSEC"
-			entitiesList.RemoveRange(0, entitiesList.IndexOf("ENTITIES"));
-			entitiesList.RemoveRange(entitiesList.IndexOf("ENDSEC") + 1, entitiesList.LastIndexOf("EOF") - entitiesList.IndexOf("ENDSEC"));
+			//Open File Dialog
+			DialogResult dialogResult = openFileDialog.ShowDialog();
 
-			//Return the selected file with the entities part only
-			return entitiesList;
+			//If file selected, add text on a list or return nothing
+			if (dialogResult == DialogResult.OK)
+			{
+				selectedDxf = openFileDialog.FileName;
+				entitiesArray = System.IO.File.ReadAllLines(selectedDxf);
+				entitiesList = entitiesArray.ToList();
+
+				//Keep the lines from "ENTITIES" until the first "ENDSEC"
+				entitiesList.RemoveRange(0, entitiesList.IndexOf("ENTITIES"));
+				entitiesList.RemoveRange(entitiesList.IndexOf("ENDSEC") + 1, entitiesList.LastIndexOf("EOF") - entitiesList.IndexOf("ENDSEC"));
+				choosedFile = true;
+				return entitiesList;
+			}
+			else
+			{
+				choosedFile = false;
+				List<string> nothing = new List<string>();
+				return nothing;
+			}			
 		}
 	}
 }

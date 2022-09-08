@@ -19,6 +19,7 @@ namespace DXF
 		public static List<string> entities;
 		public static List<Line> lines;
 		public static List<Arc> arcs;
+		public static float zoomFactor = 1.5f;
 		public MainApp()
 		{
 			InitializeComponent();			
@@ -26,61 +27,103 @@ namespace DXF
 
 		private void View_MouseMove(object sender, MouseEventArgs e)
 		{
-			coordinates.Text = string.Format("{0}, {1}", e.Location.X, e.Location.Y);
+			//Pixels to millimeters
+			//Graphics object to retrieve data
+			Graphics screen = CreateGraphics();
+
+			//Move X and Y origin location
+			double cursorPositionX = View.Width - View.Width/10 - e.Location.X;
+			double cursorPositionY = View.Height / 2 - e.Location.Y;
+			//Transform pixels to millimeters
+			cursorPositionX = cursorPositionX + 25.4f / screen.DpiX;			
+			cursorPositionY = cursorPositionY + 25.4f / screen.DpiY;
+
+			//Set Labels text to X and Y mouse position
+			coordinatesLabel.Text = string.Format("{0,0:F2}, {1,0:F2}", cursorPositionX / zoomFactor, cursorPositionY / zoomFactor);
 		}
 
 		private void loadDXFToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+			
 			//Read the file
 			entities = File.Read();
-			
-			//Filter the data
-			lines = Entities.GetLines(entities);
-			lines = Entities.RemoveDuplicateLines(lines);
-			arcs = Entities.GetArcs(entities);
-			arcs = Entities.RemoveDuplicateArcs(arcs);
+			if (File.choosedFile)
+			{
+				//Filter the data
+				lines = Entities.GetLines(entities);
+				lines = Entities.RemoveDuplicateLines(lines);
+				arcs = Entities.GetArcs(entities);
+				arcs = Entities.RemoveDuplicateArcs(arcs);
 
-			//Modify the data
-			float gap = Position.Gap(lines);
-			lines = Position.OffsetLines(lines,gap);
-			arcs = Position.OffsetArcs(arcs,gap);
+				//Modify the data
+				float gap = Position.Gap(lines);
+				lines = Position.OffsetLines(lines, gap);
+				arcs = Position.OffsetArcs(arcs, gap);
 
-			//Revisualize the data
-			View.Refresh();
+				//Revisualize the data
+				View.Refresh();
+			}			
 		}
 				
 		private void View_Paint(object sender, PaintEventArgs e)
 		{
 			if (entities != null)
-			{				
-				Graphics myGraphics = e.Graphics;
-				//Mirror Axis
+			{	
+				//Setup Graphics and modify origin point and coordinates to cartesian system
+				Graphics preview = e.Graphics;
 				Matrix cartesian = new Matrix(1, 0, 0, -1, 0, 0);
-				myGraphics.Transform = cartesian;
-				//Moves Origin Point
-				myGraphics.TranslateTransform(View.Width - (View.Width/10), View.Height / 2, MatrixOrder.Append);
-				//myGraphics.ScaleTransform(1.5f, 1.5f);
+				preview.Transform = cartesian;
+				preview.TranslateTransform(View.Width - (View.Width/10), View.Height / 2, MatrixOrder.Append);
+				preview.ScaleTransform(zoomFactor, zoomFactor);				
 
-				Visualize.Axes(myGraphics, View.Width, View.Height);
-				//Visualize.Instant(myGraphics, lines, arcs);
+				//Create die path
+				GraphicsPath diePath = Create.Path(lines,arcs);
 
-				GraphicsPath graphicsPath = Create.Path(lines,arcs);
+				//Visualize Axes
+				if (axesVisualizeCheckBox.Checked)
+				{
+					Visualize.Axes(preview, View.Width, View.Height);
+				}
 
-				//Visualize.WithPath(myGraphics, lines, arcs);
-				Pen pen = new Pen(Color.DarkCyan);
-				myGraphics.DrawPath(pen, graphicsPath);
-				myGraphics.FillPath(new SolidBrush(Color.DarkCyan), graphicsPath);
+				//Visualize Die
+				if (dieVisualizeCheckBox.Checked)
+				{
+					Visualize.Die(preview, diePath);
+				}
 
-				//GraphicsPath graphicsPath = new GraphicsPath();
+				//Visualize machining region
+				if (machiningVisualizeCheckBox.Checked)
+				{
+					Visualize.MachiningRegion(preview, diePath);
+				}
 
-				//graphicsPath.AddLine(-10, 0, -10, 100);
-				//graphicsPath.AddArc(new RectangleF(-100,100,50,50), 0, 90);
-				////graphicsPath.AddLine(-100, 0, -100, 100);
-				//myGraphics.DrawPath(new Pen(Color.Green), graphicsPath);
 
 
+				//RectangleF[] machiningScanCoordinates = stockRegion.GetRegionScans(cartesian);
+				//GraphicsPath newPath = new GraphicsPath();
+				//newPath.AddRectangles(rectangles);
+				//preview.DrawPath(stockPen, newPath);
+
+
+
+				Console.ReadLine();
 
 			}
-		}				
+		}
+
+		private void axesVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			View.Refresh();
+		}
+
+		private void dieVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			View.Refresh();
+		}
+
+		private void machiningVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			View.Refresh();
+		}
 	}
 }
