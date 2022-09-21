@@ -25,3 +25,4 @@ C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\
 C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.csproj.CoreCompileInputs.cache
 C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.exe
 C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.pdb
+C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.Properties.Resources.resources

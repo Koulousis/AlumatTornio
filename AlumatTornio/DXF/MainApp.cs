@@ -42,9 +42,8 @@ namespace DXF
 			coordinatesLabel.Text = string.Format("{0,0:F2}, {1,0:F2}", cursorPositionX / zoomFactor, cursorPositionY / zoomFactor);
 		}
 
-		private void loadDXFToolStripMenuItem_Click(object sender, EventArgs e)
+		private void fileDxfMenuItem_Click(object sender, EventArgs e)
 		{
-			
 			//Read the file
 			entities = File.Read();
 			if (File.choosedFile)
@@ -62,9 +61,9 @@ namespace DXF
 
 				//Revisualize the data
 				View.Refresh();
-			}			
+			}
 		}
-				
+
 		private void View_Paint(object sender, PaintEventArgs e)
 		{
 			if (entities != null)
@@ -97,6 +96,11 @@ namespace DXF
 					Visualize.MachiningRegion(preview, diePath);
 				}
 
+				if (scansVisualizeCheckBox.Checked)
+				{
+					Visualize.MachiningRegionScans(preview, diePath);
+				}
+
 
 
 				//RectangleF[] machiningScanCoordinates = stockRegion.GetRegionScans(cartesian);
@@ -122,6 +126,11 @@ namespace DXF
 		}
 
 		private void machiningVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			View.Refresh();
+		}
+
+		private void scansVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
 		{
 			View.Refresh();
 		}

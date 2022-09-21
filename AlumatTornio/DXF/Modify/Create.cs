@@ -55,7 +55,7 @@ namespace DXF.Modify
 						if (meetsEnd)
 						{
 							//Add the line to path
-							graphicsPath.AddLine(pathLines[l].StartX, pathLines[l].StartY, pathLines[l].EndX, pathLines[l].EndY);
+							graphicsPath.AddLine(pathLines[l].EndX, pathLines[l].EndY, pathLines[l].StartX, pathLines[l].StartY);
 							//Target the opposite point as the base point
 							basePointX = pathLines[l].StartX;
 							basePointY = pathLines[l].StartY;

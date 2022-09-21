@@ -45,12 +45,40 @@ namespace DXF.SetupView
 
 			//Create machining region
 			Region machiningRegion = stockRegion;
+			//Remove from stock the die region and get the rest
 			machiningRegion.Exclude(dieRegion);
 
 			//Visualize machining region
-			SolidBrush machiningBrush = new SolidBrush(Color.Yellow);
+			SolidBrush machiningBrush = new SolidBrush(Color.MediumPurple);
 			preview.FillRegion(machiningBrush, machiningRegion);
 			machiningBrush.Dispose();
+		}
+
+		public static void MachiningRegionScans(Graphics preview, GraphicsPath diePath)
+		{
+			//Create die region
+			Region dieRegion = new Region(diePath);
+
+			//Create stock region
+			//which is the bounding box of the die section
+			RectangleF stockCoordinates = diePath.GetBounds();
+			Region stockRegion = new Region(stockCoordinates);
+
+			//Create machining region
+			Region machiningRegion = stockRegion;
+			//Remove from stock the die region and get the rest
+			machiningRegion.Exclude(dieRegion);
+
+			//Get rectangles which fit on the machining region
+			Matrix cartesian = new Matrix(1, 0, 0, 1, 0, 0);
+			RectangleF[] machiningRegionScans = machiningRegion.GetRegionScans(cartesian);
+
+			//Add those rectangles in a graphics path
+			GraphicsPath scansPath = new GraphicsPath();
+			scansPath.AddRectangles(machiningRegionScans);
+
+			//Draw the Path
+			preview.DrawPath(new Pen(Color.Yellow), scansPath);
 		}
 	}
 }
