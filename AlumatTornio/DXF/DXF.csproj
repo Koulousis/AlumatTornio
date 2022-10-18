@@ -49,7 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lathe\Cycle.cs" />
     <Compile Include="Modify\Create.cs" />
+    <Compile Include="Modify\Get.cs" />
     <Compile Include="Modify\Position.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -58,7 +60,7 @@
     </Compile>
     <Compile Include="SetupFile\Arc.cs" />
     <Compile Include="SetupFile\File.cs" />
-    <Compile Include="SetupFile\Entities.cs" />
+    <Compile Include="SetupFile\FromDxf.cs" />
     <Compile Include="SetupFile\Line.cs" />
     <Compile Include="MainApp.cs">
       <SubType>Form</SubType>
@@ -82,5 +84,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

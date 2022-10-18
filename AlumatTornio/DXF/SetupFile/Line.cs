@@ -8,10 +8,10 @@ namespace DXF.SetupFile
 {
 	public class Line
 	{
-		public float StartX; //Value 10 in DXF
-		public float StartY; //Value 20 in DXF
-		public float EndX;   //Value 11 in DXF
-		public float EndY;   //Value 21 in DXF
+		public float StartX { get; set; } //Value 10 in DXF
+		public float StartY { get; set; } //Value 20 in DXF
+		public float EndX { get; set; }   //Value 11 in DXF
+		public float EndY { get; set; }   //Value 21 in DXF
 
 		public Line(float startX, float startY, float endX, float endY)
 		{

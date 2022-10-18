@@ -6,18 +6,88 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace DXF.Modify
 {
 	public class Create
 	{
-		public static GraphicsPath Path(List<Line> lines, List<Arc> arcs)
+		public static GraphicsPath FullDieProfile()
+		{
+			GraphicsPath fullDieProfile = new GraphicsPath();
+			List<Line> lines = new List<Line>(MainApp.Lines);
+			List<Arc> arcs = new List<Arc>(MainApp.Arcs);
+
+			//Add a line to the graphics path to start searching matching lines or arcs
+			fullDieProfile.AddLine(lines[0].StartX, lines[0].StartY, lines[0].EndX, lines[0].EndY);
+			PointF lastPoint = new PointF(lines[0].EndX, lines[0].EndY);
+			lines.RemoveAt(0);
+
+			//Find the next element which has a matching point with the last point and add it to the path
+			int totalElements = lines.Count + arcs.Count;
+			for (int elementsLeft = totalElements; elementsLeft != 0;)
+			{
+				Line startPointLine = lines.Find(line => line.StartX == lastPoint.X && line.StartY == lastPoint.Y);
+				Line endPointLine = lines.Find(line => line.EndX == lastPoint.X && line.EndY == lastPoint.Y);
+				Arc startPointArc = arcs.Find(arc => arc.StartX == lastPoint.X && arc.StartY == lastPoint.Y);
+				Arc endPointArc = arcs.Find(arc => arc.EndX == lastPoint.X && arc.EndY == lastPoint.Y);
+
+				if (startPointLine != null)
+				{
+					fullDieProfile.AddLine(startPointLine.StartX, startPointLine.StartY, startPointLine.EndX, startPointLine.EndY);
+					lastPoint.X = startPointLine.EndX;
+					lastPoint.Y = startPointLine.EndY;
+					lines.Remove(startPointLine);
+					elementsLeft--;
+					continue;
+				}
+
+				if (endPointLine != null)
+				{
+					fullDieProfile.AddLine(endPointLine.EndX, endPointLine.EndY, endPointLine.StartX, endPointLine.StartY);
+					lastPoint.X = endPointLine.StartX;
+					lastPoint.Y = endPointLine.StartY;
+					lines.Remove(endPointLine);
+					elementsLeft--;
+					continue;
+				}
+
+				if (startPointArc != null)
+				{
+					fullDieProfile.AddArc(startPointArc.RectangularCornerX, startPointArc.RectangularCornerY, startPointArc.Width, startPointArc.Height, startPointArc.StartAngle, startPointArc.SweepAngle);
+					lastPoint.X = startPointArc.EndX;
+					lastPoint.Y = startPointArc.EndY;
+					arcs.Remove(startPointArc);
+					elementsLeft--;
+					continue;
+				}
+
+				if (endPointArc != null)
+				{
+					fullDieProfile.AddArc(endPointArc.RectangularCornerX, endPointArc.RectangularCornerY, endPointArc.Width, endPointArc.Height, endPointArc.StartAngle, endPointArc.SweepAngle);
+					lastPoint.X = endPointArc.StartX;
+					lastPoint.Y = endPointArc.StartY;
+					arcs.Remove(endPointArc);
+					elementsLeft--;
+					continue;
+				}
+
+				if (true)
+				{
+					DialogResult notMatchingPoint = MessageBox.Show("Points from the file didn't match");
+				}
+			}
+			return fullDieProfile;
+		}
+
+		public static GraphicsPath Path()
 		{
 			GraphicsPath graphicsPath = new GraphicsPath();
 
 			//Clone thes lists on new listsm because on the iteration they will become empty
-			List<Line> pathLines = new List<Line>(lines);
-			List<Arc> pathArcs = new List<Arc>(arcs); 
+			List<Line> pathLines = new List<Line>(MainApp.Lines);
+			List<Arc> pathArcs = new List<Arc>(MainApp.Arcs); 
 
 			//float distance = ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1));
 			//dis = Math.Sqrt(Convert.ToDouble(distance));

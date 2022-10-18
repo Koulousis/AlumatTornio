@@ -127,8 +127,6 @@ namespace DXF
 			// scansVisualizeCheckBox
 			// 
 			this.scansVisualizeCheckBox.AutoSize = true;
-			this.scansVisualizeCheckBox.Checked = true;
-			this.scansVisualizeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.scansVisualizeCheckBox.ForeColor = System.Drawing.Color.Black;
 			this.scansVisualizeCheckBox.Location = new System.Drawing.Point(15, 118);
 			this.scansVisualizeCheckBox.Margin = new System.Windows.Forms.Padding(2);
@@ -142,8 +140,6 @@ namespace DXF
 			// machiningVisualizeCheckBox
 			// 
 			this.machiningVisualizeCheckBox.AutoSize = true;
-			this.machiningVisualizeCheckBox.Checked = true;
-			this.machiningVisualizeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.machiningVisualizeCheckBox.ForeColor = System.Drawing.Color.Black;
 			this.machiningVisualizeCheckBox.Location = new System.Drawing.Point(15, 88);
 			this.machiningVisualizeCheckBox.Margin = new System.Windows.Forms.Padding(2);

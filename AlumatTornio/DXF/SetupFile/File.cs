@@ -10,42 +10,31 @@ namespace DXF.SetupFile
 {
 	public static class File
 	{
-		public static bool choosedFile;
-		public static List<string> Read()
+		public static bool ReadDxf()
 		{
-			//Set File Dialog properties
-			OpenFileDialog openFileDialog = new OpenFileDialog();
-			openFileDialog.InitialDirectory = "C:\\";
-			openFileDialog.Filter = "dxf files (*.dxf)|*.dxf|All files (*.*)|*.*";
-			openFileDialog.FilterIndex = 1;
-
-			//Instanciate file variables
-			string[] entitiesArray;
-			List<string> entitiesList;
-			string selectedDxf;
-
-			//Open File Dialog
-			DialogResult dialogResult = openFileDialog.ShowDialog();
-
-			//If file selected, add text on a list or return nothing
-			if (dialogResult == DialogResult.OK)
+			//Trigger the user to select a file via a dialog with dxf files filter
+			OpenFileDialog selectDxfDialog = new OpenFileDialog()
 			{
-				selectedDxf = openFileDialog.FileName;
-				entitiesArray = System.IO.File.ReadAllLines(selectedDxf);
-				entitiesList = entitiesArray.ToList();
+				Title = @"Select file",
+				InitialDirectory = @"C:\",
+				DefaultExt = @".dxf",
+				Filter = @"DXF Files (*.dxf)|*.dxf"
+			};
 
-				//Keep the lines from "ENTITIES" until the first "ENDSEC"
-				entitiesList.RemoveRange(0, entitiesList.IndexOf("ENTITIES"));
-				entitiesList.RemoveRange(entitiesList.IndexOf("ENDSEC") + 1, entitiesList.LastIndexOf("EOF") - entitiesList.IndexOf("ENDSEC"));
-				choosedFile = true;
-				return entitiesList;
+			//If file has been selected, isolate the ENTITIES part from the dxf in the string list
+			//and return true to know that the user has selected a file
+			if (selectDxfDialog.ShowDialog() == DialogResult.OK)
+			{
+				string[] dxfTextArray = System.IO.File.ReadAllLines(selectDxfDialog.FileName);
+				MainApp.DxfText = dxfTextArray.ToList();
+				MainApp.DxfText.RemoveRange(0, MainApp.DxfText.IndexOf("ENTITIES"));
+				MainApp.DxfText.RemoveRange(MainApp.DxfText.IndexOf("ENDSEC") + 1, MainApp.DxfText.LastIndexOf("EOF") - MainApp.DxfText.IndexOf("ENDSEC"));
+
+				selectDxfDialog.Dispose();
+				return true;
 			}
-			else
-			{
-				choosedFile = false;
-				List<string> nothing = new List<string>();
-				return nothing;
-			}			
+			selectDxfDialog.Dispose();
+			return false;
 		}
 	}
 }

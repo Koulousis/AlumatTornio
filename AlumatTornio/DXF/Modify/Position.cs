@@ -9,12 +9,12 @@ namespace DXF.Modify
 {
 	public class Position
 	{
-		public static float Gap(List<Line> lines)
+		public static float GetGap()
 		{
-			float gap = lines[0].StartX;
+			float gap = MainApp.Lines[0].StartX;
 
 			//Get the closest distance from origin
-			foreach (Line line in lines)
+			foreach (Line line in MainApp.Lines)
 			{
 				if (line.StartX > gap)
 				{
@@ -27,23 +27,23 @@ namespace DXF.Modify
 			}
 			return gap;
 		}
-		public static List<Line> OffsetLines(List<Line> lines, float gap)
+		public static void OffsetLines(float gap)
 		{
-			for (int i = 0; i  < lines.Count; i ++)
+			foreach (Line line in MainApp.Lines)
 			{
-				lines[i].StartX = lines[i].StartX + Math.Abs(gap);
-				lines[i].EndX = lines[i].EndX + Math.Abs(gap);
+				line.StartX += Math.Abs(gap);
+				line.EndX += Math.Abs(gap);
 			}
-			return lines;
 		}
 
-		public static List<Arc> OffsetArcs(List<Arc> arcs, float gap)
-		{			
-			for (int i = 0; i < arcs.Count; i++)
+		public static void OffsetArcs(float gap)
+		{
+			foreach (Arc arc in MainApp.Arcs)
 			{
-				arcs[i].CenterX = arcs[i].CenterX + Math.Abs(gap);
+				arc.CenterX += Math.Abs(gap);
+				arc.StartX += Math.Abs(gap);
+				arc.EndX += Math.Abs(gap);
 			}
-			return arcs;
 		}
 
 	}

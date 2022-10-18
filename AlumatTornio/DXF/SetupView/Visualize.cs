@@ -12,10 +12,12 @@ namespace DXF.SetupView
 {
 	public class Visualize
 	{		
-		public static void Axes(Graphics graphics, int crossX, int crossY)
+		public static void Axes(Graphics graphics, float crossX, float crossY)
 		{
 			Pen axisPen = new Pen(Color.DarkGray);
 			axisPen.DashStyle = DashStyle.Dash;
+			axisPen.ScaleTransform(1/MainApp.ZoomFactor, 1/MainApp.ZoomFactor);
+			axisPen.Alignment = PenAlignment.Center;
 			//Draw X Axis
 			graphics.DrawLine(axisPen, -crossX, 0, crossX, 0);
 			//Draw Y Axis
@@ -26,6 +28,8 @@ namespace DXF.SetupView
 		{
 			//Visualize die path
 			Pen diePen = new Pen(Color.DarkCyan);
+			diePen.ScaleTransform(1 / MainApp.ZoomFactor, 1 / MainApp.ZoomFactor);
+			diePen.Alignment = PenAlignment.Outset;
 			SolidBrush dieBrush = new SolidBrush(Color.DarkCyan);
 			preview.DrawPath(diePen, diePath);
 			preview.FillPath(dieBrush, diePath);
@@ -78,7 +82,10 @@ namespace DXF.SetupView
 			scansPath.AddRectangles(machiningRegionScans);
 
 			//Draw the Path
-			preview.DrawPath(new Pen(Color.Yellow), scansPath);
+			Pen machiningRegionsPen = new Pen(Color.Yellow);
+			machiningRegionsPen.ScaleTransform(1 / MainApp.ZoomFactor, 1 / MainApp.ZoomFactor);
+			machiningRegionsPen.Alignment = PenAlignment.Inset;
+			preview.DrawPath(machiningRegionsPen, scansPath);
 		}
 	}
 }

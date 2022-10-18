@@ -1,4 +1,5 @@
-﻿using DXF.Modify;
+﻿using DXF.Lathe;
+using DXF.Modify;
 using DXF.SetupFile;
 using DXF.SetupView;
 using System;
@@ -16,13 +17,13 @@ namespace DXF
 {
 	public partial class MainApp : Form
 	{
-		public static List<string> entities;
-		public static List<Line> lines;
-		public static List<Arc> arcs;
-		public static float zoomFactor = 1.5f;
+		public static List<string> DxfText { get; set; }
+		public static List<Line> Lines { get; set; }
+		public static List<Arc> Arcs { get; set; }
+		public static float ZoomFactor = 1f;
 		public MainApp()
 		{
-			InitializeComponent();			
+			InitializeComponent();
 		}		
 
 		private void View_MouseMove(object sender, MouseEventArgs e)
@@ -32,56 +33,58 @@ namespace DXF
 			Graphics screen = CreateGraphics();
 
 			//Move X and Y origin location
-			double cursorPositionX = View.Width - View.Width/10 - e.Location.X;
-			double cursorPositionY = View.Height / 2 - e.Location.Y;
+			double cursorPositionX = Get.TransforWidth(View.Width) - e.Location.X;
+			double cursorPositionY = Get.TransforHeight(View.Height) - e.Location.Y;
 			//Transform pixels to millimeters
-			cursorPositionX = cursorPositionX + 25.4f / screen.DpiX;			
-			cursorPositionY = cursorPositionY + 25.4f / screen.DpiY;
+			cursorPositionX += 25.4f / screen.DpiX;			
+			cursorPositionY += 25.4f / screen.DpiY;
 
 			//Set Labels text to X and Y mouse position
-			coordinatesLabel.Text = string.Format("{0,0:F2}, {1,0:F2}", cursorPositionX / zoomFactor, cursorPositionY / zoomFactor);
+			coordinatesLabel.Text = $@"{cursorPositionX / ZoomFactor,0:F2}, {cursorPositionY / ZoomFactor,0:F2}";
 		}
 
 		private void fileDxfMenuItem_Click(object sender, EventArgs e)
 		{
-			//Read the file
-			entities = File.Read();
-			if (File.choosedFile)
-			{
-				//Filter the data
-				lines = Entities.GetLines(entities);
-				lines = Entities.RemoveDuplicateLines(lines);
-				arcs = Entities.GetArcs(entities);
-				arcs = Entities.RemoveDuplicateArcs(arcs);
+			//Prompt the user to select dxf and if selected continue
+			Lines = new List<Line>();
+			Arcs = new List<Arc>();
+			if (!File.ReadDxf()) return;
+			
+			FromDxf.GetLines();
+			FromDxf.RemoveDuplicateLines();
+			FromDxf.GetArcs();
+			FromDxf.RemoveDuplicateArcs();
 
-				//Modify the data
-				float gap = Position.Gap(lines);
-				lines = Position.OffsetLines(lines, gap);
-				arcs = Position.OffsetArcs(arcs, gap);
+			//Modify the data
+			float gap = Position.GetGap();
+			//Position.OffsetLines(gap);
+			//Position.OffsetArcs(gap);
 
-				//Revisualize the data
-				View.Refresh();
-			}
+			//Re-visualize the data
+			View.Refresh();
 		}
 
 		private void View_Paint(object sender, PaintEventArgs e)
 		{
-			if (entities != null)
+			if (MainApp.DxfText != null)
 			{	
 				//Setup Graphics and modify origin point and coordinates to cartesian system
 				Graphics preview = e.Graphics;
+				preview.SmoothingMode = SmoothingMode.AntiAlias;
 				Matrix cartesian = new Matrix(1, 0, 0, -1, 0, 0);
 				preview.Transform = cartesian;
-				preview.TranslateTransform(View.Width - (View.Width/10), View.Height / 2, MatrixOrder.Append);
-				preview.ScaleTransform(zoomFactor, zoomFactor);				
+				preview.TranslateTransform(Get.TransforWidth(View.Width), Get.TransforWidth(View.Height), MatrixOrder.Append);
+				ZoomFactor = Get.Scale(View.Width, View.Height);
+				preview.ScaleTransform(ZoomFactor, ZoomFactor);
 
 				//Create die path
-				GraphicsPath diePath = Create.Path(lines,arcs);
+				//GraphicsPath diePath = Create.Path();
+				GraphicsPath diePath = Create.FullDieProfile();
 
 				//Visualize Axes
 				if (axesVisualizeCheckBox.Checked)
 				{
-					Visualize.Axes(preview, View.Width, View.Height);
+					Visualize.Axes(preview, (float)View.Width / ZoomFactor, (float)View.Height / ZoomFactor);
 				}
 
 				//Visualize Die
@@ -101,17 +104,11 @@ namespace DXF
 					Visualize.MachiningRegionScans(preview, diePath);
 				}
 
-
-
+				Cycle.G71(preview, diePath);
 				//RectangleF[] machiningScanCoordinates = stockRegion.GetRegionScans(cartesian);
 				//GraphicsPath newPath = new GraphicsPath();
 				//newPath.AddRectangles(rectangles);
 				//preview.DrawPath(stockPen, newPath);
-
-
-
-				Console.ReadLine();
-
 			}
 		}
 
