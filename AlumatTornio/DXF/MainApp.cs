@@ -60,6 +60,7 @@ namespace DXF
 			//Position.OffsetLines(gap);
 			//Position.OffsetArcs(gap);
 
+			Create.Indexes();
 			//Re-visualize the data
 			View.Refresh();
 		}
@@ -79,7 +80,8 @@ namespace DXF
 
 				//Create die path
 				//GraphicsPath diePath = Create.Path();
-				GraphicsPath diePath = Create.FullDieProfile();
+				GraphicsPath diePath = Create.FullPath();
+				GraphicsPath g71Profile = Create.G71Profile();
 
 				//Visualize Axes
 				if (axesVisualizeCheckBox.Checked)
@@ -108,7 +110,7 @@ namespace DXF
 				//RectangleF[] machiningScanCoordinates = stockRegion.GetRegionScans(cartesian);
 				//GraphicsPath newPath = new GraphicsPath();
 				//newPath.AddRectangles(rectangles);
-				//preview.DrawPath(stockPen, newPath);
+				preview.DrawPath(new Pen(Color.Coral,1/ZoomFactor), g71Profile);
 			}
 		}
 

@@ -8,6 +8,7 @@ namespace DXF.SetupFile
 {
 	public class Arc
 	{
+		public int Index { get; set; }
 		public float CenterX { get; set; }		//Value 10 in DXF
 		public float CenterY { get; set; }       //Value 20 in DXF
 		public float Radius { get; set; }        //Value 40 in DXF
