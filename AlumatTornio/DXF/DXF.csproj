@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Lathe\Cycle.cs" />
+    <Compile Include="Generate\Cycle.cs" />
     <Compile Include="Modify\Create.cs" />
     <Compile Include="Modify\Get.cs" />
     <Compile Include="Modify\Position.cs" />

@@ -14,78 +14,53 @@ namespace DXF.SetupView
 	{		
 		public static void Axes(Graphics graphics, float crossX, float crossY)
 		{
+			//Instantiate a specific Pen
 			Pen axisPen = new Pen(Color.DarkGray);
 			axisPen.DashStyle = DashStyle.Dash;
 			axisPen.ScaleTransform(1/MainApp.ZoomFactor, 1/MainApp.ZoomFactor);
 			axisPen.Alignment = PenAlignment.Center;
+
 			//Draw X Axis
 			graphics.DrawLine(axisPen, -crossX, 0, crossX, 0);
 			//Draw Y Axis
 			graphics.DrawLine(axisPen, 0, -crossY, 0, crossY);
+
+			//Dispose
+			axisPen.Dispose();
 		}
 
 		public static void Die(Graphics preview, GraphicsPath diePath)
 		{
-			//Visualize die path
+			//Instantiate a specific Pen and Brush
 			Pen diePen = new Pen(Color.DarkCyan);
 			diePen.ScaleTransform(1 / MainApp.ZoomFactor, 1 / MainApp.ZoomFactor);
 			diePen.Alignment = PenAlignment.Outset;
 			SolidBrush dieBrush = new SolidBrush(Color.DarkCyan);
+
+			//Draw and Fill Full Die Path
 			preview.DrawPath(diePen, diePath);
 			preview.FillPath(dieBrush, diePath);
+
+			//Dispose
 			diePen.Dispose();
 			dieBrush.Dispose();
 		}
 
-		public static void MachiningRegion(Graphics preview, GraphicsPath diePath)
+		public static void G71Profile(Graphics preview, GraphicsPath g71Profile)
 		{
-			//Create die region
-			Region dieRegion = new Region(diePath);
+			//Instantiate a specific Pen
+			Pen profilePen = new Pen(Color.Yellow);
+			profilePen.DashStyle = DashStyle.Dash;
+			profilePen.ScaleTransform(1 / MainApp.ZoomFactor, 1 / MainApp.ZoomFactor);
+			profilePen.Alignment = PenAlignment.Center;
 
-			//Create stock region
-			//which is the bounding box of the die section
-			RectangleF stockCoordinates = diePath.GetBounds();
-			Region stockRegion = new Region(stockCoordinates);
+			//Draw G71 Profile
+			preview.DrawPath(profilePen, g71Profile);
 
-			//Create machining region
-			Region machiningRegion = stockRegion;
-			//Remove from stock the die region and get the rest
-			machiningRegion.Exclude(dieRegion);
-
-			//Visualize machining region
-			SolidBrush machiningBrush = new SolidBrush(Color.MediumPurple);
-			preview.FillRegion(machiningBrush, machiningRegion);
-			machiningBrush.Dispose();
+			//Dispose
+			profilePen.Dispose();
 		}
 
-		public static void MachiningRegionScans(Graphics preview, GraphicsPath diePath)
-		{
-			//Create die region
-			Region dieRegion = new Region(diePath);
 
-			//Create stock region
-			//which is the bounding box of the die section
-			RectangleF stockCoordinates = diePath.GetBounds();
-			Region stockRegion = new Region(stockCoordinates);
-
-			//Create machining region
-			Region machiningRegion = stockRegion;
-			//Remove from stock the die region and get the rest
-			machiningRegion.Exclude(dieRegion);
-
-			//Get rectangles which fit on the machining region
-			Matrix cartesian = new Matrix(1, 0, 0, 1, 0, 0);
-			RectangleF[] machiningRegionScans = machiningRegion.GetRegionScans(cartesian);
-
-			//Add those rectangles in a graphics path
-			GraphicsPath scansPath = new GraphicsPath();
-			scansPath.AddRectangles(machiningRegionScans);
-
-			//Draw the Path
-			Pen machiningRegionsPen = new Pen(Color.Yellow);
-			machiningRegionsPen.ScaleTransform(1 / MainApp.ZoomFactor, 1 / MainApp.ZoomFactor);
-			machiningRegionsPen.Alignment = PenAlignment.Inset;
-			preview.DrawPath(machiningRegionsPen, scansPath);
-		}
 	}
 }

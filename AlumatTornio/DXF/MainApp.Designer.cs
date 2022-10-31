@@ -37,18 +37,36 @@ namespace DXF
 			this.fileDxfMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tornituraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.visualizeSelector = new System.Windows.Forms.GroupBox();
-			this.scansVisualizeCheckBox = new System.Windows.Forms.CheckBox();
-			this.machiningVisualizeCheckBox = new System.Windows.Forms.CheckBox();
+			this.profileVisualizeCheckBox = new System.Windows.Forms.CheckBox();
 			this.dieVisualizeCheckBox = new System.Windows.Forms.CheckBox();
 			this.axesVisualizeCheckBox = new System.Windows.Forms.CheckBox();
 			this.copyrightsBanner = new System.Windows.Forms.Panel();
 			this.copyrights = new System.Windows.Forms.TextBox();
 			this.banner = new System.Windows.Forms.PictureBox();
+			this.exportGCode = new System.Windows.Forms.Button();
+			this.exportProgressBar = new System.Windows.Forms.ProgressBar();
+			this.g71Settings = new System.Windows.Forms.GroupBox();
+			this.depthOfCutLabel = new System.Windows.Forms.Label();
+			this.retractValueLabel = new System.Windows.Forms.Label();
+			this.xAllowanceLabel = new System.Windows.Forms.Label();
+			this.zAllowanceLabel = new System.Windows.Forms.Label();
+			this.feedRateLabel = new System.Windows.Forms.Label();
+			MainApp.depthOfCutInput = new System.Windows.Forms.NumericUpDown();
+			MainApp.retractValueInput = new System.Windows.Forms.NumericUpDown();
+			MainApp.xAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			MainApp.zAllowanceValue = new System.Windows.Forms.NumericUpDown();
+			MainApp.feedRateInput = new System.Windows.Forms.NumericUpDown();
 			((System.ComponentModel.ISupportInitialize)(this.View)).BeginInit();
 			this.mainAppMenu.SuspendLayout();
 			this.visualizeSelector.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.banner)).BeginInit();
+			this.g71Settings.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(MainApp.depthOfCutInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(MainApp.retractValueInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(MainApp.xAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(MainApp.zAllowanceValue)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(MainApp.feedRateInput)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// View
@@ -110,45 +128,33 @@ namespace DXF
 			// 
 			// visualizeSelector
 			// 
-			this.visualizeSelector.Controls.Add(this.scansVisualizeCheckBox);
-			this.visualizeSelector.Controls.Add(this.machiningVisualizeCheckBox);
+			this.visualizeSelector.Controls.Add(this.profileVisualizeCheckBox);
 			this.visualizeSelector.Controls.Add(this.dieVisualizeCheckBox);
 			this.visualizeSelector.Controls.Add(this.axesVisualizeCheckBox);
 			this.visualizeSelector.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.visualizeSelector.Location = new System.Drawing.Point(267, 353);
+			this.visualizeSelector.Location = new System.Drawing.Point(267, 404);
 			this.visualizeSelector.Margin = new System.Windows.Forms.Padding(2);
 			this.visualizeSelector.Name = "visualizeSelector";
 			this.visualizeSelector.Padding = new System.Windows.Forms.Padding(2);
-			this.visualizeSelector.Size = new System.Drawing.Size(146, 150);
+			this.visualizeSelector.Size = new System.Drawing.Size(153, 99);
 			this.visualizeSelector.TabIndex = 3;
 			this.visualizeSelector.TabStop = false;
 			this.visualizeSelector.Text = "Visualize";
 			// 
-			// scansVisualizeCheckBox
+			// profileVisualizeCheckBox
 			// 
-			this.scansVisualizeCheckBox.AutoSize = true;
-			this.scansVisualizeCheckBox.ForeColor = System.Drawing.Color.Black;
-			this.scansVisualizeCheckBox.Location = new System.Drawing.Point(15, 118);
-			this.scansVisualizeCheckBox.Margin = new System.Windows.Forms.Padding(2);
-			this.scansVisualizeCheckBox.Name = "scansVisualizeCheckBox";
-			this.scansVisualizeCheckBox.Size = new System.Drawing.Size(108, 17);
-			this.scansVisualizeCheckBox.TabIndex = 3;
-			this.scansVisualizeCheckBox.Text = "Machining Scans";
-			this.scansVisualizeCheckBox.UseVisualStyleBackColor = true;
-			this.scansVisualizeCheckBox.CheckedChanged += new System.EventHandler(this.scansVisualizeCheckBox_CheckedChanged);
-			// 
-			// machiningVisualizeCheckBox
-			// 
-			this.machiningVisualizeCheckBox.AutoSize = true;
-			this.machiningVisualizeCheckBox.ForeColor = System.Drawing.Color.Black;
-			this.machiningVisualizeCheckBox.Location = new System.Drawing.Point(15, 88);
-			this.machiningVisualizeCheckBox.Margin = new System.Windows.Forms.Padding(2);
-			this.machiningVisualizeCheckBox.Name = "machiningVisualizeCheckBox";
-			this.machiningVisualizeCheckBox.Size = new System.Drawing.Size(105, 17);
-			this.machiningVisualizeCheckBox.TabIndex = 2;
-			this.machiningVisualizeCheckBox.Text = "Machining Areas";
-			this.machiningVisualizeCheckBox.UseVisualStyleBackColor = true;
-			this.machiningVisualizeCheckBox.CheckedChanged += new System.EventHandler(this.machiningVisualizeCheckBox_CheckedChanged);
+			this.profileVisualizeCheckBox.AutoSize = true;
+			this.profileVisualizeCheckBox.Checked = true;
+			this.profileVisualizeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.profileVisualizeCheckBox.ForeColor = System.Drawing.Color.Black;
+			this.profileVisualizeCheckBox.Location = new System.Drawing.Point(10, 78);
+			this.profileVisualizeCheckBox.Margin = new System.Windows.Forms.Padding(2);
+			this.profileVisualizeCheckBox.Name = "profileVisualizeCheckBox";
+			this.profileVisualizeCheckBox.Size = new System.Drawing.Size(55, 17);
+			this.profileVisualizeCheckBox.TabIndex = 2;
+			this.profileVisualizeCheckBox.Text = "Profile";
+			this.profileVisualizeCheckBox.UseVisualStyleBackColor = true;
+			this.profileVisualizeCheckBox.CheckedChanged += new System.EventHandler(this.profileVisualizeCheckBox_CheckedChanged);
 			// 
 			// dieVisualizeCheckBox
 			// 
@@ -156,7 +162,7 @@ namespace DXF
 			this.dieVisualizeCheckBox.Checked = true;
 			this.dieVisualizeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.dieVisualizeCheckBox.ForeColor = System.Drawing.Color.Black;
-			this.dieVisualizeCheckBox.Location = new System.Drawing.Point(15, 57);
+			this.dieVisualizeCheckBox.Location = new System.Drawing.Point(10, 47);
 			this.dieVisualizeCheckBox.Margin = new System.Windows.Forms.Padding(2);
 			this.dieVisualizeCheckBox.Name = "dieVisualizeCheckBox";
 			this.dieVisualizeCheckBox.Size = new System.Drawing.Size(42, 17);
@@ -171,7 +177,7 @@ namespace DXF
 			this.axesVisualizeCheckBox.Checked = true;
 			this.axesVisualizeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.axesVisualizeCheckBox.ForeColor = System.Drawing.Color.Black;
-			this.axesVisualizeCheckBox.Location = new System.Drawing.Point(15, 27);
+			this.axesVisualizeCheckBox.Location = new System.Drawing.Point(10, 17);
 			this.axesVisualizeCheckBox.Margin = new System.Windows.Forms.Padding(2);
 			this.axesVisualizeCheckBox.Name = "axesVisualizeCheckBox";
 			this.axesVisualizeCheckBox.Size = new System.Drawing.Size(49, 17);
@@ -215,12 +221,152 @@ namespace DXF
 			this.banner.TabIndex = 0;
 			this.banner.TabStop = false;
 			// 
+			// exportGCode
+			// 
+			this.exportGCode.Location = new System.Drawing.Point(426, 410);
+			this.exportGCode.Name = "exportGCode";
+			this.exportGCode.Size = new System.Drawing.Size(194, 93);
+			this.exportGCode.TabIndex = 5;
+			this.exportGCode.Text = "Export G Code";
+			this.exportGCode.UseVisualStyleBackColor = true;
+			this.exportGCode.Click += new System.EventHandler(this.exportGCode_Click);
+			// 
+			// exportProgressBar
+			// 
+			this.exportProgressBar.Location = new System.Drawing.Point(426, 507);
+			this.exportProgressBar.Name = "exportProgressBar";
+			this.exportProgressBar.Size = new System.Drawing.Size(194, 20);
+			this.exportProgressBar.TabIndex = 6;
+			// 
+			// g71Settings
+			// 
+			this.g71Settings.Controls.Add(MainApp.feedRateInput);
+			this.g71Settings.Controls.Add(MainApp.zAllowanceValue);
+			this.g71Settings.Controls.Add(MainApp.xAllowanceInput);
+			this.g71Settings.Controls.Add(MainApp.retractValueInput);
+			this.g71Settings.Controls.Add(MainApp.depthOfCutInput);
+			this.g71Settings.Controls.Add(this.feedRateLabel);
+			this.g71Settings.Controls.Add(this.zAllowanceLabel);
+			this.g71Settings.Controls.Add(this.xAllowanceLabel);
+			this.g71Settings.Controls.Add(this.retractValueLabel);
+			this.g71Settings.Controls.Add(this.depthOfCutLabel);
+			this.g71Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.g71Settings.Location = new System.Drawing.Point(267, 27);
+			this.g71Settings.Name = "g71Settings";
+			this.g71Settings.Size = new System.Drawing.Size(153, 172);
+			this.g71Settings.TabIndex = 7;
+			this.g71Settings.TabStop = false;
+			this.g71Settings.Text = "G71 Roughing Cycle";
+			// 
+			// depthOfCutLabel
+			// 
+			this.depthOfCutLabel.AutoSize = true;
+			this.depthOfCutLabel.ForeColor = System.Drawing.Color.Black;
+			this.depthOfCutLabel.Location = new System.Drawing.Point(15, 20);
+			this.depthOfCutLabel.Name = "depthOfCutLabel";
+			this.depthOfCutLabel.Size = new System.Drawing.Size(66, 13);
+			this.depthOfCutLabel.TabIndex = 0;
+			this.depthOfCutLabel.Text = "Depth of cut";
+			// 
+			// retractValueLabel
+			// 
+			this.retractValueLabel.AutoSize = true;
+			this.retractValueLabel.ForeColor = System.Drawing.Color.Black;
+			this.retractValueLabel.Location = new System.Drawing.Point(10, 50);
+			this.retractValueLabel.Name = "retractValueLabel";
+			this.retractValueLabel.Size = new System.Drawing.Size(71, 13);
+			this.retractValueLabel.TabIndex = 1;
+			this.retractValueLabel.Text = "Retract value";
+			// 
+			// xAllowanceLabel
+			// 
+			this.xAllowanceLabel.AutoSize = true;
+			this.xAllowanceLabel.ForeColor = System.Drawing.Color.Black;
+			this.xAllowanceLabel.Location = new System.Drawing.Point(15, 80);
+			this.xAllowanceLabel.Name = "xAllowanceLabel";
+			this.xAllowanceLabel.Size = new System.Drawing.Size(66, 13);
+			this.xAllowanceLabel.TabIndex = 2;
+			this.xAllowanceLabel.Text = "X Allowance";
+			// 
+			// zAllowanceLabel
+			// 
+			this.zAllowanceLabel.AutoSize = true;
+			this.zAllowanceLabel.ForeColor = System.Drawing.Color.Black;
+			this.zAllowanceLabel.Location = new System.Drawing.Point(15, 110);
+			this.zAllowanceLabel.Name = "zAllowanceLabel";
+			this.zAllowanceLabel.Size = new System.Drawing.Size(66, 13);
+			this.zAllowanceLabel.TabIndex = 3;
+			this.zAllowanceLabel.Text = "Z Allowance";
+			// 
+			// feedRateLabel
+			// 
+			this.feedRateLabel.AutoSize = true;
+			this.feedRateLabel.ForeColor = System.Drawing.Color.Black;
+			this.feedRateLabel.Location = new System.Drawing.Point(29, 140);
+			this.feedRateLabel.Name = "feedRateLabel";
+			this.feedRateLabel.Size = new System.Drawing.Size(52, 13);
+			this.feedRateLabel.TabIndex = 4;
+			this.feedRateLabel.Text = "Feed rate";
+			// 
+			// depthOfCutInput
+			// 
+			MainApp.depthOfCutInput.DecimalPlaces = 1;
+			MainApp.depthOfCutInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
+			MainApp.depthOfCutInput.Location = new System.Drawing.Point(87, 18);
+			MainApp.depthOfCutInput.Maximum = new decimal(new int[] {3, 0, 0, 0});
+			MainApp.depthOfCutInput.Name = "depthOfCutInput";
+			MainApp.depthOfCutInput.Size = new System.Drawing.Size(48, 20);
+			MainApp.depthOfCutInput.TabIndex = 8;
+			// 
+			// retractValueInput
+			// 
+			MainApp.retractValueInput.DecimalPlaces = 1;
+			MainApp.retractValueInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
+			MainApp.retractValueInput.Location = new System.Drawing.Point(87, 48);
+			MainApp.retractValueInput.Maximum = new decimal(new int[] {3, 0, 0, 0});
+			MainApp.retractValueInput.Name = "retractValueInput";
+			MainApp.retractValueInput.Size = new System.Drawing.Size(48, 20);
+			MainApp.retractValueInput.TabIndex = 9;
+			// 
+			// xAllowanceInput
+			// 
+			MainApp.xAllowanceInput.DecimalPlaces = 1;
+			MainApp.xAllowanceInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
+			MainApp.xAllowanceInput.Location = new System.Drawing.Point(87, 78);
+			MainApp.xAllowanceInput.Maximum = new decimal(new int[] {3, 0, 0, 0});
+			MainApp.xAllowanceInput.Name = "xAllowanceInput";
+			MainApp.xAllowanceInput.Size = new System.Drawing.Size(48, 20);
+			MainApp.xAllowanceInput.TabIndex = 10;
+			// 
+			// zAllowanceValue
+			// 
+			MainApp.zAllowanceValue.DecimalPlaces = 1;
+			MainApp.zAllowanceValue.Increment = new decimal(new int[] {1, 0, 0, 65536});
+			MainApp.zAllowanceValue.Location = new System.Drawing.Point(87, 108);
+			MainApp.zAllowanceValue.Maximum = new decimal(new int[] {3, 0, 0, 0});
+			MainApp.zAllowanceValue.Name = "zAllowanceValue";
+			MainApp.zAllowanceValue.Size = new System.Drawing.Size(48, 20);
+			MainApp.zAllowanceValue.TabIndex = 11;
+			// 
+			// feedRateInput
+			// 
+			MainApp.feedRateInput.DecimalPlaces = 1;
+			MainApp.feedRateInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
+			MainApp.feedRateInput.Location = new System.Drawing.Point(87, 138);
+			MainApp.feedRateInput.Maximum = new decimal(new int[] {3, 0, 0, 0});
+			MainApp.feedRateInput.Name = "feedRateInput";
+			MainApp.feedRateInput.Size = new System.Drawing.Size(48, 20);
+			MainApp.feedRateInput.TabIndex = 12;
+			// 
 			// MainApp
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.WindowFrame;
 			this.ClientSize = new System.Drawing.Size(632, 628);
+			this.Controls.Add(this.g71Settings);
+			this.Controls.Add(this.exportProgressBar);
+			this.Controls.Add(this.exportGCode);
 			this.Controls.Add(this.copyrightsBanner);
 			this.Controls.Add(this.visualizeSelector);
 			this.Controls.Add(this.coordinatesLabel);
@@ -240,6 +386,13 @@ namespace DXF
 			this.copyrightsBanner.ResumeLayout(false);
 			this.copyrightsBanner.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.banner)).EndInit();
+			this.g71Settings.ResumeLayout(false);
+			this.g71Settings.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(MainApp.depthOfCutInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(MainApp.retractValueInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(MainApp.xAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(MainApp.zAllowanceValue)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(MainApp.feedRateInput)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -252,14 +405,26 @@ namespace DXF
 		private System.Windows.Forms.MenuStrip mainAppMenu;
 		private System.Windows.Forms.ToolStripMenuItem fileMenuItem;
 		private System.Windows.Forms.GroupBox visualizeSelector;
-		private System.Windows.Forms.CheckBox machiningVisualizeCheckBox;
 		private System.Windows.Forms.CheckBox dieVisualizeCheckBox;
 		private System.Windows.Forms.CheckBox axesVisualizeCheckBox;
-		private System.Windows.Forms.CheckBox scansVisualizeCheckBox;
 		private System.Windows.Forms.Panel copyrightsBanner;
 		private System.Windows.Forms.PictureBox banner;
 		private System.Windows.Forms.TextBox copyrights;
 		private System.Windows.Forms.ToolStripMenuItem fileDxfMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem tornituraToolStripMenuItem;
+		private System.Windows.Forms.CheckBox profileVisualizeCheckBox;
+		private System.Windows.Forms.Button exportGCode;
+		private System.Windows.Forms.ProgressBar exportProgressBar;
+		private System.Windows.Forms.GroupBox g71Settings;
+		public static System.Windows.Forms.NumericUpDown feedRateInput;
+		public static System.Windows.Forms.NumericUpDown zAllowanceValue;
+		public static System.Windows.Forms.NumericUpDown xAllowanceInput;
+		public static System.Windows.Forms.NumericUpDown retractValueInput;
+		public static System.Windows.Forms.NumericUpDown depthOfCutInput;
+		private System.Windows.Forms.Label feedRateLabel;
+		private System.Windows.Forms.Label zAllowanceLabel;
+		private System.Windows.Forms.Label xAllowanceLabel;
+		private System.Windows.Forms.Label retractValueLabel;
+		private System.Windows.Forms.Label depthOfCutLabel;
 	}
 }

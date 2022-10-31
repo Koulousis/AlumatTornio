@@ -1,5 +1,4 @@
-﻿using DXF.Lathe;
-using DXF.Modify;
+﻿using DXF.Modify;
 using DXF.SetupFile;
 using DXF.SetupView;
 using System;
@@ -12,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DXF.Generate;
 
 namespace DXF
 {
@@ -21,6 +21,9 @@ namespace DXF
 		public static List<Line> Lines { get; set; }
 		public static List<Arc> Arcs { get; set; }
 		public static float ZoomFactor = 1f;
+
+		public static List<GCodePoint> GCodePoints { get; set; }
+
 		public MainApp()
 		{
 			InitializeComponent();
@@ -40,7 +43,7 @@ namespace DXF
 			cursorPositionY += 25.4f / screen.DpiY;
 
 			//Set Labels text to X and Y mouse position
-			coordinatesLabel.Text = $@"{cursorPositionX / ZoomFactor,0:F2}, {cursorPositionY / ZoomFactor,0:F2}";
+			coordinatesLabel.Text = $@"{cursorPositionX / ZoomFactor,0:F3}, {cursorPositionY / ZoomFactor,0:F3}";
 		}
 
 		private void fileDxfMenuItem_Click(object sender, EventArgs e)
@@ -48,6 +51,7 @@ namespace DXF
 			//Prompt the user to select dxf and if selected continue
 			Lines = new List<Line>();
 			Arcs = new List<Arc>();
+			GCodePoints = new List<GCodePoint>();
 			if (!File.ReadDxf()) return;
 			
 			FromDxf.GetLines();
@@ -83,34 +87,12 @@ namespace DXF
 				GraphicsPath diePath = Create.FullPath();
 				GraphicsPath g71Profile = Create.G71Profile();
 
-				//Visualize Axes
-				if (axesVisualizeCheckBox.Checked)
-				{
-					Visualize.Axes(preview, (float)View.Width / ZoomFactor, (float)View.Height / ZoomFactor);
-				}
+				//Visualize
+				if (axesVisualizeCheckBox.Checked) { Visualize.Axes(preview, (float)View.Width / ZoomFactor, (float)View.Height / ZoomFactor); }
+				if (dieVisualizeCheckBox.Checked) { Visualize.Die(preview, diePath); }
+				if (profileVisualizeCheckBox.Checked) { Visualize.G71Profile(preview, g71Profile); }
 
-				//Visualize Die
-				if (dieVisualizeCheckBox.Checked)
-				{
-					Visualize.Die(preview, diePath);
-				}
-
-				//Visualize machining region
-				if (machiningVisualizeCheckBox.Checked)
-				{
-					Visualize.MachiningRegion(preview, diePath);
-				}
-
-				if (scansVisualizeCheckBox.Checked)
-				{
-					Visualize.MachiningRegionScans(preview, diePath);
-				}
-
-				Cycle.G71(preview, diePath);
-				//RectangleF[] machiningScanCoordinates = stockRegion.GetRegionScans(cartesian);
-				//GraphicsPath newPath = new GraphicsPath();
-				//newPath.AddRectangles(rectangles);
-				preview.DrawPath(new Pen(Color.Coral,1/ZoomFactor), g71Profile);
+				Cycle.G71(preview);
 			}
 		}
 
@@ -124,14 +106,25 @@ namespace DXF
 			View.Refresh();
 		}
 
-		private void machiningVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
+		private void profileVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
 		{
 			View.Refresh();
 		}
 
-		private void scansVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
+		private void exportGCode_Click(object sender, EventArgs e)
 		{
-			View.Refresh();
+			exportProgressBar.Value = 0;
+			for (int i = 0; i < 100; i++)
+			{
+				for (int j = 0; j < 10000; j++)
+				{
+					
+				}
+				exportProgressBar.Value++;
+			}
+
+			
+			Cycle.G71Profile();
 		}
 	}
 }

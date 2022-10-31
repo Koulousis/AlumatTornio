@@ -3,47 +3,67 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DXF.Lathe
+namespace DXF.Generate
 {
 	public class Cycle
 	{
-		public static void G71(Graphics preview, GraphicsPath diePath)
+		public static void G71Profile()
 		{
-			float clearancePointHeight = ClearancePointHeight();
+			List<string> gCode = new List<string>();
+
+			//G71 Initialization
+			gCode.Add("(G71 INITIALIZATION)");
+			gCode.Add($"G71 U{MainApp.depthOfCutInput.Value} R{MainApp.retractValueInput.Value}");
+			gCode.Add($"G71 P1 Q2 U{MainApp.xAllowanceInput.Value} W{MainApp.zAllowanceValue.Value} F{MainApp.feedRateInput.Value}");
+
+			//Profile
+			gCode.Add("(PROFILE)");
+			gCode.Add("N1");
+			foreach (GCodePoint gCodePoint in MainApp.GCodePoints)
+			{
+				if (gCodePoint.Type == "line")
+				{
+					gCode.Add($"G0 X{gCodePoint.X * 2} Z{gCodePoint.Z}");
+				}
+
+				if (gCodePoint.Type == "arc" && gCodePoint.Clockwise)
+				{
+					gCode.Add($"G2 X{gCodePoint.X * 2} Z{gCodePoint.Z} R{gCodePoint.R}");
+				}
+
+				if (gCodePoint.Type == "arc" && gCodePoint.AntiClockwise)
+				{
+					gCode.Add($"G3 X{gCodePoint.X * 2} Z{gCodePoint.Z} R{gCodePoint.R}");
+				}
+
+			}
+			gCode.Add("N2");
+			gCode.Add("(G70 FINISHING)");
+			gCode.Add("G70 P1 Q2");
+
+			string fileName = @"C:\Temp\Test1.txt";
+			System.IO.File.WriteAllLines(fileName, gCode);
+		}
+		public static void G71(Graphics preview)
+		{
+			float clearancePointHeight = StartPosition();
 			float startingBlockHeight = StartingBlockHeight();
 			float endingBlockWidth = EndingBlockWidth();
 
 			SolidBrush clearancePointBrush = new SolidBrush(Color.Yellow);
-			SolidBrush startingBlockBrush = new SolidBrush(Color.MediumPurple);
-			SolidBrush endingBlockBrush = new SolidBrush(Color.LightCyan);
+			SolidBrush startingBlockBrush = new SolidBrush(Color.Yellow);
+			SolidBrush endingBlockBrush = new SolidBrush(Color.Yellow);
 			preview.FillEllipse(clearancePointBrush, - 1, clearancePointHeight + 3 - 1, 2, 2);
 			preview.FillEllipse(startingBlockBrush, -1, startingBlockHeight - 1, 2, 2);
 			preview.FillEllipse(endingBlockBrush, endingBlockWidth - 1, clearancePointHeight + 3 - 1, 2, 2);
-
-			GraphicsPath diePathClone = (GraphicsPath)diePath.Clone();
-			PathData dummy = diePathClone.PathData;
-			
-
-
-
 		}
 
-		public static GraphicsPath Profile()
-		{
-			GraphicsPath graphicsPath = new GraphicsPath();
-
-			//Allocate new memory position to be able to modify the copies
-			List<Line> pathLines = new List<Line>(MainApp.Lines);
-			List<Arc> pathArcs = new List<Arc>(MainApp.Arcs);
-			
-			return graphicsPath;
-		}
-
-		public static float ClearancePointHeight()
+		public static float StartPosition()
 		{
 			float dummyHeight = 0;
 

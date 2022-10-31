@@ -23,6 +23,9 @@ namespace DXF.SetupFile
 		public float StartY { get; set; }
 		public float EndX { get; set; }
 		public float EndY { get; set; }
+		public bool Clockwise { get; set; }
+		public bool AntiClockwise { get; set; }
+
 
 
 		public Arc(float centerX, float centerY, float radius, float startAngle, float endAngle)
@@ -30,13 +33,26 @@ namespace DXF.SetupFile
 			CenterX = centerX;
 			CenterY = centerY;
 			Radius = radius;
-			StartAngle = startAngle;
-			EndAngle = endAngle;
 			RectangularCornerX = centerX - radius;
 			RectangularCornerY = centerY - radius;
 			Width = radius * 2;
 			Height = radius * 2;
-			SweepAngle = CalculateSweepAngle(startAngle, endAngle);
+			if (startAngle >= 0 && startAngle <= 90 && endAngle >= 0 && endAngle <= 90)
+			{
+				AntiClockwise = true;
+				StartAngle = startAngle;
+				EndAngle = endAngle;
+				SweepAngle = CalculateSweepAngle(startAngle, endAngle);
+			}
+
+			if (startAngle >= 180 && startAngle <= 270 && endAngle >= 180 && endAngle <= 270)
+			{
+				Clockwise = true;
+				StartAngle = endAngle;
+				EndAngle = startAngle;
+				SweepAngle = -CalculateSweepAngle(startAngle, endAngle);
+			}
+			
 
 			int quarter;
 			//Math types are: x = Radius * Cos(angle) and y = Radius * Sin(angle)
@@ -50,7 +66,7 @@ namespace DXF.SetupFile
 			StartX = quarter == 1 || quarter == 4 ? centerX + distanceFromCenterOfStartX : centerX - distanceFromCenterOfStartX;
 			StartX = FromDxf.StringToThreeDigitFloat(StartX.ToString());
 
-			StartY = quarter == 1 || quarter == 2 ? centerY + distanceFromCenterOfStartY : centerY - distanceFromCenterOfStartX;
+			StartY = quarter == 1 || quarter == 2 ? centerY + distanceFromCenterOfStartY : centerY - distanceFromCenterOfStartY;
 			StartY = FromDxf.StringToThreeDigitFloat(StartY.ToString());
 
 			EndX = quarter == 1 || quarter == 4 ? centerX + distanceFromCenterOfEndX : centerX - distanceFromCenterOfEndX;

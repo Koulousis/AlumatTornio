@@ -19,9 +19,10 @@ namespace DXF.Modify
 			List<Arc> arcs = new List<Arc>(MainApp.Arcs);
 			List<PointsPair> pointsPair = new List<PointsPair>();
 
-			pointsPair.Add(new PointsPair(){X1 = lines[0].StartX, Y1 = lines[0].StartY, X2 = lines[0].EndX, Y2 = lines[0].EndY });
-			PointF lastPoint = new PointF(lines[0].EndX, lines[0].EndY);
-			lines.RemoveAt(0);
+			Line firstLine = lines.Find(first => first.StartX == 0 && first.StartY == 0 && first.EndX == 0 && first.EndY > 0);
+			pointsPair.Add(new PointsPair(){X1 = firstLine.StartX, Y1 = firstLine.StartY, X2 = firstLine.EndX, Y2 = firstLine.EndY });
+			PointF lastPoint = new PointF(firstLine.EndX, firstLine.EndY);
+			lines.Remove(firstLine);
 
 			int totalElements = lines.Count + arcs.Count;
 			for (int elementsLeft = totalElements; elementsLeft != 0;)
@@ -43,7 +44,7 @@ namespace DXF.Modify
 
 				if (endPointLineMatching != null)
 				{
-					pointsPair.Add(new PointsPair() { X1 = startPointLineMatching.EndX, Y1 = startPointLineMatching.EndY, X2 = startPointLineMatching.StartX, Y2 = startPointLineMatching.StartY });
+					pointsPair.Add(new PointsPair() { X1 = endPointLineMatching.EndX, Y1 = endPointLineMatching.EndY, X2 = endPointLineMatching.StartX, Y2 = endPointLineMatching.StartY });
 					lastPoint.X = endPointLineMatching.StartX;
 					lastPoint.Y = endPointLineMatching.StartY;
 					lines.Remove(endPointLineMatching);
@@ -63,7 +64,7 @@ namespace DXF.Modify
 
 				if (endPointArcMatching != null)
 				{
-					pointsPair.Add(new PointsPair() { X1 = startPointArcMatching.EndX, Y1 = startPointArcMatching.EndY, X2 = startPointArcMatching.StartX, Y2 = startPointArcMatching.StartY });
+					pointsPair.Add(new PointsPair() { X1 = endPointArcMatching.EndX, Y1 = endPointArcMatching.EndY, X2 = endPointArcMatching.StartX, Y2 = endPointArcMatching.StartY });
 					lastPoint.X = endPointArcMatching.StartX;
 					lastPoint.Y = endPointArcMatching.StartY;
 					arcs.Remove(endPointArcMatching);
@@ -74,6 +75,7 @@ namespace DXF.Modify
 				if (true)
 				{
 					DialogResult notMatchingPoint = MessageBox.Show("Points from the file didn't match");
+					break;
 				}
 			}
 
@@ -115,81 +117,21 @@ namespace DXF.Modify
 				{
 					if (arc.Index == i)
 					{
-						fullPath.AddArc(arc.RectangularCornerX,arc.RectangularCornerY,arc.Width,arc.Height,arc.StartAngle,arc.SweepAngle);
+						if (arc.SweepAngle < 0)
+						{
+							fullPath.AddArc(arc.RectangularCornerX, arc.RectangularCornerY, arc.Width, arc.Height, arc.StartAngle, arc.SweepAngle);
+						}
+						else
+						{
+							fullPath.AddArc(arc.RectangularCornerX, arc.RectangularCornerY, arc.Width, arc.Height, arc.StartAngle, arc.SweepAngle);
+						}
+						
 						break;
 					}
 				}
 			}
 
 			return fullPath;
-		}
-
-		public static GraphicsPath FullProfile()
-		{
-			GraphicsPath fullDieProfile = new GraphicsPath();
-			List<Line> lines = new List<Line>(MainApp.Lines);
-			List<Arc> arcs = new List<Arc>(MainApp.Arcs);
-
-			//Add a line to the graphics path to start searching matching lines or arcs
-			fullDieProfile.AddLine(lines[0].StartX, lines[0].StartY, lines[0].EndX, lines[0].EndY);
-			PointF lastPoint = new PointF(lines[0].EndX, lines[0].EndY);
-			lines.RemoveAt(0);
-
-			//Find the next element which has a matching point with the last point and add it to the path
-			int totalElements = lines.Count + arcs.Count;
-			for (int elementsLeft = totalElements; elementsLeft != 0;)
-			{
-				Line startPointLine = lines.Find(line => line.StartX == lastPoint.X && line.StartY == lastPoint.Y);
-				Line endPointLine = lines.Find(line => line.EndX == lastPoint.X && line.EndY == lastPoint.Y);
-				Arc startPointArc = arcs.Find(arc => arc.StartX == lastPoint.X && arc.StartY == lastPoint.Y);
-				Arc endPointArc = arcs.Find(arc => arc.EndX == lastPoint.X && arc.EndY == lastPoint.Y);
-
-				if (startPointLine != null)
-				{
-					fullDieProfile.AddLine(startPointLine.StartX, startPointLine.StartY, startPointLine.EndX, startPointLine.EndY);
-					lastPoint.X = startPointLine.EndX;
-					lastPoint.Y = startPointLine.EndY;
-					lines.Remove(startPointLine);
-					elementsLeft--;
-					continue;
-				}
-
-				if (endPointLine != null)
-				{
-					fullDieProfile.AddLine(endPointLine.EndX, endPointLine.EndY, endPointLine.StartX, endPointLine.StartY);
-					lastPoint.X = endPointLine.StartX;
-					lastPoint.Y = endPointLine.StartY;
-					lines.Remove(endPointLine);
-					elementsLeft--;
-					continue;
-				}
-
-				if (startPointArc != null)
-				{
-					fullDieProfile.AddArc(startPointArc.RectangularCornerX, startPointArc.RectangularCornerY, startPointArc.Width, startPointArc.Height, startPointArc.StartAngle, startPointArc.SweepAngle);
-					lastPoint.X = startPointArc.EndX;
-					lastPoint.Y = startPointArc.EndY;
-					arcs.Remove(startPointArc);
-					elementsLeft--;
-					continue;
-				}
-
-				if (endPointArc != null)
-				{
-					fullDieProfile.AddArc(endPointArc.RectangularCornerX, endPointArc.RectangularCornerY, endPointArc.Width, endPointArc.Height, endPointArc.StartAngle, endPointArc.SweepAngle);
-					lastPoint.X = endPointArc.StartX;
-					lastPoint.Y = endPointArc.StartY;
-					arcs.Remove(endPointArc);
-					elementsLeft--;
-					continue;
-				}
-
-				if (true)
-				{
-					DialogResult notMatchingPoint = MessageBox.Show("Points from the file didn't match");
-				}
-			}
-			return fullDieProfile;
 		}
 
 		public static GraphicsPath G71Profile()
@@ -211,54 +153,109 @@ namespace DXF.Modify
 				}
 			}
 
-			//Find first index
-			int totalElements = lines.Count + arcs.Count;
-			int firstIndex = totalElements;
+			
+			//Sort Indexes
+			List<int> Indexers = new List<int>();
 			foreach (Line line in lines)
 			{
-				if (line.Index < firstIndex)
-				{
-					firstIndex = line.Index;
-				}
+				Indexers.Add(line.Index);
 			}
 
 			foreach (Arc arc in arcs)
 			{
-				if (arc.Index < firstIndex)
-				{
-					firstIndex = arc.Index;
-				}
+				Indexers.Add(arc.Index);
 			}
+			Indexers.Sort();
 
-			for (int i = 1; i <= totalElements; i++)
+			//Create profile
+			float xValueHolder = 0;
+			float yValueHolder = 0;
+			bool unmatchedMode = false;
+			bool firstEntered = false;
+			foreach (int index in Indexers)
 			{
 				foreach (Line line in lines)
 				{
-					if (line.Index == firstIndex)
+					if (line.Index == index)
 					{
-						g71Profile.AddLine(line.StartX,line.StartY,line.EndX,line.EndY);
-						break;
+						if (unmatchedMode)
+						{
+							if (line.StartY >= yValueHolder && line.EndY >= yValueHolder)
+							{
+								g71Profile.AddLine(xValueHolder, yValueHolder, line.StartX, line.StartY);
+								g71Profile.AddLine(line.StartX, line.StartY, line.EndX, line.EndY);
+								yValueHolder = line.EndY;
+								unmatchedMode = false;
+
+								MainApp.GCodePoints.Add(new GCodePoint("line", line.StartY, line.StartX));
+								MainApp.GCodePoints.Add(new GCodePoint("line", line.EndY, line.EndX));
+							}
+						}
+						else
+						{
+							if (line.EndY >= yValueHolder)
+							{
+								g71Profile.AddLine(line.StartX, line.StartY, line.EndX, line.EndY);
+								yValueHolder = line.EndY;
+
+								if (!firstEntered)
+								{
+									MainApp.GCodePoints.Add(new GCodePoint("line", line.StartY, line.StartX));
+								}
+								firstEntered = true;
+								MainApp.GCodePoints.Add(new GCodePoint("line", line.EndY, line.EndX));
+							}
+							else
+							{
+								unmatchedMode = true;
+								xValueHolder = line.StartX;
+								yValueHolder = line.StartY;
+							}
+						}
 					}
 				}
 
 				foreach (Arc arc in arcs)
 				{
-					if (arc.Index == firstIndex)
+					if (arc.Index == index)
 					{
-						g71Profile.AddArc(arc.RectangularCornerX, arc.RectangularCornerY, arc.Width, arc.Height, arc.StartAngle, arc.SweepAngle);
-						break;
+						if (unmatchedMode)
+						{
+							if (arc.StartY >= yValueHolder && arc.EndY >= yValueHolder)
+							{
+								g71Profile.AddLine(xValueHolder , yValueHolder, arc.StartX, arc.StartY);
+								g71Profile.AddArc(arc.RectangularCornerX, arc.RectangularCornerY, arc.Width, arc.Height, arc.StartAngle, arc.SweepAngle);
+								yValueHolder = arc.EndY;
+								unmatchedMode = false;
+
+								MainApp.GCodePoints.Add(new GCodePoint("line", arc.StartY, arc.StartX));
+								MainApp.GCodePoints.Add(new GCodePoint("arc", arc.EndY, arc.EndX, arc.Radius, arc.Clockwise, arc.AntiClockwise));
+							}
+						}
+						else
+						{
+							if (arc.EndY >= yValueHolder)
+							{
+								g71Profile.AddArc(arc.RectangularCornerX, arc.RectangularCornerY, arc.Width, arc.Height, arc.StartAngle, arc.SweepAngle);
+								yValueHolder = arc.EndY;
+
+								if (!firstEntered)
+								{
+									MainApp.GCodePoints.Add(new GCodePoint("line", arc.StartY, arc.StartX));
+								}
+								firstEntered = true;
+								MainApp.GCodePoints.Add(new GCodePoint("arc", arc.EndY, arc.EndX, arc.Radius, arc.Clockwise, arc.AntiClockwise));
+							}
+							else
+							{
+								unmatchedMode = true;
+								xValueHolder = arc.StartX;
+								yValueHolder = arc.StartY;
+							}
+						}
 					}
 				}
-
-				firstIndex++;
 			}
-
-			//TODO: Investigate how to create an algorithm which creates a profile by avoiding "left turns"
-			//TODO: Add element number sequence when creating the FullDieProfile
-
-
-			
-
 
 			return g71Profile;
 		}
