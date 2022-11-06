@@ -37,7 +37,11 @@ namespace DXF.SetupFile
 			RectangularCornerY = centerY - radius;
 			Width = radius * 2;
 			Height = radius * 2;
-			if (startAngle >= 0 && startAngle <= 90 && endAngle >= 0 && endAngle <= 90)
+			if (startAngle == 360)
+			{
+				startAngle = 0;
+			}
+			if (startAngle >= 0 && startAngle <= 180 && endAngle >= 0 && endAngle <= 180)
 			{
 				AntiClockwise = true;
 				StartAngle = startAngle;
@@ -45,7 +49,7 @@ namespace DXF.SetupFile
 				SweepAngle = CalculateSweepAngle(startAngle, endAngle);
 			}
 
-			if (startAngle >= 180 && startAngle <= 270 && endAngle >= 180 && endAngle <= 270)
+			if (startAngle >= 180 && startAngle < 360 && endAngle >= 180 && endAngle < 360)
 			{
 				Clockwise = true;
 				StartAngle = endAngle;

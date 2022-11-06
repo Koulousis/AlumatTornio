@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using DXF.Properties;
 
 namespace DXF.SetupFile
 {
@@ -16,7 +17,7 @@ namespace DXF.SetupFile
 			OpenFileDialog selectDxfDialog = new OpenFileDialog()
 			{
 				Title = @"Select file",
-				InitialDirectory = @"C:\",
+				InitialDirectory = Settings.Default["DxfFolderPath"].ToString(),
 				DefaultExt = @".dxf",
 				Filter = @"DXF Files (*.dxf)|*.dxf"
 			};
@@ -25,6 +26,7 @@ namespace DXF.SetupFile
 			//and return true to know that the user has selected a file
 			if (selectDxfDialog.ShowDialog() == DialogResult.OK)
 			{
+				MainApp.DxfFileName = Path.GetFileNameWithoutExtension(selectDxfDialog.FileName);
 				string[] dxfTextArray = System.IO.File.ReadAllLines(selectDxfDialog.FileName);
 				MainApp.DxfText = dxfTextArray.ToList();
 				MainApp.DxfText.RemoveRange(0, MainApp.DxfText.IndexOf("ENTITIES"));

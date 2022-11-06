@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DXF.Generate;
+using DXF.Properties;
 
 namespace DXF
 {
@@ -21,8 +22,9 @@ namespace DXF
 		public static List<Line> Lines { get; set; }
 		public static List<Arc> Arcs { get; set; }
 		public static float ZoomFactor = 1f;
-
 		public static List<GCodePoint> GCodePoints { get; set; }
+		
+		public static string DxfFileName = "Default";
 
 		public MainApp()
 		{
@@ -43,12 +45,14 @@ namespace DXF
 			cursorPositionY += 25.4f / screen.DpiY;
 
 			//Set Labels text to X and Y mouse position
-			coordinatesLabel.Text = $@"{cursorPositionX / ZoomFactor,0:F3}, {cursorPositionY / ZoomFactor,0:F3}";
+			coordinatesLabel.Text = $@"{cursorPositionX / ZoomFactor,0:F3}, {(cursorPositionY / ZoomFactor)*2,0:F3}";
 		}
 
 		private void fileDxfMenuItem_Click(object sender, EventArgs e)
 		{
 			//Prompt the user to select dxf and if selected continue
+			exportProgressBar.Value = 0;
+			gCodeTextBox.Lines = new[] {""};
 			Lines = new List<Line>();
 			Arcs = new List<Arc>();
 			GCodePoints = new List<GCodePoint>();
@@ -64,9 +68,30 @@ namespace DXF
 			//Position.OffsetLines(gap);
 			//Position.OffsetArcs(gap);
 
-			Create.Indexes();
+			Create.IndexesAndCorrections();
 			//Re-visualize the data
 			View.Refresh();
+		}
+
+		private void changeDXFFolderToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			var folderBrowserDialog = new FolderBrowserDialog();
+			DialogResult result = folderBrowserDialog.ShowDialog();
+			if (result == DialogResult.OK)
+			{
+				Settings.Default["DxfFolderPath"] = folderBrowserDialog.SelectedPath;
+				Settings.Default.Save();
+			}
+		}
+		private void changeExportFolderToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			var folderBrowserDialog = new FolderBrowserDialog();
+			DialogResult result = folderBrowserDialog.ShowDialog();
+			if (result == DialogResult.OK)
+			{
+				Settings.Default["ExportFolderPath"] = folderBrowserDialog.SelectedPath;
+				Settings.Default.Save();
+			}
 		}
 
 		private void View_Paint(object sender, PaintEventArgs e)
@@ -92,7 +117,7 @@ namespace DXF
 				if (dieVisualizeCheckBox.Checked) { Visualize.Die(preview, diePath); }
 				if (profileVisualizeCheckBox.Checked) { Visualize.G71Profile(preview, g71Profile); }
 
-				Cycle.G71(preview);
+				GCode.G71(preview);
 			}
 		}
 
@@ -114,17 +139,91 @@ namespace DXF
 		private void exportGCode_Click(object sender, EventArgs e)
 		{
 			exportProgressBar.Value = 0;
-			for (int i = 0; i < 100; i++)
-			{
-				for (int j = 0; j < 10000; j++)
-				{
-					
-				}
-				exportProgressBar.Value++;
-			}
+			for (int i = 0; i < 100; i++) { for (int j = 0; j < 10000; j++) { } exportProgressBar.Value++; }
 
-			
-			Cycle.G71Profile();
+			Dictionary<string, decimal> g71Attributes = new Dictionary<string, decimal>();
+			g71Attributes.Add("depthOfCut", depthOfCutInput.Value);
+			g71Attributes.Add("retractValue", retractValueInput.Value);
+			g71Attributes.Add("xAllowance", xAllowanceInput.Value);
+			g71Attributes.Add("zAllowance", zAllowanceInput.Value);
+			g71Attributes.Add("feedRate", feedRateInput.Value);
+
+			gCodeTextBox.Lines = GCode.Export(g71Attributes);
+		}
+
+		private void g71RoughingCycleToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using (Form form = new Form())
+			{
+				Bitmap img = new Bitmap(@"C:\Users\aris_\Desktop\g71-roughing-cycle.jpg");
+
+				form.StartPosition = FormStartPosition.CenterScreen;
+				form.Size = img.Size;
+
+				PictureBox pb = new PictureBox();
+				pb.Dock = DockStyle.Fill;
+				pb.Image = img;
+
+				form.Controls.Add(pb);
+				form.ShowDialog();
+			}
+		}
+
+		private void g72FacingCycleToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using (Form form = new Form())
+			{
+				Bitmap img = new Bitmap(@"C:\Users\aris_\Desktop\g72-facing-cycle-turning.jpg");
+
+				form.StartPosition = FormStartPosition.CenterScreen;
+				form.Size = img.Size;
+
+				PictureBox pb = new PictureBox();
+				pb.Dock = DockStyle.Fill;
+				pb.Image = img;
+
+				form.Controls.Add(pb);
+				form.ShowDialog();
+			}
+		}
+
+		private void depthOfCutInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["G71DepthOfCut"] = depthOfCutInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void retractValueInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["G71RetractValue"] = retractValueInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void xAllowanceInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["G71XAllowance"] = xAllowanceInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void zAllowanceInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["G71ZAllowance"] = zAllowanceInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void feedRateInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["G71FeedRate"] = feedRateInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void MainApp_Load(object sender, EventArgs e)
+		{
+			depthOfCutInput.Value = Convert.ToDecimal(Settings.Default["G71DepthOfCut"]);
+			retractValueInput.Value = Convert.ToDecimal(Settings.Default["G71RetractValue"]);
+			xAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G71XAllowance"]);
+			zAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G71ZAllowance"]);
+			feedRateInput.Value = Convert.ToDecimal(Settings.Default["G71FeedRate"]);
 		}
 	}
 }

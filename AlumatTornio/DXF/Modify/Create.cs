@@ -13,62 +13,100 @@ namespace DXF.Modify
 {
 	public class Create
 	{
-		public static void Indexes()
+		public static void IndexesAndCorrections()
 		{
 			List<Line> lines = new List<Line>(MainApp.Lines);
 			List<Arc> arcs = new List<Arc>(MainApp.Arcs);
-			List<PointsPair> pointsPair = new List<PointsPair>();
+			int index = 1;
 
-			Line firstLine = lines.Find(first => first.StartX == 0 && first.StartY == 0 && first.EndX == 0 && first.EndY > 0);
-			pointsPair.Add(new PointsPair(){X1 = firstLine.StartX, Y1 = firstLine.StartY, X2 = firstLine.EndX, Y2 = firstLine.EndY });
-			PointF lastPoint = new PointF(firstLine.EndX, firstLine.EndY);
-			lines.Remove(firstLine);
+			//Find the first Vertical Line which has equal to zero starting points or ending points
+			Line firstLineMatchingStart = lines.Find(first => first.StartX == 0 && first.StartY == 0 && first.EndX == 0 && first.EndY > 0);
+			Line firstLineMatchingEnd = lines.Find(first => first.EndX == 0 && first.EndY == 0 && first.StartX == 0 && first.StartY > 0);
 
+			PointF lastPoint = new PointF();
+			if (firstLineMatchingStart != null)
+			{
+				firstLineMatchingStart.Index = index;
+				lastPoint.X = firstLineMatchingStart.EndX; 
+				lastPoint.Y = firstLineMatchingStart.EndY;
+				lines.Remove(firstLineMatchingStart);
+				index++;
+			}
+			if (firstLineMatchingEnd != null)
+			{
+				firstLineMatchingEnd.Index = index;
+				lastPoint.X = firstLineMatchingEnd.StartX;
+				lastPoint.Y = firstLineMatchingEnd.StartY;
+
+				firstLineMatchingEnd.StartX = firstLineMatchingEnd.EndX;
+				firstLineMatchingEnd.StartY = firstLineMatchingEnd.EndY;
+				firstLineMatchingEnd.EndX = lastPoint.X;
+				firstLineMatchingEnd.EndY = lastPoint.Y;
+
+				lines.Remove(firstLineMatchingEnd);
+				index++;
+			}
+
+			//Iterate through all elements to add them in a queue by giving an Index value and fix their direction
 			int totalElements = lines.Count + arcs.Count;
 			for (int elementsLeft = totalElements; elementsLeft != 0;)
 			{
+				//Find the point of any element that match the last point
 				Line startPointLineMatching = lines.Find(line => line.StartX == lastPoint.X && line.StartY == lastPoint.Y);
 				Line endPointLineMatching = lines.Find(line => line.EndX == lastPoint.X && line.EndY == lastPoint.Y);
 				Arc startPointArcMatching = arcs.Find(arc => arc.StartX == lastPoint.X && arc.StartY == lastPoint.Y);
 				Arc endPointArcMatching = arcs.Find(arc => arc.EndX == lastPoint.X && arc.EndY == lastPoint.Y);
 
+				//To the matching element set an index
+				//record the new last point
+				//reverse the start with the end if the matching point is the end of the element
 				if (startPointLineMatching != null)
 				{
-					pointsPair.Add(new PointsPair() { X1 = startPointLineMatching.StartX, Y1 = startPointLineMatching.StartY, X2 = startPointLineMatching.EndX, Y2 = startPointLineMatching.EndY });
+					startPointLineMatching.Index = index;
 					lastPoint.X = startPointLineMatching.EndX;
 					lastPoint.Y = startPointLineMatching.EndY;
 					lines.Remove(startPointLineMatching);
 					elementsLeft--;
+					index++;
 					continue;
 				}
 
 				if (endPointLineMatching != null)
 				{
-					pointsPair.Add(new PointsPair() { X1 = endPointLineMatching.EndX, Y1 = endPointLineMatching.EndY, X2 = endPointLineMatching.StartX, Y2 = endPointLineMatching.StartY });
+					endPointLineMatching.Index = index;
 					lastPoint.X = endPointLineMatching.StartX;
 					lastPoint.Y = endPointLineMatching.StartY;
+
+					endPointLineMatching.StartX = endPointLineMatching.EndX;
+					endPointLineMatching.StartY = endPointLineMatching.EndY;
+					endPointLineMatching.EndX = lastPoint.X;
+					endPointLineMatching.EndY = lastPoint.Y;
+
 					lines.Remove(endPointLineMatching);
 					elementsLeft--;
+					index++;
 					continue;
 				}
 
 				if (startPointArcMatching != null)
 				{
-					pointsPair.Add(new PointsPair() { X1 = startPointArcMatching.StartX, Y1 = startPointArcMatching.StartY, X2 = startPointArcMatching.EndX, Y2 = startPointArcMatching.EndY });
+					startPointArcMatching.Index = index;
 					lastPoint.X = startPointArcMatching.EndX;
 					lastPoint.Y = startPointArcMatching.EndY;
 					arcs.Remove(startPointArcMatching);
 					elementsLeft--;
+					index++;
 					continue;
 				}
 
 				if (endPointArcMatching != null)
 				{
-					pointsPair.Add(new PointsPair() { X1 = endPointArcMatching.EndX, Y1 = endPointArcMatching.EndY, X2 = endPointArcMatching.StartX, Y2 = endPointArcMatching.StartY });
+					endPointArcMatching.Index = index;
 					lastPoint.X = endPointArcMatching.StartX;
 					lastPoint.Y = endPointArcMatching.StartY;
 					arcs.Remove(endPointArcMatching);
 					elementsLeft--;
+					index++;
 					continue;
 				}
 
@@ -78,28 +116,13 @@ namespace DXF.Modify
 					break;
 				}
 			}
-
-			int indexer = 0;
-			foreach (PointsPair pair in pointsPair)
-			{
-				indexer++;
-				Line startLineMatching = MainApp.Lines.Find(line => line.StartX == pair.X1 && line.StartY == pair.Y1 && line.EndX == pair.X2 && line.EndY == pair.Y2);
-				Line endLineMatching = MainApp.Lines.Find(line => line.EndX == pair.X1 && line.EndY == pair.Y1 && line.StartX == pair.X2 && line.StartY == pair.Y2);
-				Arc startArcMatching = MainApp.Arcs.Find(arc => arc.StartX == pair.X1 && arc.StartY == pair.Y1 && arc.EndX == pair.X2 && arc.EndY == pair.Y2);
-				Arc endArcMatching = MainApp.Arcs.Find(arc => arc.EndX == pair.X1 && arc.EndY == pair.Y1 && arc.StartX == pair.X2 && arc.StartY == pair.Y2);
-
-				if (startLineMatching != null) { startLineMatching.Index = indexer; }
-				if (endLineMatching != null) { endLineMatching.Index = indexer; }
-				if (startArcMatching != null) { startArcMatching.Index = indexer; }
-				if (endArcMatching != null) { endArcMatching.Index = indexer; }
-			}
-
 		}
 
 		public static GraphicsPath FullPath()
 		{
 			GraphicsPath fullPath = new GraphicsPath();
-
+			//TODO: Veltistopoisi me Find.mplampla
+			//TODO: Elegxos suntetagmenwn kai sugkrisei me to powershare gia to EXA109710-1 - 1.dxf
 			int totalElements = MainApp.Lines.Count + MainApp.Arcs.Count;
 
 			for (int i = 1; i <= totalElements; i++)
@@ -136,6 +159,7 @@ namespace DXF.Modify
 
 		public static GraphicsPath G71Profile()
 		{
+			//TODO: Ginetai lathos generate gia to EXA109710-1 - 1.dxf
 			GraphicsPath g71Profile = new GraphicsPath();
 			List<Line> lines = new List<Line>(MainApp.Lines);
 			List<Arc> arcs = new List<Arc>(MainApp.Arcs);
@@ -154,7 +178,7 @@ namespace DXF.Modify
 			}
 
 			
-			//Sort Indexes
+			//Sort IndexesAndCorrections
 			List<int> Indexers = new List<int>();
 			foreach (Line line in lines)
 			{
