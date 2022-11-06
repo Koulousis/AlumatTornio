@@ -30,7 +30,6 @@ namespace DXF
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainApp));
-			this.View = new System.Windows.Forms.PictureBox();
 			this.coordinatesLabel = new System.Windows.Forms.Label();
 			this.mainAppMenu = new System.Windows.Forms.MenuStrip();
 			this.fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +47,6 @@ namespace DXF
 			this.axesVisualizeCheckBox = new System.Windows.Forms.CheckBox();
 			this.copyrightsBanner = new System.Windows.Forms.Panel();
 			this.copyrights = new System.Windows.Forms.TextBox();
-			this.banner = new System.Windows.Forms.PictureBox();
 			this.exportGCode = new System.Windows.Forms.Button();
 			this.exportProgressBar = new System.Windows.Forms.ProgressBar();
 			this.g71Settings = new System.Windows.Forms.GroupBox();
@@ -74,11 +72,13 @@ namespace DXF
 			this.label4 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.gCodeTextBox = new System.Windows.Forms.RichTextBox();
-			((System.ComponentModel.ISupportInitialize)(this.View)).BeginInit();
+			this.statusLabel = new System.Windows.Forms.Label();
+			this.statusTitleLabel = new System.Windows.Forms.Label();
+			this.banner = new System.Windows.Forms.PictureBox();
+			this.View = new System.Windows.Forms.PictureBox();
 			this.mainAppMenu.SuspendLayout();
 			this.visualizeSelector.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.banner)).BeginInit();
 			this.g71Settings.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.feedRateInput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.zAllowanceInput)).BeginInit();
@@ -91,20 +91,9 @@ namespace DXF
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.banner)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.View)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// View
-			// 
-			this.View.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-			this.View.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.View.Cursor = System.Windows.Forms.Cursors.Cross;
-			this.View.Location = new System.Drawing.Point(12, 27);
-			this.View.Name = "View";
-			this.View.Size = new System.Drawing.Size(250, 500);
-			this.View.TabIndex = 0;
-			this.View.TabStop = false;
-			this.View.Paint += new System.Windows.Forms.PaintEventHandler(this.View_Paint);
-			this.View.MouseMove += new System.Windows.Forms.MouseEventHandler(this.View_MouseMove);
 			// 
 			// coordinatesLabel
 			// 
@@ -118,6 +107,7 @@ namespace DXF
 			// 
 			// mainAppMenu
 			// 
+			this.mainAppMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
 			this.mainAppMenu.ImageScalingSize = new System.Drawing.Size(32, 32);
 			this.mainAppMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenuItem,
@@ -126,7 +116,7 @@ namespace DXF
 			this.mainAppMenu.Location = new System.Drawing.Point(0, 0);
 			this.mainAppMenu.Name = "mainAppMenu";
 			this.mainAppMenu.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
-			this.mainAppMenu.Size = new System.Drawing.Size(632, 24);
+			this.mainAppMenu.Size = new System.Drawing.Size(648, 24);
 			this.mainAppMenu.TabIndex = 2;
 			this.mainAppMenu.Text = "menuStrip1";
 			// 
@@ -270,7 +260,7 @@ namespace DXF
 			this.copyrightsBanner.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.copyrightsBanner.Location = new System.Drawing.Point(0, 533);
 			this.copyrightsBanner.Name = "copyrightsBanner";
-			this.copyrightsBanner.Size = new System.Drawing.Size(632, 95);
+			this.copyrightsBanner.Size = new System.Drawing.Size(648, 95);
 			this.copyrightsBanner.TabIndex = 4;
 			// 
 			// copyrights
@@ -284,25 +274,12 @@ namespace DXF
 			this.copyrights.TabIndex = 1;
 			this.copyrights.Text = "© Alumat Srl 2022. All Rights Reserved";
 			// 
-			// banner
-			// 
-			this.banner.BackColor = System.Drawing.SystemColors.Window;
-			this.banner.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.banner.Dock = System.Windows.Forms.DockStyle.Top;
-			this.banner.Image = ((System.Drawing.Image)(resources.GetObject("banner.Image")));
-			this.banner.Location = new System.Drawing.Point(0, 0);
-			this.banner.Name = "banner";
-			this.banner.Size = new System.Drawing.Size(632, 74);
-			this.banner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-			this.banner.TabIndex = 0;
-			this.banner.TabStop = false;
-			// 
 			// exportGCode
 			// 
 			this.exportGCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.exportGCode.Location = new System.Drawing.Point(457, 399);
 			this.exportGCode.Name = "exportGCode";
-			this.exportGCode.Size = new System.Drawing.Size(163, 74);
+			this.exportGCode.Size = new System.Drawing.Size(179, 74);
 			this.exportGCode.TabIndex = 5;
 			this.exportGCode.Text = "Generate G Code";
 			this.exportGCode.UseVisualStyleBackColor = true;
@@ -312,7 +289,7 @@ namespace DXF
 			// 
 			this.exportProgressBar.Location = new System.Drawing.Point(457, 479);
 			this.exportProgressBar.Name = "exportProgressBar";
-			this.exportProgressBar.Size = new System.Drawing.Size(163, 24);
+			this.exportProgressBar.Size = new System.Drawing.Size(179, 24);
 			this.exportProgressBar.TabIndex = 6;
 			// 
 			// g71Settings
@@ -769,16 +746,65 @@ namespace DXF
 			this.gCodeTextBox.Location = new System.Drawing.Point(457, 33);
 			this.gCodeTextBox.Name = "gCodeTextBox";
 			this.gCodeTextBox.ReadOnly = true;
-			this.gCodeTextBox.Size = new System.Drawing.Size(163, 351);
+			this.gCodeTextBox.Size = new System.Drawing.Size(179, 351);
 			this.gCodeTextBox.TabIndex = 11;
 			this.gCodeTextBox.Text = "";
+			// 
+			// statusLabel
+			// 
+			this.statusLabel.AutoSize = true;
+			this.statusLabel.BackColor = System.Drawing.SystemColors.InfoText;
+			this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.statusLabel.Location = new System.Drawing.Point(536, 507);
+			this.statusLabel.Name = "statusLabel";
+			this.statusLabel.Size = new System.Drawing.Size(43, 20);
+			this.statusLabel.TabIndex = 12;
+			this.statusLabel.Text = "clear";
+			// 
+			// statusTitleLabel
+			// 
+			this.statusTitleLabel.AutoSize = true;
+			this.statusTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.statusTitleLabel.Location = new System.Drawing.Point(453, 507);
+			this.statusTitleLabel.Name = "statusTitleLabel";
+			this.statusTitleLabel.Size = new System.Drawing.Size(86, 20);
+			this.statusTitleLabel.TabIndex = 13;
+			this.statusTitleLabel.Text = "File status:";
+			// 
+			// banner
+			// 
+			this.banner.BackColor = System.Drawing.SystemColors.Window;
+			this.banner.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.banner.Dock = System.Windows.Forms.DockStyle.Top;
+			this.banner.Image = ((System.Drawing.Image)(resources.GetObject("banner.Image")));
+			this.banner.Location = new System.Drawing.Point(0, 0);
+			this.banner.Name = "banner";
+			this.banner.Size = new System.Drawing.Size(648, 74);
+			this.banner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+			this.banner.TabIndex = 0;
+			this.banner.TabStop = false;
+			// 
+			// View
+			// 
+			this.View.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+			this.View.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.View.Cursor = System.Windows.Forms.Cursors.Cross;
+			this.View.Location = new System.Drawing.Point(12, 27);
+			this.View.Name = "View";
+			this.View.Size = new System.Drawing.Size(250, 500);
+			this.View.TabIndex = 0;
+			this.View.TabStop = false;
+			this.View.Paint += new System.Windows.Forms.PaintEventHandler(this.View_Paint);
+			this.View.MouseMove += new System.Windows.Forms.MouseEventHandler(this.View_MouseMove);
 			// 
 			// MainApp
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.WindowFrame;
-			this.ClientSize = new System.Drawing.Size(632, 628);
+			this.ClientSize = new System.Drawing.Size(648, 628);
+			this.Controls.Add(this.statusTitleLabel);
+			this.Controls.Add(this.statusLabel);
 			this.Controls.Add(this.gCodeTextBox);
 			this.Controls.Add(this.g72Settings);
 			this.Controls.Add(this.g71Settings);
@@ -796,14 +822,12 @@ namespace DXF
 			this.Name = "MainApp";
 			this.Text = "Alumat Tornio";
 			this.Load += new System.EventHandler(this.MainApp_Load);
-			((System.ComponentModel.ISupportInitialize)(this.View)).EndInit();
 			this.mainAppMenu.ResumeLayout(false);
 			this.mainAppMenu.PerformLayout();
 			this.visualizeSelector.ResumeLayout(false);
 			this.visualizeSelector.PerformLayout();
 			this.copyrightsBanner.ResumeLayout(false);
 			this.copyrightsBanner.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.banner)).EndInit();
 			this.g71Settings.ResumeLayout(false);
 			this.g71Settings.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.feedRateInput)).EndInit();
@@ -818,6 +842,8 @@ namespace DXF
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.banner)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.View)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -869,5 +895,7 @@ namespace DXF
 		private System.Windows.Forms.ToolStripMenuItem g71RoughingCycleToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem g72FacingCycleToolStripMenuItem;
 		private System.Windows.Forms.RichTextBox gCodeTextBox;
+		private System.Windows.Forms.Label statusLabel;
+		private System.Windows.Forms.Label statusTitleLabel;
 	}
 }

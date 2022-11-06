@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DXF.Actions;
 
-namespace DXF.SetupFile
+namespace DXF.Elements
 {
 	public class Arc
 	{
@@ -68,16 +69,16 @@ namespace DXF.SetupFile
 			//To know if the new X,Y points are positive or negative movement from the center
 			//is know from the quarter where the points are
 			StartX = quarter == 1 || quarter == 4 ? centerX + distanceFromCenterOfStartX : centerX - distanceFromCenterOfStartX;
-			StartX = FromDxf.StringToThreeDigitFloat(StartX.ToString());
+			StartX = Read.StringToThreeDigitFloat(StartX.ToString());
 
 			StartY = quarter == 1 || quarter == 2 ? centerY + distanceFromCenterOfStartY : centerY - distanceFromCenterOfStartY;
-			StartY = FromDxf.StringToThreeDigitFloat(StartY.ToString());
+			StartY = Read.StringToThreeDigitFloat(StartY.ToString());
 
 			EndX = quarter == 1 || quarter == 4 ? centerX + distanceFromCenterOfEndX : centerX - distanceFromCenterOfEndX;
-			EndX = FromDxf.StringToThreeDigitFloat(EndX.ToString());
+			EndX = Read.StringToThreeDigitFloat(EndX.ToString());
 
 			EndY = quarter == 1 || quarter == 2 ? centerY + distanceFromCenterOfEndY : centerY - distanceFromCenterOfEndY;
-			EndY = FromDxf.StringToThreeDigitFloat(EndY.ToString());
+			EndY = Read.StringToThreeDigitFloat(EndY.ToString());
 
 		}
 		float CalculateSweepAngle(float startAngle, float endAngle)

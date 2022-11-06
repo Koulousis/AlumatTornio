@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DXF.SetupFile
+namespace DXF.Elements
 {
 	public class Line
 	{

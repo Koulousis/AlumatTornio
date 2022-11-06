@@ -1,5 +1,4 @@
-﻿using DXF.SetupFile;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -8,121 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using DXF.Actions;
+using DXF.Elements;
+using DXF.Lathe;
+using DXF.Properties;
 
-namespace DXF.Modify
+namespace DXF.Actions
 {
 	public class Create
 	{
-		public static void IndexesAndCorrections()
-		{
-			List<Line> lines = new List<Line>(MainApp.Lines);
-			List<Arc> arcs = new List<Arc>(MainApp.Arcs);
-			int index = 1;
-
-			//Find the first Vertical Line which has equal to zero starting points or ending points
-			Line firstLineMatchingStart = lines.Find(first => first.StartX == 0 && first.StartY == 0 && first.EndX == 0 && first.EndY > 0);
-			Line firstLineMatchingEnd = lines.Find(first => first.EndX == 0 && first.EndY == 0 && first.StartX == 0 && first.StartY > 0);
-
-			PointF lastPoint = new PointF();
-			if (firstLineMatchingStart != null)
-			{
-				firstLineMatchingStart.Index = index;
-				lastPoint.X = firstLineMatchingStart.EndX; 
-				lastPoint.Y = firstLineMatchingStart.EndY;
-				lines.Remove(firstLineMatchingStart);
-				index++;
-			}
-			if (firstLineMatchingEnd != null)
-			{
-				firstLineMatchingEnd.Index = index;
-				lastPoint.X = firstLineMatchingEnd.StartX;
-				lastPoint.Y = firstLineMatchingEnd.StartY;
-
-				firstLineMatchingEnd.StartX = firstLineMatchingEnd.EndX;
-				firstLineMatchingEnd.StartY = firstLineMatchingEnd.EndY;
-				firstLineMatchingEnd.EndX = lastPoint.X;
-				firstLineMatchingEnd.EndY = lastPoint.Y;
-
-				lines.Remove(firstLineMatchingEnd);
-				index++;
-			}
-
-			//Iterate through all elements to add them in a queue by giving an Index value and fix their direction
-			int totalElements = lines.Count + arcs.Count;
-			for (int elementsLeft = totalElements; elementsLeft != 0;)
-			{
-				//Find the point of any element that match the last point
-				Line startPointLineMatching = lines.Find(line => line.StartX == lastPoint.X && line.StartY == lastPoint.Y);
-				Line endPointLineMatching = lines.Find(line => line.EndX == lastPoint.X && line.EndY == lastPoint.Y);
-				Arc startPointArcMatching = arcs.Find(arc => arc.StartX == lastPoint.X && arc.StartY == lastPoint.Y);
-				Arc endPointArcMatching = arcs.Find(arc => arc.EndX == lastPoint.X && arc.EndY == lastPoint.Y);
-
-				//To the matching element set an index
-				//record the new last point
-				//reverse the start with the end if the matching point is the end of the element
-				if (startPointLineMatching != null)
-				{
-					startPointLineMatching.Index = index;
-					lastPoint.X = startPointLineMatching.EndX;
-					lastPoint.Y = startPointLineMatching.EndY;
-					lines.Remove(startPointLineMatching);
-					elementsLeft--;
-					index++;
-					continue;
-				}
-
-				if (endPointLineMatching != null)
-				{
-					endPointLineMatching.Index = index;
-					lastPoint.X = endPointLineMatching.StartX;
-					lastPoint.Y = endPointLineMatching.StartY;
-
-					endPointLineMatching.StartX = endPointLineMatching.EndX;
-					endPointLineMatching.StartY = endPointLineMatching.EndY;
-					endPointLineMatching.EndX = lastPoint.X;
-					endPointLineMatching.EndY = lastPoint.Y;
-
-					lines.Remove(endPointLineMatching);
-					elementsLeft--;
-					index++;
-					continue;
-				}
-
-				if (startPointArcMatching != null)
-				{
-					startPointArcMatching.Index = index;
-					lastPoint.X = startPointArcMatching.EndX;
-					lastPoint.Y = startPointArcMatching.EndY;
-					arcs.Remove(startPointArcMatching);
-					elementsLeft--;
-					index++;
-					continue;
-				}
-
-				if (endPointArcMatching != null)
-				{
-					endPointArcMatching.Index = index;
-					lastPoint.X = endPointArcMatching.StartX;
-					lastPoint.Y = endPointArcMatching.StartY;
-					arcs.Remove(endPointArcMatching);
-					elementsLeft--;
-					index++;
-					continue;
-				}
-
-				if (true)
-				{
-					DialogResult notMatchingPoint = MessageBox.Show("Points from the file didn't match");
-					break;
-				}
-			}
-		}
-
 		public static GraphicsPath FullPath()
 		{
 			GraphicsPath fullPath = new GraphicsPath();
-			//TODO: Veltistopoisi me Find.mplampla
-			//TODO: Elegxos suntetagmenwn kai sugkrisei me to powershare gia to EXA109710-1 - 1.dxf
 			int totalElements = MainApp.Lines.Count + MainApp.Arcs.Count;
 
 			for (int i = 1; i <= totalElements; i++)
@@ -178,25 +74,25 @@ namespace DXF.Modify
 			}
 
 			
-			//Sort IndexesAndCorrections
-			List<int> Indexers = new List<int>();
+			//Sort AddIndexesAndMakeCorrections
+			List<int> indexers = new List<int>();
 			foreach (Line line in lines)
 			{
-				Indexers.Add(line.Index);
+				indexers.Add(line.Index);
 			}
 
 			foreach (Arc arc in arcs)
 			{
-				Indexers.Add(arc.Index);
+				indexers.Add(arc.Index);
 			}
-			Indexers.Sort();
+			indexers.Sort();
 
 			//Create profile
 			float xValueHolder = 0;
 			float yValueHolder = 0;
 			bool unmatchedMode = false;
 			bool firstEntered = false;
-			foreach (int index in Indexers)
+			foreach (int index in indexers)
 			{
 				foreach (Line line in lines)
 				{

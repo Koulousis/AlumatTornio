@@ -1,5 +1,4 @@
-﻿using DXF.SetupFile;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -8,131 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DXF.Elements;
 using DXF.Properties;
 
-namespace DXF.Generate
+namespace DXF.Lathe
 {
-	public class GCode
+	public static class GCode
 	{
-		public static string[] Export(Dictionary<string, decimal> g71Attributes)
+		public static List<string> Text = new List<string>();
+		
+		public static void Export()
 		{
-			List<string> gCodeFile = new List<string>();
-			LatheInitialization(gCodeFile);
-			StartPosition(gCodeFile);
-			G71Roughing(gCodeFile,g71Attributes);
-			ProfileBlock(gCodeFile);
-			G70Finishing(gCodeFile);
-			LatheEnd(gCodeFile);
-			
 			string exportFolderPath = $@"{Settings.Default["ExportFolderPath"]}\{MainApp.DxfFileName}.txt";
-			System.IO.File.WriteAllLines(exportFolderPath, gCodeFile);
-			return gCodeFile.ToArray();
+			System.IO.File.WriteAllLines(exportFolderPath, GCode.Text);
 		}
 
-		static void LatheInitialization(List<string> gCodeFile)
-		{
-			//Fill G Code
-			gCodeFile.Add("%");
-			gCodeFile.Add("O71");
-			gCodeFile.Add("(LATHE INITIALIZATION)");
-			gCodeFile.Add("G54");
-			gCodeFile.Add("M46");
-			gCodeFile.Add("G99G18");
-			gCodeFile.Add("G0");
-			gCodeFile.Add("G40");
-			gCodeFile.Add("G28U0");
-			gCodeFile.Add("G28U0");
-			gCodeFile.Add("G0");
-			gCodeFile.Add("G28W0");
-			gCodeFile.Add("G50S200");
-			gCodeFile.Add("G96S230M4");
-			gCodeFile.Add("T2W202");
-			gCodeFile.Add("");
-		}
-
-		static void StartPosition(List<string> gCodeFile)
-		{
-			float maximumHeight = 0;
-			float stockHeight = 2;
-			float stockWidth = 2;
-
-			foreach (Line line in MainApp.Lines)
-			{
-				//Find Maximum Height
-				if (line.StartY > maximumHeight)
-				{
-					maximumHeight = line.StartY;
-				}
-				else if (line.EndY > maximumHeight)
-				{
-					maximumHeight = line.EndY;
-				}
-
-				//Add stock material
-				maximumHeight += stockHeight;
-			}
-			//Fill G Code
-			gCodeFile.Add("(START POSITION)");
-			gCodeFile.Add($"G0 X{maximumHeight * 2} Z{stockWidth}");
-			gCodeFile.Add("");
-		}
-
-		static void G71Roughing(List<string> gCodeFile, Dictionary<string, decimal> g71Attributes)
-		{
-			//Fill G Code
-			gCodeFile.Add("(G71 ROUGHING)");
-			gCodeFile.Add($"G71 U{g71Attributes["depthOfCut"]} R{g71Attributes["retractValue"]}");
-			gCodeFile.Add($"G71 P1 Q2 U{g71Attributes["xAllowance"]} W{g71Attributes["zAllowance"]} F{g71Attributes["feedRate"]}");
-			gCodeFile.Add("");
-		}
-
-		static void ProfileBlock(List<string> gCodeFile)
-		{
-			//Fill G Code
-			gCodeFile.Add("(PROFILE BLOCK)");
-			gCodeFile.Add("N1");
-			foreach (GCodePoint gCodePoint in MainApp.GCodePoints)
-			{
-				if (gCodePoint.Type == "line")
-				{
-					gCodeFile.Add($"G0 X{gCodePoint.X * 2} Z{gCodePoint.Z}");
-				}
-
-				if (gCodePoint.Type == "arc" && gCodePoint.Clockwise)
-				{
-					gCodeFile.Add($"G2 X{gCodePoint.X * 2} Z{gCodePoint.Z} R{gCodePoint.R}");
-				}
-
-				if (gCodePoint.Type == "arc" && gCodePoint.AntiClockwise)
-				{
-					gCodeFile.Add($"G3 X{gCodePoint.X * 2} Z{gCodePoint.Z} R{gCodePoint.R}");
-				}
-			}
-			gCodeFile.Add("N2");
-			gCodeFile.Add("");
-		}
-
-		static void G70Finishing(List<string> gCodeFile)
-		{
-			//Fill G Code
-			gCodeFile.Add("(G70 FINISHING)");
-			gCodeFile.Add("G70 P1 Q2");
-			gCodeFile.Add("");
-		}
-
-		static void LatheEnd(List<string> gCodeFile)
-		{
-			//Fill G Code
-			gCodeFile.Add("(LATHE END)");
-			gCodeFile.Add("G0");
-			gCodeFile.Add("G40");
-			gCodeFile.Add("G28U0");
-			gCodeFile.Add("G0");
-			gCodeFile.Add("G28W0");
-			gCodeFile.Add("M99");
-			gCodeFile.Add("%");
-			gCodeFile.Add("");
-		}
+		
 
 		public static void G71ProfileCode(decimal depthOfCut, decimal retractValue, decimal xAllowance, decimal zAllowance, decimal feedRate)
 		{

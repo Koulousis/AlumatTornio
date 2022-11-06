@@ -1,20 +1,39 @@
-﻿using DXF.SetupFile;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DXF.Elements;
 
-namespace DXF.Modify
+namespace DXF.Actions
 {
-	public class Get
+	public static class Get
 	{
-		public static int TransforWidth(int width)
+		public static float Gap()
+		{
+			float gap = MainApp.Lines[0].StartX;
+
+			//Get the closest distance from origin
+			foreach (Line line in MainApp.Lines)
+			{
+				if (line.StartX > gap)
+				{
+					gap = line.StartX;
+				}
+				if (line.EndX > gap)
+				{
+					gap = line.EndX;
+				}
+			}
+			return gap;
+		}
+
+		public static int TransformWidth(int width)
 		{
 			int tranformWidth = width - (width / 10);
 			return tranformWidth;
 		}
-		public static int TransforHeight(int height)
+		public static int TransformHeight(int height)
 		{
 			int tranformHeight = height - (height / 10);
 			return tranformHeight;
@@ -41,7 +60,7 @@ namespace DXF.Modify
 				else
 				{
 					continue;
-				}				
+				}
 			}
 
 			foreach (Line line in MainApp.Lines)
@@ -61,7 +80,7 @@ namespace DXF.Modify
 			}
 
 			scaleOnWidth = ((float)viewWidth - 50) / Math.Abs(dummyWidth);
-			scaleOnHeight = ((float)viewHeight - 100)/ dummyHeight;
+			scaleOnHeight = ((float)viewHeight - 100) / dummyHeight;
 
 			if (scaleOnWidth < scaleOnHeight)
 			{
@@ -71,6 +90,6 @@ namespace DXF.Modify
 			{
 				return scaleOnHeight;
 			}
-		}		
+		}
 	}
 }

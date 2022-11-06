@@ -1,14 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using DXF.Elements;
+using DXF.Properties;
 
-namespace DXF.SetupFile
+namespace DXF.Actions
 {
-	public static class FromDxf
+	public static class Read
 	{
-		public static void GetLines()
+		public static bool DxfFile()
+		{
+			//Trigger the user to select a file via a dialog with dxf files filter
+			OpenFileDialog selectDxfDialog = new OpenFileDialog()
+			{
+				Title = @"Select file",
+				InitialDirectory = Settings.Default["DxfFolderPath"].ToString(),
+				DefaultExt = @".dxf",
+				Filter = @"DXF Files (*.dxf)|*.dxf"
+			};
+
+			//If file has been selected, isolate the ENTITIES part from the dxf in the string list
+			//and return true to know that the user has selected a file
+			if (selectDxfDialog.ShowDialog() == DialogResult.OK)
+			{
+				MainApp.DxfFileName = Path.GetFileNameWithoutExtension(selectDxfDialog.FileName);
+				string[] dxfTextArray = System.IO.File.ReadAllLines(selectDxfDialog.FileName);
+				MainApp.DxfText = dxfTextArray.ToList();
+				MainApp.DxfText.RemoveRange(0, MainApp.DxfText.IndexOf("ENTITIES"));
+				MainApp.DxfText.RemoveRange(MainApp.DxfText.IndexOf("ENDSEC") + 1, MainApp.DxfText.LastIndexOf("EOF") - MainApp.DxfText.IndexOf("ENDSEC"));
+
+				selectDxfDialog.Dispose();
+				return true;
+			}
+			selectDxfDialog.Dispose();
+			return false;
+		}
+
+		public static void DxfLines()
 		{
 			for (int i = 0; i < MainApp.DxfText.Count; i++)
 			{
@@ -36,7 +68,7 @@ namespace DXF.SetupFile
 			}
 		}
 
-		public static void GetArcs()
+		public static void DxfArcs()
 		{
 			//Create list to add the created arcs
 			for (int i = 0; i < MainApp.DxfText.Count; i++)
@@ -47,7 +79,7 @@ namespace DXF.SetupFile
 					int indexOfCenterX = i + 2;
 					int indexOfCenterY = i + 4;
 					int indexOfRadius = i + 8;
-					int indexOfStartAngle = MainApp.DxfText.ElementAt(i + 10) == "AcDbArc"? i + 12 : i + 18;
+					int indexOfStartAngle = MainApp.DxfText.ElementAt(i + 10) == "AcDbArc" ? i + 12 : i + 18;
 					int indexOfEndAngle = MainApp.DxfText.ElementAt(i + 10) == "AcDbArc" ? i + 14 : i + 20;
 
 					string textOfCenterX = MainApp.DxfText.ElementAt(indexOfCenterX);
@@ -62,10 +94,10 @@ namespace DXF.SetupFile
 					float radius = StringToThreeDigitFloat(textOfRadius);
 					float startAngle = StringToThreeDigitFloat(textOfStartAngle);
 					float endAngle = StringToThreeDigitFloat(textOfEndAngle);
-					
+
 					MainApp.Arcs.Add(new Arc(centerX, centerY, radius, startAngle, endAngle));
-				}				
-			}		
+				}
+			}
 		}
 
 		public static float StringToThreeDigitFloat(string textLine)
@@ -75,16 +107,6 @@ namespace DXF.SetupFile
 			float givenText = float.Parse(textLine);
 			string formatText = $"{givenText:0.000}";
 			return float.Parse(formatText);
-		}
-
-		public static void RemoveDuplicateLines()
-		{
-			MainApp.Lines.GroupBy(x => new { x.StartX, x.StartY, x.EndX, x.EndY }).Select(x => x.First());
-		}
-
-		public static void RemoveDuplicateArcs()
-		{
-			MainApp.Arcs.GroupBy(x => new { x.CenterX, x.CenterY, x.Radius, x.StartAngle, x.EndAngle }).Select(x => x.First()).ToList();
 		}
 	}
 }
