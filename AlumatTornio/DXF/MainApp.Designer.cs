@@ -38,6 +38,8 @@ namespace DXF
 			this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.changeDXFFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.changeExportFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.openDXFFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.openExportFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.g71RoughingCycleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.g72FacingCycleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,52 +49,52 @@ namespace DXF
 			this.axesVisualizeCheckBox = new System.Windows.Forms.CheckBox();
 			this.copyrightsBanner = new System.Windows.Forms.Panel();
 			this.copyrights = new System.Windows.Forms.TextBox();
+			this.banner = new System.Windows.Forms.PictureBox();
 			this.exportGCode = new System.Windows.Forms.Button();
 			this.exportProgressBar = new System.Windows.Forms.ProgressBar();
 			this.g71Settings = new System.Windows.Forms.GroupBox();
-			this.feedRateInput = new System.Windows.Forms.NumericUpDown();
-			this.zAllowanceInput = new System.Windows.Forms.NumericUpDown();
-			this.xAllowanceInput = new System.Windows.Forms.NumericUpDown();
-			this.retractValueInput = new System.Windows.Forms.NumericUpDown();
-			this.depthOfCutInput = new System.Windows.Forms.NumericUpDown();
-			this.feedRateLabel = new System.Windows.Forms.Label();
-			this.zAllowanceLabel = new System.Windows.Forms.Label();
-			this.xAllowanceLabel = new System.Windows.Forms.Label();
-			this.retractValueLabel = new System.Windows.Forms.Label();
-			this.depthOfCutLabel = new System.Windows.Forms.Label();
+			this.g71FeedRateInput = new System.Windows.Forms.NumericUpDown();
+			this.g71ZAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.g71XAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.g71RetractInput = new System.Windows.Forms.NumericUpDown();
+			this.g71DepthOfCutInput = new System.Windows.Forms.NumericUpDown();
+			this.g71FeedRateLabel = new System.Windows.Forms.Label();
+			this.g71AllowanceZLabel = new System.Windows.Forms.Label();
+			this.g71AllowanceXLabel = new System.Windows.Forms.Label();
+			this.g71RetractLabel = new System.Windows.Forms.Label();
+			this.g71DepthOfCutLabel = new System.Windows.Forms.Label();
 			this.g72Settings = new System.Windows.Forms.GroupBox();
-			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label4 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
+			this.g72FeedRateInput = new System.Windows.Forms.NumericUpDown();
+			this.g72ZAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.g72XAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.g72RetractInput = new System.Windows.Forms.NumericUpDown();
+			this.g72DepthOfCutInput = new System.Windows.Forms.NumericUpDown();
+			this.g72FeedRateLabel = new System.Windows.Forms.Label();
+			this.g72AllowanceZLabel = new System.Windows.Forms.Label();
+			this.g72AllowanceXLabel = new System.Windows.Forms.Label();
+			this.g72RetractLabel = new System.Windows.Forms.Label();
+			this.g72DepthOfCutLabel = new System.Windows.Forms.Label();
 			this.gCodeTextBox = new System.Windows.Forms.RichTextBox();
 			this.statusLabel = new System.Windows.Forms.Label();
 			this.statusTitleLabel = new System.Windows.Forms.Label();
-			this.banner = new System.Windows.Forms.PictureBox();
-			this.View = new System.Windows.Forms.PictureBox();
+			this.VisuilizationPanel = new System.Windows.Forms.PictureBox();
 			this.mainAppMenu.SuspendLayout();
 			this.visualizeSelector.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
-			this.g71Settings.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.feedRateInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.zAllowanceInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.xAllowanceInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.retractValueInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.depthOfCutInput)).BeginInit();
-			this.g72Settings.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.banner)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.View)).BeginInit();
+			this.g71Settings.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.g71FeedRateInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.g71ZAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.g71XAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.g71RetractInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.g71DepthOfCutInput)).BeginInit();
+			this.g72Settings.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.g72FeedRateInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.g72ZAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.g72XAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.g72RetractInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.g72DepthOfCutInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.VisuilizationPanel)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// coordinatesLabel
@@ -146,7 +148,9 @@ namespace DXF
 			// 
 			this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.changeDXFFolderToolStripMenuItem,
-            this.changeExportFolderToolStripMenuItem});
+            this.changeExportFolderToolStripMenuItem,
+            this.openDXFFolderToolStripMenuItem,
+            this.openExportFolderToolStripMenuItem});
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
 			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 22);
 			this.settingsToolStripMenuItem.Text = "Settings";
@@ -164,6 +168,20 @@ namespace DXF
 			this.changeExportFolderToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
 			this.changeExportFolderToolStripMenuItem.Text = "Choose Export Folder";
 			this.changeExportFolderToolStripMenuItem.Click += new System.EventHandler(this.changeExportFolderToolStripMenuItem_Click);
+			// 
+			// openDXFFolderToolStripMenuItem
+			// 
+			this.openDXFFolderToolStripMenuItem.Name = "openDXFFolderToolStripMenuItem";
+			this.openDXFFolderToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+			this.openDXFFolderToolStripMenuItem.Text = "Open DXF Folder";
+			this.openDXFFolderToolStripMenuItem.Click += new System.EventHandler(this.openDXFFolderToolStripMenuItem_Click);
+			// 
+			// openExportFolderToolStripMenuItem
+			// 
+			this.openExportFolderToolStripMenuItem.Name = "openExportFolderToolStripMenuItem";
+			this.openExportFolderToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+			this.openExportFolderToolStripMenuItem.Text = "Open Export Folder";
+			this.openExportFolderToolStripMenuItem.Click += new System.EventHandler(this.openExportFolderToolStripMenuItem_Click);
 			// 
 			// infoToolStripMenuItem
 			// 
@@ -274,503 +292,6 @@ namespace DXF
 			this.copyrights.TabIndex = 1;
 			this.copyrights.Text = "© Alumat Srl 2022. All Rights Reserved";
 			// 
-			// exportGCode
-			// 
-			this.exportGCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.exportGCode.Location = new System.Drawing.Point(457, 399);
-			this.exportGCode.Name = "exportGCode";
-			this.exportGCode.Size = new System.Drawing.Size(179, 74);
-			this.exportGCode.TabIndex = 5;
-			this.exportGCode.Text = "Generate G Code";
-			this.exportGCode.UseVisualStyleBackColor = true;
-			this.exportGCode.Click += new System.EventHandler(this.exportGCode_Click);
-			// 
-			// exportProgressBar
-			// 
-			this.exportProgressBar.Location = new System.Drawing.Point(457, 479);
-			this.exportProgressBar.Name = "exportProgressBar";
-			this.exportProgressBar.Size = new System.Drawing.Size(179, 24);
-			this.exportProgressBar.TabIndex = 6;
-			// 
-			// g71Settings
-			// 
-			this.g71Settings.Controls.Add(this.feedRateInput);
-			this.g71Settings.Controls.Add(this.zAllowanceInput);
-			this.g71Settings.Controls.Add(this.xAllowanceInput);
-			this.g71Settings.Controls.Add(this.retractValueInput);
-			this.g71Settings.Controls.Add(this.depthOfCutInput);
-			this.g71Settings.Controls.Add(this.feedRateLabel);
-			this.g71Settings.Controls.Add(this.zAllowanceLabel);
-			this.g71Settings.Controls.Add(this.xAllowanceLabel);
-			this.g71Settings.Controls.Add(this.retractValueLabel);
-			this.g71Settings.Controls.Add(this.depthOfCutLabel);
-			this.g71Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.g71Settings.Location = new System.Drawing.Point(267, 27);
-			this.g71Settings.Name = "g71Settings";
-			this.g71Settings.Size = new System.Drawing.Size(163, 174);
-			this.g71Settings.TabIndex = 7;
-			this.g71Settings.TabStop = false;
-			this.g71Settings.Text = "G71 Roughing Cycle";
-			// 
-			// feedRateInput
-			// 
-			this.feedRateInput.DecimalPlaces = 2;
-			this.feedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.feedRateInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.feedRateInput.Location = new System.Drawing.Point(100, 140);
-			this.feedRateInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.feedRateInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.feedRateInput.Name = "feedRateInput";
-			this.feedRateInput.Size = new System.Drawing.Size(53, 26);
-			this.feedRateInput.TabIndex = 9;
-			this.feedRateInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.feedRateInput.ValueChanged += new System.EventHandler(this.feedRateInput_ValueChanged);
-			// 
-			// zAllowanceInput
-			// 
-			this.zAllowanceInput.DecimalPlaces = 2;
-			this.zAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.zAllowanceInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.zAllowanceInput.Location = new System.Drawing.Point(100, 110);
-			this.zAllowanceInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.zAllowanceInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.zAllowanceInput.Name = "zAllowanceInput";
-			this.zAllowanceInput.Size = new System.Drawing.Size(53, 26);
-			this.zAllowanceInput.TabIndex = 8;
-			this.zAllowanceInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.zAllowanceInput.ValueChanged += new System.EventHandler(this.zAllowanceInput_ValueChanged);
-			// 
-			// xAllowanceInput
-			// 
-			this.xAllowanceInput.DecimalPlaces = 2;
-			this.xAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.xAllowanceInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.xAllowanceInput.Location = new System.Drawing.Point(100, 80);
-			this.xAllowanceInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.xAllowanceInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.xAllowanceInput.Name = "xAllowanceInput";
-			this.xAllowanceInput.Size = new System.Drawing.Size(53, 26);
-			this.xAllowanceInput.TabIndex = 7;
-			this.xAllowanceInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.xAllowanceInput.ValueChanged += new System.EventHandler(this.xAllowanceInput_ValueChanged);
-			// 
-			// retractValueInput
-			// 
-			this.retractValueInput.DecimalPlaces = 2;
-			this.retractValueInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.retractValueInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.retractValueInput.Location = new System.Drawing.Point(100, 50);
-			this.retractValueInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.retractValueInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.retractValueInput.Name = "retractValueInput";
-			this.retractValueInput.Size = new System.Drawing.Size(53, 26);
-			this.retractValueInput.TabIndex = 6;
-			this.retractValueInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.retractValueInput.ValueChanged += new System.EventHandler(this.retractValueInput_ValueChanged);
-			// 
-			// depthOfCutInput
-			// 
-			this.depthOfCutInput.DecimalPlaces = 2;
-			this.depthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.depthOfCutInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.depthOfCutInput.Location = new System.Drawing.Point(100, 20);
-			this.depthOfCutInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.depthOfCutInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.depthOfCutInput.Name = "depthOfCutInput";
-			this.depthOfCutInput.Size = new System.Drawing.Size(53, 26);
-			this.depthOfCutInput.TabIndex = 5;
-			this.depthOfCutInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.depthOfCutInput.ValueChanged += new System.EventHandler(this.depthOfCutInput_ValueChanged);
-			// 
-			// feedRateLabel
-			// 
-			this.feedRateLabel.AutoSize = true;
-			this.feedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.feedRateLabel.ForeColor = System.Drawing.Color.Black;
-			this.feedRateLabel.Location = new System.Drawing.Point(25, 145);
-			this.feedRateLabel.Name = "feedRateLabel";
-			this.feedRateLabel.Size = new System.Drawing.Size(69, 16);
-			this.feedRateLabel.TabIndex = 4;
-			this.feedRateLabel.Text = "Feed rate:";
-			// 
-			// zAllowanceLabel
-			// 
-			this.zAllowanceLabel.AutoSize = true;
-			this.zAllowanceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.zAllowanceLabel.ForeColor = System.Drawing.Color.Black;
-			this.zAllowanceLabel.Location = new System.Drawing.Point(10, 115);
-			this.zAllowanceLabel.Name = "zAllowanceLabel";
-			this.zAllowanceLabel.Size = new System.Drawing.Size(84, 16);
-			this.zAllowanceLabel.TabIndex = 3;
-			this.zAllowanceLabel.Text = "Z Allowance:";
-			// 
-			// xAllowanceLabel
-			// 
-			this.xAllowanceLabel.AutoSize = true;
-			this.xAllowanceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.xAllowanceLabel.ForeColor = System.Drawing.Color.Black;
-			this.xAllowanceLabel.Location = new System.Drawing.Point(10, 85);
-			this.xAllowanceLabel.Name = "xAllowanceLabel";
-			this.xAllowanceLabel.Size = new System.Drawing.Size(84, 16);
-			this.xAllowanceLabel.TabIndex = 2;
-			this.xAllowanceLabel.Text = "X Allowance:";
-			// 
-			// retractValueLabel
-			// 
-			this.retractValueLabel.AutoSize = true;
-			this.retractValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.retractValueLabel.ForeColor = System.Drawing.Color.Black;
-			this.retractValueLabel.Location = new System.Drawing.Point(4, 55);
-			this.retractValueLabel.Name = "retractValueLabel";
-			this.retractValueLabel.Size = new System.Drawing.Size(90, 16);
-			this.retractValueLabel.TabIndex = 1;
-			this.retractValueLabel.Text = "Retract value:";
-			// 
-			// depthOfCutLabel
-			// 
-			this.depthOfCutLabel.AutoSize = true;
-			this.depthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.depthOfCutLabel.ForeColor = System.Drawing.Color.Black;
-			this.depthOfCutLabel.Location = new System.Drawing.Point(13, 25);
-			this.depthOfCutLabel.Name = "depthOfCutLabel";
-			this.depthOfCutLabel.Size = new System.Drawing.Size(81, 16);
-			this.depthOfCutLabel.TabIndex = 0;
-			this.depthOfCutLabel.Text = "Depth of cut:";
-			// 
-			// g72Settings
-			// 
-			this.g72Settings.Controls.Add(this.numericUpDown1);
-			this.g72Settings.Controls.Add(this.numericUpDown2);
-			this.g72Settings.Controls.Add(this.numericUpDown3);
-			this.g72Settings.Controls.Add(this.numericUpDown4);
-			this.g72Settings.Controls.Add(this.numericUpDown5);
-			this.g72Settings.Controls.Add(this.label1);
-			this.g72Settings.Controls.Add(this.label2);
-			this.g72Settings.Controls.Add(this.label3);
-			this.g72Settings.Controls.Add(this.label4);
-			this.g72Settings.Controls.Add(this.label5);
-			this.g72Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.g72Settings.Location = new System.Drawing.Point(267, 210);
-			this.g72Settings.Name = "g72Settings";
-			this.g72Settings.Size = new System.Drawing.Size(163, 174);
-			this.g72Settings.TabIndex = 10;
-			this.g72Settings.TabStop = false;
-			this.g72Settings.Text = "G72 Facing Cycle";
-			// 
-			// numericUpDown1
-			// 
-			this.numericUpDown1.DecimalPlaces = 2;
-			this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numericUpDown1.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.numericUpDown1.Location = new System.Drawing.Point(100, 140);
-			this.numericUpDown1.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.numericUpDown1.Name = "numericUpDown1";
-			this.numericUpDown1.Size = new System.Drawing.Size(53, 26);
-			this.numericUpDown1.TabIndex = 9;
-			this.numericUpDown1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			// 
-			// numericUpDown2
-			// 
-			this.numericUpDown2.DecimalPlaces = 2;
-			this.numericUpDown2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numericUpDown2.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.numericUpDown2.Location = new System.Drawing.Point(100, 110);
-			this.numericUpDown2.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.numericUpDown2.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.numericUpDown2.Name = "numericUpDown2";
-			this.numericUpDown2.Size = new System.Drawing.Size(53, 26);
-			this.numericUpDown2.TabIndex = 8;
-			this.numericUpDown2.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			// 
-			// numericUpDown3
-			// 
-			this.numericUpDown3.DecimalPlaces = 2;
-			this.numericUpDown3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numericUpDown3.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.numericUpDown3.Location = new System.Drawing.Point(100, 80);
-			this.numericUpDown3.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.numericUpDown3.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.numericUpDown3.Name = "numericUpDown3";
-			this.numericUpDown3.Size = new System.Drawing.Size(53, 26);
-			this.numericUpDown3.TabIndex = 7;
-			this.numericUpDown3.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			// 
-			// numericUpDown4
-			// 
-			this.numericUpDown4.DecimalPlaces = 2;
-			this.numericUpDown4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numericUpDown4.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.numericUpDown4.Location = new System.Drawing.Point(100, 50);
-			this.numericUpDown4.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.numericUpDown4.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.numericUpDown4.Name = "numericUpDown4";
-			this.numericUpDown4.Size = new System.Drawing.Size(53, 26);
-			this.numericUpDown4.TabIndex = 6;
-			this.numericUpDown4.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			// 
-			// numericUpDown5
-			// 
-			this.numericUpDown5.DecimalPlaces = 2;
-			this.numericUpDown5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numericUpDown5.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.numericUpDown5.Location = new System.Drawing.Point(100, 20);
-			this.numericUpDown5.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.numericUpDown5.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.numericUpDown5.Name = "numericUpDown5";
-			this.numericUpDown5.Size = new System.Drawing.Size(53, 26);
-			this.numericUpDown5.TabIndex = 5;
-			this.numericUpDown5.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.ForeColor = System.Drawing.Color.Black;
-			this.label1.Location = new System.Drawing.Point(25, 145);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(69, 16);
-			this.label1.TabIndex = 4;
-			this.label1.Text = "Feed rate:";
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.ForeColor = System.Drawing.Color.Black;
-			this.label2.Location = new System.Drawing.Point(10, 115);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(84, 16);
-			this.label2.TabIndex = 3;
-			this.label2.Text = "Z Allowance:";
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label3.ForeColor = System.Drawing.Color.Black;
-			this.label3.Location = new System.Drawing.Point(10, 85);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(84, 16);
-			this.label3.TabIndex = 2;
-			this.label3.Text = "X Allowance:";
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label4.ForeColor = System.Drawing.Color.Black;
-			this.label4.Location = new System.Drawing.Point(6, 55);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(90, 16);
-			this.label4.TabIndex = 1;
-			this.label4.Text = "Retract value:";
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.ForeColor = System.Drawing.Color.Black;
-			this.label5.Location = new System.Drawing.Point(13, 25);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(81, 16);
-			this.label5.TabIndex = 0;
-			this.label5.Text = "Depth of cut:";
-			// 
-			// gCodeTextBox
-			// 
-			this.gCodeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-			this.gCodeTextBox.ForeColor = System.Drawing.Color.WhiteSmoke;
-			this.gCodeTextBox.Location = new System.Drawing.Point(457, 33);
-			this.gCodeTextBox.Name = "gCodeTextBox";
-			this.gCodeTextBox.ReadOnly = true;
-			this.gCodeTextBox.Size = new System.Drawing.Size(179, 351);
-			this.gCodeTextBox.TabIndex = 11;
-			this.gCodeTextBox.Text = "";
-			// 
-			// statusLabel
-			// 
-			this.statusLabel.AutoSize = true;
-			this.statusLabel.BackColor = System.Drawing.SystemColors.InfoText;
-			this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.statusLabel.Location = new System.Drawing.Point(536, 507);
-			this.statusLabel.Name = "statusLabel";
-			this.statusLabel.Size = new System.Drawing.Size(43, 20);
-			this.statusLabel.TabIndex = 12;
-			this.statusLabel.Text = "clear";
-			// 
-			// statusTitleLabel
-			// 
-			this.statusTitleLabel.AutoSize = true;
-			this.statusTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.statusTitleLabel.Location = new System.Drawing.Point(453, 507);
-			this.statusTitleLabel.Name = "statusTitleLabel";
-			this.statusTitleLabel.Size = new System.Drawing.Size(86, 20);
-			this.statusTitleLabel.TabIndex = 13;
-			this.statusTitleLabel.Text = "File status:";
-			// 
 			// banner
 			// 
 			this.banner.BackColor = System.Drawing.SystemColors.Window;
@@ -784,18 +305,520 @@ namespace DXF
 			this.banner.TabIndex = 0;
 			this.banner.TabStop = false;
 			// 
-			// View
+			// exportGCode
 			// 
-			this.View.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-			this.View.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.View.Cursor = System.Windows.Forms.Cursors.Cross;
-			this.View.Location = new System.Drawing.Point(12, 27);
-			this.View.Name = "View";
-			this.View.Size = new System.Drawing.Size(250, 500);
-			this.View.TabIndex = 0;
-			this.View.TabStop = false;
-			this.View.Paint += new System.Windows.Forms.PaintEventHandler(this.View_Paint);
-			this.View.MouseMove += new System.Windows.Forms.MouseEventHandler(this.View_MouseMove);
+			this.exportGCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.exportGCode.Location = new System.Drawing.Point(443, 399);
+			this.exportGCode.Name = "exportGCode";
+			this.exportGCode.Size = new System.Drawing.Size(193, 74);
+			this.exportGCode.TabIndex = 5;
+			this.exportGCode.Text = "Generate G Code";
+			this.exportGCode.UseVisualStyleBackColor = true;
+			this.exportGCode.Click += new System.EventHandler(this.exportGCode_Click);
+			// 
+			// exportProgressBar
+			// 
+			this.exportProgressBar.Location = new System.Drawing.Point(443, 479);
+			this.exportProgressBar.Name = "exportProgressBar";
+			this.exportProgressBar.Size = new System.Drawing.Size(193, 24);
+			this.exportProgressBar.TabIndex = 6;
+			// 
+			// g71Settings
+			// 
+			this.g71Settings.Controls.Add(this.g71FeedRateInput);
+			this.g71Settings.Controls.Add(this.g71ZAllowanceInput);
+			this.g71Settings.Controls.Add(this.g71XAllowanceInput);
+			this.g71Settings.Controls.Add(this.g71RetractInput);
+			this.g71Settings.Controls.Add(this.g71DepthOfCutInput);
+			this.g71Settings.Controls.Add(this.g71FeedRateLabel);
+			this.g71Settings.Controls.Add(this.g71AllowanceZLabel);
+			this.g71Settings.Controls.Add(this.g71AllowanceXLabel);
+			this.g71Settings.Controls.Add(this.g71RetractLabel);
+			this.g71Settings.Controls.Add(this.g71DepthOfCutLabel);
+			this.g71Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.g71Settings.Location = new System.Drawing.Point(267, 27);
+			this.g71Settings.Name = "g71Settings";
+			this.g71Settings.Size = new System.Drawing.Size(163, 174);
+			this.g71Settings.TabIndex = 7;
+			this.g71Settings.TabStop = false;
+			this.g71Settings.Text = "G71 Roughing Cycle";
+			// 
+			// g71FeedRateInput
+			// 
+			this.g71FeedRateInput.DecimalPlaces = 2;
+			this.g71FeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71FeedRateInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71FeedRateInput.Location = new System.Drawing.Point(100, 140);
+			this.g71FeedRateInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.g71FeedRateInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71FeedRateInput.Name = "g71FeedRateInput";
+			this.g71FeedRateInput.Size = new System.Drawing.Size(53, 26);
+			this.g71FeedRateInput.TabIndex = 9;
+			this.g71FeedRateInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71FeedRateInput.ValueChanged += new System.EventHandler(this.g71FeedRateInput_ValueChanged);
+			// 
+			// g71ZAllowanceInput
+			// 
+			this.g71ZAllowanceInput.DecimalPlaces = 2;
+			this.g71ZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71ZAllowanceInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71ZAllowanceInput.Location = new System.Drawing.Point(100, 110);
+			this.g71ZAllowanceInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.g71ZAllowanceInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71ZAllowanceInput.Name = "g71ZAllowanceInput";
+			this.g71ZAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.g71ZAllowanceInput.TabIndex = 8;
+			this.g71ZAllowanceInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71ZAllowanceInput.ValueChanged += new System.EventHandler(this.g71ZAllowanceInput_ValueChanged);
+			// 
+			// g71XAllowanceInput
+			// 
+			this.g71XAllowanceInput.DecimalPlaces = 2;
+			this.g71XAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71XAllowanceInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71XAllowanceInput.Location = new System.Drawing.Point(100, 80);
+			this.g71XAllowanceInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.g71XAllowanceInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71XAllowanceInput.Name = "g71XAllowanceInput";
+			this.g71XAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.g71XAllowanceInput.TabIndex = 7;
+			this.g71XAllowanceInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71XAllowanceInput.ValueChanged += new System.EventHandler(this.g71XAllowanceInput_ValueChanged);
+			// 
+			// g71RetractInput
+			// 
+			this.g71RetractInput.DecimalPlaces = 2;
+			this.g71RetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71RetractInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71RetractInput.Location = new System.Drawing.Point(100, 50);
+			this.g71RetractInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.g71RetractInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71RetractInput.Name = "g71RetractInput";
+			this.g71RetractInput.Size = new System.Drawing.Size(53, 26);
+			this.g71RetractInput.TabIndex = 6;
+			this.g71RetractInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71RetractInput.ValueChanged += new System.EventHandler(this.g71RetractInput_ValueChanged);
+			// 
+			// g71DepthOfCutInput
+			// 
+			this.g71DepthOfCutInput.DecimalPlaces = 2;
+			this.g71DepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71DepthOfCutInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71DepthOfCutInput.Location = new System.Drawing.Point(100, 20);
+			this.g71DepthOfCutInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.g71DepthOfCutInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71DepthOfCutInput.Name = "g71DepthOfCutInput";
+			this.g71DepthOfCutInput.Size = new System.Drawing.Size(53, 26);
+			this.g71DepthOfCutInput.TabIndex = 5;
+			this.g71DepthOfCutInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g71DepthOfCutInput.ValueChanged += new System.EventHandler(this.g71DepthOfCutInput_ValueChanged);
+			// 
+			// g71FeedRateLabel
+			// 
+			this.g71FeedRateLabel.AutoSize = true;
+			this.g71FeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71FeedRateLabel.ForeColor = System.Drawing.Color.Black;
+			this.g71FeedRateLabel.Location = new System.Drawing.Point(25, 145);
+			this.g71FeedRateLabel.Name = "g71FeedRateLabel";
+			this.g71FeedRateLabel.Size = new System.Drawing.Size(69, 16);
+			this.g71FeedRateLabel.TabIndex = 4;
+			this.g71FeedRateLabel.Text = "Feed rate:";
+			// 
+			// g71AllowanceZLabel
+			// 
+			this.g71AllowanceZLabel.AutoSize = true;
+			this.g71AllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71AllowanceZLabel.ForeColor = System.Drawing.Color.Black;
+			this.g71AllowanceZLabel.Location = new System.Drawing.Point(10, 115);
+			this.g71AllowanceZLabel.Name = "g71AllowanceZLabel";
+			this.g71AllowanceZLabel.Size = new System.Drawing.Size(84, 16);
+			this.g71AllowanceZLabel.TabIndex = 3;
+			this.g71AllowanceZLabel.Text = "Z Allowance:";
+			// 
+			// g71AllowanceXLabel
+			// 
+			this.g71AllowanceXLabel.AutoSize = true;
+			this.g71AllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71AllowanceXLabel.ForeColor = System.Drawing.Color.Black;
+			this.g71AllowanceXLabel.Location = new System.Drawing.Point(10, 85);
+			this.g71AllowanceXLabel.Name = "g71AllowanceXLabel";
+			this.g71AllowanceXLabel.Size = new System.Drawing.Size(84, 16);
+			this.g71AllowanceXLabel.TabIndex = 2;
+			this.g71AllowanceXLabel.Text = "X Allowance:";
+			// 
+			// g71RetractLabel
+			// 
+			this.g71RetractLabel.AutoSize = true;
+			this.g71RetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71RetractLabel.ForeColor = System.Drawing.Color.Black;
+			this.g71RetractLabel.Location = new System.Drawing.Point(4, 55);
+			this.g71RetractLabel.Name = "g71RetractLabel";
+			this.g71RetractLabel.Size = new System.Drawing.Size(90, 16);
+			this.g71RetractLabel.TabIndex = 1;
+			this.g71RetractLabel.Text = "Retract value:";
+			// 
+			// g71DepthOfCutLabel
+			// 
+			this.g71DepthOfCutLabel.AutoSize = true;
+			this.g71DepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71DepthOfCutLabel.ForeColor = System.Drawing.Color.Black;
+			this.g71DepthOfCutLabel.Location = new System.Drawing.Point(13, 25);
+			this.g71DepthOfCutLabel.Name = "g71DepthOfCutLabel";
+			this.g71DepthOfCutLabel.Size = new System.Drawing.Size(81, 16);
+			this.g71DepthOfCutLabel.TabIndex = 0;
+			this.g71DepthOfCutLabel.Text = "Depth of cut:";
+			// 
+			// g72Settings
+			// 
+			this.g72Settings.Controls.Add(this.g72FeedRateInput);
+			this.g72Settings.Controls.Add(this.g72ZAllowanceInput);
+			this.g72Settings.Controls.Add(this.g72XAllowanceInput);
+			this.g72Settings.Controls.Add(this.g72RetractInput);
+			this.g72Settings.Controls.Add(this.g72DepthOfCutInput);
+			this.g72Settings.Controls.Add(this.g72FeedRateLabel);
+			this.g72Settings.Controls.Add(this.g72AllowanceZLabel);
+			this.g72Settings.Controls.Add(this.g72AllowanceXLabel);
+			this.g72Settings.Controls.Add(this.g72RetractLabel);
+			this.g72Settings.Controls.Add(this.g72DepthOfCutLabel);
+			this.g72Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.g72Settings.Location = new System.Drawing.Point(267, 210);
+			this.g72Settings.Name = "g72Settings";
+			this.g72Settings.Size = new System.Drawing.Size(163, 174);
+			this.g72Settings.TabIndex = 10;
+			this.g72Settings.TabStop = false;
+			this.g72Settings.Text = "G72 Facing Cycle";
+			// 
+			// g72FeedRateInput
+			// 
+			this.g72FeedRateInput.DecimalPlaces = 2;
+			this.g72FeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72FeedRateInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72FeedRateInput.Location = new System.Drawing.Point(100, 140);
+			this.g72FeedRateInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.g72FeedRateInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72FeedRateInput.Name = "g72FeedRateInput";
+			this.g72FeedRateInput.Size = new System.Drawing.Size(53, 26);
+			this.g72FeedRateInput.TabIndex = 9;
+			this.g72FeedRateInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72FeedRateInput.ValueChanged += new System.EventHandler(this.g72FeedRateInput_ValueChanged);
+			// 
+			// g72ZAllowanceInput
+			// 
+			this.g72ZAllowanceInput.DecimalPlaces = 2;
+			this.g72ZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72ZAllowanceInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72ZAllowanceInput.Location = new System.Drawing.Point(100, 110);
+			this.g72ZAllowanceInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.g72ZAllowanceInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72ZAllowanceInput.Name = "g72ZAllowanceInput";
+			this.g72ZAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.g72ZAllowanceInput.TabIndex = 8;
+			this.g72ZAllowanceInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72ZAllowanceInput.ValueChanged += new System.EventHandler(this.g72ZAllowanceInput_ValueChanged);
+			// 
+			// g72XAllowanceInput
+			// 
+			this.g72XAllowanceInput.DecimalPlaces = 2;
+			this.g72XAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72XAllowanceInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72XAllowanceInput.Location = new System.Drawing.Point(100, 80);
+			this.g72XAllowanceInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.g72XAllowanceInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72XAllowanceInput.Name = "g72XAllowanceInput";
+			this.g72XAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.g72XAllowanceInput.TabIndex = 7;
+			this.g72XAllowanceInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72XAllowanceInput.ValueChanged += new System.EventHandler(this.g72XAllowanceInput_ValueChanged);
+			// 
+			// g72RetractInput
+			// 
+			this.g72RetractInput.DecimalPlaces = 2;
+			this.g72RetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72RetractInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72RetractInput.Location = new System.Drawing.Point(100, 50);
+			this.g72RetractInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.g72RetractInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72RetractInput.Name = "g72RetractInput";
+			this.g72RetractInput.Size = new System.Drawing.Size(53, 26);
+			this.g72RetractInput.TabIndex = 6;
+			this.g72RetractInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72RetractInput.ValueChanged += new System.EventHandler(this.g72RetractInput_ValueChanged);
+			// 
+			// g72DepthOfCutInput
+			// 
+			this.g72DepthOfCutInput.DecimalPlaces = 2;
+			this.g72DepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72DepthOfCutInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72DepthOfCutInput.Location = new System.Drawing.Point(100, 20);
+			this.g72DepthOfCutInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.g72DepthOfCutInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72DepthOfCutInput.Name = "g72DepthOfCutInput";
+			this.g72DepthOfCutInput.Size = new System.Drawing.Size(53, 26);
+			this.g72DepthOfCutInput.TabIndex = 5;
+			this.g72DepthOfCutInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.g72DepthOfCutInput.ValueChanged += new System.EventHandler(this.g72DepthOfCutInput_ValueChanged);
+			// 
+			// g72FeedRateLabel
+			// 
+			this.g72FeedRateLabel.AutoSize = true;
+			this.g72FeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72FeedRateLabel.ForeColor = System.Drawing.Color.Black;
+			this.g72FeedRateLabel.Location = new System.Drawing.Point(25, 145);
+			this.g72FeedRateLabel.Name = "g72FeedRateLabel";
+			this.g72FeedRateLabel.Size = new System.Drawing.Size(69, 16);
+			this.g72FeedRateLabel.TabIndex = 4;
+			this.g72FeedRateLabel.Text = "Feed rate:";
+			// 
+			// g72AllowanceZLabel
+			// 
+			this.g72AllowanceZLabel.AutoSize = true;
+			this.g72AllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72AllowanceZLabel.ForeColor = System.Drawing.Color.Black;
+			this.g72AllowanceZLabel.Location = new System.Drawing.Point(10, 115);
+			this.g72AllowanceZLabel.Name = "g72AllowanceZLabel";
+			this.g72AllowanceZLabel.Size = new System.Drawing.Size(84, 16);
+			this.g72AllowanceZLabel.TabIndex = 3;
+			this.g72AllowanceZLabel.Text = "Z Allowance:";
+			// 
+			// g72AllowanceXLabel
+			// 
+			this.g72AllowanceXLabel.AutoSize = true;
+			this.g72AllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72AllowanceXLabel.ForeColor = System.Drawing.Color.Black;
+			this.g72AllowanceXLabel.Location = new System.Drawing.Point(10, 85);
+			this.g72AllowanceXLabel.Name = "g72AllowanceXLabel";
+			this.g72AllowanceXLabel.Size = new System.Drawing.Size(84, 16);
+			this.g72AllowanceXLabel.TabIndex = 2;
+			this.g72AllowanceXLabel.Text = "X Allowance:";
+			// 
+			// g72RetractLabel
+			// 
+			this.g72RetractLabel.AutoSize = true;
+			this.g72RetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72RetractLabel.ForeColor = System.Drawing.Color.Black;
+			this.g72RetractLabel.Location = new System.Drawing.Point(6, 55);
+			this.g72RetractLabel.Name = "g72RetractLabel";
+			this.g72RetractLabel.Size = new System.Drawing.Size(90, 16);
+			this.g72RetractLabel.TabIndex = 1;
+			this.g72RetractLabel.Text = "Retract value:";
+			// 
+			// g72DepthOfCutLabel
+			// 
+			this.g72DepthOfCutLabel.AutoSize = true;
+			this.g72DepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72DepthOfCutLabel.ForeColor = System.Drawing.Color.Black;
+			this.g72DepthOfCutLabel.Location = new System.Drawing.Point(13, 25);
+			this.g72DepthOfCutLabel.Name = "g72DepthOfCutLabel";
+			this.g72DepthOfCutLabel.Size = new System.Drawing.Size(81, 16);
+			this.g72DepthOfCutLabel.TabIndex = 0;
+			this.g72DepthOfCutLabel.Text = "Depth of cut:";
+			// 
+			// gCodeTextBox
+			// 
+			this.gCodeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+			this.gCodeTextBox.ForeColor = System.Drawing.Color.WhiteSmoke;
+			this.gCodeTextBox.Location = new System.Drawing.Point(443, 33);
+			this.gCodeTextBox.Name = "gCodeTextBox";
+			this.gCodeTextBox.ReadOnly = true;
+			this.gCodeTextBox.Size = new System.Drawing.Size(193, 351);
+			this.gCodeTextBox.TabIndex = 11;
+			this.gCodeTextBox.Text = "";
+			// 
+			// statusLabel
+			// 
+			this.statusLabel.AutoSize = true;
+			this.statusLabel.BackColor = System.Drawing.SystemColors.InfoText;
+			this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.statusLabel.Location = new System.Drawing.Point(531, 507);
+			this.statusLabel.Name = "statusLabel";
+			this.statusLabel.Size = new System.Drawing.Size(43, 20);
+			this.statusLabel.TabIndex = 12;
+			this.statusLabel.Text = "clear";
+			// 
+			// statusTitleLabel
+			// 
+			this.statusTitleLabel.AutoSize = true;
+			this.statusTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.statusTitleLabel.Location = new System.Drawing.Point(439, 507);
+			this.statusTitleLabel.Name = "statusTitleLabel";
+			this.statusTitleLabel.Size = new System.Drawing.Size(86, 20);
+			this.statusTitleLabel.TabIndex = 13;
+			this.statusTitleLabel.Text = "File status:";
+			// 
+			// VisuilizationPanel
+			// 
+			this.VisuilizationPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+			this.VisuilizationPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.VisuilizationPanel.Cursor = System.Windows.Forms.Cursors.Cross;
+			this.VisuilizationPanel.Location = new System.Drawing.Point(12, 27);
+			this.VisuilizationPanel.Name = "VisuilizationPanel";
+			this.VisuilizationPanel.Size = new System.Drawing.Size(250, 500);
+			this.VisuilizationPanel.TabIndex = 0;
+			this.VisuilizationPanel.TabStop = false;
+			this.VisuilizationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.View_Paint);
+			this.VisuilizationPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.View_MouseMove);
 			// 
 			// MainApp
 			// 
@@ -813,7 +836,7 @@ namespace DXF
 			this.Controls.Add(this.copyrightsBanner);
 			this.Controls.Add(this.visualizeSelector);
 			this.Controls.Add(this.coordinatesLabel);
-			this.Controls.Add(this.View);
+			this.Controls.Add(this.VisuilizationPanel);
 			this.Controls.Add(this.mainAppMenu);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -828,22 +851,22 @@ namespace DXF
 			this.visualizeSelector.PerformLayout();
 			this.copyrightsBanner.ResumeLayout(false);
 			this.copyrightsBanner.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.banner)).EndInit();
 			this.g71Settings.ResumeLayout(false);
 			this.g71Settings.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.feedRateInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.zAllowanceInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.xAllowanceInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.retractValueInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.depthOfCutInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.g71FeedRateInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.g71ZAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.g71XAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.g71RetractInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.g71DepthOfCutInput)).EndInit();
 			this.g72Settings.ResumeLayout(false);
 			this.g72Settings.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.banner)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.View)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.g72FeedRateInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.g72ZAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.g72XAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.g72RetractInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.g72DepthOfCutInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.VisuilizationPanel)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -851,7 +874,7 @@ namespace DXF
 
 		#endregion
 
-		private System.Windows.Forms.PictureBox View;
+		private System.Windows.Forms.PictureBox VisuilizationPanel;
 		private System.Windows.Forms.Label coordinatesLabel;
 		private System.Windows.Forms.MenuStrip mainAppMenu;
 		private System.Windows.Forms.ToolStripMenuItem fileMenuItem;
@@ -867,35 +890,37 @@ namespace DXF
 		private System.Windows.Forms.Button exportGCode;
 		private System.Windows.Forms.ProgressBar exportProgressBar;
 		private System.Windows.Forms.GroupBox g71Settings;
-		private System.Windows.Forms.Label feedRateLabel;
-		private System.Windows.Forms.Label zAllowanceLabel;
-		private System.Windows.Forms.Label xAllowanceLabel;
-		private System.Windows.Forms.Label retractValueLabel;
-		private System.Windows.Forms.Label depthOfCutLabel;
-		private System.Windows.Forms.NumericUpDown feedRateInput;
-		private System.Windows.Forms.NumericUpDown zAllowanceInput;
-		private System.Windows.Forms.NumericUpDown xAllowanceInput;
-		private System.Windows.Forms.NumericUpDown retractValueInput;
-		private System.Windows.Forms.NumericUpDown depthOfCutInput;
+		private System.Windows.Forms.Label g71FeedRateLabel;
+		private System.Windows.Forms.Label g71AllowanceZLabel;
+		private System.Windows.Forms.Label g71AllowanceXLabel;
+		private System.Windows.Forms.Label g71RetractLabel;
+		private System.Windows.Forms.Label g71DepthOfCutLabel;
+		private System.Windows.Forms.NumericUpDown g71FeedRateInput;
+		private System.Windows.Forms.NumericUpDown g71ZAllowanceInput;
+		private System.Windows.Forms.NumericUpDown g71XAllowanceInput;
+		private System.Windows.Forms.NumericUpDown g71RetractInput;
+		private System.Windows.Forms.NumericUpDown g71DepthOfCutInput;
 		private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem changeDXFFolderToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem changeExportFolderToolStripMenuItem;
 		private System.Windows.Forms.GroupBox g72Settings;
-		private System.Windows.Forms.NumericUpDown numericUpDown1;
-		private System.Windows.Forms.NumericUpDown numericUpDown2;
-		private System.Windows.Forms.NumericUpDown numericUpDown3;
-		private System.Windows.Forms.NumericUpDown numericUpDown4;
-		private System.Windows.Forms.NumericUpDown numericUpDown5;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.NumericUpDown g72FeedRateInput;
+		private System.Windows.Forms.NumericUpDown g72ZAllowanceInput;
+		private System.Windows.Forms.NumericUpDown g72XAllowanceInput;
+		private System.Windows.Forms.NumericUpDown g72RetractInput;
+		private System.Windows.Forms.NumericUpDown g72DepthOfCutInput;
+		private System.Windows.Forms.Label g72FeedRateLabel;
+		private System.Windows.Forms.Label g72AllowanceZLabel;
+		private System.Windows.Forms.Label g72AllowanceXLabel;
+		private System.Windows.Forms.Label g72RetractLabel;
+		private System.Windows.Forms.Label g72DepthOfCutLabel;
 		private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem g71RoughingCycleToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem g72FacingCycleToolStripMenuItem;
 		private System.Windows.Forms.RichTextBox gCodeTextBox;
 		private System.Windows.Forms.Label statusLabel;
 		private System.Windows.Forms.Label statusTitleLabel;
+		private System.Windows.Forms.ToolStripMenuItem openDXFFolderToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem openExportFolderToolStripMenuItem;
 	}
 }

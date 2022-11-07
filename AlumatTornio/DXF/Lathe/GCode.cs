@@ -18,49 +18,10 @@ namespace DXF.Lathe
 		
 		public static void Export()
 		{
-			string exportFolderPath = $@"{Settings.Default["ExportFolderPath"]}\{MainApp.DxfFileName}.txt";
+			string exportFolderPath = $@"{Settings.Default["ExportFolderPath"]}\{Parameter.DxfFileName}.txt";
 			System.IO.File.WriteAllLines(exportFolderPath, GCode.Text);
 		}
-
 		
-
-		public static void G71ProfileCode(decimal depthOfCut, decimal retractValue, decimal xAllowance, decimal zAllowance, decimal feedRate)
-		{
-			List<string> gCode = new List<string>();
-
-			//G71 Initialization
-			gCode.Add("(G71 ROUGHING)");
-			gCode.Add($"G71 U{depthOfCut} R{retractValue}");
-			gCode.Add($"G71 P1 Q2 U{xAllowance} W{zAllowance} F{feedRate}");
-
-			//Profile
-			gCode.Add("(PROFILE)");
-			gCode.Add("N1");
-			foreach (GCodePoint gCodePoint in MainApp.GCodePoints)
-			{
-				if (gCodePoint.Type == "line")
-				{
-					gCode.Add($"G0 X{gCodePoint.X * 2} Z{gCodePoint.Z}");
-				}
-
-				if (gCodePoint.Type == "arc" && gCodePoint.Clockwise)
-				{
-					gCode.Add($"G2 X{gCodePoint.X * 2} Z{gCodePoint.Z} R{gCodePoint.R}");
-				}
-
-				if (gCodePoint.Type == "arc" && gCodePoint.AntiClockwise)
-				{
-					gCode.Add($"G3 X{gCodePoint.X * 2} Z{gCodePoint.Z} R{gCodePoint.R}");
-				}
-
-			}
-			gCode.Add("N2");
-			gCode.Add("(G70 FINISHING)");
-			gCode.Add("G70 P1 Q2");
-
-			string exportFolderPath = $@"{Settings.Default["ExportFolderPath"]}\{MainApp.DxfFileName}.txt";
-			System.IO.File.WriteAllLines(exportFolderPath, gCode);
-		}
 		public static void G71(Graphics preview)
 		{
 			float clearancePointHeight = StartPosition();
@@ -79,7 +40,7 @@ namespace DXF.Lathe
 		{
 			float dummyHeight = 0;
 
-			foreach (Line line in MainApp.Lines)
+			foreach (Line line in Parameter.AllLines)
 			{
 				if (line.StartY > dummyHeight)
 				{
@@ -99,7 +60,7 @@ namespace DXF.Lathe
 		public static float StartingBlockHeight()
 		{
 			float dummyHeight2 = 0;
-			foreach (Line line in MainApp.Lines)
+			foreach (Line line in Parameter.AllLines)
 			{
 				if (line.StartX == 0 && line.EndX == 0)
 				{
@@ -124,7 +85,7 @@ namespace DXF.Lathe
 		{
 			float dummyWidth = 0;
 
-			foreach (Line line in MainApp.Lines)
+			foreach (Line line in Parameter.AllLines)
 			{
 				if (line.StartX < dummyWidth)
 				{

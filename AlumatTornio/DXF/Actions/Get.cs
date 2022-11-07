@@ -11,10 +11,10 @@ namespace DXF.Actions
 	{
 		public static float Gap()
 		{
-			float gap = MainApp.Lines[0].StartX;
+			float gap = Parameter.AllLines[0].StartX;
 
 			//Get the closest distance from origin
-			foreach (Line line in MainApp.Lines)
+			foreach (Line line in Parameter.AllLines)
 			{
 				if (line.StartX > gap)
 				{
@@ -46,7 +46,7 @@ namespace DXF.Actions
 			float dummyWidth = 0;
 			float dummyHeight = 0;
 
-			foreach (Line line in MainApp.Lines)
+			foreach (Line line in Parameter.AllLines)
 			{
 				//Width
 				if (line.StartX < dummyWidth)
@@ -63,7 +63,7 @@ namespace DXF.Actions
 				}
 			}
 
-			foreach (Line line in MainApp.Lines)
+			foreach (Line line in Parameter.AllLines)
 			{
 				if (line.StartY > dummyHeight)
 				{
@@ -90,6 +90,89 @@ namespace DXF.Actions
 			{
 				return scaleOnHeight;
 			}
+		}
+
+		public static List<Line> DxfLines(List<string> dxfText)
+		{
+			List<Line> dxfLines = new List<Line>();
+			for (int i = 0; i < dxfText.Count; i++)
+			{
+				//Once the AcDbLine is found collect the needed data for the Line object
+				if (dxfText.ElementAt(i) == "AcDbLine")
+				{
+					int indexOfStartX = i + 2;
+					int indexOfStartY = i + 4;
+					int indexOfEndX = i + 8;
+					int indexOfEndY = i + 10;
+
+					string textOfStartX = dxfText.ElementAt(indexOfStartX);
+					string textOfStartY = dxfText.ElementAt(indexOfStartY);
+					string textOfEndX = dxfText.ElementAt(indexOfEndX);
+					string textOfEndY = dxfText.ElementAt(indexOfEndY);
+
+					//Parsing to float has a round effect on the number because of digit limitation
+					float startX = StringToThreeDigitFloat(textOfStartX);
+					float startY = StringToThreeDigitFloat(textOfStartY);
+					float endX = StringToThreeDigitFloat(textOfEndX);
+					float endY = StringToThreeDigitFloat(textOfEndY);
+
+					dxfLines.Add(new Line(startX, startY, endX, endY));
+				}
+			}
+
+			return dxfLines;
+		}
+
+		public static List<Arc> DxfArcs(List<string> dxfText)
+		{
+			List<Arc> dxfArcs = new List<Arc>();
+			//Create list to add the created arcs
+			for (int i = 0; i < dxfText.Count; i++)
+			{
+				//Once the AcDbCircle is found collect the needed data for the Arc object
+				if (Parameter.DxfText.ElementAt(i) == "AcDbCircle")
+				{
+					int indexOfCenterX = i + 2;
+					int indexOfCenterY = i + 4;
+					int indexOfRadius = i + 8;
+					int indexOfStartAngle = dxfText.ElementAt(i + 10) == "AcDbArc" ? i + 12 : i + 18;
+					int indexOfEndAngle = dxfText.ElementAt(i + 10) == "AcDbArc" ? i + 14 : i + 20;
+
+					string textOfCenterX = dxfText.ElementAt(indexOfCenterX);
+					string textOfCenterY = dxfText.ElementAt(indexOfCenterY);
+					string textOfRadius = dxfText.ElementAt(indexOfRadius);
+					string textOfStartAngle = dxfText.ElementAt(indexOfStartAngle);
+					string textOfEndAngle = dxfText.ElementAt(indexOfEndAngle);
+
+					//Parsing to float has a round effect on the number because of digit limitation
+					float centerX = StringToThreeDigitFloat(textOfCenterX);
+					float centerY = StringToThreeDigitFloat(textOfCenterY);
+					float radius = StringToThreeDigitFloat(textOfRadius);
+					float startAngle = StringToThreeDigitFloat(textOfStartAngle);
+					float endAngle = StringToThreeDigitFloat(textOfEndAngle);
+
+					dxfArcs.Add(new Arc(centerX, centerY, radius, startAngle, endAngle));
+				}
+			}
+
+			return dxfArcs;
+		}
+
+		public static float StringToThreeDigitFloat(string textLine)
+		{
+			//Parse text to float to use interpolation to keep 3 decimals only
+			//The converting sequence is: string(parameter) => float(givenText) => string(formatText Interpolation) => float return
+			float givenText = float.Parse(textLine);
+			string formatText = $"{givenText:0.000}";
+			return float.Parse(formatText);
+		}
+
+		public static List<Line> DieLines(List<Line> allLines)
+		{
+			List<Line> dieLines = new List<Line>(Parameter.AllLines);
+
+
+			return dieLines;
 		}
 	}
 }

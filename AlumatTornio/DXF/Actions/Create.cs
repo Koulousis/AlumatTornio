@@ -19,11 +19,11 @@ namespace DXF.Actions
 		public static GraphicsPath FullPath()
 		{
 			GraphicsPath fullPath = new GraphicsPath();
-			int totalElements = MainApp.Lines.Count + MainApp.Arcs.Count;
+			int totalElements = Parameter.AllLines.Count + Parameter.AllArcs.Count;
 
 			for (int i = 1; i <= totalElements; i++)
 			{
-				foreach (Line line in MainApp.Lines)
+				foreach (Line line in Parameter.AllLines)
 				{
 					if (line.Index == i)
 					{
@@ -32,7 +32,7 @@ namespace DXF.Actions
 					}
 				}
 
-				foreach (Arc arc in MainApp.Arcs)
+				foreach (Arc arc in Parameter.AllArcs)
 				{
 					if (arc.Index == i)
 					{
@@ -57,8 +57,8 @@ namespace DXF.Actions
 		{
 			//TODO: Ginetai lathos generate gia to EXA109710-1 - 1.dxf
 			GraphicsPath g71Profile = new GraphicsPath();
-			List<Line> lines = new List<Line>(MainApp.Lines);
-			List<Arc> arcs = new List<Arc>(MainApp.Arcs);
+			List<Line> lines = new List<Line>(Parameter.AllLines);
+			List<Arc> arcs = new List<Arc>(Parameter.AllArcs);
 
 			//Remove from lines list the vertical and horizontal lines which are attached to X axis
 			for (int i = 0; i < lines.Count; i++)
@@ -107,8 +107,8 @@ namespace DXF.Actions
 								yValueHolder = line.EndY;
 								unmatchedMode = false;
 
-								MainApp.GCodePoints.Add(new GCodePoint("line", line.StartY, line.StartX));
-								MainApp.GCodePoints.Add(new GCodePoint("line", line.EndY, line.EndX));
+								Parameter.GCodePoints.Add(new GCodePoint("line", line.StartY, line.StartX));
+								Parameter.GCodePoints.Add(new GCodePoint("line", line.EndY, line.EndX));
 							}
 						}
 						else
@@ -120,10 +120,10 @@ namespace DXF.Actions
 
 								if (!firstEntered)
 								{
-									MainApp.GCodePoints.Add(new GCodePoint("line", line.StartY, line.StartX));
+									Parameter.GCodePoints.Add(new GCodePoint("line", line.StartY, line.StartX));
 								}
 								firstEntered = true;
-								MainApp.GCodePoints.Add(new GCodePoint("line", line.EndY, line.EndX));
+								Parameter.GCodePoints.Add(new GCodePoint("line", line.EndY, line.EndX));
 							}
 							else
 							{
@@ -148,8 +148,8 @@ namespace DXF.Actions
 								yValueHolder = arc.EndY;
 								unmatchedMode = false;
 
-								MainApp.GCodePoints.Add(new GCodePoint("line", arc.StartY, arc.StartX));
-								MainApp.GCodePoints.Add(new GCodePoint("arc", arc.EndY, arc.EndX, arc.Radius, arc.Clockwise, arc.AntiClockwise));
+								Parameter.GCodePoints.Add(new GCodePoint("line", arc.StartY, arc.StartX));
+								Parameter.GCodePoints.Add(new GCodePoint("arc", arc.EndY, arc.EndX, arc.Radius, arc.Clockwise, arc.AntiClockwise));
 							}
 						}
 						else
@@ -161,10 +161,10 @@ namespace DXF.Actions
 
 								if (!firstEntered)
 								{
-									MainApp.GCodePoints.Add(new GCodePoint("line", arc.StartY, arc.StartX));
+									Parameter.GCodePoints.Add(new GCodePoint("line", arc.StartY, arc.StartX));
 								}
 								firstEntered = true;
-								MainApp.GCodePoints.Add(new GCodePoint("arc", arc.EndY, arc.EndX, arc.Radius, arc.Clockwise, arc.AntiClockwise));
+								Parameter.GCodePoints.Add(new GCodePoint("arc", arc.EndY, arc.EndX, arc.Radius, arc.Clockwise, arc.AntiClockwise));
 							}
 							else
 							{

@@ -11,7 +11,7 @@
     <Setting Name="G71DepthOfCut" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
-    <Setting Name="G71RetractValue" Type="System.Decimal" Scope="User">
+    <Setting Name="G71Retract" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
     <Setting Name="G71XAllowance" Type="System.Decimal" Scope="User">
@@ -21,6 +21,21 @@
       <Value Profile="(Default)">0.1</Value>
     </Setting>
     <Setting Name="G71FeedRate" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="G72DepthOfCut" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="G72Retract" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="G72XAllowance" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="G72ZAllowance" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="G72FeedRate" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
   </Settings>

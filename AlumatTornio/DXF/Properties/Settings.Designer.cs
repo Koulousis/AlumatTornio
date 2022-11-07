@@ -62,12 +62,12 @@ namespace DXF.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
-        public decimal G71RetractValue {
+        public decimal G71Retract {
             get {
-                return ((decimal)(this["G71RetractValue"]));
+                return ((decimal)(this["G71Retract"]));
             }
             set {
-                this["G71RetractValue"] = value;
+                this["G71Retract"] = value;
             }
         }
         
@@ -104,6 +104,66 @@ namespace DXF.Properties {
             }
             set {
                 this["G71FeedRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal G72DepthOfCut {
+            get {
+                return ((decimal)(this["G72DepthOfCut"]));
+            }
+            set {
+                this["G72DepthOfCut"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal G72Retract {
+            get {
+                return ((decimal)(this["G72Retract"]));
+            }
+            set {
+                this["G72Retract"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal G72XAllowance {
+            get {
+                return ((decimal)(this["G72XAllowance"]));
+            }
+            set {
+                this["G72XAllowance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal G72ZAllowance {
+            get {
+                return ((decimal)(this["G72ZAllowance"]));
+            }
+            set {
+                this["G72ZAllowance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal G72FeedRate {
+            get {
+                return ((decimal)(this["G72FeedRate"]));
+            }
+            set {
+                this["G72FeedRate"] = value;
             }
         }
     }

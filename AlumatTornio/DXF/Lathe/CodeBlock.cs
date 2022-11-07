@@ -41,7 +41,7 @@ namespace DXF.Lathe
 			float stockHeight = 2;
 			float stockWidth = 2;
 
-			foreach (Line line in MainApp.Lines)
+			foreach (Line line in Parameter.AllLines)
 			{
 				//Find Maximum Height
 				if (line.StartY > maximumHeight)
@@ -87,7 +87,7 @@ namespace DXF.Lathe
 			List<string> profileBlock = new List<string>();
 			profileBlock.Add("(PROFILE BLOCK)");
 			profileBlock.Add("N1");
-			foreach (GCodePoint gCodePoint in MainApp.GCodePoints)
+			foreach (GCodePoint gCodePoint in Parameter.GCodePoints)
 			{
 				if (gCodePoint.Type == "line")
 				{

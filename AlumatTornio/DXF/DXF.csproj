@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="Actions\Read.cs" />
     <Compile Include="Actions\Remove.cs" />
+    <Compile Include="Organizer\Dxf.cs" />
+    <Compile Include="Elements\Parameter.cs" />
     <Compile Include="Lathe\CodeBlock.cs" />
     <Compile Include="Lathe\G72Attributes.cs" />
     <Compile Include="Lathe\G71Attributes.cs" />

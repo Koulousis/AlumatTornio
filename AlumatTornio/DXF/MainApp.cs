@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DXF.Actions;
+using DXF.Organizer;
 using DXF.Elements;
 using DXF.Lathe;
 using DXF.Properties;
@@ -17,58 +19,32 @@ namespace DXF
 {
 	public partial class MainApp : Form
 	{
-		public static List<string> DxfText { get; set; }
-		public static List<Line> Lines { get; set; }
-		public static List<Arc> Arcs { get; set; }
-		public static float ZoomFactor = 1f;
-		public static List<GCodePoint> GCodePoints { get; set; }
-		
-		public static string DxfFileName = "Default";
-
 		public MainApp()
 		{
 			InitializeComponent();
 		}
 
+		#region Application Load
 		private void MainApp_Load(object sender, EventArgs e)
 		{
 			statusLabel.Text = "Not selected";
 			statusLabel.ForeColor = Color.Red;
 
-			depthOfCutInput.Value = Convert.ToDecimal(Settings.Default["G71DepthOfCut"]);
-			retractValueInput.Value = Convert.ToDecimal(Settings.Default["G71RetractValue"]);
-			xAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G71XAllowance"]);
-			zAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G71ZAllowance"]);
-			feedRateInput.Value = Convert.ToDecimal(Settings.Default["G71FeedRate"]);
+			g71DepthOfCutInput.Value = Convert.ToDecimal(Settings.Default["G71DepthOfCut"]);
+			g71RetractInput.Value = Convert.ToDecimal(Settings.Default["G71Retract"]);
+			g71XAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G71XAllowance"]);
+			g71ZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G71ZAllowance"]);
+			g71FeedRateInput.Value = Convert.ToDecimal(Settings.Default["G71FeedRate"]);
+
+			g72DepthOfCutInput.Value = Convert.ToDecimal(Settings.Default["G72DepthOfCut"]);
+			g72RetractInput.Value = Convert.ToDecimal(Settings.Default["G72Retract"]);
+			g72XAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G72XAllowance"]);
+			g72ZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G72ZAllowance"]);
+			g72FeedRateInput.Value = Convert.ToDecimal(Settings.Default["G72FeedRate"]);
 		}
+		#endregion
 
-		private void fileDxfMenuItem_Click(object sender, EventArgs e)
-		{
-			//Prompt the user to select dxf and if selected continue
-			exportProgressBar.Value = 0;
-			gCodeTextBox.Lines = new[] { "" };
-			Lines = new List<Line>();
-			Arcs = new List<Arc>();
-			GCodePoints = new List<GCodePoint>();
-			if (!Read.DxfFile()) return;
-
-			Read.DxfLines();
-			Remove.DuplicateLines();
-			Read.DxfArcs();
-			Remove.DuplicateArcs();
-
-			//Modify the data
-			float gap = Get.Gap();
-			Edit.OffsetLines(gap);
-			//Get.OffsetArcs(gap);
-
-			Edit.AddIndexesAndMakeCorrections();
-			//Re-visualize the data
-			statusLabel.Text = "Opened";
-			statusLabel.ForeColor = Color.Orange;
-			View.Refresh();
-		}
-
+		#region Visualization Panel
 		private void View_Paint(object sender, PaintEventArgs e)
 		{
 			//Setup Graphics and modify origin point and coordinates to cartesian system
@@ -76,51 +52,27 @@ namespace DXF
 			preview.SmoothingMode = SmoothingMode.AntiAlias;
 			Matrix cartesian = new Matrix(1, 0, 0, -1, 0, 0);
 			preview.Transform = cartesian;
-			preview.TranslateTransform(Get.TransformWidth(View.Width), Get.TransformWidth(View.Height), MatrixOrder.Append);
-			
-			if (axesVisualizeCheckBox.Checked) { Visualize.Axes(preview, (float)View.Width / ZoomFactor, (float)View.Height / ZoomFactor); }
+			preview.TranslateTransform(Get.TransformWidth(VisuilizationPanel.Width), Get.TransformWidth(VisuilizationPanel.Height), MatrixOrder.Append);
 
-			if (MainApp.DxfText != null) {
-				ZoomFactor = Get.Scale(View.Width, View.Height);
-				preview.ScaleTransform(ZoomFactor, ZoomFactor);
-				//Create die path
-				//GraphicsPath diePath = Create.Path();
-				GraphicsPath diePath = Create.FullPath();
-				GraphicsPath g71Profile = Create.G71Profile();
+			if (axesVisualizeCheckBox.Checked) { Visualize.Axes(preview, (float)VisuilizationPanel.Width * Elements.Parameter.ZoomFactor, (float)VisuilizationPanel.Height * Elements.Parameter.ZoomFactor); }
+			preview.Transform = new Matrix(1, 0, 0, -1, 0, 0);
+			preview.TranslateTransform(Get.TransformWidth(VisuilizationPanel.Width), Get.TransformWidth(VisuilizationPanel.Height), MatrixOrder.Append);
 
-				//Visualize
-				if (dieVisualizeCheckBox.Checked) { Visualize.Die(preview, diePath); }
-				if (profileVisualizeCheckBox.Checked) { Visualize.G71Profile(preview, g71Profile); }
+			if (Elements.Parameter.DxfText == null) return;
+			Elements.Parameter.ZoomFactor = Get.Scale(VisuilizationPanel.Width, VisuilizationPanel.Height);
+			preview.ScaleTransform(Elements.Parameter.ZoomFactor, Elements.Parameter.ZoomFactor);
+			//Create die path
+			//GraphicsPath diePath = Create.Path();
+			GraphicsPath diePath = Create.FullPath();
+			GraphicsPath g71Profile = Create.G71Profile();
 
-				GCode.G71(preview);
-			}
+			//Visualize
+			if (dieVisualizeCheckBox.Checked) { Visualize.Die(preview, diePath); }
+			if (profileVisualizeCheckBox.Checked) { Visualize.G71Profile(preview, g71Profile); }
+
+			GCode.G71(preview);
 		}
 
-		private void exportGCode_Click(object sender, EventArgs e)
-		{
-			exportProgressBar.Value = 0;
-			for (int i = 0; i < 100; i++) { for (int j = 0; j < 10000; j++) { } exportProgressBar.Value++; }
-
-			//Set G71 Attributes
-			G71Attributes g71Attributes = new G71Attributes(depthOfCutInput.Value, retractValueInput.Value, xAllowanceInput.Value, zAllowanceInput.Value, feedRateInput.Value);
-
-			//Fill G-Code Text
-			GCode.Text.AddRange(CodeBlock.LatheInitialization());
-			GCode.Text.AddRange(CodeBlock.StartPosition());
-			GCode.Text.AddRange(CodeBlock.G71Roughing(g71Attributes));
-			GCode.Text.AddRange(CodeBlock.G71Profile());
-			GCode.Text.AddRange(CodeBlock.G70Finishing());
-			GCode.Text.AddRange(CodeBlock.LatheEnd());
-
-			//G-Code Text Export
-			GCode.Export();
-
-			//Update Status
-			statusLabel.Text = "Exported";
-			statusLabel.ForeColor = Color.Green;
-			gCodeTextBox.Lines = GCode.Text.ToArray();
-		}
-		
 		private void View_MouseMove(object sender, MouseEventArgs e)
 		{
 			//Pixels to millimeters
@@ -128,31 +80,60 @@ namespace DXF
 			Graphics screen = CreateGraphics();
 
 			//Move X and Y origin location
-			double cursorPositionX = Get.TransformWidth(View.Width) - e.Location.X;
-			double cursorPositionY = Get.TransformHeight(View.Height) - e.Location.Y;
+			double cursorPositionX = Get.TransformWidth(VisuilizationPanel.Width) - e.Location.X;
+			double cursorPositionY = Get.TransformHeight(VisuilizationPanel.Height) - e.Location.Y;
 			//Transform pixels to millimeters
 			cursorPositionX += 25.4f / screen.DpiX;
 			cursorPositionY += 25.4f / screen.DpiY;
 
 			//Set Labels text to X and Y mouse position
-			coordinatesLabel.Text = $@"{cursorPositionX / ZoomFactor,0:F3}, {(cursorPositionY / ZoomFactor) * 2,0:F3}";
+			coordinatesLabel.Text = $@"X:{(cursorPositionY / Elements.Parameter.ZoomFactor) * 2,0:F3}, Z:{-cursorPositionX / Elements.Parameter.ZoomFactor,0:F3}";
 		}
+		#endregion
 
+		#region Visualize Options
 		private void axesVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
 		{
-			View.Refresh();
+			VisuilizationPanel.Refresh();
 		}
 
 		private void dieVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
 		{
-			View.Refresh();
+			VisuilizationPanel.Refresh();
 		}
 
 		private void profileVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
 		{
-			View.Refresh();
+			VisuilizationPanel.Refresh();
 		}
+		#endregion
 
+		#region Menu File
+		private void fileDxfMenuItem_Click(object sender, EventArgs e)
+		{
+			//Initialize elements parameters
+			exportProgressBar.Value = 0;
+			gCodeTextBox.Lines = new[] { "" };
+			
+			//Trigger the user to select a file via a dialog with dxf files filter
+			OpenFileDialog selectDxfDialog = new OpenFileDialog()
+			{
+				Title = @"Select file",
+				InitialDirectory = Settings.Default["DxfFolderPath"].ToString(),
+				DefaultExt = @".dxf",
+				Filter = @"DXF Files (*.dxf)|*.dxf"
+			};
+
+			Dxf.Manage(selectDxfDialog);
+
+			//Re-visualize the data
+			statusLabel.Text = "Opened";
+			statusLabel.ForeColor = Color.Orange;
+			VisuilizationPanel.Refresh();
+		}
+		#endregion
+
+		#region Menu Settings
 		private void changeDXFFolderToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var folderBrowserDialog = new FolderBrowserDialog();
@@ -174,6 +155,18 @@ namespace DXF
 			}
 		}
 
+		private void openDXFFolderToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Process.Start(Settings.Default["DxfFolderPath"].ToString());
+		}
+
+		private void openExportFolderToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Process.Start(Settings.Default["ExportFolderPath"].ToString());
+		}
+		#endregion
+
+		#region Menu Infos
 		private void g71RoughingCycleToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			using (Form form = new Form())
@@ -215,35 +208,100 @@ namespace DXF
 				form.ShowDialog();
 			}
 		}
+		#endregion
 
-		private void depthOfCutInput_ValueChanged(object sender, EventArgs e)
+		#region Export
+		private void exportGCode_Click(object sender, EventArgs e)
 		{
-			Settings.Default["G71DepthOfCut"] = depthOfCutInput.Value;
+			//Update Progress Bar
+			exportProgressBar.Value = 0;
+			for (int i = 0; i < 100; i++) { for (int j = 0; j < 10000; j++) { } exportProgressBar.Value++; }
+
+			//Set G71 Attributes
+			G71Attributes g71Attributes = new G71Attributes(g71DepthOfCutInput.Value, g71RetractInput.Value, g71XAllowanceInput.Value, g71ZAllowanceInput.Value, g71FeedRateInput.Value);
+			G72Attributes g72Attributes = new G72Attributes(g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
+
+			//Fill G-Code Text
+			GCode.Text.AddRange(CodeBlock.LatheInitialization());
+			GCode.Text.AddRange(CodeBlock.StartPosition());
+			GCode.Text.AddRange(CodeBlock.G71Roughing(g71Attributes));
+			GCode.Text.AddRange(CodeBlock.G71Profile());
+			GCode.Text.AddRange(CodeBlock.G70Finishing());
+			GCode.Text.AddRange(CodeBlock.LatheEnd());
+
+			//G-Code Text Export
+			GCode.Export();
+
+			//Update File Status
+			statusLabel.Text = "Exported";
+			statusLabel.ForeColor = Color.Green;
+			gCodeTextBox.Lines = GCode.Text.ToArray();
+		}
+		#endregion
+
+		#region G71 Cycle Values Save
+		private void g71DepthOfCutInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["G71DepthOfCut"] = g71DepthOfCutInput.Value;
 			Settings.Default.Save();
 		}
 
-		private void retractValueInput_ValueChanged(object sender, EventArgs e)
+		private void g71RetractInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G71RetractValue"] = retractValueInput.Value;
+			Settings.Default["G71Retract"] = g71RetractInput.Value;
 			Settings.Default.Save();
 		}
 
-		private void xAllowanceInput_ValueChanged(object sender, EventArgs e)
+		private void g71XAllowanceInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G71XAllowance"] = xAllowanceInput.Value;
+			Settings.Default["G71XAllowance"] = g71XAllowanceInput.Value;
 			Settings.Default.Save();
 		}
 
-		private void zAllowanceInput_ValueChanged(object sender, EventArgs e)
+		private void g71ZAllowanceInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G71ZAllowance"] = zAllowanceInput.Value;
+			Settings.Default["G71ZAllowance"] = g71ZAllowanceInput.Value;
 			Settings.Default.Save();
 		}
 
-		private void feedRateInput_ValueChanged(object sender, EventArgs e)
+		private void g71FeedRateInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G71FeedRate"] = feedRateInput.Value;
+			Settings.Default["G71FeedRate"] = g71FeedRateInput.Value;
 			Settings.Default.Save();
 		}
+		#endregion
+
+		#region G72 Cycle Values Save
+		private void g72DepthOfCutInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["G72DepthOfCut"] = g72DepthOfCutInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void g72RetractInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["G72Retract"] = g72RetractInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void g72XAllowanceInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["G72XAllowance"] = g72XAllowanceInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void g72ZAllowanceInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["G72ZAllowance"] = g72ZAllowanceInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void g72FeedRateInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["G72FeedRate"] = g72FeedRateInput.Value;
+			Settings.Default.Save();
+		}
+		#endregion
+		
 	}
 }
