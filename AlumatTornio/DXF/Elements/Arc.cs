@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DXF.Actions;
+using DXF.Tools;
 
 namespace DXF.Elements
 {
@@ -15,6 +17,7 @@ namespace DXF.Elements
 		public float Radius { get; set; }        //Value 40 in DXF
 		public float StartAngle { get; set; }   //Value 50 in DXF
 		public float EndAngle { get; set; }      //Value 51 in DXF
+		public Color Color { get; set; }
 		public float RectangularCornerX { get; set; }
 		public float RectangularCornerY { get; set; }
 		public float Width { get; set; }
@@ -29,11 +32,12 @@ namespace DXF.Elements
 
 
 
-		public Arc(float centerX, float centerY, float radius, float startAngle, float endAngle)
+		public Arc(float centerX, float centerY, float radius, float startAngle, float endAngle, Color color)
 		{
 			CenterX = centerX;
 			CenterY = centerY;
 			Radius = radius;
+			Color = color;
 			RectangularCornerX = centerX - radius;
 			RectangularCornerY = centerY - radius;
 			Width = radius * 2;
@@ -57,7 +61,6 @@ namespace DXF.Elements
 				EndAngle = startAngle;
 				SweepAngle = -CalculateSweepAngle(startAngle, endAngle);
 			}
-			
 
 			int quarter;
 			//Math types are: x = Radius * Cos(angle) and y = Radius * Sin(angle)
@@ -69,16 +72,16 @@ namespace DXF.Elements
 			//To know if the new X,Y points are positive or negative movement from the center
 			//is know from the quarter where the points are
 			StartX = quarter == 1 || quarter == 4 ? centerX + distanceFromCenterOfStartX : centerX - distanceFromCenterOfStartX;
-			StartX = Get.StringToThreeDigitFloat(StartX.ToString());
+			StartX = Conversion.StringToThreeDigitFloat(StartX.ToString());
 
 			StartY = quarter == 1 || quarter == 2 ? centerY + distanceFromCenterOfStartY : centerY - distanceFromCenterOfStartY;
-			StartY = Get.StringToThreeDigitFloat(StartY.ToString());
+			StartY = Conversion.StringToThreeDigitFloat(StartY.ToString());
 
 			EndX = quarter == 1 || quarter == 4 ? centerX + distanceFromCenterOfEndX : centerX - distanceFromCenterOfEndX;
-			EndX = Get.StringToThreeDigitFloat(EndX.ToString());
+			EndX = Conversion.StringToThreeDigitFloat(EndX.ToString());
 
 			EndY = quarter == 1 || quarter == 2 ? centerY + distanceFromCenterOfEndY : centerY - distanceFromCenterOfEndY;
-			EndY = Get.StringToThreeDigitFloat(EndY.ToString());
+			EndY = Conversion.StringToThreeDigitFloat(EndY.ToString());
 
 		}
 		float CalculateSweepAngle(float startAngle, float endAngle)

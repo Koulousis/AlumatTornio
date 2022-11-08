@@ -82,6 +82,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Elements\PointsPair.cs" />
     <Compile Include="Actions\Visualize.cs" />
+    <Compile Include="Tools\Conversion.cs" />
+    <Compile Include="Tools\Validation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

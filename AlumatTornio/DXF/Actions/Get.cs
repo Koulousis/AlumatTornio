@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DXF.Elements;
+using DXF.Tools;
 
 namespace DXF.Actions
 {
@@ -33,14 +35,15 @@ namespace DXF.Actions
 			int tranformWidth = width - (width / 10);
 			return tranformWidth;
 		}
+
 		public static int TransformHeight(int height)
 		{
 			int tranformHeight = height - (height / 10);
 			return tranformHeight;
 		}
+
 		public static float Scale(int viewWidth, int viewHeight)
 		{
-			//Kalutera na trexw to GetBounds kai meta na frontisw na xwraei to width kai to height sto draw
 			float scaleOnWidth = 0;
 			float scaleOnHeight = 0;
 			float dummyWidth = 0;
@@ -97,80 +100,103 @@ namespace DXF.Actions
 			List<Line> dxfLines = new List<Line>();
 			for (int i = 0; i < dxfText.Count; i++)
 			{
-				//Once the AcDbLine is found collect the needed data for the Line object
-				if (dxfText.ElementAt(i) == "AcDbLine")
+				if (dxfText.ElementAt(i) == "LINE")
 				{
-					int indexOfStartX = i + 2;
-					int indexOfStartY = i + 4;
-					int indexOfEndX = i + 8;
-					int indexOfEndY = i + 10;
-
-					string textOfStartX = dxfText.ElementAt(indexOfStartX);
-					string textOfStartY = dxfText.ElementAt(indexOfStartY);
-					string textOfEndX = dxfText.ElementAt(indexOfEndX);
-					string textOfEndY = dxfText.ElementAt(indexOfEndY);
-
-					//Parsing to float has a round effect on the number because of digit limitation
-					float startX = StringToThreeDigitFloat(textOfStartX);
-					float startY = StringToThreeDigitFloat(textOfStartY);
-					float endX = StringToThreeDigitFloat(textOfEndX);
-					float endY = StringToThreeDigitFloat(textOfEndY);
-
-					dxfLines.Add(new Line(startX, startY, endX, endY));
+					float startX = 0, startY = 0, endX = 0, endY = 0;
+					Color color = new Color();
+					do
+					{
+						i++;
+						switch (dxfText.ElementAt(i).Trim())
+						{
+							case "AcDbEntity":
+								if (dxfText.ElementAt(i+4).Trim() == "Continuous")
+								{
+									byte red = Convert.ToByte(dxfText.ElementAt(i + 1).Trim());
+									byte green = Convert.ToByte(dxfText.ElementAt(i + 2).Trim());
+									byte blue = Convert.ToByte(dxfText.ElementAt(i + 3).Trim());
+									color = Color.FromArgb(red,green,blue);
+								}
+								else
+								{
+									color = Color.FromArgb(Convert.ToInt32(dxfText.ElementAt(i + 6).Trim()));
+								}
+								break;
+							case "10":
+								startX = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								break;
+							case "20":
+								startY = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								break;
+							case "11":
+								endX = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								break;
+							case "21":
+								endY = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								break;
+						}
+					} while (!Validation.DxfElementTitle(dxfText.ElementAt(i + 1)));
+					dxfLines.Add(new Line(startX, startY, endX, endY, color));
 				}
 			}
-
 			return dxfLines;
 		}
 
 		public static List<Arc> DxfArcs(List<string> dxfText)
 		{
 			List<Arc> dxfArcs = new List<Arc>();
-			//Create list to add the created arcs
 			for (int i = 0; i < dxfText.Count; i++)
 			{
-				//Once the AcDbCircle is found collect the needed data for the Arc object
-				if (Parameter.DxfText.ElementAt(i) == "AcDbCircle")
+				if (dxfText.ElementAt(i) == "ARC")
 				{
-					int indexOfCenterX = i + 2;
-					int indexOfCenterY = i + 4;
-					int indexOfRadius = i + 8;
-					int indexOfStartAngle = dxfText.ElementAt(i + 10) == "AcDbArc" ? i + 12 : i + 18;
-					int indexOfEndAngle = dxfText.ElementAt(i + 10) == "AcDbArc" ? i + 14 : i + 20;
-
-					string textOfCenterX = dxfText.ElementAt(indexOfCenterX);
-					string textOfCenterY = dxfText.ElementAt(indexOfCenterY);
-					string textOfRadius = dxfText.ElementAt(indexOfRadius);
-					string textOfStartAngle = dxfText.ElementAt(indexOfStartAngle);
-					string textOfEndAngle = dxfText.ElementAt(indexOfEndAngle);
-
-					//Parsing to float has a round effect on the number because of digit limitation
-					float centerX = StringToThreeDigitFloat(textOfCenterX);
-					float centerY = StringToThreeDigitFloat(textOfCenterY);
-					float radius = StringToThreeDigitFloat(textOfRadius);
-					float startAngle = StringToThreeDigitFloat(textOfStartAngle);
-					float endAngle = StringToThreeDigitFloat(textOfEndAngle);
-
-					dxfArcs.Add(new Arc(centerX, centerY, radius, startAngle, endAngle));
+					float centerX = 0, centerY = 0, radius = 0, startAngle = 0, endAngle = 0;
+					Color color = new Color();
+					do
+					{
+						i++;
+						switch (dxfText.ElementAt(i).Trim())
+						{
+							case "AcDbEntity":
+								if (dxfText.ElementAt(i + 4).Trim() == "Continuous")
+								{
+									byte red = Convert.ToByte(dxfText.ElementAt(i + 1).Trim());
+									byte green = Convert.ToByte(dxfText.ElementAt(i + 2).Trim());
+									byte blue = Convert.ToByte(dxfText.ElementAt(i + 3).Trim());
+									color = Color.FromArgb(red, green, blue);
+								}
+								else
+								{
+									color = Color.FromArgb(Convert.ToInt32(dxfText.ElementAt(i + 6).Trim()));
+								}
+								break;
+							case "10":
+								centerX = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								break;
+							case "20":
+								centerY = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								break;
+							case "40":
+								radius = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								break;
+							case "50":
+								startAngle = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								break;
+							case "51":
+								endAngle = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								break;
+						}
+					} while (!Validation.DxfElementTitle(dxfText.ElementAt(i + 1)));
+					dxfArcs.Add(new Arc(centerX, centerY, radius, startAngle, endAngle, color));
 				}
 			}
 
 			return dxfArcs;
 		}
-
-		public static float StringToThreeDigitFloat(string textLine)
-		{
-			//Parse text to float to use interpolation to keep 3 decimals only
-			//The converting sequence is: string(parameter) => float(givenText) => string(formatText Interpolation) => float return
-			float givenText = float.Parse(textLine);
-			string formatText = $"{givenText:0.000}";
-			return float.Parse(formatText);
-		}
-
+		
 		public static List<Line> DieLines(List<Line> allLines)
 		{
 			List<Line> dieLines = new List<Line>(Parameter.AllLines);
-
+			dieLines.GroupBy(line => line.Color == Color.Green);
 
 			return dieLines;
 		}

@@ -16,8 +16,7 @@ namespace DXF.Actions
 		{
 			List<string> dxfText = new List<string>();
 			
-			//If file has been selected, isolate the ENTITIES part from the dxf in the string list
-			//and return true to know that the user has selected a file
+			//Isolate the ENTITIES part from the dxf in a string list
 			if (selectDxfDialog.ShowDialog() == DialogResult.OK)
 			{
 				Parameter.DxfFileName = Path.GetFileNameWithoutExtension(selectDxfDialog.FileName);
