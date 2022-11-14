@@ -17,7 +17,7 @@ namespace DXF.Elements
 		public float Radius { get; set; }        //Value 40 in DXF
 		public float StartAngle { get; set; }   //Value 50 in DXF
 		public float EndAngle { get; set; }      //Value 51 in DXF
-		public Color Color { get; set; }
+		public string Color { get; set; }
 		public float RectangularCornerX { get; set; }
 		public float RectangularCornerY { get; set; }
 		public float Width { get; set; }
@@ -32,7 +32,7 @@ namespace DXF.Elements
 
 
 
-		public Arc(float centerX, float centerY, float radius, float startAngle, float endAngle, Color color)
+		public Arc(float centerX, float centerY, float radius, float startAngle, float endAngle, string color)
 		{
 			CenterX = centerX;
 			CenterY = centerY;

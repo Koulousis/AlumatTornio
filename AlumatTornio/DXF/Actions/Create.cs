@@ -19,11 +19,11 @@ namespace DXF.Actions
 		public static GraphicsPath FullPath()
 		{
 			GraphicsPath fullPath = new GraphicsPath();
-			int totalElements = Parameter.AllLines.Count + Parameter.AllArcs.Count;
+			int totalElements = Parameter.DieLines.Count + Parameter.AllArcs.Count;
 
 			for (int i = 1; i <= totalElements; i++)
 			{
-				foreach (Line line in Parameter.AllLines)
+				foreach (Line line in Parameter.DieLines)
 				{
 					if (line.Index == i)
 					{
@@ -32,7 +32,7 @@ namespace DXF.Actions
 					}
 				}
 
-				foreach (Arc arc in Parameter.AllArcs)
+				foreach (Arc arc in Parameter.DieArcs)
 				{
 					if (arc.Index == i)
 					{
@@ -57,8 +57,8 @@ namespace DXF.Actions
 		{
 			//TODO: Ginetai lathos generate gia to EXA109710-1 - 1.dxf
 			GraphicsPath g71Profile = new GraphicsPath();
-			List<Line> lines = new List<Line>(Parameter.AllLines);
-			List<Arc> arcs = new List<Arc>(Parameter.AllArcs);
+			List<Line> lines = new List<Line>(Parameter.DieLines);
+			List<Arc> arcs = new List<Arc>(Parameter.DieArcs);
 
 			//Remove from lines list the vertical and horizontal lines which are attached to X axis
 			for (int i = 0; i < lines.Count; i++)

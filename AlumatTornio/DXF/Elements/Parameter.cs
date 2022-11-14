@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +18,15 @@ namespace DXF.Elements
 		public static List<GCodePoint> GCodePoints { get; set; }
 
 		public static string DxfFileName = "Default";
+		
+		public static string Red = "1";
+		public static string Yellow = "2";
+		public static string Green = "3";
+		public static string Cyan = "4";
+		public static string Blue = "5";
+		public static string Magenta = "6";
+		public static string White = "7";
+		public static string ByBlock = "0";
+		public static string ByLayer = "256";
 	}
 }

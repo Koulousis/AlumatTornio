@@ -29,16 +29,17 @@ namespace DXF.Organizer
 
 			//Construct specific element lists
 			Parameter.DieLines = Get.DieLines(Parameter.AllLines);
+			Parameter.DieArcs = Get.DieArcs(Parameter.AllArcs);
+
+			Edit.AddIndexesAndMakeCorrections(Parameter.DieLines, Parameter.DieArcs);
 
 			//Remove.DuplicateLines();
 			//Remove.DuplicateArcs();
 
 			//Modify the data
-			float gap = Get.Gap();
-			Edit.OffsetLines(gap);
+			//float gap = Get.Gap();
+			//Edit.OffsetLines(gap);
 			//Get.OffsetArcs(gap);
-
-			Edit.AddIndexesAndMakeCorrections();
 		}
 	}
 }

@@ -11,10 +11,10 @@ namespace DXF.Actions
 {
 	public static class Edit
 	{
-		public static void AddIndexesAndMakeCorrections()
+		public static void AddIndexesAndMakeCorrections(List<Line> linesList, List<Arc> arcsList)
 		{
-			List<Line> lines = new List<Line>(Parameter.AllLines);
-			List<Arc> arcs = new List<Arc>(Parameter.AllArcs);
+			List<Line> lines = new List<Line>(linesList);
+			List<Arc> arcs = new List<Arc>(arcsList);
 			int index = 1;
 
 			//Find the first Vertical Line which has equal to zero starting points or ending points
@@ -118,7 +118,7 @@ namespace DXF.Actions
 
 		public static void OffsetLines(float gap)
 		{
-			foreach (Line line in Parameter.AllLines)
+			foreach (Line line in Parameter.DieLines)
 			{
 				line.StartX += Math.Abs(gap);
 				line.EndX += Math.Abs(gap);
@@ -127,7 +127,7 @@ namespace DXF.Actions
 
 		public static void OffsetArcs(float gap)
 		{
-			foreach (Arc arc in Parameter.AllArcs)
+			foreach (Arc arc in Parameter.DieArcs)
 			{
 				arc.CenterX += Math.Abs(gap);
 				arc.StartX += Math.Abs(gap);

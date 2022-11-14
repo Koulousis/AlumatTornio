@@ -44,7 +44,7 @@ namespace DXF
 		}
 		#endregion
 
-		#region Visualization Panel
+		#region Visualization Events
 		private void View_Paint(object sender, PaintEventArgs e)
 		{
 			//Setup Graphics and modify origin point and coordinates to cartesian system
@@ -58,9 +58,9 @@ namespace DXF
 			preview.Transform = new Matrix(1, 0, 0, -1, 0, 0);
 			preview.TranslateTransform(Get.TransformWidth(VisuilizationPanel.Width), Get.TransformWidth(VisuilizationPanel.Height), MatrixOrder.Append);
 
-			if (Elements.Parameter.DxfText == null) return;
-			Elements.Parameter.ZoomFactor = Get.Scale(VisuilizationPanel.Width, VisuilizationPanel.Height);
-			preview.ScaleTransform(Elements.Parameter.ZoomFactor, Elements.Parameter.ZoomFactor);
+			if (Parameter.DxfText == null) return;
+			Parameter.ZoomFactor = Get.Scale(VisuilizationPanel.Width, VisuilizationPanel.Height);
+			preview.ScaleTransform(Parameter.ZoomFactor, Parameter.ZoomFactor);
 			//Create die path
 			//GraphicsPath diePath = Create.Path();
 			GraphicsPath diePath = Create.FullPath();
@@ -87,7 +87,7 @@ namespace DXF
 			cursorPositionY += 25.4f / screen.DpiY;
 
 			//Set Labels text to X and Y mouse position
-			coordinatesLabel.Text = $@"X:{(cursorPositionY / Elements.Parameter.ZoomFactor) * 2,0:F3}, Z:{-cursorPositionX / Elements.Parameter.ZoomFactor,0:F3}";
+			coordinatesLabel.Text = $@"X:{(cursorPositionY / Elements.Parameter.ZoomFactor),0:F3}, Z:{-cursorPositionX / Elements.Parameter.ZoomFactor,0:F3}";
 		}
 		#endregion
 

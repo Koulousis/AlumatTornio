@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using DXF.Elements;
 using DXF.Tools;
 
@@ -13,10 +14,10 @@ namespace DXF.Actions
 	{
 		public static float Gap()
 		{
-			float gap = Parameter.AllLines[0].StartX;
+			float gap = Parameter.DieLines[0].StartX;
 
 			//Get the closest distance from origin
-			foreach (Line line in Parameter.AllLines)
+			foreach (Line line in Parameter.DieLines)
 			{
 				if (line.StartX > gap)
 				{
@@ -49,7 +50,7 @@ namespace DXF.Actions
 			float dummyWidth = 0;
 			float dummyHeight = 0;
 
-			foreach (Line line in Parameter.AllLines)
+			foreach (Line line in Parameter.DieLines)
 			{
 				//Width
 				if (line.StartX < dummyWidth)
@@ -66,7 +67,7 @@ namespace DXF.Actions
 				}
 			}
 
-			foreach (Line line in Parameter.AllLines)
+			foreach (Line line in Parameter.DieLines)
 			{
 				if (line.StartY > dummyHeight)
 				{
@@ -102,25 +103,14 @@ namespace DXF.Actions
 			{
 				if (dxfText.ElementAt(i) == "LINE")
 				{
-					float startX = 0, startY = 0, endX = 0, endY = 0;
-					Color color = new Color();
+					float startX = 0, startY = 0, endX = 0, endY = 0; string color = "";
 					do
 					{
 						i++;
 						switch (dxfText.ElementAt(i).Trim())
 						{
 							case "AcDbEntity":
-								if (dxfText.ElementAt(i+4).Trim() == "Continuous")
-								{
-									byte red = Convert.ToByte(dxfText.ElementAt(i + 1).Trim());
-									byte green = Convert.ToByte(dxfText.ElementAt(i + 2).Trim());
-									byte blue = Convert.ToByte(dxfText.ElementAt(i + 3).Trim());
-									color = Color.FromArgb(red,green,blue);
-								}
-								else
-								{
-									color = Color.FromArgb(Convert.ToInt32(dxfText.ElementAt(i + 6).Trim()));
-								}
+								color = dxfText.ElementAt(i + 6).Trim();
 								break;
 							case "10":
 								startX = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
@@ -149,25 +139,14 @@ namespace DXF.Actions
 			{
 				if (dxfText.ElementAt(i) == "ARC")
 				{
-					float centerX = 0, centerY = 0, radius = 0, startAngle = 0, endAngle = 0;
-					Color color = new Color();
+					float centerX = 0, centerY = 0, radius = 0, startAngle = 0, endAngle = 0; string color = "";
 					do
 					{
 						i++;
 						switch (dxfText.ElementAt(i).Trim())
 						{
 							case "AcDbEntity":
-								if (dxfText.ElementAt(i + 4).Trim() == "Continuous")
-								{
-									byte red = Convert.ToByte(dxfText.ElementAt(i + 1).Trim());
-									byte green = Convert.ToByte(dxfText.ElementAt(i + 2).Trim());
-									byte blue = Convert.ToByte(dxfText.ElementAt(i + 3).Trim());
-									color = Color.FromArgb(red, green, blue);
-								}
-								else
-								{
-									color = Color.FromArgb(Convert.ToInt32(dxfText.ElementAt(i + 6).Trim()));
-								}
+								color = dxfText.ElementAt(i + 6).Trim();
 								break;
 							case "10":
 								centerX = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
@@ -195,10 +174,30 @@ namespace DXF.Actions
 		
 		public static List<Line> DieLines(List<Line> allLines)
 		{
-			List<Line> dieLines = new List<Line>(Parameter.AllLines);
-			dieLines.GroupBy(line => line.Color == Color.Green);
-
+			List<Line> dieLines = new List<Line>(allLines);
+			for (int i = 0; i < dieLines.Count; i++)
+			{
+				if (dieLines[i].Color != Parameter.Green)
+				{
+					dieLines.Remove(dieLines[i]);
+					i--;
+				}
+			}
 			return dieLines;
+		}
+
+		public static List<Arc> DieArcs(List<Arc> allArcs)
+		{
+			List<Arc> dieArcs = new List<Arc>(allArcs);
+			for (int i = 0; i < dieArcs.Count; i++)
+			{
+				if (dieArcs[i].Color != Parameter.Green)
+				{
+					dieArcs.Remove(dieArcs[i]);
+					i--;
+				}
+			}
+			return dieArcs;
 		}
 	}
 }

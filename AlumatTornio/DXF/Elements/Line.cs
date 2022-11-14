@@ -14,9 +14,9 @@ namespace DXF.Elements
 		public float StartY { get; set; } //Value 20 in DXF
 		public float EndX { get; set; }   //Value 11 in DXF
 		public float EndY { get; set; }   //Value 21 in DXF
-		public Color Color { get; set; }
+		public string Color { get; set; }
 
-		public Line(float startX, float startY, float endX, float endY , Color color)
+		public Line(float startX, float startY, float endX, float endY , string color)
 		{
 			StartX = startX;
 			StartY = startY;
