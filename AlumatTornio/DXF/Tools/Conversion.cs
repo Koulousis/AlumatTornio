@@ -16,5 +16,10 @@ namespace DXF.Tools
 			string formatText = $"{givenText:0.000}";
 			return float.Parse(formatText);
 		}
+
+		public static double DegreesToRads(double angle)
+		{
+			return (Math.PI * angle) / 180;
+		}
 	}
 }

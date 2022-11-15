@@ -102,6 +102,12 @@ namespace DXF.Actions
 					endPointArcMatching.Index = index;
 					lastPoint.X = endPointArcMatching.StartX;
 					lastPoint.Y = endPointArcMatching.StartY;
+
+					endPointArcMatching.StartX = endPointArcMatching.EndX;
+					endPointArcMatching.StartY = endPointArcMatching.EndY;
+					endPointArcMatching.EndX = lastPoint.X;
+					endPointArcMatching.EndY = lastPoint.Y;
+
 					arcs.Remove(endPointArcMatching);
 					elementsLeft--;
 					index++;
@@ -110,8 +116,7 @@ namespace DXF.Actions
 
 				if (true)
 				{
-					DialogResult notMatchingPoint = MessageBox.Show("Points from the file didn't match");
-					break;
+					elementsLeft--;
 				}
 			}
 		}

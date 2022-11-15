@@ -31,71 +31,6 @@ namespace DXF.Actions
 			return gap;
 		}
 
-		public static int TransformWidth(int width)
-		{
-			int tranformWidth = width - (width / 10);
-			return tranformWidth;
-		}
-
-		public static int TransformHeight(int height)
-		{
-			int tranformHeight = height - (height / 10);
-			return tranformHeight;
-		}
-
-		public static float Scale(int viewWidth, int viewHeight)
-		{
-			float scaleOnWidth = 0;
-			float scaleOnHeight = 0;
-			float dummyWidth = 0;
-			float dummyHeight = 0;
-
-			foreach (Line line in Parameter.DieLines)
-			{
-				//Width
-				if (line.StartX < dummyWidth)
-				{
-					dummyWidth = line.StartX;
-				}
-				else if (line.EndX < dummyWidth)
-				{
-					dummyWidth = line.EndX;
-				}
-				else
-				{
-					continue;
-				}
-			}
-
-			foreach (Line line in Parameter.DieLines)
-			{
-				if (line.StartY > dummyHeight)
-				{
-					dummyHeight = line.StartY;
-				}
-				else if (line.EndY > dummyHeight)
-				{
-					dummyHeight = line.EndY;
-				}
-				else
-				{
-					continue;
-				}
-			}
-
-			scaleOnWidth = ((float)viewWidth - 50) / Math.Abs(dummyWidth);
-			scaleOnHeight = ((float)viewHeight - 100) / dummyHeight;
-
-			if (scaleOnWidth < scaleOnHeight)
-			{
-				return scaleOnWidth;
-			}
-			else
-			{
-				return scaleOnHeight;
-			}
-		}
-
 		public static List<Line> DxfLines(List<string> dxfText)
 		{
 			List<Line> dxfLines = new List<Line>();
@@ -198,6 +133,60 @@ namespace DXF.Actions
 				}
 			}
 			return dieArcs;
+		}
+
+		public static List<Line> G71Lines(List<Line> dieLines)
+		{
+			List<Line> g71Lines = new List<Line>(dieLines).OrderBy(line => line.Index).ToList();
+
+			//Remove lines attached to Vertical Axis
+			Line lineAttachedToVerticalAxis = g71Lines.Find(line => line.StartX == 0 && line.EndX == 0);
+			while (lineAttachedToVerticalAxis != null)
+			{
+				g71Lines.Remove(lineAttachedToVerticalAxis);
+				lineAttachedToVerticalAxis = g71Lines.Find(line => line.StartX == 0 && line.EndX == 0);
+			}
+
+			//Remove lines that has decreased Y from the previous iterated line
+			float y1 = g71Lines[0].StartY; 
+			float y2 = g71Lines[0].EndY;
+			for (int i = 1; i < g71Lines.Count; i++)
+			{
+				if (g71Lines[i].StartY < y1 || g71Lines[i].EndY < y1 || g71Lines[i].StartY < y2 || g71Lines[i].EndY < y2)
+				{
+					g71Lines.Remove(g71Lines[i]);
+					i--;
+				}
+				else
+				{
+					y1 = g71Lines[i].StartY;
+					y2 = g71Lines[i].EndY;
+				}
+			}
+			return g71Lines;
+		}
+
+		public static List<Arc> G71Arcs(List<Arc> dieArcs)
+		{
+			List<Arc> g71Arcs = new List<Arc>(dieArcs).OrderBy(arc => arc.Index).ToList();
+
+			//Remove arcs that has decreased Y from the previous iterated arc
+			float y1 = g71Arcs[0].StartY;
+			float y2 = g71Arcs[0].EndY;
+			for (int i = 1; i < g71Arcs.Count; i++)
+			{
+				if (g71Arcs[i].StartY < y1 || g71Arcs[i].EndY < y1 || g71Arcs[i].StartY < y2 || g71Arcs[i].EndY < y2)
+				{
+					g71Arcs.Remove(g71Arcs[i]);
+					i--;
+				}
+				else
+				{
+					y1 = g71Arcs[i].StartY;
+					y2 = g71Arcs[i].EndY;
+				}
+			}
+			return g71Arcs;
 		}
 	}
 }

@@ -14,6 +14,7 @@ using DXF.Organizer;
 using DXF.Elements;
 using DXF.Lathe;
 using DXF.Properties;
+using DXF.Tools;
 
 namespace DXF
 {
@@ -52,14 +53,14 @@ namespace DXF
 			preview.SmoothingMode = SmoothingMode.AntiAlias;
 			Matrix cartesian = new Matrix(1, 0, 0, -1, 0, 0);
 			preview.Transform = cartesian;
-			preview.TranslateTransform(Get.TransformWidth(VisuilizationPanel.Width), Get.TransformWidth(VisuilizationPanel.Height), MatrixOrder.Append);
+			preview.TranslateTransform(Calculation.TransformWidth(VisuilizationPanel.Width), Calculation.TransformWidth(VisuilizationPanel.Height), MatrixOrder.Append);
 
 			if (axesVisualizeCheckBox.Checked) { Visualize.Axes(preview, (float)VisuilizationPanel.Width * Elements.Parameter.ZoomFactor, (float)VisuilizationPanel.Height * Elements.Parameter.ZoomFactor); }
 			preview.Transform = new Matrix(1, 0, 0, -1, 0, 0);
-			preview.TranslateTransform(Get.TransformWidth(VisuilizationPanel.Width), Get.TransformWidth(VisuilizationPanel.Height), MatrixOrder.Append);
+			preview.TranslateTransform(Calculation.TransformWidth(VisuilizationPanel.Width), Calculation.TransformWidth(VisuilizationPanel.Height), MatrixOrder.Append);
 
 			if (Parameter.DxfText == null) return;
-			Parameter.ZoomFactor = Get.Scale(VisuilizationPanel.Width, VisuilizationPanel.Height);
+			Parameter.ZoomFactor = Calculation.Scale(VisuilizationPanel.Width, VisuilizationPanel.Height);
 			preview.ScaleTransform(Parameter.ZoomFactor, Parameter.ZoomFactor);
 			//Create die path
 			//GraphicsPath diePath = Create.Path();
@@ -80,8 +81,8 @@ namespace DXF
 			Graphics screen = CreateGraphics();
 
 			//Move X and Y origin location
-			double cursorPositionX = Get.TransformWidth(VisuilizationPanel.Width) - e.Location.X;
-			double cursorPositionY = Get.TransformHeight(VisuilizationPanel.Height) - e.Location.Y;
+			double cursorPositionX = Calculation.TransformWidth(VisuilizationPanel.Width) - e.Location.X;
+			double cursorPositionY = Calculation.TransformHeight(VisuilizationPanel.Height) - e.Location.Y;
 			//Transform pixels to millimeters
 			cursorPositionX += 25.4f / screen.DpiX;
 			cursorPositionY += 25.4f / screen.DpiY;

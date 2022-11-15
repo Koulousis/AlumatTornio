@@ -33,6 +33,9 @@ namespace DXF.Organizer
 
 			Edit.AddIndexesAndMakeCorrections(Parameter.DieLines, Parameter.DieArcs);
 
+			Parameter.G71Lines = Get.G71Lines(Parameter.DieLines);
+			Parameter.G71Arcs = Get.G71Arcs(Parameter.DieArcs);
+
 			//Remove.DuplicateLines();
 			//Remove.DuplicateArcs();
 

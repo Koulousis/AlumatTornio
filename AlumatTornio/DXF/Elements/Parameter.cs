@@ -14,6 +14,9 @@ namespace DXF.Elements
 		public static List<Arc> AllArcs { get; set; }
 		public static List<Line> DieLines { get; set; }
 		public static List<Arc> DieArcs { get; set; }
+		public static List<Line> G71Lines { get; set; }
+		public static List<Arc> G71Arcs { get; set; }
+
 		public static float ZoomFactor = 1f;
 		public static List<GCodePoint> GCodePoints { get; set; }
 

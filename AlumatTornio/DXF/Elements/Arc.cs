@@ -42,32 +42,32 @@ namespace DXF.Elements
 			RectangularCornerY = centerY - radius;
 			Width = radius * 2;
 			Height = radius * 2;
-			if (startAngle == 360)
+			if (startAngle > endAngle && endAngle == 0)
 			{
-				startAngle = 0;
+				endAngle = 360;
 			}
 			if (startAngle >= 0 && startAngle <= 180 && endAngle >= 0 && endAngle <= 180)
 			{
 				AntiClockwise = true;
 				StartAngle = startAngle;
 				EndAngle = endAngle;
-				SweepAngle = CalculateSweepAngle(startAngle, endAngle);
+				SweepAngle = Calculation.SweepAngle(startAngle, endAngle);
 			}
 
-			if (startAngle >= 180 && startAngle < 360 && endAngle >= 180 && endAngle < 360)
+			if (startAngle >= 180 && startAngle < 360 && endAngle >= 180 && endAngle <= 360)
 			{
 				Clockwise = true;
 				StartAngle = endAngle;
 				EndAngle = startAngle;
-				SweepAngle = -CalculateSweepAngle(startAngle, endAngle);
+				SweepAngle = -Calculation.SweepAngle(startAngle, endAngle);
 			}
 
 			int quarter;
 			//Math types are: x = Radius * Cos(angle) and y = Radius * Sin(angle)
-			float distanceFromCenterOfStartX = Radius * (float) Math.Cos(SweepFromHorizontalAxis(startAngle, out quarter));
-			float distanceFromCenterOfStartY = Radius * (float)Math.Sin(SweepFromHorizontalAxis(startAngle, out quarter));
-			float distanceFromCenterOfEndX = Radius * (float)Math.Cos(SweepFromHorizontalAxis(endAngle, out quarter));
-			float distanceFromCenterOfEndY = Radius * (float)Math.Sin(SweepFromHorizontalAxis(endAngle, out quarter));
+			float distanceFromCenterOfStartX = Radius * (float) Math.Cos(Calculation.SweepFromHorizontalAxis(startAngle, out quarter));
+			float distanceFromCenterOfStartY = Radius * (float)Math.Sin(Calculation.SweepFromHorizontalAxis(startAngle, out quarter));
+			float distanceFromCenterOfEndX = Radius * (float)Math.Cos(Calculation.SweepFromHorizontalAxis(endAngle, out quarter));
+			float distanceFromCenterOfEndY = Radius * (float)Math.Sin(Calculation.SweepFromHorizontalAxis(endAngle, out quarter));
 
 			//To know if the new X,Y points are positive or negative movement from the center
 			//is know from the quarter where the points are
@@ -84,53 +84,5 @@ namespace DXF.Elements
 			EndY = Conversion.StringToThreeDigitFloat(EndY.ToString());
 
 		}
-		float CalculateSweepAngle(float startAngle, float endAngle)
-		{
-			float sweepAngle;
-			if (startAngle > endAngle)
-			{
-				sweepAngle = 360 - (startAngle - endAngle);
-			}
-			else
-			{
-				sweepAngle = endAngle - startAngle;
-			}
-			return sweepAngle;
-		}
-
-		double SweepFromHorizontalAxis(float angle, out int quarter)
-		{
-			//First circle quarter
-			if (angle <= 90)
-			{
-				quarter = 1;
-				return (double)ConvertDegreesToRads(angle);
-			}
-			//Second circle quarter
-			else if (angle > 90 && angle <= 180)
-			{
-				quarter = 2;
-				return (double)ConvertDegreesToRads(180 - angle);
-			}
-			//Third circle quarter
-			else if (angle > 180 && angle <= 270)
-			{
-				quarter = 3;
-				return (double)ConvertDegreesToRads(angle - 180);
-			}
-			//Fourth circle quarter
-			else
-			{
-				quarter = 4;
-				return (double)ConvertDegreesToRads(360 - angle);
-			}
-		}
-
-		double ConvertDegreesToRads(double angle)
-		{
-			return (Math.PI * angle) / 180;
-		}
-
-
 	}	
 }
