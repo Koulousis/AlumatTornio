@@ -222,11 +222,16 @@ namespace DXF
 			G71Attributes g71Attributes = new G71Attributes(g71DepthOfCutInput.Value, g71RetractInput.Value, g71XAllowanceInput.Value, g71ZAllowanceInput.Value, g71FeedRateInput.Value);
 			G72Attributes g72Attributes = new G72Attributes(g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
 
+			//Get G71 profile points
+			Parameter.G71ProfilePoints = Create.G71ProfilePoints(Parameter.G71Lines, Parameter.G71Arcs);
+			Parameter.StockX = 3;
+			Parameter.StockZ = 3;
+
 			//Fill G-Code Text
 			GCode.Text.AddRange(CodeBlock.LatheInitialization());
-			GCode.Text.AddRange(CodeBlock.StartPosition());
+			GCode.Text.AddRange(CodeBlock.StartPosition(Parameter.G71ProfilePoints));
 			GCode.Text.AddRange(CodeBlock.G71Roughing(g71Attributes));
-			GCode.Text.AddRange(CodeBlock.G71Profile());
+			GCode.Text.AddRange(CodeBlock.G71Profile(Parameter.G71ProfilePoints));
 			GCode.Text.AddRange(CodeBlock.G70Finishing());
 			GCode.Text.AddRange(CodeBlock.LatheEnd());
 

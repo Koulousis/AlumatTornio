@@ -35,32 +35,27 @@ namespace DXF.Lathe
 			return latheInitialization;
 		}
 
-		public static List<string> StartPosition()
+		public static List<string> StartPosition(List<G71ProfilePoint> g71ProfilePoints)
 		{
-			float maximumHeight = 0;
-			float stockHeight = 2;
-			float stockWidth = 2;
-
-			foreach (Line line in Parameter.DieLines)
+			float maximumProfilePointX = 0;
+			float firstProfilePointX = 0;
+			float firstProfilePointZ = 0;
+			foreach (G71ProfilePoint g71ProfilePoint in g71ProfilePoints)
 			{
-				//Find Maximum Height
-				if (line.StartY > maximumHeight)
+				if (g71ProfilePoint.X > maximumProfilePointX)
 				{
-					maximumHeight = line.StartY;
+					maximumProfilePointX = g71ProfilePoint.X;
 				}
-				else if (line.EndY > maximumHeight)
-				{
-					maximumHeight = line.EndY;
-				}
-
-				//Add stock material
-				maximumHeight += stockHeight;
 			}
+
+			firstProfilePointX = g71ProfilePoints[0].X;
+			firstProfilePointZ = g71ProfilePoints[0].Z;
+
 			//Fill G Code
 			List<string> startPosition = new List<string>
 			{
 				"(START POSITION)",
-				$"G0 X{maximumHeight * 2} Z{stockWidth}",
+				$"G0 X{(maximumProfilePointX + Parameter.StockX) * 2} Z{firstProfilePointZ + Parameter.StockZ}",
 				""
 			};
 
@@ -81,27 +76,26 @@ namespace DXF.Lathe
 			return g71Roughing;
 		}
 
-		public static List<string> G71Profile()
+		public static List<string> G71Profile(List<G71ProfilePoint> g71ProfilePoints)
 		{
 			//Fill G Code
 			List<string> profileBlock = new List<string>();
 			profileBlock.Add("(PROFILE BLOCK)");
 			profileBlock.Add("N1");
-			foreach (GCodePoint gCodePoint in Parameter.GCodePoints)
+			profileBlock.Add($"G1 X{(g71ProfilePoints[0].X) * 2} Z{g71ProfilePoints[0].Z + Parameter.StockZ}");
+			foreach (G71ProfilePoint g71ProfilePoint in g71ProfilePoints)
 			{
-				if (gCodePoint.Type == "line")
+				if (g71ProfilePoint.R == 0)
 				{
-					profileBlock.Add($"G1 X{gCodePoint.X * 2} Z{gCodePoint.Z}");
+					profileBlock.Add($"G1 X{g71ProfilePoint.X * 2} Z{g71ProfilePoint.Z}");
 				}
-
-				if (gCodePoint.Type == "arc" && gCodePoint.Clockwise)
+				else if(g71ProfilePoint.Clockwise)
 				{
-					profileBlock.Add($"G2 X{gCodePoint.X * 2} Z{gCodePoint.Z} R{gCodePoint.R}");
+					profileBlock.Add($"G2 X{g71ProfilePoint.X * 2} Z{g71ProfilePoint.Z} R{g71ProfilePoint.R}");
 				}
-
-				if (gCodePoint.Type == "arc" && gCodePoint.AntiClockwise)
+				else
 				{
-					profileBlock.Add($"G3 X{gCodePoint.X * 2} Z{gCodePoint.Z} R{gCodePoint.R}");
+					profileBlock.Add($"G3 X{g71ProfilePoint.X * 2} Z{g71ProfilePoint.Z} R{g71ProfilePoint.R}");
 				}
 			}
 			profileBlock.Add("N2");

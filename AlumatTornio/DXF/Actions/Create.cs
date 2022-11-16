@@ -107,8 +107,8 @@ namespace DXF.Actions
 								yValueHolder = line.EndY;
 								unmatchedMode = false;
 
-								Parameter.GCodePoints.Add(new GCodePoint("line", line.StartY, line.StartX));
-								Parameter.GCodePoints.Add(new GCodePoint("line", line.EndY, line.EndX));
+								Parameter.G71ProfilePoints.Add(new G71ProfilePoint(line.StartY, line.StartX));
+								Parameter.G71ProfilePoints.Add(new G71ProfilePoint(line.EndY, line.EndX));
 							}
 						}
 						else
@@ -120,10 +120,10 @@ namespace DXF.Actions
 
 								if (!firstEntered)
 								{
-									Parameter.GCodePoints.Add(new GCodePoint("line", line.StartY, line.StartX));
+									Parameter.G71ProfilePoints.Add(new G71ProfilePoint(line.StartY, line.StartX));
 								}
 								firstEntered = true;
-								Parameter.GCodePoints.Add(new GCodePoint("line", line.EndY, line.EndX));
+								Parameter.G71ProfilePoints.Add(new G71ProfilePoint(line.EndY, line.EndX));
 							}
 							else
 							{
@@ -148,8 +148,8 @@ namespace DXF.Actions
 								yValueHolder = arc.EndY;
 								unmatchedMode = false;
 
-								Parameter.GCodePoints.Add(new GCodePoint("line", arc.StartY, arc.StartX));
-								Parameter.GCodePoints.Add(new GCodePoint("arc", arc.EndY, arc.EndX, arc.Radius, arc.Clockwise, arc.AntiClockwise));
+								Parameter.G71ProfilePoints.Add(new G71ProfilePoint(arc.StartY, arc.StartX));
+								Parameter.G71ProfilePoints.Add(new G71ProfilePoint(arc.EndY, arc.EndX, arc.Radius, arc.Clockwise, arc.AntiClockwise));
 							}
 						}
 						else
@@ -161,10 +161,10 @@ namespace DXF.Actions
 
 								if (!firstEntered)
 								{
-									Parameter.GCodePoints.Add(new GCodePoint("line", arc.StartY, arc.StartX));
+									Parameter.G71ProfilePoints.Add(new G71ProfilePoint(arc.StartY, arc.StartX));
 								}
 								firstEntered = true;
-								Parameter.GCodePoints.Add(new GCodePoint("arc", arc.EndY, arc.EndX, arc.Radius, arc.Clockwise, arc.AntiClockwise));
+								Parameter.G71ProfilePoints.Add(new G71ProfilePoint(arc.EndY, arc.EndX, arc.Radius, arc.Clockwise, arc.AntiClockwise));
 							}
 							else
 							{
@@ -178,6 +178,61 @@ namespace DXF.Actions
 			}
 
 			return g71Profile;
+		}
+
+		public static List<G71ProfilePoint> G71ProfilePoints(List<Line> g71Lines, List<Arc> g71Arcs)
+		{
+			List<G71ProfilePoint> g71ProfilePoints = new List<G71ProfilePoint>();
+			List<int> indexes = new List<int>();
+
+			//Create sorted indexes list
+			foreach (Line line in g71Lines)
+			{
+				indexes.Add(line.Index);
+			}
+			foreach (Arc arc in g71Arcs)
+			{
+				indexes.Add(arc.Index);
+			}
+			indexes.Sort();
+
+			//Pick the start point if it is the first element or the previous element is not chained
+			//Pick the end point of each element
+			for (int i = 0; i < indexes.Count; i++)
+			{
+				foreach (Line line in g71Lines)
+				{
+					if (line.Index == indexes[i])
+					{
+						if (i == 0)
+						{
+							g71ProfilePoints.Add(new G71ProfilePoint(line.StartY, line.StartX));
+						} 
+						else if (indexes[i] - indexes[i-1] != 1)
+						{
+							g71ProfilePoints.Add(new G71ProfilePoint(line.StartY, line.StartX));
+						}
+						g71ProfilePoints.Add(new G71ProfilePoint(line.EndY, line.EndX));
+					}
+				}
+				foreach (Arc arc in g71Arcs)
+				{
+					if (arc.Index == indexes[i])
+					{
+						if (i == 0)
+						{
+							g71ProfilePoints.Add(new G71ProfilePoint(arc.StartY, arc.StartX));
+						}
+						else if (indexes[i] - indexes[i - 1] != 1)
+						{
+							g71ProfilePoints.Add(new G71ProfilePoint(arc.StartY, arc.StartX, arc.Radius, arc.Clockwise, arc.AntiClockwise));
+						}
+						g71ProfilePoints.Add(new G71ProfilePoint(arc.EndY, arc.EndX,arc.Radius, arc.Clockwise, arc.AntiClockwise));
+					}
+				}
+			}
+			
+			return g71ProfilePoints;
 		}
 	}
 }
