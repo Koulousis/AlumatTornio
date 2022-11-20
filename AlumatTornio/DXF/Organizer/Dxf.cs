@@ -11,13 +11,13 @@ namespace DXF.Organizer
 {
 	public static class Dxf
 	{
-		public static void Manage(OpenFileDialog selectedDxfDialog)
+		public static void ManageGeneral(OpenFileDialog selectedDxfDialog)
 		{
 			Parameter.DxfText = new List<string>();
 			Parameter.AllLines = new List<Line>();
 			Parameter.AllArcs = new List<Arc>();
 			Parameter.DieLines = new List<Line>();
-			Parameter.G71ProfilePoints = new List<G71ProfilePoint>();
+			Parameter.G71ProfilePointsRightSide = new List<G71ProfilePoint>();
 
 			//Read the selected file
 			Parameter.DxfText = Read.DxfFile(selectedDxfDialog);
@@ -30,11 +30,11 @@ namespace DXF.Organizer
 			//Construct specific element lists
 			Parameter.DieLines = Get.DieLines(Parameter.AllLines);
 			Parameter.DieArcs = Get.DieArcs(Parameter.AllArcs);
-
 			Edit.AddIndexesAndMakeCorrections(Parameter.DieLines, Parameter.DieArcs);
 
-			Parameter.G71Lines = Get.G71Lines(Parameter.DieLines);
-			Parameter.G71Arcs = Get.G71Arcs(Parameter.DieArcs);
+			Parameter.DieLinesMirrored = Get.DieLinesMirrored(Parameter.DieLines);
+			Parameter.DieArcsMirrored = Get.DieArcsMirrored(Parameter.DieArcs);
+			Edit.Mirror(Parameter.DieLinesMirrored, Parameter.DieArcsMirrored);
 
 			//Remove.DuplicateLines();
 			//Remove.DuplicateArcs();
@@ -43,6 +43,20 @@ namespace DXF.Organizer
 			//float gap = Get.Gap();
 			//Edit.OffsetLines(gap);
 			//Get.OffsetArcs(gap);
+		}
+
+		public static void ManageRightSide()
+		{
+			Parameter.G71LinesRightSide = Get.G71LinesRightSide(Parameter.DieLines);
+			Parameter.G71ArcsRightSide = Get.G71ArcsRightSide(Parameter.DieArcs);
+		}
+
+		public static void ManageLeftSide()
+		{
+			Parameter.G71LinesLeftSide = Get.G71LinesLeftSide(Parameter.DieLinesMirrored);
+			Parameter.G71ArcsLeftSide = Get.G71ArcsLeftSide(Parameter.DieArcsMirrored);
+
+			//Edit.Mirror(Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
 		}
 	}
 }

@@ -13,10 +13,17 @@ namespace DXF.Elements
 		public static List<string> DxfText { get; set; }
 		public static List<Line> AllLines { get; set; }
 		public static List<Arc> AllArcs { get; set; }
+
 		public static List<Line> DieLines { get; set; }
 		public static List<Arc> DieArcs { get; set; }
-		public static List<Line> G71Lines { get; set; }
-		public static List<Arc> G71Arcs { get; set; }
+
+		public static List<Line> DieLinesMirrored { get; set; }
+		public static List<Arc> DieArcsMirrored { get; set; }
+
+		public static List<Line> G71LinesRightSide { get; set; }
+		public static List<Arc> G71ArcsRightSide { get; set; }
+		public static List<Line> G71LinesLeftSide { get; set; }
+		public static List<Arc> G71ArcsLeftSide { get; set; }
 
 		public static string Red = "1";
 		public static string Yellow = "2";
@@ -30,7 +37,8 @@ namespace DXF.Elements
 		#endregion
 
 		#region For GCode
-		public static List<G71ProfilePoint> G71ProfilePoints { get; set; }
+		public static List<G71ProfilePoint> G71ProfilePointsRightSide { get; set; }
+		public static List<G71ProfilePoint> G71ProfilePointsLeftSide { get; set; }
 		public static float StockX { get; set; }
 		public static float StockZ { get; set; }
 		#endregion

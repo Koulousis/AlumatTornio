@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DXF.Elements;
+using DXF.Tools;
 
 namespace DXF.Actions
 {
@@ -119,6 +120,78 @@ namespace DXF.Actions
 					elementsLeft--;
 				}
 			}
+		}
+
+		public static void Mirror(List<Line> g71Lines, List<Arc> g71Arcs)
+		{
+			List<Line> g71LinesLeftSide = new List<Line>(g71Lines);
+			List<Arc> g71ArcsLeftSide = new List<Arc>(g71Arcs);
+
+			g71LinesLeftSide = g71LinesLeftSide.OrderBy(arc => arc.Index).ToList();
+			g71LinesLeftSide.Reverse();
+
+			g71ArcsLeftSide = g71ArcsLeftSide.OrderBy(arc => arc.Index).ToList();
+			g71ArcsLeftSide.Reverse();
+
+			float distanceFromAxis = 0;
+			foreach (Line line in g71LinesLeftSide)
+			{
+				if (line.EndX < distanceFromAxis)
+				{
+					distanceFromAxis = line.EndX;
+				}
+			}
+			distanceFromAxis = Math.Abs(distanceFromAxis);
+
+			foreach (Line line in g71LinesLeftSide)
+			{
+				line.StartX += distanceFromAxis;
+				line.EndX += distanceFromAxis;
+				line.StartX = Conversion.StringToThreeDigitFloat(Convert.ToString(line.StartX));
+				line.EndX = Conversion.StringToThreeDigitFloat(Convert.ToString(line.EndX));
+
+				line.StartX *= -1;
+				line.EndX *= -1;
+
+				(line.StartX, line.StartY, line.EndX, line.EndY) = (line.EndX, line.EndY, line.StartX, line.StartY);
+			}
+
+			foreach (Arc arc in g71ArcsLeftSide)
+			{
+				arc.CenterX += distanceFromAxis;
+				arc.RectangularCornerX += distanceFromAxis;
+				arc.RectangularCornerX += arc.Width;
+				arc.StartX += distanceFromAxis;
+				arc.EndX += distanceFromAxis;
+
+				arc.CenterX = Conversion.StringToThreeDigitFloat(Convert.ToString(arc.CenterX));
+				arc.RectangularCornerX = Conversion.StringToThreeDigitFloat(Convert.ToString(arc.RectangularCornerX));
+				arc.StartX = Conversion.StringToThreeDigitFloat(Convert.ToString(arc.StartX));
+				arc.EndX = Conversion.StringToThreeDigitFloat(Convert.ToString(arc.EndX));
+
+				arc.CenterX *= -1;
+				arc.RectangularCornerX *= -1;
+				arc.StartX *= -1;
+				arc.EndX *= -1;
+				
+				(arc.StartX, arc.StartY, arc.EndX, arc.EndY) = (arc.EndX, arc.EndY, arc.StartX, arc.StartY);
+
+				if (arc.StartAngle <= 180 && arc.EndAngle <= 180)
+				{
+					(arc.StartAngle, arc.EndAngle) = (arc.EndAngle, arc.StartAngle);
+					arc.StartAngle = 180 - arc.StartAngle;
+					arc.EndAngle = 180 - arc.EndAngle;
+				}
+
+				if (arc.StartAngle > 180 && arc.EndAngle > 180)
+				{
+					(arc.StartAngle, arc.EndAngle) = (arc.EndAngle, arc.StartAngle);
+					arc.StartAngle = 540 - arc.StartAngle;
+					arc.EndAngle = 540 - arc.EndAngle;
+				}
+				
+			}
+			
 		}
 
 		public static void OffsetLines(float gap)

@@ -38,8 +38,6 @@ namespace DXF.Lathe
 		public static List<string> StartPosition(List<G71ProfilePoint> g71ProfilePoints)
 		{
 			float maximumProfilePointX = 0;
-			float firstProfilePointX = 0;
-			float firstProfilePointZ = 0;
 			foreach (G71ProfilePoint g71ProfilePoint in g71ProfilePoints)
 			{
 				if (g71ProfilePoint.X > maximumProfilePointX)
@@ -48,14 +46,11 @@ namespace DXF.Lathe
 				}
 			}
 
-			firstProfilePointX = g71ProfilePoints[0].X;
-			firstProfilePointZ = g71ProfilePoints[0].Z;
-
 			//Fill G Code
 			List<string> startPosition = new List<string>
 			{
 				"(START POSITION)",
-				$"G0 X{(maximumProfilePointX + Parameter.StockX) * 2} Z{firstProfilePointZ + Parameter.StockZ}",
+				$"G0 X{(maximumProfilePointX + Parameter.StockX) * 2} Z{g71ProfilePoints[0].Z + Parameter.StockZ}",
 				""
 			};
 
@@ -80,9 +75,8 @@ namespace DXF.Lathe
 		{
 			//Fill G Code
 			List<string> profileBlock = new List<string>();
-			profileBlock.Add("(PROFILE BLOCK)");
-			profileBlock.Add("N1");
-			profileBlock.Add($"G1 X{(g71ProfilePoints[0].X) * 2} Z{g71ProfilePoints[0].Z + Parameter.StockZ}");
+			profileBlock.Add("(PROFILE START)");
+			profileBlock.Add($"N1 G0 G42 X{(g71ProfilePoints[0].X) * 2} Z{g71ProfilePoints[0].Z + Parameter.StockZ}");
 			foreach (G71ProfilePoint g71ProfilePoint in g71ProfilePoints)
 			{
 				if (g71ProfilePoint.R == 0)
@@ -98,7 +92,9 @@ namespace DXF.Lathe
 					profileBlock.Add($"G3 X{g71ProfilePoint.X * 2} Z{g71ProfilePoint.Z} R{g71ProfilePoint.R}");
 				}
 			}
-			profileBlock.Add("N2");
+
+			profileBlock.Add($"N2 G1 G40 X{(g71ProfilePoints[g71ProfilePoints.Count - 1].X + Parameter.StockX) * 2} Z{g71ProfilePoints[g71ProfilePoints.Count - 1].Z}");
+			profileBlock.Add("(PROFILE END)");
 			profileBlock.Add("");
 
 			return profileBlock;

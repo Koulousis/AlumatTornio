@@ -42,6 +42,11 @@ namespace DXF
 			g72XAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G72XAllowance"]);
 			g72ZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G72ZAllowance"]);
 			g72FeedRateInput.Value = Convert.ToDecimal(Settings.Default["G72FeedRate"]);
+
+			xStockValueInput.Value = Convert.ToDecimal(Settings.Default["XStockValue"]);
+			zStockValueInput.Value = Convert.ToDecimal(Settings.Default["ZStockValue"]);
+			Parameter.StockX = (float)xStockValueInput.Value;
+			Parameter.StockZ = (float)zStockValueInput.Value;
 		}
 		#endregion
 
@@ -55,7 +60,7 @@ namespace DXF
 			preview.Transform = cartesian;
 			preview.TranslateTransform(Calculation.TransformWidth(VisuilizationPanel.Width), Calculation.TransformWidth(VisuilizationPanel.Height), MatrixOrder.Append);
 
-			if (axesVisualizeCheckBox.Checked) { Visualize.Axes(preview, (float)VisuilizationPanel.Width * Elements.Parameter.ZoomFactor, (float)VisuilizationPanel.Height * Elements.Parameter.ZoomFactor); }
+			Draw.Axes(preview, (float) VisuilizationPanel.Width * Elements.Parameter.ZoomFactor, (float) VisuilizationPanel.Height * Elements.Parameter.ZoomFactor);
 			preview.Transform = new Matrix(1, 0, 0, -1, 0, 0);
 			preview.TranslateTransform(Calculation.TransformWidth(VisuilizationPanel.Width), Calculation.TransformWidth(VisuilizationPanel.Height), MatrixOrder.Append);
 
@@ -68,10 +73,19 @@ namespace DXF
 			GraphicsPath g71Profile = Create.G71Profile();
 
 			//Visualize
-			if (dieVisualizeCheckBox.Checked) { Visualize.Die(preview, diePath); }
-			if (profileVisualizeCheckBox.Checked) { Visualize.G71Profile(preview, g71Profile); }
-
-			GCode.G71(preview);
+			//Visualize.Die(preview, diePath);
+			if (rightSide.Checked)
+			{
+				Draw.Die(preview, Parameter.DieLines, Parameter.DieArcs);
+				Draw.StartPositionToStock(preview, Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
+				Draw.Profile(preview, Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
+			}
+			else
+			{
+				Draw.Die(preview, Parameter.DieLinesMirrored, Parameter.DieArcsMirrored);
+				Draw.StartPositionToStock(preview, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
+				Draw.Profile(preview, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
+			}
 		}
 
 		private void View_MouseMove(object sender, MouseEventArgs e)
@@ -88,34 +102,19 @@ namespace DXF
 			cursorPositionY += 25.4f / screen.DpiY;
 
 			//Set Labels text to X and Y mouse position
-			coordinatesLabel.Text = $@"X:{(cursorPositionY / Elements.Parameter.ZoomFactor),0:F3}, Z:{-cursorPositionX / Elements.Parameter.ZoomFactor,0:F3}";
+			coordinatesLabel.Text = $@"X:{(cursorPositionY / Elements.Parameter.ZoomFactor) * 2,0:F3}, Z:{-cursorPositionX / Elements.Parameter.ZoomFactor,0:F3}";
 		}
 		#endregion
-
-		#region Visualize Options
-		private void axesVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
-		{
-			VisuilizationPanel.Refresh();
-		}
-
-		private void dieVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
-		{
-			VisuilizationPanel.Refresh();
-		}
-
-		private void profileVisualizeCheckBox_CheckedChanged(object sender, EventArgs e)
-		{
-			VisuilizationPanel.Refresh();
-		}
-		#endregion
-
+		
 		#region Menu File
 		private void fileDxfMenuItem_Click(object sender, EventArgs e)
 		{
 			//Initialize elements parameters
 			exportProgressBar.Value = 0;
-			gCodeTextBox.Lines = new[] { "" };
-			
+			gCodeTextBox.Lines = Array.Empty<string>();
+			GCode.RightSide.Clear();
+			GCode.LeftSide.Clear();
+
 			//Trigger the user to select a file via a dialog with dxf files filter
 			OpenFileDialog selectDxfDialog = new OpenFileDialog()
 			{
@@ -125,7 +124,9 @@ namespace DXF
 				Filter = @"DXF Files (*.dxf)|*.dxf"
 			};
 
-			Dxf.Manage(selectDxfDialog);
+			Dxf.ManageGeneral(selectDxfDialog);
+			Dxf.ManageRightSide();
+			Dxf.ManageLeftSide();
 
 			//Re-visualize the data
 			statusLabel.Text = "Opened";
@@ -214,8 +215,12 @@ namespace DXF
 		#region Export
 		private void exportGCode_Click(object sender, EventArgs e)
 		{
+			if (Parameter.DxfText == null) { return; }
+
 			//Update Progress Bar
 			exportProgressBar.Value = 0;
+			gCodeTextBox.Lines = Array.Empty<string>();
+			GCode.RightSide.Clear();
 			for (int i = 0; i < 100; i++) { for (int j = 0; j < 10000; j++) { } exportProgressBar.Value++; }
 
 			//Set G71 Attributes
@@ -223,25 +228,33 @@ namespace DXF
 			G72Attributes g72Attributes = new G72Attributes(g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
 
 			//Get G71 profile points
-			Parameter.G71ProfilePoints = Create.G71ProfilePoints(Parameter.G71Lines, Parameter.G71Arcs);
-			Parameter.StockX = 3;
-			Parameter.StockZ = 3;
+			Parameter.G71ProfilePointsRightSide = Create.G71ProfilePointsRightSide(Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
+			Parameter.G71ProfilePointsLeftSide = Create.G71ProfilePointsLeftSide(Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
 
-			//Fill G-Code Text
-			GCode.Text.AddRange(CodeBlock.LatheInitialization());
-			GCode.Text.AddRange(CodeBlock.StartPosition(Parameter.G71ProfilePoints));
-			GCode.Text.AddRange(CodeBlock.G71Roughing(g71Attributes));
-			GCode.Text.AddRange(CodeBlock.G71Profile(Parameter.G71ProfilePoints));
-			GCode.Text.AddRange(CodeBlock.G70Finishing());
-			GCode.Text.AddRange(CodeBlock.LatheEnd());
+			//Fill G-Code File
+			GCode.RightSide.AddRange(CodeBlock.LatheInitialization());
+			GCode.RightSide.AddRange(CodeBlock.StartPosition(Parameter.G71ProfilePointsRightSide));
+			GCode.RightSide.AddRange(CodeBlock.G71Roughing(g71Attributes));
+			GCode.RightSide.AddRange(CodeBlock.G71Profile(Parameter.G71ProfilePointsRightSide));
+			GCode.RightSide.AddRange(CodeBlock.G70Finishing());
+			GCode.RightSide.AddRange(CodeBlock.LatheEnd());
 
-			//G-Code Text Export
+			GCode.LeftSide.AddRange(CodeBlock.LatheInitialization());
+			GCode.LeftSide.AddRange(CodeBlock.StartPosition(Parameter.G71ProfilePointsLeftSide));
+			GCode.LeftSide.AddRange(CodeBlock.G71Roughing(g71Attributes));
+			GCode.LeftSide.AddRange(CodeBlock.G71Profile(Parameter.G71ProfilePointsLeftSide));
+			GCode.LeftSide.AddRange(CodeBlock.G70Finishing());
+			GCode.LeftSide.AddRange(CodeBlock.LatheEnd());
+
+			//G-Code File Export
 			GCode.Export();
 
 			//Update File Status
 			statusLabel.Text = "Exported";
 			statusLabel.ForeColor = Color.Green;
-			gCodeTextBox.Lines = GCode.Text.ToArray();
+
+			gCodeTextBox.Lines = rightSide.Checked ? GCode.RightSide.ToArray() : GCode.LeftSide.ToArray();
+			
 		}
 		#endregion
 
@@ -308,6 +321,29 @@ namespace DXF
 			Settings.Default.Save();
 		}
 		#endregion
-		
+
+		#region Stock Values Save
+		private void xStockValueInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["XStockValue"] = (float)xStockValueInput.Value;
+			Settings.Default.Save();
+			Parameter.StockX = (float)xStockValueInput.Value;
+			VisuilizationPanel.Refresh();
+		}
+
+		private void zStockValueInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["ZStockValue"] = (float)zStockValueInput.Value;
+			Settings.Default.Save();
+			Parameter.StockZ = (float)zStockValueInput.Value;
+			VisuilizationPanel.Refresh();
+		}
+		#endregion
+
+		private void rightSide_CheckedChanged(object sender, EventArgs e)
+		{
+			VisuilizationPanel.Refresh();
+			gCodeTextBox.Lines = rightSide.Checked ? GCode.RightSide.ToArray() : GCode.LeftSide.ToArray();
+		}
 	}
 }

@@ -109,7 +109,10 @@ namespace DXF.Actions
 		
 		public static List<Line> DieLines(List<Line> allLines)
 		{
-			List<Line> dieLines = new List<Line>(allLines);
+			List<Line> dieLines = new List<Line>();
+			foreach (Line line in allLines) { dieLines.Add(line.Clone()); }
+
+			//List<Line> dieLines = new List<Line>(allLines);
 			for (int i = 0; i < dieLines.Count; i++)
 			{
 				if (dieLines[i].Color != Parameter.Green)
@@ -123,7 +126,9 @@ namespace DXF.Actions
 
 		public static List<Arc> DieArcs(List<Arc> allArcs)
 		{
-			List<Arc> dieArcs = new List<Arc>(allArcs);
+			List<Arc> dieArcs = new List<Arc>();
+			foreach (Arc arc in allArcs) { dieArcs.Add(arc.Clone()); }
+
 			for (int i = 0; i < dieArcs.Count; i++)
 			{
 				if (dieArcs[i].Color != Parameter.Green)
@@ -135,58 +140,86 @@ namespace DXF.Actions
 			return dieArcs;
 		}
 
-		public static List<Line> G71Lines(List<Line> dieLines)
+		public static List<Line> DieLinesMirrored(List<Line> dieLines)
 		{
-			List<Line> g71Lines = new List<Line>(dieLines).OrderBy(line => line.Index).ToList();
+			List<Line> dieLinesMirrored = new List<Line>();
+			foreach (Line line in Parameter.DieLines)
+			{
+				dieLinesMirrored.Add(line.Clone());
+			}
+
+			return dieLinesMirrored;
+		}
+
+		public static List<Arc> DieArcsMirrored(List<Arc> dieArcs)
+		{
+			List<Arc> dieArcsMirrored = new List<Arc>();
+			foreach (Arc arc in Parameter.DieArcs)
+			{
+				dieArcsMirrored.Add(arc.Clone());
+			}
+
+			return dieArcsMirrored;
+		}
+
+		public static List<Line> G71LinesRightSide(List<Line> dieLines)
+		{
+			//Read die lines ordered by index
+			List<Line> g71LinesRightSide = new List<Line>();
+			foreach (Line line in dieLines) { g71LinesRightSide.Add(line.Clone()); }
+			g71LinesRightSide = dieLines.OrderBy(line => line.Index).ToList();
 
 			//Remove lines attached to Vertical Axis
-			Line lineAttachedToVerticalAxis = g71Lines.Find(line => line.StartX == 0 && line.EndX == 0);
-			while (lineAttachedToVerticalAxis != null)
-			{
-				g71Lines.Remove(lineAttachedToVerticalAxis);
-				lineAttachedToVerticalAxis = g71Lines.Find(line => line.StartX == 0 && line.EndX == 0);
-			}
+			g71LinesRightSide = Remove.LinesAttachedToAxisX(g71LinesRightSide);
 
 			//Remove lines that has decreased Y from the previous iterated line
-			float y1 = g71Lines[0].StartY; 
-			float y2 = g71Lines[0].EndY;
-			for (int i = 1; i < g71Lines.Count; i++)
-			{
-				if (g71Lines[i].StartY < y1 || g71Lines[i].EndY < y1 || g71Lines[i].StartY < y2 || g71Lines[i].EndY < y2)
-				{
-					g71Lines.Remove(g71Lines[i]);
-					i--;
-				}
-				else
-				{
-					y1 = g71Lines[i].StartY;
-					y2 = g71Lines[i].EndY;
-				}
-			}
-			return g71Lines;
+			g71LinesRightSide = Remove.NotProfileLines(g71LinesRightSide);
+
+			return g71LinesRightSide;
 		}
 
-		public static List<Arc> G71Arcs(List<Arc> dieArcs)
+		public static List<Arc> G71ArcsRightSide(List<Arc> dieArcs)
 		{
-			List<Arc> g71Arcs = new List<Arc>(dieArcs).OrderBy(arc => arc.Index).ToList();
+			List<Arc> g71ArcsRightSide = new List<Arc>();
+			foreach (Arc arc in dieArcs) { g71ArcsRightSide.Add(arc.Clone()); }
+			g71ArcsRightSide = dieArcs.OrderBy(arc => arc.Index).ToList();
 
 			//Remove arcs that has decreased Y from the previous iterated arc
-			float y1 = g71Arcs[0].StartY;
-			float y2 = g71Arcs[0].EndY;
-			for (int i = 1; i < g71Arcs.Count; i++)
-			{
-				if (g71Arcs[i].StartY < y1 || g71Arcs[i].EndY < y1 || g71Arcs[i].StartY < y2 || g71Arcs[i].EndY < y2)
-				{
-					g71Arcs.Remove(g71Arcs[i]);
-					i--;
-				}
-				else
-				{
-					y1 = g71Arcs[i].StartY;
-					y2 = g71Arcs[i].EndY;
-				}
-			}
-			return g71Arcs;
+			g71ArcsRightSide = Remove.NotProfileArcs(g71ArcsRightSide);
+
+			return g71ArcsRightSide;
 		}
+
+		public static List<Line> G71LinesLeftSide(List<Line> dieLines)
+		{
+			//Read die lines ordered by index and reverse them
+			List<Line> g71LinesLeftSide = new List<Line>();
+			foreach (Line line in dieLines) { g71LinesLeftSide.Add(line.Clone()); }
+			g71LinesLeftSide = g71LinesLeftSide.OrderBy(line => line.Index).ToList();
+			g71LinesLeftSide.Reverse();
+
+			//Remove lines attached to Vertical Axis
+			g71LinesLeftSide = Remove.LinesAttachedToAxisX(g71LinesLeftSide);
+
+			//Remove lines that has decreased Y from the previous iterated line
+			g71LinesLeftSide = Remove.NotProfileLines(g71LinesLeftSide);
+
+			return g71LinesLeftSide;
+		}
+
+		public static List<Arc> G71ArcsLeftSide(List<Arc> dieArcs)
+		{
+			//Read die arcs ordered by index and reverse them
+			List<Arc> g71ArcsLeftSide = new List<Arc>();
+			foreach (Arc arc in dieArcs) { g71ArcsLeftSide.Add(arc.Clone()); }
+			g71ArcsLeftSide = g71ArcsLeftSide.OrderBy(arc => arc.Index).ToList();
+			g71ArcsLeftSide.Reverse();
+
+			//Remove arcs that has decreased Y from the previous iterated arc
+			g71ArcsLeftSide = Remove.NotProfileArcs(g71ArcsLeftSide);
+
+			return g71ArcsLeftSide;
+		}
+
 	}
 }

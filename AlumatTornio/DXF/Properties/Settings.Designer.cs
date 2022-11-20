@@ -166,5 +166,29 @@ namespace DXF.Properties {
                 this["G72FeedRate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public float XStockValue {
+            get {
+                return ((float)(this["XStockValue"]));
+            }
+            set {
+                this["XStockValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public float ZStockValue {
+            get {
+                return ((float)(this["ZStockValue"]));
+            }
+            set {
+                this["ZStockValue"] = value;
+            }
+        }
     }
 }

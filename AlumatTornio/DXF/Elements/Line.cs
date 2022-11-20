@@ -15,7 +15,7 @@ namespace DXF.Elements
 		public float EndX { get; set; }   //Value 11 in DXF
 		public float EndY { get; set; }   //Value 21 in DXF
 		public string Color { get; set; }
-
+		
 		public Line(float startX, float startY, float endX, float endY , string color)
 		{
 			StartX = startX;
@@ -23,6 +23,14 @@ namespace DXF.Elements
 			EndX = endX;
 			EndY = endY;
 			Color = color;
+		}
+
+		public Line Clone()
+		{
+			return new Line(this.StartX, this.StartY, this.EndX, this.EndY, this.Color)
+			{
+				Index = this.Index
+			};
 		}
 	}
 }

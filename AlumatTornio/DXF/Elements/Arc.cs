@@ -29,9 +29,7 @@ namespace DXF.Elements
 		public float EndY { get; set; }
 		public bool Clockwise { get; set; }
 		public bool AntiClockwise { get; set; }
-
-
-
+		
 		public Arc(float centerX, float centerY, float radius, float startAngle, float endAngle, string color)
 		{
 			CenterX = centerX;
@@ -83,6 +81,25 @@ namespace DXF.Elements
 			EndY = quarter == 1 || quarter == 2 ? centerY + distanceFromCenterOfEndY : centerY - distanceFromCenterOfEndY;
 			EndY = Conversion.StringToThreeDigitFloat(EndY.ToString());
 
+		}
+
+		public Arc Clone()
+		{
+			return new Arc(this.CenterX, this.CenterY, this.Radius, this.StartAngle, this.EndAngle, this.Color)
+			{
+				Index = this.Index,
+				RectangularCornerX = this.RectangularCornerX,
+				RectangularCornerY = this.RectangularCornerY,
+				Width = this.Width,
+				Height = this.Height,
+				SweepAngle = this.SweepAngle,
+				StartX = this.StartX,
+				StartY = this.StartY,
+				EndX = this.EndX,
+				EndY = this.EndY,
+				Clockwise = this.Clockwise,
+				AntiClockwise = this.AntiClockwise
+			};
 		}
 	}	
 }
