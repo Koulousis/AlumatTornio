@@ -122,7 +122,7 @@ namespace DXF.Actions
 			}
 		}
 
-		public static void Mirror(List<Line> g71Lines, List<Arc> g71Arcs)
+		public static void MirrorElements(List<Line> g71Lines, List<Arc> g71Arcs)
 		{
 			List<Line> g71LinesLeftSide = new List<Line>(g71Lines);
 			List<Arc> g71ArcsLeftSide = new List<Arc>(g71Arcs);

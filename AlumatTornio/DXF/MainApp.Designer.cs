@@ -823,21 +823,21 @@ namespace DXF
 			// 
 			// zStockValueInput
 			// 
-			this.zStockValueInput.DecimalPlaces = 2;
+			this.zStockValueInput.DecimalPlaces = 1;
 			this.zStockValueInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.zStockValueInput.Increment = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             65536});
 			this.zStockValueInput.Location = new System.Drawing.Point(23, 66);
 			this.zStockValueInput.Maximum = new decimal(new int[] {
-            5,
+            7,
             0,
             0,
             0});
 			this.zStockValueInput.Minimum = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             65536});
@@ -848,26 +848,26 @@ namespace DXF
             1,
             0,
             0,
-            65536});
+            0});
 			this.zStockValueInput.ValueChanged += new System.EventHandler(this.zStockValueInput_ValueChanged);
 			// 
 			// xStockValueInput
 			// 
-			this.xStockValueInput.DecimalPlaces = 2;
+			this.xStockValueInput.DecimalPlaces = 1;
 			this.xStockValueInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.xStockValueInput.Increment = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             65536});
 			this.xStockValueInput.Location = new System.Drawing.Point(23, 25);
 			this.xStockValueInput.Maximum = new decimal(new int[] {
-            5,
+            7,
             0,
             0,
             0});
 			this.xStockValueInput.Minimum = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             65536});
@@ -878,7 +878,7 @@ namespace DXF
             1,
             0,
             0,
-            65536});
+            0});
 			this.xStockValueInput.ValueChanged += new System.EventHandler(this.xStockValueInput_ValueChanged);
 			// 
 			// zStockValueLabel
@@ -925,6 +925,7 @@ namespace DXF
 			this.cavaCheckBox.TabIndex = 0;
 			this.cavaCheckBox.Text = "Apply";
 			this.cavaCheckBox.UseVisualStyleBackColor = true;
+			this.cavaCheckBox.CheckedChanged += new System.EventHandler(this.cavaCheckBox_CheckedChanged);
 			// 
 			// MainApp
 			// 

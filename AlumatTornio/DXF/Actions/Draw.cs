@@ -94,7 +94,7 @@ namespace DXF.Actions
 			profilePen.Dispose();
 		}
 
-		public static void StartPositionToStock(Graphics drawPanel, List<Line> profileLines, List<Arc> profileArcs)
+		public static void StartPositionToProfileStart(Graphics drawPanel, List<Line> profileLines, List<Arc> profileArcs)
 		{
 			//Instantiate a specific Pen
 			Pen profilePen = new Pen(Color.Yellow);
@@ -130,6 +130,43 @@ namespace DXF.Actions
 			drawPanel.DrawLine(profilePen, Parameter.StockZ, maximumProfilePointY + Parameter.StockX, Parameter.StockZ, firstElementY);
 			drawPanel.DrawLine(profilePen, Parameter.StockZ, firstElementY, 0, firstElementY);
 
+
+			//Dispose
+			profilePen.Dispose();
+		}
+
+		public static void ProfileEndToEndPosition(Graphics drawPanel, List<Line> profileLines, List<Arc> profileArcs)
+		{
+			//Instantiate a specific Pen
+			Pen profilePen = new Pen(Color.Yellow);
+			profilePen.DashStyle = DashStyle.Dash;
+			profilePen.ScaleTransform(1 / Parameter.ZoomFactor, 1 / Parameter.ZoomFactor);
+			profilePen.Alignment = PenAlignment.Center;
+			
+			float lastElementX = 0;
+			float lastElementY = 0;
+
+			foreach (Line line in profileLines)
+			{
+				if (line.EndX < lastElementX)
+				{
+					lastElementX = line.EndX;
+					lastElementY = line.EndY;
+				}
+			}
+			foreach (Arc arc in profileArcs)
+			{
+				if (arc.EndX < lastElementX)
+				{
+					lastElementX = arc.EndX;
+					lastElementY = arc.EndY;
+				}
+			}
+
+			//Draw G71 Profile
+			//Draw and Fill Full Die Path
+			drawPanel.DrawLine(profilePen, lastElementX, lastElementY, lastElementX, lastElementY + Parameter.StockX);
+			drawPanel.DrawLine(profilePen, lastElementX, lastElementY + Parameter.StockX, Parameter.StockZ, lastElementY + Parameter.StockX);
 
 			//Dispose
 			profilePen.Dispose();

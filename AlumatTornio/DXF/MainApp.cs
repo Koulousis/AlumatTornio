@@ -77,14 +77,16 @@ namespace DXF
 			if (rightSide.Checked)
 			{
 				Draw.Die(preview, Parameter.DieLines, Parameter.DieArcs);
-				Draw.StartPositionToStock(preview, Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
+				Draw.StartPositionToProfileStart(preview, Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
 				Draw.Profile(preview, Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
+				Draw.ProfileEndToEndPosition(preview, Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
 			}
 			else
 			{
 				Draw.Die(preview, Parameter.DieLinesMirrored, Parameter.DieArcsMirrored);
-				Draw.StartPositionToStock(preview, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
+				Draw.StartPositionToProfileStart(preview, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
 				Draw.Profile(preview, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
+				Draw.ProfileEndToEndPosition(preview, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
 			}
 		}
 
@@ -127,6 +129,7 @@ namespace DXF
 			Dxf.ManageGeneral(selectDxfDialog);
 			Dxf.ManageRightSide();
 			Dxf.ManageLeftSide();
+			Dxf.ManageCava();
 
 			//Re-visualize the data
 			statusLabel.Text = "Opened";
@@ -344,6 +347,57 @@ namespace DXF
 		{
 			VisuilizationPanel.Refresh();
 			gCodeTextBox.Lines = rightSide.Checked ? GCode.RightSide.ToArray() : GCode.LeftSide.ToArray();
+		}
+
+		private void cavaCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			if (rightSide.Checked && cavaCheckBox.Checked)
+			{
+				float cavaLength = 0;
+				foreach (Line line in Parameter.CavaLines)
+				{
+					cavaLength += line.EndX - line.StartX;
+				}
+				foreach (Arc arc in Parameter.CavaArcs)
+				{
+					cavaLength += arc.EndX - arc.StartX;
+				}
+
+				cavaLength = Math.Abs(cavaLength);
+
+				float cavaStartX = Parameter.G71LinesRightSide[Parameter.G71LinesRightSide.Count - 1].EndX;
+				float cavaStartY = Parameter.G71LinesRightSide[Parameter.G71LinesRightSide.Count - 1].EndY;
+				Line cavaLine = new Line(cavaStartX, cavaStartY, cavaStartX - cavaLength, cavaStartY, "3");
+
+				cavaLine.Index = Parameter.G71LinesRightSide[Parameter.G71LinesRightSide.Count - 1].Index + 1;
+				Parameter.G71LinesRightSide.Add(cavaLine);
+
+				VisuilizationPanel.Refresh();
+			}
+
+			if (leftSide.Checked && cavaCheckBox.Checked)
+			{
+				float cavaLength = 0;
+				foreach (Line line in Parameter.CavaLines)
+				{
+					cavaLength += line.EndX - line.StartX;
+				}
+				foreach (Arc arc in Parameter.CavaArcs)
+				{
+					cavaLength += arc.EndX - arc.StartX;
+				}
+
+				cavaLength = Math.Abs(cavaLength);
+
+				float cavaStartX = Parameter.G71LinesLeftSide[Parameter.G71LinesLeftSide.Count - 1].EndX;
+				float cavaStartY = Parameter.G71LinesLeftSide[Parameter.G71LinesLeftSide.Count - 1].EndY;
+				Line cavaLine = new Line(cavaStartX, cavaStartY, cavaStartX - cavaLength, cavaStartY, "3");
+				cavaLine.Index = Parameter.G71LinesLeftSide[Parameter.G71LinesLeftSide.Count - 1].Index - 1;
+
+				Parameter.G71LinesLeftSide.Add(cavaLine);
+
+				VisuilizationPanel.Refresh();
+			}
 		}
 	}
 }

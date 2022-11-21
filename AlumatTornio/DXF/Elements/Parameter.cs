@@ -22,8 +22,13 @@ namespace DXF.Elements
 
 		public static List<Line> G71LinesRightSide { get; set; }
 		public static List<Arc> G71ArcsRightSide { get; set; }
+
 		public static List<Line> G71LinesLeftSide { get; set; }
 		public static List<Arc> G71ArcsLeftSide { get; set; }
+
+		public static List<Line> CavaLines { get; set; }
+		public static List<Arc> CavaArcs { get; set; }
+
 
 		public static string Red = "1";
 		public static string Yellow = "2";

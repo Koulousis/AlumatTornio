@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -167,7 +168,7 @@ namespace DXF.Actions
 			//Read die lines ordered by index
 			List<Line> g71LinesRightSide = new List<Line>();
 			foreach (Line line in dieLines) { g71LinesRightSide.Add(line.Clone()); }
-			g71LinesRightSide = dieLines.OrderBy(line => line.Index).ToList();
+			g71LinesRightSide = g71LinesRightSide.OrderBy(line => line.Index).ToList();
 
 			//Remove lines attached to Vertical Axis
 			g71LinesRightSide = Remove.LinesAttachedToAxisX(g71LinesRightSide);
@@ -182,7 +183,7 @@ namespace DXF.Actions
 		{
 			List<Arc> g71ArcsRightSide = new List<Arc>();
 			foreach (Arc arc in dieArcs) { g71ArcsRightSide.Add(arc.Clone()); }
-			g71ArcsRightSide = dieArcs.OrderBy(arc => arc.Index).ToList();
+			g71ArcsRightSide = g71ArcsRightSide.OrderBy(arc => arc.Index).ToList();
 
 			//Remove arcs that has decreased Y from the previous iterated arc
 			g71ArcsRightSide = Remove.NotProfileArcs(g71ArcsRightSide);
@@ -219,6 +220,76 @@ namespace DXF.Actions
 			g71ArcsLeftSide = Remove.NotProfileArcs(g71ArcsLeftSide);
 
 			return g71ArcsLeftSide;
+		}
+
+		public static List<Line> CavaLines(List<Line> dieLines, List<Line> rightProfileLines, List<Line> leftProfileLines)
+		{
+			List<Line> cavaLines = new List<Line>();
+			foreach (Line line in dieLines) { cavaLines.Add(line.Clone()); }
+			cavaLines = Remove.LinesAttachedToAxisX(cavaLines);
+
+			for (int i = 0; i < cavaLines.Count; i++)
+			{
+				foreach (Line line in rightProfileLines)
+				{
+					if (cavaLines[i].Index == line.Index)
+					{
+						cavaLines.Remove(cavaLines[i]);
+						i--;
+						break;
+					}
+				}
+			}
+
+			for (int i = 0; i < cavaLines.Count; i++)
+			{
+				foreach (Line line in leftProfileLines)
+				{
+					if (cavaLines[i].Index == line.Index)
+					{
+						cavaLines.Remove(cavaLines[i]);
+						i--;
+						break;
+					}
+				}
+			}
+
+
+			return cavaLines;
+		}
+
+		public static List<Arc> CavaArcs(List<Arc> dieArcs, List<Arc> rightProfileArcs, List<Arc> leftProfilesArcs)
+		{
+			List<Arc> cavaArcs = new List<Arc>();
+			foreach (Arc arc in dieArcs) { cavaArcs.Add(arc.Clone()); }
+
+			for (int i = 0; i < cavaArcs.Count; i++)
+			{
+				foreach (Arc arc in rightProfileArcs)
+				{
+					if (cavaArcs[i].Index == arc.Index)
+					{
+						cavaArcs.Remove(cavaArcs[i]);
+						i--;
+						break;
+					}
+				}
+			}
+
+			for (int i = 0; i < cavaArcs.Count; i++)
+			{
+				foreach (Arc arc in leftProfilesArcs)
+				{
+					if (cavaArcs[i].Index == arc.Index)
+					{
+						cavaArcs.Remove(cavaArcs[i]);
+						i--;
+						break;
+					}
+				}
+			}
+
+			return cavaArcs;
 		}
 
 	}

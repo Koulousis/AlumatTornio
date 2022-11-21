@@ -34,7 +34,7 @@ namespace DXF.Organizer
 
 			Parameter.DieLinesMirrored = Get.DieLinesMirrored(Parameter.DieLines);
 			Parameter.DieArcsMirrored = Get.DieArcsMirrored(Parameter.DieArcs);
-			Edit.Mirror(Parameter.DieLinesMirrored, Parameter.DieArcsMirrored);
+			Edit.MirrorElements(Parameter.DieLinesMirrored, Parameter.DieArcsMirrored);
 
 			//Remove.DuplicateLines();
 			//Remove.DuplicateArcs();
@@ -56,7 +56,13 @@ namespace DXF.Organizer
 			Parameter.G71LinesLeftSide = Get.G71LinesLeftSide(Parameter.DieLinesMirrored);
 			Parameter.G71ArcsLeftSide = Get.G71ArcsLeftSide(Parameter.DieArcsMirrored);
 
-			//Edit.Mirror(Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
+			//Edit.MirrorElements(Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
+		}
+
+		public static void ManageCava()
+		{
+			Parameter.CavaLines = Get.CavaLines(Parameter.DieLines, Parameter.G71LinesRightSide, Parameter.G71LinesLeftSide);
+			Parameter.CavaArcs = Get.CavaArcs(Parameter.DieArcs, Parameter.G71ArcsRightSide, Parameter.G71ArcsLeftSide);
 		}
 	}
 }

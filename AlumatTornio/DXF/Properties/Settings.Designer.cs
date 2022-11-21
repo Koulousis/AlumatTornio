@@ -169,7 +169,7 @@ namespace DXF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
         public float XStockValue {
             get {
                 return ((float)(this["XStockValue"]));
@@ -181,7 +181,7 @@ namespace DXF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
         public float ZStockValue {
             get {
                 return ((float)(this["ZStockValue"]));
