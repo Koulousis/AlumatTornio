@@ -74,8 +74,8 @@ namespace DXF
 			this.g72RetractLabel = new System.Windows.Forms.Label();
 			this.g72DepthOfCutLabel = new System.Windows.Forms.Label();
 			this.gCodeTextBox = new System.Windows.Forms.RichTextBox();
-			this.statusLabel = new System.Windows.Forms.Label();
-			this.statusTitleLabel = new System.Windows.Forms.Label();
+			this.fileName = new System.Windows.Forms.Label();
+			this.fileNameLabel = new System.Windows.Forms.Label();
 			this.VisuilizationPanel = new System.Windows.Forms.PictureBox();
 			this.stockValuesSelectorGroup = new System.Windows.Forms.GroupBox();
 			this.zStockValueInput = new System.Windows.Forms.NumericUpDown();
@@ -111,7 +111,7 @@ namespace DXF
 			// 
 			this.coordinatesLabel.AutoSize = true;
 			this.coordinatesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.coordinatesLabel.Location = new System.Drawing.Point(268, 507);
+			this.coordinatesLabel.Location = new System.Drawing.Point(318, 507);
 			this.coordinatesLabel.Name = "coordinatesLabel";
 			this.coordinatesLabel.Size = new System.Drawing.Size(152, 20);
 			this.coordinatesLabel.TabIndex = 1;
@@ -128,7 +128,7 @@ namespace DXF
 			this.mainAppMenu.Location = new System.Drawing.Point(0, 0);
 			this.mainAppMenu.Name = "mainAppMenu";
 			this.mainAppMenu.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
-			this.mainAppMenu.Size = new System.Drawing.Size(648, 24);
+			this.mainAppMenu.Size = new System.Drawing.Size(691, 24);
 			this.mainAppMenu.TabIndex = 2;
 			this.mainAppMenu.Text = "menuStrip1";
 			// 
@@ -222,11 +222,11 @@ namespace DXF
 			this.sideSelectorGroup.Controls.Add(this.rightSide);
 			this.sideSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.sideSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.sideSelectorGroup.Location = new System.Drawing.Point(267, 393);
+			this.sideSelectorGroup.Location = new System.Drawing.Point(323, 393);
 			this.sideSelectorGroup.Margin = new System.Windows.Forms.Padding(2);
 			this.sideSelectorGroup.Name = "sideSelectorGroup";
 			this.sideSelectorGroup.Padding = new System.Windows.Forms.Padding(2);
-			this.sideSelectorGroup.Size = new System.Drawing.Size(83, 68);
+			this.sideSelectorGroup.Size = new System.Drawing.Size(76, 68);
 			this.sideSelectorGroup.TabIndex = 3;
 			this.sideSelectorGroup.TabStop = false;
 			this.sideSelectorGroup.Text = "Side";
@@ -264,7 +264,7 @@ namespace DXF
 			this.copyrightsBanner.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.copyrightsBanner.Location = new System.Drawing.Point(0, 533);
 			this.copyrightsBanner.Name = "copyrightsBanner";
-			this.copyrightsBanner.Size = new System.Drawing.Size(648, 95);
+			this.copyrightsBanner.Size = new System.Drawing.Size(691, 95);
 			this.copyrightsBanner.TabIndex = 4;
 			// 
 			// copyrights
@@ -286,7 +286,7 @@ namespace DXF
 			this.banner.Image = ((System.Drawing.Image)(resources.GetObject("banner.Image")));
 			this.banner.Location = new System.Drawing.Point(0, 0);
 			this.banner.Name = "banner";
-			this.banner.Size = new System.Drawing.Size(648, 74);
+			this.banner.Size = new System.Drawing.Size(691, 74);
 			this.banner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.banner.TabIndex = 0;
 			this.banner.TabStop = false;
@@ -294,7 +294,7 @@ namespace DXF
 			// exportGCode
 			// 
 			this.exportGCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.exportGCode.Location = new System.Drawing.Point(443, 399);
+			this.exportGCode.Location = new System.Drawing.Point(492, 399);
 			this.exportGCode.Name = "exportGCode";
 			this.exportGCode.Size = new System.Drawing.Size(193, 74);
 			this.exportGCode.TabIndex = 5;
@@ -304,7 +304,7 @@ namespace DXF
 			// 
 			// exportProgressBar
 			// 
-			this.exportProgressBar.Location = new System.Drawing.Point(443, 479);
+			this.exportProgressBar.Location = new System.Drawing.Point(492, 479);
 			this.exportProgressBar.Name = "exportProgressBar";
 			this.exportProgressBar.Size = new System.Drawing.Size(193, 24);
 			this.exportProgressBar.TabIndex = 6;
@@ -323,7 +323,7 @@ namespace DXF
 			this.g71Settings.Controls.Add(this.g71DepthOfCutLabel);
 			this.g71Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.g71Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.g71Settings.Location = new System.Drawing.Point(267, 27);
+			this.g71Settings.Location = new System.Drawing.Point(323, 27);
 			this.g71Settings.Name = "g71Settings";
 			this.g71Settings.Size = new System.Drawing.Size(163, 174);
 			this.g71Settings.TabIndex = 7;
@@ -549,7 +549,7 @@ namespace DXF
 			this.g72Settings.Controls.Add(this.g72DepthOfCutLabel);
 			this.g72Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.g72Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.g72Settings.Location = new System.Drawing.Point(267, 210);
+			this.g72Settings.Location = new System.Drawing.Point(323, 210);
 			this.g72Settings.Name = "g72Settings";
 			this.g72Settings.Size = new System.Drawing.Size(163, 174);
 			this.g72Settings.TabIndex = 10;
@@ -765,42 +765,43 @@ namespace DXF
 			// 
 			this.gCodeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
 			this.gCodeTextBox.ForeColor = System.Drawing.Color.WhiteSmoke;
-			this.gCodeTextBox.Location = new System.Drawing.Point(443, 33);
+			this.gCodeTextBox.Location = new System.Drawing.Point(492, 33);
 			this.gCodeTextBox.Name = "gCodeTextBox";
 			this.gCodeTextBox.ReadOnly = true;
 			this.gCodeTextBox.Size = new System.Drawing.Size(193, 351);
 			this.gCodeTextBox.TabIndex = 11;
 			this.gCodeTextBox.Text = "";
 			// 
-			// statusLabel
+			// fileName
 			// 
-			this.statusLabel.AutoSize = true;
-			this.statusLabel.BackColor = System.Drawing.SystemColors.InfoText;
-			this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.statusLabel.Location = new System.Drawing.Point(531, 507);
-			this.statusLabel.Name = "statusLabel";
-			this.statusLabel.Size = new System.Drawing.Size(43, 20);
-			this.statusLabel.TabIndex = 12;
-			this.statusLabel.Text = "clear";
+			this.fileName.AutoSize = true;
+			this.fileName.BackColor = System.Drawing.SystemColors.WindowFrame;
+			this.fileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.fileName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.fileName.Location = new System.Drawing.Point(508, 510);
+			this.fileName.Name = "fileName";
+			this.fileName.Size = new System.Drawing.Size(93, 16);
+			this.fileName.TabIndex = 12;
+			this.fileName.Text = "not selected";
 			// 
-			// statusTitleLabel
+			// fileNameLabel
 			// 
-			this.statusTitleLabel.AutoSize = true;
-			this.statusTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.statusTitleLabel.Location = new System.Drawing.Point(439, 507);
-			this.statusTitleLabel.Name = "statusTitleLabel";
-			this.statusTitleLabel.Size = new System.Drawing.Size(86, 20);
-			this.statusTitleLabel.TabIndex = 13;
-			this.statusTitleLabel.Text = "File status:";
+			this.fileNameLabel.AutoSize = true;
+			this.fileNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.fileNameLabel.Location = new System.Drawing.Point(473, 507);
+			this.fileNameLabel.Name = "fileNameLabel";
+			this.fileNameLabel.Size = new System.Drawing.Size(38, 20);
+			this.fileNameLabel.TabIndex = 13;
+			this.fileNameLabel.Text = "File:";
 			// 
 			// VisuilizationPanel
 			// 
 			this.VisuilizationPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
 			this.VisuilizationPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.VisuilizationPanel.Cursor = System.Windows.Forms.Cursors.Cross;
-			this.VisuilizationPanel.Location = new System.Drawing.Point(12, 27);
+			this.VisuilizationPanel.Location = new System.Drawing.Point(7, 27);
 			this.VisuilizationPanel.Name = "VisuilizationPanel";
-			this.VisuilizationPanel.Size = new System.Drawing.Size(250, 500);
+			this.VisuilizationPanel.Size = new System.Drawing.Size(300, 500);
 			this.VisuilizationPanel.TabIndex = 0;
 			this.VisuilizationPanel.TabStop = false;
 			this.VisuilizationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.View_Paint);
@@ -814,7 +815,7 @@ namespace DXF
 			this.stockValuesSelectorGroup.Controls.Add(this.xStockValueLabel);
 			this.stockValuesSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.stockValuesSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.stockValuesSelectorGroup.Location = new System.Drawing.Point(355, 393);
+			this.stockValuesSelectorGroup.Location = new System.Drawing.Point(404, 393);
 			this.stockValuesSelectorGroup.Name = "stockValuesSelectorGroup";
 			this.stockValuesSelectorGroup.Size = new System.Drawing.Size(82, 110);
 			this.stockValuesSelectorGroup.TabIndex = 14;
@@ -908,9 +909,9 @@ namespace DXF
 			this.groupBox1.Controls.Add(this.cavaCheckBox);
 			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.groupBox1.Location = new System.Drawing.Point(267, 461);
+			this.groupBox1.Location = new System.Drawing.Point(323, 461);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(82, 42);
+			this.groupBox1.Size = new System.Drawing.Size(76, 42);
 			this.groupBox1.TabIndex = 15;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Cava";
@@ -932,11 +933,11 @@ namespace DXF
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.WindowFrame;
-			this.ClientSize = new System.Drawing.Size(648, 628);
+			this.ClientSize = new System.Drawing.Size(691, 628);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.stockValuesSelectorGroup);
-			this.Controls.Add(this.statusTitleLabel);
-			this.Controls.Add(this.statusLabel);
+			this.Controls.Add(this.fileNameLabel);
+			this.Controls.Add(this.fileName);
 			this.Controls.Add(this.gCodeTextBox);
 			this.Controls.Add(this.g72Settings);
 			this.Controls.Add(this.g71Settings);
@@ -1030,8 +1031,8 @@ namespace DXF
 		private System.Windows.Forms.ToolStripMenuItem g71RoughingCycleToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem g72FacingCycleToolStripMenuItem;
 		private System.Windows.Forms.RichTextBox gCodeTextBox;
-		private System.Windows.Forms.Label statusLabel;
-		private System.Windows.Forms.Label statusTitleLabel;
+		private System.Windows.Forms.Label fileName;
+		private System.Windows.Forms.Label fileNameLabel;
 		private System.Windows.Forms.ToolStripMenuItem openDXFFolderToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem openExportFolderToolStripMenuItem;
 		private System.Windows.Forms.GroupBox stockValuesSelectorGroup;

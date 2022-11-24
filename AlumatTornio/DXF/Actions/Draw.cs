@@ -28,16 +28,16 @@ namespace DXF.Actions
 			Pen arrowZ = new Pen(Color.Aqua);
 			Brush letterZ = new SolidBrush(Color.Aqua);
 			Font fontZ = new Font(new FontFamily("Arial"), 16, FontStyle.Regular, GraphicsUnit.Pixel);
-			graphics.DrawLine(arrowZ, -220, -40, -200, -40);
-			graphics.DrawLine(arrowZ, -200, -38, -200, -42);
-			graphics.DrawLine(arrowZ, -200, -42, -195, -40);
-			graphics.DrawLine(arrowZ, -195, -40, -200, -38);
+			graphics.DrawLine(arrowZ, -245, -40, -220, -40);
+			graphics.DrawLine(arrowZ, -225, -38, -225, -42);
+			graphics.DrawLine(arrowZ, -225, -42, -220, -40);
+			graphics.DrawLine(arrowZ, -220, -40, -225, -38);
 
 			Pen arrowX = new Pen(Color.Aqua);
-			graphics.DrawLine(arrowX, -220, -40, -220, -20);
-			graphics.DrawLine(arrowX, -222, -20, -218, -20);
-			graphics.DrawLine(arrowX, -222, -20, -220, -15);
-			graphics.DrawLine(arrowX, -220, -15, -218, -20);
+			graphics.DrawLine(arrowX, -245, -40, -245, -20);
+			graphics.DrawLine(arrowX, -247, -20, -243, -20);
+			graphics.DrawLine(arrowX, -247, -20, -245, -15);
+			graphics.DrawLine(arrowX, -245, -15, -243, -20);
 
 			graphics.Transform = new Matrix(1, 0, 0, 1, 0, 0);
 			graphics.DrawString("Z", fontZ, letterZ, 30, 478);
@@ -68,6 +68,36 @@ namespace DXF.Actions
 			//Dispose
 			diePen.Dispose();
 			dieBrush.Dispose();
+		}
+
+		public static void Stock(Graphics drawPanel, List<Line> dieLines, List<Arc> dieArcs)
+		{
+			Pen stockPen = new Pen(Color.Beige);
+			stockPen.DashStyle = DashStyle.Solid;
+			stockPen.ScaleTransform(1 / Parameter.ZoomFactor, 1 / Parameter.ZoomFactor);
+			stockPen.Alignment = PenAlignment.Center;
+
+			float maximumProfilePointY = 0;
+			foreach (Line line in dieLines)
+			{
+				if (line.EndY > maximumProfilePointY)
+				{
+					maximumProfilePointY = line.EndY;
+				}
+			}
+
+			float minimumProfilePointX = 0;
+			foreach (Line line in dieLines)
+			{
+				if (line.EndX < minimumProfilePointX)
+				{
+					minimumProfilePointX = line.EndX;
+				}
+			}
+
+			drawPanel.DrawLine(stockPen, Parameter.StockZ, 0, Parameter.StockZ, maximumProfilePointY + Parameter.StockX);
+			drawPanel.DrawLine(stockPen, Parameter.StockZ, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZ, maximumProfilePointY + Parameter.StockX);
+			drawPanel.DrawLine(stockPen, minimumProfilePointX - Parameter.StockZ, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZ, 0);
 		}
 
 		public static void Profile(Graphics drawPanel, List<Line> profileLines, List<Arc> profileArcs)

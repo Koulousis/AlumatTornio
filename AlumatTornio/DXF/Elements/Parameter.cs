@@ -17,8 +17,8 @@ namespace DXF.Elements
 		public static List<Line> DieLines { get; set; }
 		public static List<Arc> DieArcs { get; set; }
 
-		public static List<Line> DieLinesMirrored { get; set; }
-		public static List<Arc> DieArcsMirrored { get; set; }
+		public static List<Line> DieLinesFlipped { get; set; }
+		public static List<Arc> DieArcsFlipped { get; set; }
 
 		public static List<Line> G71LinesRightSide { get; set; }
 		public static List<Arc> G71ArcsRightSide { get; set; }
@@ -28,7 +28,6 @@ namespace DXF.Elements
 
 		public static List<Line> CavaLines { get; set; }
 		public static List<Arc> CavaArcs { get; set; }
-
 
 		public static string Red = "1";
 		public static string Yellow = "2";

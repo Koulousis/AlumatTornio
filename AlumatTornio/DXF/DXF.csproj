@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\Add.cs" />
     <Compile Include="Actions\Draw.cs" />
     <Compile Include="Actions\Read.cs" />
     <Compile Include="Actions\Remove.cs" />

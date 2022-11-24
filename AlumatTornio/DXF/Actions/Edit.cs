@@ -54,7 +54,7 @@ namespace DXF.Actions
 				Line startPointLineMatching = lines.Find(line => line.StartX == lastPoint.X && line.StartY == lastPoint.Y);
 				Line endPointLineMatching = lines.Find(line => line.EndX == lastPoint.X && line.EndY == lastPoint.Y);
 				Arc startPointArcMatching = arcs.Find(arc => arc.StartX == lastPoint.X && arc.StartY == lastPoint.Y);
-				Arc endPointArcMatching = arcs.Find(arc => arc.EndX == lastPoint.X && arc.EndY == lastPoint.Y);
+				Arc endPointArcMatching = arcs.Find(arc =>arc.EndX == lastPoint.X && arc.EndY == lastPoint.Y);
 
 				//To the matching element set an index
 				//record the new last point
@@ -122,7 +122,7 @@ namespace DXF.Actions
 			}
 		}
 
-		public static void MirrorElements(List<Line> g71Lines, List<Arc> g71Arcs)
+		public static void FlipElements(List<Line> g71Lines, List<Arc> g71Arcs)
 		{
 			List<Line> g71LinesLeftSide = new List<Line>(g71Lines);
 			List<Arc> g71ArcsLeftSide = new List<Arc>(g71Arcs);
@@ -194,22 +194,111 @@ namespace DXF.Actions
 			
 		}
 
-		public static void OffsetLines(float gap)
+		public static void CenterLines(List<Line> lines, float gapX , float gapY)
 		{
-			foreach (Line line in Parameter.DieLines)
+			if (gapX != 0)
 			{
-				line.StartX += Math.Abs(gap);
-				line.EndX += Math.Abs(gap);
+				if (gapX > 0)
+				{
+					gapX = -gapX;
+				}
+				else
+				{
+					gapX = Math.Abs(gapX);
+				}
+
+				foreach (Line line in lines)
+				{
+					line.StartX += gapX;
+					line.EndX += gapX;
+				}
 			}
+
+			if (gapY != 0)
+			{
+				if (gapY > 0)
+				{
+					gapY = -gapY;
+				}
+				else
+				{
+					gapY = Math.Abs(gapY);
+				}
+
+				foreach (Line line in lines)
+				{
+					line.StartY += gapY;
+					line.EndY += gapY;
+				}
+			}
+
 		}
 
-		public static void OffsetArcs(float gap)
+		public static void CenterArcs(List<Arc> arcs, float gapX, float gapY)
 		{
-			foreach (Arc arc in Parameter.DieArcs)
+			if (gapX != 0)
 			{
-				arc.CenterX += Math.Abs(gap);
-				arc.StartX += Math.Abs(gap);
-				arc.EndX += Math.Abs(gap);
+				if (gapX > 0)
+				{
+					gapX = -gapX;
+				}
+				else
+				{
+					gapX = Math.Abs(gapX);
+				}
+
+				foreach (Arc arc in arcs)
+				{
+					arc.CenterX += gapX;
+					arc.StartX += gapX;
+					arc.EndX += gapX;
+					arc.RectangularCornerX += gapX;
+				}
+			}
+
+			if (gapY != 0)
+			{
+				if (gapY > 0)
+				{
+					gapY = -gapY;
+				}
+				else
+				{
+					gapY = Math.Abs(gapY);
+				}
+
+				foreach (Arc arc in arcs)
+				{
+					arc.CenterY += gapY;
+					arc.StartY += gapY;
+					arc.EndY += gapY;
+					arc.RectangularCornerY += gapY;
+				}
+			}
+
+
+		}
+
+		public static void DecimalsCorrection(List<Line> lines, List<Arc> arcs)
+		{
+			foreach (Line line in lines)
+			{
+				line.StartX = Conversion.StringToThreeDigitFloat(Convert.ToString(line.StartX));
+				line.StartY = Conversion.StringToThreeDigitFloat(Convert.ToString(line.StartY));
+				line.EndX = Conversion.StringToThreeDigitFloat(Convert.ToString(line.EndX));
+				line.EndY = Conversion.StringToThreeDigitFloat(Convert.ToString(line.EndY));
+			}
+
+			foreach (Arc arc in arcs)
+			{
+				arc.CenterX = Conversion.StringToThreeDigitFloat(Convert.ToString(arc.CenterX));
+				arc.CenterY = Conversion.StringToThreeDigitFloat(Convert.ToString(arc.CenterY));
+				arc.StartX = Conversion.StringToThreeDigitFloat(Convert.ToString(arc.StartX));
+				arc.StartY = Conversion.StringToThreeDigitFloat(Convert.ToString(arc.StartY));
+				arc.EndX = Conversion.StringToThreeDigitFloat(Convert.ToString(arc.EndX));
+				arc.EndY = Conversion.StringToThreeDigitFloat(Convert.ToString(arc.EndY));
+				arc.RectangularCornerX = Conversion.StringToThreeDigitFloat(Convert.ToString(arc.RectangularCornerX));
+				arc.RectangularCornerY = Conversion.StringToThreeDigitFloat(Convert.ToString(arc.RectangularCornerY));
 			}
 		}
 	}

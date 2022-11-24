@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using DXF.Elements;
 
 namespace DXF.Actions
@@ -52,32 +53,78 @@ namespace DXF.Actions
 			return lines;
 		}
 
-		public static List<Arc> NotProfileArcs(List<Arc> arcs)
+		public static List<Arc> NotProfileArcs(List<Line> lines, List<Arc> arcs, string side)
 		{
-			float y1 = arcs[0].StartY;
-			float y2 = arcs[0].EndY;
+			List<int> indexes = new List<int>();
+			foreach (Line line in lines) { indexes.Add(line.Index); }
+			foreach (Arc arc in arcs) { indexes.Add(arc.Index); }
+			indexes.Sort();
+			if (side == "Left")
+			{
+				indexes.Reverse();
+			}
+
+			float y1 = 0;
+			float y2 = 0;
 			bool profileDone = false;
 
-			for (int i = 1; i < arcs.Count; i++)
+			foreach (int index in indexes)
 			{
-				bool atLeastOnePointSmallerY = arcs[i].StartY < y1 || arcs[i].EndY < y1 || arcs[i].StartY < y2 || arcs[i].EndY < y2;
-				if (profileDone)
+				foreach (Line line in lines)
 				{
-					arcs.Remove(arcs[i]);
-					i--;
+					if (line.Index == index)
+					{
+						y1 = line.StartY;
+						y2 = line.EndY;
+					}
 				}
-				else if (atLeastOnePointSmallerY)
+
+				for (int i = 0; i < arcs.Count; i++)
 				{
-					profileDone = true;
-					arcs.Remove(arcs[i]);
-					i--;
-				}
-				else
-				{
-					y1 = arcs[i].StartY;
-					y2 = arcs[i].EndY;
+					if (arcs[i].Index == index)
+					{
+						bool atLeastOnePointSmallerY = arcs[i].StartY < y1 || arcs[i].EndY < y1 || arcs[i].StartY < y2 || arcs[i].EndY < y2;
+						if (profileDone)
+						{
+							arcs.Remove(arcs[i]);
+							i--;
+						}
+						else if (atLeastOnePointSmallerY)
+						{
+							profileDone = true;
+							arcs.Remove(arcs[i]);
+							i--;
+						}
+						else
+						{
+							y1 = arcs[i].StartY;
+							y2 = arcs[i].EndY;
+						}
+					}
 				}
 			}
+
+			//int totalElements = lines.Count + arcs.Count;
+			//for (int i = 1; i < arcs.Count; i++)
+			//{
+			//	bool atLeastOnePointSmallerY = arcs[i].StartY < y1 || arcs[i].EndY < y1 || arcs[i].StartY < y2 || arcs[i].EndY < y2;
+			//	if (profileDone)
+			//	{
+			//		arcs.Remove(arcs[i]);
+			//		i--;
+			//	}
+			//	else if (atLeastOnePointSmallerY)
+			//	{
+			//		profileDone = true;
+			//		arcs.Remove(arcs[i]);
+			//		i--;
+			//	}
+			//	else
+			//	{
+			//		y1 = arcs[i].StartY;
+			//		y2 = arcs[i].EndY;
+			//	}
+			//}
 
 			return arcs;
 		}

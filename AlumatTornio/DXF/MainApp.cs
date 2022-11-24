@@ -28,8 +28,7 @@ namespace DXF
 		#region Application Load
 		private void MainApp_Load(object sender, EventArgs e)
 		{
-			statusLabel.Text = "Not selected";
-			statusLabel.ForeColor = Color.Red;
+			fileName.Text = "Not selected";
 
 			g71DepthOfCutInput.Value = Convert.ToDecimal(Settings.Default["G71DepthOfCut"]);
 			g71RetractInput.Value = Convert.ToDecimal(Settings.Default["G71Retract"]);
@@ -58,11 +57,11 @@ namespace DXF
 			preview.SmoothingMode = SmoothingMode.AntiAlias;
 			Matrix cartesian = new Matrix(1, 0, 0, -1, 0, 0);
 			preview.Transform = cartesian;
-			preview.TranslateTransform(Calculation.TransformWidth(VisuilizationPanel.Width), Calculation.TransformWidth(VisuilizationPanel.Height), MatrixOrder.Append);
+			preview.TranslateTransform(Calculation.TransformWidth(VisuilizationPanel.Width), Calculation.TransformHeight(VisuilizationPanel.Height), MatrixOrder.Append);
 
 			Draw.Axes(preview, (float) VisuilizationPanel.Width * Elements.Parameter.ZoomFactor, (float) VisuilizationPanel.Height * Elements.Parameter.ZoomFactor);
 			preview.Transform = new Matrix(1, 0, 0, -1, 0, 0);
-			preview.TranslateTransform(Calculation.TransformWidth(VisuilizationPanel.Width), Calculation.TransformWidth(VisuilizationPanel.Height), MatrixOrder.Append);
+			preview.TranslateTransform(Calculation.TransformWidth(VisuilizationPanel.Width), Calculation.TransformHeight(VisuilizationPanel.Height), MatrixOrder.Append);
 
 			if (Parameter.DxfText == null) return;
 			Parameter.ZoomFactor = Calculation.Scale(VisuilizationPanel.Width, VisuilizationPanel.Height);
@@ -83,11 +82,12 @@ namespace DXF
 			}
 			else
 			{
-				Draw.Die(preview, Parameter.DieLinesMirrored, Parameter.DieArcsMirrored);
+				Draw.Die(preview, Parameter.DieLinesFlipped, Parameter.DieArcsFlipped);
 				Draw.StartPositionToProfileStart(preview, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
 				Draw.Profile(preview, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
 				Draw.ProfileEndToEndPosition(preview, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
 			}
+			Draw.Stock(preview, Parameter.DieLines, Parameter.DieArcs);
 		}
 
 		private void View_MouseMove(object sender, MouseEventArgs e)
@@ -106,8 +106,14 @@ namespace DXF
 			//Set Labels text to X and Y mouse position
 			coordinatesLabel.Text = $@"X:{(cursorPositionY / Elements.Parameter.ZoomFactor) * 2,0:F3}, Z:{-cursorPositionX / Elements.Parameter.ZoomFactor,0:F3}";
 		}
+
+		private void rightSide_CheckedChanged(object sender, EventArgs e)
+		{
+			gCodeTextBox.Lines = rightSide.Checked ? GCode.RightSide.ToArray() : GCode.LeftSide.ToArray();
+			VisuilizationPanel.Refresh();
+		}
 		#endregion
-		
+
 		#region Menu File
 		private void fileDxfMenuItem_Click(object sender, EventArgs e)
 		{
@@ -132,8 +138,11 @@ namespace DXF
 			Dxf.ManageCava();
 
 			//Re-visualize the data
-			statusLabel.Text = "Opened";
-			statusLabel.ForeColor = Color.Orange;
+			rightSide.Checked = true;
+			cavaCheckBox.Enabled = true;
+			cavaCheckBox.Checked = false;
+
+			fileName.Text = Parameter.DxfFileName;
 			VisuilizationPanel.Refresh();
 		}
 		#endregion
@@ -218,7 +227,8 @@ namespace DXF
 		#region Export
 		private void exportGCode_Click(object sender, EventArgs e)
 		{
-			if (Parameter.DxfText == null) { return; }
+			if (Parameter.DxfText == null ) { MessageBox.Show("There's no DXF file selected yet"); return; }
+			if (cavaCheckBox.Enabled) { MessageBox.Show("Cava is not applied"); return; }
 
 			//Update Progress Bar
 			exportProgressBar.Value = 0;
@@ -253,9 +263,7 @@ namespace DXF
 			GCode.Export();
 
 			//Update File Status
-			statusLabel.Text = "Exported";
-			statusLabel.ForeColor = Color.Green;
-
+			fileName.Text = Parameter.DxfFileName;
 			gCodeTextBox.Lines = rightSide.Checked ? GCode.RightSide.ToArray() : GCode.LeftSide.ToArray();
 			
 		}
@@ -343,61 +351,24 @@ namespace DXF
 		}
 		#endregion
 
-		private void rightSide_CheckedChanged(object sender, EventArgs e)
-		{
-			VisuilizationPanel.Refresh();
-			gCodeTextBox.Lines = rightSide.Checked ? GCode.RightSide.ToArray() : GCode.LeftSide.ToArray();
-		}
-
+		#region Cava Handle
 		private void cavaCheckBox_CheckedChanged(object sender, EventArgs e)
 		{
 			if (rightSide.Checked && cavaCheckBox.Checked)
 			{
-				float cavaLength = 0;
-				foreach (Line line in Parameter.CavaLines)
-				{
-					cavaLength += line.EndX - line.StartX;
-				}
-				foreach (Arc arc in Parameter.CavaArcs)
-				{
-					cavaLength += arc.EndX - arc.StartX;
-				}
-
-				cavaLength = Math.Abs(cavaLength);
-
-				float cavaStartX = Parameter.G71LinesRightSide[Parameter.G71LinesRightSide.Count - 1].EndX;
-				float cavaStartY = Parameter.G71LinesRightSide[Parameter.G71LinesRightSide.Count - 1].EndY;
-				Line cavaLine = new Line(cavaStartX, cavaStartY, cavaStartX - cavaLength, cavaStartY, "3");
-
-				cavaLine.Index = Parameter.G71LinesRightSide[Parameter.G71LinesRightSide.Count - 1].Index + 1;
-				Parameter.G71LinesRightSide.Add(cavaLine);
-
-				VisuilizationPanel.Refresh();
+				Add.CavaToRightSide();
+				cavaCheckBox.Enabled = false;
 			}
 
 			if (leftSide.Checked && cavaCheckBox.Checked)
 			{
-				float cavaLength = 0;
-				foreach (Line line in Parameter.CavaLines)
-				{
-					cavaLength += line.EndX - line.StartX;
-				}
-				foreach (Arc arc in Parameter.CavaArcs)
-				{
-					cavaLength += arc.EndX - arc.StartX;
-				}
-
-				cavaLength = Math.Abs(cavaLength);
-
-				float cavaStartX = Parameter.G71LinesLeftSide[Parameter.G71LinesLeftSide.Count - 1].EndX;
-				float cavaStartY = Parameter.G71LinesLeftSide[Parameter.G71LinesLeftSide.Count - 1].EndY;
-				Line cavaLine = new Line(cavaStartX, cavaStartY, cavaStartX - cavaLength, cavaStartY, "3");
-				cavaLine.Index = Parameter.G71LinesLeftSide[Parameter.G71LinesLeftSide.Count - 1].Index - 1;
-
-				Parameter.G71LinesLeftSide.Add(cavaLine);
-
-				VisuilizationPanel.Refresh();
+				Add.CavaToLeftSide();
+				cavaCheckBox.Enabled = false;
 			}
+
+			VisuilizationPanel.Refresh();
 		}
+
+		#endregion
 	}
 }

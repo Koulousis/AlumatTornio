@@ -13,23 +13,42 @@ namespace DXF.Actions
 {
 	public static class Get
 	{
-		public static float Gap()
+		public static float GapX(List<Line> allLines)
 		{
-			float gap = Parameter.DieLines[0].StartX;
+			float gapX = allLines[0].StartX;
 
 			//Get the closest distance from origin
-			foreach (Line line in Parameter.DieLines)
+			foreach (Line line in allLines)
 			{
-				if (line.StartX > gap)
+				if (line.StartX > gapX)
 				{
-					gap = line.StartX;
+					gapX = line.StartX;
 				}
-				if (line.EndX > gap)
+				if (line.EndX > gapX)
 				{
-					gap = line.EndX;
+					gapX = line.EndX;
 				}
 			}
-			return gap;
+			return gapX;
+		}
+
+		public static float GapY(List<Line> allLines)
+		{
+			float gapY = allLines[0].StartY;
+
+			//Get the closest distance from origin
+			foreach (Line line in allLines)
+			{
+				if (line.StartY < gapY)
+				{
+					gapY = line.StartY;
+				}
+				if (line.EndY < gapY)
+				{
+					gapY = line.EndY;
+				}
+			}
+			return gapY;
 		}
 
 		public static List<Line> DxfLines(List<string> dxfText)
@@ -47,18 +66,18 @@ namespace DXF.Actions
 						{
 							case "AcDbEntity":
 								color = dxfText.ElementAt(i + 6).Trim();
-								break;
+								if (color.Length > 1) { color = dxfText.ElementAt(i + 4).Trim(); }								break;
 							case "10":
-								startX = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								startX = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
 								break;
 							case "20":
-								startY = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								startY = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
 								break;
 							case "11":
-								endX = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								endX = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
 								break;
 							case "21":
-								endY = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								endY = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
 								break;
 						}
 					} while (!Validation.DxfElementTitle(dxfText.ElementAt(i + 1)));
@@ -83,21 +102,22 @@ namespace DXF.Actions
 						{
 							case "AcDbEntity":
 								color = dxfText.ElementAt(i + 6).Trim();
+								if (color.Length > 1) { color = dxfText.ElementAt(i + 4).Trim(); }
 								break;
 							case "10":
-								centerX = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								centerX = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
 								break;
 							case "20":
-								centerY = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								centerY = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
 								break;
 							case "40":
-								radius = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								radius = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
 								break;
 							case "50":
-								startAngle = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								startAngle = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
 								break;
 							case "51":
-								endAngle = Conversion.StringToThreeDigitFloat(dxfText.ElementAt(i + 1));
+								endAngle = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
 								break;
 						}
 					} while (!Validation.DxfElementTitle(dxfText.ElementAt(i + 1)));
@@ -179,14 +199,14 @@ namespace DXF.Actions
 			return g71LinesRightSide;
 		}
 
-		public static List<Arc> G71ArcsRightSide(List<Arc> dieArcs)
+		public static List<Arc> G71ArcsRightSide(List<Line> dieLines, List<Arc> dieArcs)
 		{
 			List<Arc> g71ArcsRightSide = new List<Arc>();
 			foreach (Arc arc in dieArcs) { g71ArcsRightSide.Add(arc.Clone()); }
 			g71ArcsRightSide = g71ArcsRightSide.OrderBy(arc => arc.Index).ToList();
 
 			//Remove arcs that has decreased Y from the previous iterated arc
-			g71ArcsRightSide = Remove.NotProfileArcs(g71ArcsRightSide);
+			g71ArcsRightSide = Remove.NotProfileArcs(dieLines, g71ArcsRightSide, "Right");
 
 			return g71ArcsRightSide;
 		}
@@ -208,16 +228,16 @@ namespace DXF.Actions
 			return g71LinesLeftSide;
 		}
 
-		public static List<Arc> G71ArcsLeftSide(List<Arc> dieArcs)
+		public static List<Arc> G71ArcsLeftSide(List<Line> dieLinesMirrored, List<Arc> dieArcsMirrored)
 		{
 			//Read die arcs ordered by index and reverse them
 			List<Arc> g71ArcsLeftSide = new List<Arc>();
-			foreach (Arc arc in dieArcs) { g71ArcsLeftSide.Add(arc.Clone()); }
+			foreach (Arc arc in dieArcsMirrored) { g71ArcsLeftSide.Add(arc.Clone()); }
 			g71ArcsLeftSide = g71ArcsLeftSide.OrderBy(arc => arc.Index).ToList();
 			g71ArcsLeftSide.Reverse();
 
 			//Remove arcs that has decreased Y from the previous iterated arc
-			g71ArcsLeftSide = Remove.NotProfileArcs(g71ArcsLeftSide);
+			g71ArcsLeftSide = Remove.NotProfileArcs(dieLinesMirrored, g71ArcsLeftSide, "Left");
 
 			return g71ArcsLeftSide;
 		}

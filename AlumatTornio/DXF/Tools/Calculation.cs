@@ -53,14 +53,14 @@ namespace DXF.Tools
 
 		public static int TransformWidth(int width)
 		{
-			int tranformWidth = width - (width / 10);
-			return tranformWidth;
+			int transformWidth = width - (width / 6);
+			return transformWidth;
 		}
 
 		public static int TransformHeight(int height)
 		{
-			int tranformHeight = height - (height / 10);
-			return tranformHeight;
+			int transformHeight = height - (height / 10);
+			return transformHeight;
 		}
 		
 		public static float Scale(int viewWidth, int viewHeight)
@@ -103,7 +103,7 @@ namespace DXF.Tools
 				}
 			}
 
-			scaleOnWidth = ((float)viewWidth - 50) / Math.Abs(dummyWidth);
+			scaleOnWidth = ((float)viewWidth - 100) / Math.Abs(dummyWidth);
 			scaleOnHeight = ((float)viewHeight - 100) / dummyHeight;
 
 			if (scaleOnWidth < scaleOnHeight)

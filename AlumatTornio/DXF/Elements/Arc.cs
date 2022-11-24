@@ -62,24 +62,29 @@ namespace DXF.Elements
 
 			int quarter;
 			//Math types are: x = Radius * Cos(angle) and y = Radius * Sin(angle)
-			float distanceFromCenterOfStartX = Radius * (float) Math.Cos(Calculation.SweepFromHorizontalAxis(startAngle, out quarter));
+			float distanceFromCenterOfStartX = Radius * (float)Math.Cos(Calculation.SweepFromHorizontalAxis(startAngle, out quarter));
 			float distanceFromCenterOfStartY = Radius * (float)Math.Sin(Calculation.SweepFromHorizontalAxis(startAngle, out quarter));
 			float distanceFromCenterOfEndX = Radius * (float)Math.Cos(Calculation.SweepFromHorizontalAxis(endAngle, out quarter));
 			float distanceFromCenterOfEndY = Radius * (float)Math.Sin(Calculation.SweepFromHorizontalAxis(endAngle, out quarter));
 
+			//distanceFromCenterOfStartX = Conversion.StringToThreeDigitFloat(distanceFromCenterOfStartX.ToString());
+			//distanceFromCenterOfStartY = Conversion.StringToThreeDigitFloat(distanceFromCenterOfStartY.ToString());
+			//distanceFromCenterOfEndX = Conversion.StringToThreeDigitFloat(distanceFromCenterOfEndX.ToString());
+			//distanceFromCenterOfEndY = Conversion.StringToThreeDigitFloat(distanceFromCenterOfEndY.ToString());
+
 			//To know if the new X,Y points are positive or negative movement from the center
 			//is know from the quarter where the points are
 			StartX = quarter == 1 || quarter == 4 ? centerX + distanceFromCenterOfStartX : centerX - distanceFromCenterOfStartX;
-			StartX = Conversion.StringToThreeDigitFloat(StartX.ToString());
+			StartX = Conversion.StringToFourDigitFloat(StartX.ToString());
 
 			StartY = quarter == 1 || quarter == 2 ? centerY + distanceFromCenterOfStartY : centerY - distanceFromCenterOfStartY;
-			StartY = Conversion.StringToThreeDigitFloat(StartY.ToString());
+			StartY = Conversion.StringToFourDigitFloat(StartY.ToString());
 
 			EndX = quarter == 1 || quarter == 4 ? centerX + distanceFromCenterOfEndX : centerX - distanceFromCenterOfEndX;
-			EndX = Conversion.StringToThreeDigitFloat(EndX.ToString());
+			EndX = Conversion.StringToFourDigitFloat(EndX.ToString());
 
 			EndY = quarter == 1 || quarter == 2 ? centerY + distanceFromCenterOfEndY : centerY - distanceFromCenterOfEndY;
-			EndY = Conversion.StringToThreeDigitFloat(EndY.ToString());
+			EndY = Conversion.StringToFourDigitFloat(EndY.ToString());
 
 		}
 
