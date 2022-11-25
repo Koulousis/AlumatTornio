@@ -50,7 +50,7 @@ namespace DXF.Lathe
 			List<string> startPosition = new List<string>
 			{
 				"(START POSITION)",
-				$"G0 X{(maximumProfilePointX + Parameter.StockX) * 2} Z{g71ProfilePoints[0].Z + Parameter.StockZ}",
+				$"G0 X{(maximumProfilePointX* 2) + Parameter.StockX} Z{g71ProfilePoints[0].Z + Parameter.StockZ}",
 				""
 			};
 
