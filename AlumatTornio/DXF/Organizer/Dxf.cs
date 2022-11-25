@@ -49,11 +49,6 @@ namespace DXF.Organizer
 
 			//Remove.DuplicateLines();
 			//Remove.DuplicateArcs();
-
-			//Modify the data
-			//
-			//Edit.CenterLines(gap);
-			//Get.CenterArcs(gap);
 		}
 
 		public static void ManageRightSide()

@@ -163,7 +163,7 @@ namespace DXF
             this.openExportFolderToolStripMenuItem});
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
 			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 22);
-			this.settingsToolStripMenuItem.Text = "Settings";
+			this.settingsToolStripMenuItem.Text = "Options";
 			// 
 			// changeDXFFolderToolStripMenuItem
 			// 
@@ -272,7 +272,7 @@ namespace DXF
 			this.copyrights.BackColor = System.Drawing.SystemColors.WindowFrame;
 			this.copyrights.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.copyrights.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.copyrights.Location = new System.Drawing.Point(227, 78);
+			this.copyrights.Location = new System.Drawing.Point(265, 79);
 			this.copyrights.Name = "copyrights";
 			this.copyrights.Size = new System.Drawing.Size(193, 13);
 			this.copyrights.TabIndex = 1;

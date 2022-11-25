@@ -67,11 +67,6 @@ namespace DXF.Elements
 			float distanceFromCenterOfEndX = Radius * (float)Math.Cos(Calculation.SweepFromHorizontalAxis(endAngle, out quarter));
 			float distanceFromCenterOfEndY = Radius * (float)Math.Sin(Calculation.SweepFromHorizontalAxis(endAngle, out quarter));
 
-			//distanceFromCenterOfStartX = Conversion.StringToThreeDigitFloat(distanceFromCenterOfStartX.ToString());
-			//distanceFromCenterOfStartY = Conversion.StringToThreeDigitFloat(distanceFromCenterOfStartY.ToString());
-			//distanceFromCenterOfEndX = Conversion.StringToThreeDigitFloat(distanceFromCenterOfEndX.ToString());
-			//distanceFromCenterOfEndY = Conversion.StringToThreeDigitFloat(distanceFromCenterOfEndY.ToString());
-
 			//To know if the new X,Y points are positive or negative movement from the center
 			//is know from the quarter where the points are
 			StartX = quarter == 1 || quarter == 4 ? centerX + distanceFromCenterOfStartX : centerX - distanceFromCenterOfStartX;

@@ -45,6 +45,7 @@ namespace DXF.Elements
 		public static List<G71ProfilePoint> G71ProfilePointsLeftSide { get; set; }
 		public static float StockX { get; set; }
 		public static float StockZ { get; set; }
+		public static float CavaExtra { get; set; }
 		#endregion
 
 		#region For Settings

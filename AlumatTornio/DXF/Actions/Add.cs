@@ -22,10 +22,11 @@ namespace DXF.Actions
 			}
 
 			cavaLength = Math.Abs(cavaLength);
+			Parameter.CavaExtra = 1;
 
 			float cavaStartX = Parameter.G71LinesRightSide[Parameter.G71LinesRightSide.Count - 1].EndX;
 			float cavaStartY = Parameter.G71LinesRightSide[Parameter.G71LinesRightSide.Count - 1].EndY;
-			Line cavaLine = new Line(cavaStartX, cavaStartY, cavaStartX - cavaLength, cavaStartY, "3")
+			Line cavaLine = new Line(cavaStartX, cavaStartY, cavaStartX - cavaLength - Parameter.CavaExtra, cavaStartY, "3")
 			{
 				Index = Parameter.G71LinesRightSide[Parameter.G71LinesRightSide.Count - 1].Index + 1
 			};
@@ -46,10 +47,11 @@ namespace DXF.Actions
 			}
 
 			cavaLength = Math.Abs(cavaLength);
+			Parameter.CavaExtra = 1;
 
 			float cavaStartX = Parameter.G71LinesLeftSide[Parameter.G71LinesLeftSide.Count - 1].EndX;
 			float cavaStartY = Parameter.G71LinesLeftSide[Parameter.G71LinesLeftSide.Count - 1].EndY;
-			Line cavaLine = new Line(cavaStartX, cavaStartY, cavaStartX - cavaLength, cavaStartY, "3")
+			Line cavaLine = new Line(cavaStartX, cavaStartY, cavaStartX - cavaLength - Parameter.CavaExtra, cavaStartY, "3")
 			{
 				Index = Parameter.G71LinesLeftSide[Parameter.G71LinesLeftSide.Count - 1].Index - 1
 			};
