@@ -76,7 +76,6 @@ namespace DXF
 			this.gCodeTextBox = new System.Windows.Forms.RichTextBox();
 			this.fileName = new System.Windows.Forms.Label();
 			this.fileNameLabel = new System.Windows.Forms.Label();
-			this.VisuilizationPanel = new System.Windows.Forms.PictureBox();
 			this.stockValuesSelectorGroup = new System.Windows.Forms.GroupBox();
 			this.zStockValueInput = new System.Windows.Forms.NumericUpDown();
 			this.xStockValueInput = new System.Windows.Forms.NumericUpDown();
@@ -84,6 +83,15 @@ namespace DXF
 			this.xStockValueLabel = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.cavaCheckBox = new System.Windows.Forms.CheckBox();
+			this.tabPanel = new System.Windows.Forms.TabControl();
+			this.tabSetup = new System.Windows.Forms.TabPage();
+			this.tabSettings = new System.Windows.Forms.TabPage();
+			this.VisuilizationPanel = new System.Windows.Forms.PictureBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+			this.firstSideSelector = new System.Windows.Forms.GroupBox();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.flipButton = new System.Windows.Forms.Button();
 			this.mainAppMenu.SuspendLayout();
 			this.sideSelectorGroup.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
@@ -100,18 +108,23 @@ namespace DXF
 			((System.ComponentModel.ISupportInitialize)(this.g72XAllowanceInput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.g72RetractInput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.g72DepthOfCutInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.VisuilizationPanel)).BeginInit();
 			this.stockValuesSelectorGroup.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.zStockValueInput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.xStockValueInput)).BeginInit();
 			this.groupBox1.SuspendLayout();
+			this.tabPanel.SuspendLayout();
+			this.tabSetup.SuspendLayout();
+			this.tabSettings.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.VisuilizationPanel)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+			this.firstSideSelector.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// coordinatesLabel
 			// 
 			this.coordinatesLabel.AutoSize = true;
 			this.coordinatesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.coordinatesLabel.Location = new System.Drawing.Point(318, 507);
+			this.coordinatesLabel.Location = new System.Drawing.Point(312, 460);
 			this.coordinatesLabel.Name = "coordinatesLabel";
 			this.coordinatesLabel.Size = new System.Drawing.Size(152, 20);
 			this.coordinatesLabel.TabIndex = 1;
@@ -128,7 +141,7 @@ namespace DXF
 			this.mainAppMenu.Location = new System.Drawing.Point(0, 0);
 			this.mainAppMenu.Name = "mainAppMenu";
 			this.mainAppMenu.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
-			this.mainAppMenu.Size = new System.Drawing.Size(691, 24);
+			this.mainAppMenu.Size = new System.Drawing.Size(728, 24);
 			this.mainAppMenu.TabIndex = 2;
 			this.mainAppMenu.Text = "menuStrip1";
 			// 
@@ -222,37 +235,37 @@ namespace DXF
 			this.sideSelectorGroup.Controls.Add(this.rightSide);
 			this.sideSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.sideSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.sideSelectorGroup.Location = new System.Drawing.Point(323, 393);
+			this.sideSelectorGroup.Location = new System.Drawing.Point(316, 262);
 			this.sideSelectorGroup.Margin = new System.Windows.Forms.Padding(2);
 			this.sideSelectorGroup.Name = "sideSelectorGroup";
 			this.sideSelectorGroup.Padding = new System.Windows.Forms.Padding(2);
-			this.sideSelectorGroup.Size = new System.Drawing.Size(76, 68);
+			this.sideSelectorGroup.Size = new System.Drawing.Size(200, 42);
 			this.sideSelectorGroup.TabIndex = 3;
 			this.sideSelectorGroup.TabStop = false;
-			this.sideSelectorGroup.Text = "Side";
+			this.sideSelectorGroup.Text = "Draw and Print";
 			// 
 			// leftSide
 			// 
 			this.leftSide.AutoSize = true;
 			this.leftSide.ForeColor = System.Drawing.Color.Black;
-			this.leftSide.Location = new System.Drawing.Point(9, 42);
+			this.leftSide.Location = new System.Drawing.Point(93, 16);
 			this.leftSide.Name = "leftSide";
-			this.leftSide.Size = new System.Drawing.Size(47, 20);
+			this.leftSide.Size = new System.Drawing.Size(102, 20);
 			this.leftSide.TabIndex = 1;
 			this.leftSide.TabStop = true;
-			this.leftSide.Text = "Left";
+			this.leftSide.Text = "Second side";
 			this.leftSide.UseVisualStyleBackColor = true;
 			// 
 			// rightSide
 			// 
 			this.rightSide.AutoSize = true;
 			this.rightSide.ForeColor = System.Drawing.Color.Black;
-			this.rightSide.Location = new System.Drawing.Point(9, 20);
+			this.rightSide.Location = new System.Drawing.Point(9, 16);
 			this.rightSide.Name = "rightSide";
-			this.rightSide.Size = new System.Drawing.Size(57, 20);
+			this.rightSide.Size = new System.Drawing.Size(80, 20);
 			this.rightSide.TabIndex = 0;
 			this.rightSide.TabStop = true;
-			this.rightSide.Text = "Right";
+			this.rightSide.Text = "First side";
 			this.rightSide.UseVisualStyleBackColor = true;
 			this.rightSide.CheckedChanged += new System.EventHandler(this.rightSide_CheckedChanged);
 			// 
@@ -262,9 +275,9 @@ namespace DXF
 			this.copyrightsBanner.Controls.Add(this.copyrights);
 			this.copyrightsBanner.Controls.Add(this.banner);
 			this.copyrightsBanner.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.copyrightsBanner.Location = new System.Drawing.Point(0, 533);
+			this.copyrightsBanner.Location = new System.Drawing.Point(0, 559);
 			this.copyrightsBanner.Name = "copyrightsBanner";
-			this.copyrightsBanner.Size = new System.Drawing.Size(691, 95);
+			this.copyrightsBanner.Size = new System.Drawing.Size(728, 95);
 			this.copyrightsBanner.TabIndex = 4;
 			// 
 			// copyrights
@@ -272,7 +285,7 @@ namespace DXF
 			this.copyrights.BackColor = System.Drawing.SystemColors.WindowFrame;
 			this.copyrights.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.copyrights.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.copyrights.Location = new System.Drawing.Point(265, 79);
+			this.copyrights.Location = new System.Drawing.Point(288, 79);
 			this.copyrights.Name = "copyrights";
 			this.copyrights.Size = new System.Drawing.Size(193, 13);
 			this.copyrights.TabIndex = 1;
@@ -286,7 +299,7 @@ namespace DXF
 			this.banner.Image = ((System.Drawing.Image)(resources.GetObject("banner.Image")));
 			this.banner.Location = new System.Drawing.Point(0, 0);
 			this.banner.Name = "banner";
-			this.banner.Size = new System.Drawing.Size(691, 74);
+			this.banner.Size = new System.Drawing.Size(728, 74);
 			this.banner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.banner.TabIndex = 0;
 			this.banner.TabStop = false;
@@ -294,9 +307,9 @@ namespace DXF
 			// exportGCode
 			// 
 			this.exportGCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.exportGCode.Location = new System.Drawing.Point(492, 399);
+			this.exportGCode.Location = new System.Drawing.Point(522, 357);
 			this.exportGCode.Name = "exportGCode";
-			this.exportGCode.Size = new System.Drawing.Size(193, 74);
+			this.exportGCode.Size = new System.Drawing.Size(193, 69);
 			this.exportGCode.TabIndex = 5;
 			this.exportGCode.Text = "Generate G Code";
 			this.exportGCode.UseVisualStyleBackColor = true;
@@ -304,7 +317,7 @@ namespace DXF
 			// 
 			// exportProgressBar
 			// 
-			this.exportProgressBar.Location = new System.Drawing.Point(492, 479);
+			this.exportProgressBar.Location = new System.Drawing.Point(522, 433);
 			this.exportProgressBar.Name = "exportProgressBar";
 			this.exportProgressBar.Size = new System.Drawing.Size(193, 24);
 			this.exportProgressBar.TabIndex = 6;
@@ -323,7 +336,7 @@ namespace DXF
 			this.g71Settings.Controls.Add(this.g71DepthOfCutLabel);
 			this.g71Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.g71Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.g71Settings.Location = new System.Drawing.Point(323, 27);
+			this.g71Settings.Location = new System.Drawing.Point(8, 6);
 			this.g71Settings.Name = "g71Settings";
 			this.g71Settings.Size = new System.Drawing.Size(163, 174);
 			this.g71Settings.TabIndex = 7;
@@ -549,7 +562,7 @@ namespace DXF
 			this.g72Settings.Controls.Add(this.g72DepthOfCutLabel);
 			this.g72Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.g72Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.g72Settings.Location = new System.Drawing.Point(323, 210);
+			this.g72Settings.Location = new System.Drawing.Point(177, 6);
 			this.g72Settings.Name = "g72Settings";
 			this.g72Settings.Size = new System.Drawing.Size(163, 174);
 			this.g72Settings.TabIndex = 10;
@@ -765,10 +778,10 @@ namespace DXF
 			// 
 			this.gCodeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
 			this.gCodeTextBox.ForeColor = System.Drawing.Color.WhiteSmoke;
-			this.gCodeTextBox.Location = new System.Drawing.Point(492, 33);
+			this.gCodeTextBox.Location = new System.Drawing.Point(522, 3);
 			this.gCodeTextBox.Name = "gCodeTextBox";
 			this.gCodeTextBox.ReadOnly = true;
-			this.gCodeTextBox.Size = new System.Drawing.Size(193, 351);
+			this.gCodeTextBox.Size = new System.Drawing.Size(193, 348);
 			this.gCodeTextBox.TabIndex = 11;
 			this.gCodeTextBox.Text = "";
 			// 
@@ -776,11 +789,11 @@ namespace DXF
 			// 
 			this.fileName.AutoSize = true;
 			this.fileName.BackColor = System.Drawing.SystemColors.WindowFrame;
-			this.fileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.fileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.fileName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.fileName.Location = new System.Drawing.Point(508, 510);
+			this.fileName.Location = new System.Drawing.Point(346, 480);
 			this.fileName.Name = "fileName";
-			this.fileName.Size = new System.Drawing.Size(93, 16);
+			this.fileName.Size = new System.Drawing.Size(108, 20);
 			this.fileName.TabIndex = 12;
 			this.fileName.Text = "not selected";
 			// 
@@ -788,36 +801,25 @@ namespace DXF
 			// 
 			this.fileNameLabel.AutoSize = true;
 			this.fileNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.fileNameLabel.Location = new System.Drawing.Point(473, 507);
+			this.fileNameLabel.Location = new System.Drawing.Point(312, 480);
 			this.fileNameLabel.Name = "fileNameLabel";
 			this.fileNameLabel.Size = new System.Drawing.Size(38, 20);
 			this.fileNameLabel.TabIndex = 13;
 			this.fileNameLabel.Text = "File:";
 			// 
-			// VisuilizationPanel
-			// 
-			this.VisuilizationPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-			this.VisuilizationPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.VisuilizationPanel.Cursor = System.Windows.Forms.Cursors.Cross;
-			this.VisuilizationPanel.Location = new System.Drawing.Point(7, 27);
-			this.VisuilizationPanel.Name = "VisuilizationPanel";
-			this.VisuilizationPanel.Size = new System.Drawing.Size(300, 500);
-			this.VisuilizationPanel.TabIndex = 0;
-			this.VisuilizationPanel.TabStop = false;
-			this.VisuilizationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.View_Paint);
-			this.VisuilizationPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.View_MouseMove);
-			// 
 			// stockValuesSelectorGroup
 			// 
+			this.stockValuesSelectorGroup.Controls.Add(this.numericUpDown1);
+			this.stockValuesSelectorGroup.Controls.Add(this.label1);
 			this.stockValuesSelectorGroup.Controls.Add(this.zStockValueInput);
 			this.stockValuesSelectorGroup.Controls.Add(this.xStockValueInput);
 			this.stockValuesSelectorGroup.Controls.Add(this.zStockValueLabel);
 			this.stockValuesSelectorGroup.Controls.Add(this.xStockValueLabel);
 			this.stockValuesSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.stockValuesSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.stockValuesSelectorGroup.Location = new System.Drawing.Point(404, 393);
+			this.stockValuesSelectorGroup.Location = new System.Drawing.Point(316, 351);
 			this.stockValuesSelectorGroup.Name = "stockValuesSelectorGroup";
-			this.stockValuesSelectorGroup.Size = new System.Drawing.Size(82, 110);
+			this.stockValuesSelectorGroup.Size = new System.Drawing.Size(200, 106);
 			this.stockValuesSelectorGroup.TabIndex = 14;
 			this.stockValuesSelectorGroup.TabStop = false;
 			this.stockValuesSelectorGroup.Text = "Stock";
@@ -831,7 +833,7 @@ namespace DXF
             0,
             0,
             65536});
-			this.zStockValueInput.Location = new System.Drawing.Point(23, 66);
+			this.zStockValueInput.Location = new System.Drawing.Point(140, 43);
 			this.zStockValueInput.Maximum = new decimal(new int[] {
             7,
             0,
@@ -861,7 +863,7 @@ namespace DXF
             0,
             0,
             65536});
-			this.xStockValueInput.Location = new System.Drawing.Point(23, 25);
+			this.xStockValueInput.Location = new System.Drawing.Point(140, 13);
 			this.xStockValueInput.Maximum = new decimal(new int[] {
             7,
             0,
@@ -887,31 +889,31 @@ namespace DXF
 			this.zStockValueLabel.AutoSize = true;
 			this.zStockValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.zStockValueLabel.ForeColor = System.Drawing.Color.Black;
-			this.zStockValueLabel.Location = new System.Drawing.Point(4, 71);
+			this.zStockValueLabel.Location = new System.Drawing.Point(6, 48);
 			this.zStockValueLabel.Name = "zStockValueLabel";
-			this.zStockValueLabel.Size = new System.Drawing.Size(19, 16);
+			this.zStockValueLabel.Size = new System.Drawing.Size(104, 16);
 			this.zStockValueLabel.TabIndex = 2;
-			this.zStockValueLabel.Text = "Z:";
+			this.zStockValueLabel.Text = "Stock First Side:";
 			// 
 			// xStockValueLabel
 			// 
 			this.xStockValueLabel.AutoSize = true;
 			this.xStockValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.xStockValueLabel.ForeColor = System.Drawing.Color.Black;
-			this.xStockValueLabel.Location = new System.Drawing.Point(4, 30);
+			this.xStockValueLabel.Location = new System.Drawing.Point(6, 18);
 			this.xStockValueLabel.Name = "xStockValueLabel";
-			this.xStockValueLabel.Size = new System.Drawing.Size(19, 16);
+			this.xStockValueLabel.Size = new System.Drawing.Size(103, 16);
 			this.xStockValueLabel.TabIndex = 1;
-			this.xStockValueLabel.Text = "X:";
+			this.xStockValueLabel.Text = "Stock Diameter:";
 			// 
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.cavaCheckBox);
 			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.groupBox1.Location = new System.Drawing.Point(323, 461);
+			this.groupBox1.Location = new System.Drawing.Point(316, 309);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(76, 42);
+			this.groupBox1.Size = new System.Drawing.Size(200, 42);
 			this.groupBox1.TabIndex = 15;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Cava";
@@ -922,31 +924,153 @@ namespace DXF
 			this.cavaCheckBox.ForeColor = System.Drawing.Color.Black;
 			this.cavaCheckBox.Location = new System.Drawing.Point(9, 16);
 			this.cavaCheckBox.Name = "cavaCheckBox";
-			this.cavaCheckBox.Size = new System.Drawing.Size(62, 20);
+			this.cavaCheckBox.Size = new System.Drawing.Size(185, 20);
 			this.cavaCheckBox.TabIndex = 0;
-			this.cavaCheckBox.Text = "Apply";
+			this.cavaCheckBox.Text = "Apply on the selected side";
 			this.cavaCheckBox.UseVisualStyleBackColor = true;
 			this.cavaCheckBox.CheckedChanged += new System.EventHandler(this.cavaCheckBox_CheckedChanged);
+			// 
+			// tabPanel
+			// 
+			this.tabPanel.Controls.Add(this.tabSetup);
+			this.tabPanel.Controls.Add(this.tabSettings);
+			this.tabPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabPanel.Location = new System.Drawing.Point(0, 24);
+			this.tabPanel.Name = "tabPanel";
+			this.tabPanel.SelectedIndex = 0;
+			this.tabPanel.Size = new System.Drawing.Size(728, 535);
+			this.tabPanel.TabIndex = 16;
+			// 
+			// tabSetup
+			// 
+			this.tabSetup.BackColor = System.Drawing.SystemColors.WindowFrame;
+			this.tabSetup.Controls.Add(this.firstSideSelector);
+			this.tabSetup.Controls.Add(this.VisuilizationPanel);
+			this.tabSetup.Controls.Add(this.groupBox1);
+			this.tabSetup.Controls.Add(this.gCodeTextBox);
+			this.tabSetup.Controls.Add(this.stockValuesSelectorGroup);
+			this.tabSetup.Controls.Add(this.exportGCode);
+			this.tabSetup.Controls.Add(this.fileNameLabel);
+			this.tabSetup.Controls.Add(this.sideSelectorGroup);
+			this.tabSetup.Controls.Add(this.exportProgressBar);
+			this.tabSetup.Controls.Add(this.fileName);
+			this.tabSetup.Controls.Add(this.coordinatesLabel);
+			this.tabSetup.Location = new System.Drawing.Point(4, 22);
+			this.tabSetup.Name = "tabSetup";
+			this.tabSetup.Padding = new System.Windows.Forms.Padding(3);
+			this.tabSetup.Size = new System.Drawing.Size(720, 509);
+			this.tabSetup.TabIndex = 0;
+			this.tabSetup.Text = "Machining Setup";
+			// 
+			// tabSettings
+			// 
+			this.tabSettings.BackColor = System.Drawing.SystemColors.WindowFrame;
+			this.tabSettings.Controls.Add(this.g71Settings);
+			this.tabSettings.Controls.Add(this.g72Settings);
+			this.tabSettings.Location = new System.Drawing.Point(4, 22);
+			this.tabSettings.Name = "tabSettings";
+			this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
+			this.tabSettings.Size = new System.Drawing.Size(720, 509);
+			this.tabSettings.TabIndex = 1;
+			this.tabSettings.Text = "Machining Settings";
+			// 
+			// VisuilizationPanel
+			// 
+			this.VisuilizationPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+			this.VisuilizationPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.VisuilizationPanel.Cursor = System.Windows.Forms.Cursors.Cross;
+			this.VisuilizationPanel.Location = new System.Drawing.Point(6, 3);
+			this.VisuilizationPanel.Name = "VisuilizationPanel";
+			this.VisuilizationPanel.Size = new System.Drawing.Size(300, 500);
+			this.VisuilizationPanel.TabIndex = 0;
+			this.VisuilizationPanel.TabStop = false;
+			this.VisuilizationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.View_Paint);
+			this.VisuilizationPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.View_MouseMove);
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.ForeColor = System.Drawing.Color.Black;
+			this.label1.Location = new System.Drawing.Point(6, 78);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(126, 16);
+			this.label1.TabIndex = 12;
+			this.label1.Text = "Stock Second Side:";
+			// 
+			// numericUpDown1
+			// 
+			this.numericUpDown1.DecimalPlaces = 1;
+			this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.numericUpDown1.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+			this.numericUpDown1.Location = new System.Drawing.Point(140, 73);
+			this.numericUpDown1.Maximum = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+			this.numericUpDown1.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+			this.numericUpDown1.Name = "numericUpDown1";
+			this.numericUpDown1.Size = new System.Drawing.Size(53, 26);
+			this.numericUpDown1.TabIndex = 13;
+			this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// firstSideSelector
+			// 
+			this.firstSideSelector.Controls.Add(this.checkBox1);
+			this.firstSideSelector.Controls.Add(this.flipButton);
+			this.firstSideSelector.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.firstSideSelector.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.firstSideSelector.Location = new System.Drawing.Point(316, 6);
+			this.firstSideSelector.Name = "firstSideSelector";
+			this.firstSideSelector.Size = new System.Drawing.Size(200, 58);
+			this.firstSideSelector.TabIndex = 17;
+			this.firstSideSelector.TabStop = false;
+			this.firstSideSelector.Text = "Set first machining side";
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.ForeColor = System.Drawing.Color.Black;
+			this.checkBox1.Location = new System.Drawing.Point(104, 22);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(80, 26);
+			this.checkBox1.TabIndex = 1;
+			this.checkBox1.Text = "       Set       ";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			// 
+			// flipButton
+			// 
+			this.flipButton.ForeColor = System.Drawing.Color.Black;
+			this.flipButton.Location = new System.Drawing.Point(18, 22);
+			this.flipButton.Name = "flipButton";
+			this.flipButton.Size = new System.Drawing.Size(80, 26);
+			this.flipButton.TabIndex = 16;
+			this.flipButton.Text = "Flip";
+			this.flipButton.UseVisualStyleBackColor = true;
+			this.flipButton.Click += new System.EventHandler(this.flipButton_Click);
 			// 
 			// MainApp
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.WindowFrame;
-			this.ClientSize = new System.Drawing.Size(691, 628);
-			this.Controls.Add(this.groupBox1);
-			this.Controls.Add(this.stockValuesSelectorGroup);
-			this.Controls.Add(this.fileNameLabel);
-			this.Controls.Add(this.fileName);
-			this.Controls.Add(this.gCodeTextBox);
-			this.Controls.Add(this.g72Settings);
-			this.Controls.Add(this.g71Settings);
-			this.Controls.Add(this.exportProgressBar);
-			this.Controls.Add(this.exportGCode);
+			this.ClientSize = new System.Drawing.Size(728, 654);
+			this.Controls.Add(this.tabPanel);
 			this.Controls.Add(this.copyrightsBanner);
-			this.Controls.Add(this.sideSelectorGroup);
-			this.Controls.Add(this.coordinatesLabel);
-			this.Controls.Add(this.VisuilizationPanel);
 			this.Controls.Add(this.mainAppMenu);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -976,21 +1100,26 @@ namespace DXF
 			((System.ComponentModel.ISupportInitialize)(this.g72XAllowanceInput)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.g72RetractInput)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.g72DepthOfCutInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.VisuilizationPanel)).EndInit();
 			this.stockValuesSelectorGroup.ResumeLayout(false);
 			this.stockValuesSelectorGroup.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.zStockValueInput)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.xStockValueInput)).EndInit();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			this.tabPanel.ResumeLayout(false);
+			this.tabSetup.ResumeLayout(false);
+			this.tabSetup.PerformLayout();
+			this.tabSettings.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.VisuilizationPanel)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+			this.firstSideSelector.ResumeLayout(false);
+			this.firstSideSelector.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.PictureBox VisuilizationPanel;
 		private System.Windows.Forms.Label coordinatesLabel;
 		private System.Windows.Forms.MenuStrip mainAppMenu;
 		private System.Windows.Forms.ToolStripMenuItem fileMenuItem;
@@ -1044,5 +1173,14 @@ namespace DXF
 		private System.Windows.Forms.RadioButton leftSide;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.CheckBox cavaCheckBox;
+		private System.Windows.Forms.TabControl tabPanel;
+		private System.Windows.Forms.TabPage tabSetup;
+		private System.Windows.Forms.PictureBox VisuilizationPanel;
+		private System.Windows.Forms.TabPage tabSettings;
+		private System.Windows.Forms.NumericUpDown numericUpDown1;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.GroupBox firstSideSelector;
+		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.Button flipButton;
 	}
 }

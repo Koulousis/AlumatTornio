@@ -100,6 +100,50 @@ namespace DXF.Actions
 			drawPanel.DrawLine(stockPen, minimumProfilePointX - Parameter.StockZ, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZ, 0);
 		}
 
+		public static void Chock(Graphics drawPanel, List<Line> dieLines, List<Arc> dieArcs)
+		{
+			Pen chockPen = new Pen(Color.FromArgb(255, 173, 178, 189));
+			chockPen.ScaleTransform(1 / Parameter.ZoomFactor, 1 / Parameter.ZoomFactor);
+			chockPen.Alignment = PenAlignment.Center;
+
+			Brush chochBrush = new HatchBrush(HatchStyle.BackwardDiagonal, Color.FromArgb(255, 173, 178, 189), Color.FromArgb(255, 24, 24, 24));
+
+			float maximumProfilePointY = 0;
+			foreach (Line line in dieLines)
+			{
+				if (line.EndY > maximumProfilePointY)
+				{
+					maximumProfilePointY = line.EndY;
+				}
+			}
+
+			float minimumProfilePointX = 0;
+			foreach (Line line in dieLines)
+			{
+				if (line.EndX < minimumProfilePointX)
+				{
+					minimumProfilePointX = line.EndX;
+				}
+			}
+
+			GraphicsPath chock = new GraphicsPath();
+			chock.StartFigure();
+			chock.AddLine(minimumProfilePointX - Parameter.StockZ, 0, minimumProfilePointX - Parameter.StockZ, maximumProfilePointY + Parameter.StockX);
+			chock.AddLine(minimumProfilePointX - Parameter.StockZ, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX);
+			chock.AddLine(minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX + 40);
+			chock.AddLine(minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX + 40, minimumProfilePointX - Parameter.StockZ + 40 - 80, maximumProfilePointY + Parameter.StockX + 40);
+			chock.AddLine(minimumProfilePointX - Parameter.StockZ + 40 - 80, maximumProfilePointY + Parameter.StockX + 40, minimumProfilePointX - Parameter.StockZ + 40 - 80, 0);
+			chock.CloseFigure();
+
+			drawPanel.FillPath(chochBrush,chock);
+
+			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZ, 0, minimumProfilePointX - Parameter.StockZ, maximumProfilePointY + Parameter.StockX);
+			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZ, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX);
+			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX + 40);
+			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX + 40, minimumProfilePointX - Parameter.StockZ + 40 - 80, maximumProfilePointY + Parameter.StockX + 40);
+			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZ + 40 - 80, maximumProfilePointY + Parameter.StockX + 40, minimumProfilePointX - Parameter.StockZ + 40 - 80, 0);
+		}
+
 		public static void Profile(Graphics drawPanel, List<Line> profileLines, List<Arc> profileArcs)
 		{
 			//Instantiate a specific Pen

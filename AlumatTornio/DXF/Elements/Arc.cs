@@ -29,6 +29,11 @@ namespace DXF.Elements
 		public float EndY { get; set; }
 		public bool Clockwise { get; set; }
 		public bool AntiClockwise { get; set; }
+
+		public Arc()
+		{
+			
+		}
 		
 		public Arc(float centerX, float centerY, float radius, float startAngle, float endAngle, string color)
 		{
@@ -40,7 +45,11 @@ namespace DXF.Elements
 			RectangularCornerY = centerY - radius;
 			Width = radius * 2;
 			Height = radius * 2;
-			if (startAngle > endAngle && endAngle == 0)
+			if (startAngle > endAngle && startAngle == 360 && endAngle <= 180)
+			{
+				startAngle = 0;
+			}
+			if (startAngle > endAngle && endAngle == 0  && startAngle >= 180)
 			{
 				endAngle = 360;
 			}
@@ -85,8 +94,14 @@ namespace DXF.Elements
 
 		public Arc Clone()
 		{
-			return new Arc(this.CenterX, this.CenterY, this.Radius, this.StartAngle, this.EndAngle, this.Color)
+			return new Arc
 			{
+				CenterX = this.CenterX,
+				CenterY = this.CenterY,
+				Radius = this.Radius,
+				StartAngle = this.StartAngle,
+				EndAngle = this.EndAngle,
+				Color = this.Color,
 				Index = this.Index,
 				RectangularCornerX = this.RectangularCornerX,
 				RectangularCornerY = this.RectangularCornerY,

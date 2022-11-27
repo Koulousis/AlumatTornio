@@ -87,7 +87,9 @@ namespace DXF
 				Draw.Profile(preview, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
 				Draw.ProfileEndToEndPosition(preview, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
 			}
+
 			Draw.Stock(preview, Parameter.DieLines, Parameter.DieArcs);
+			Draw.Chock(preview, Parameter.DieLines, Parameter.DieArcs);
 		}
 
 		private void View_MouseMove(object sender, MouseEventArgs e)
@@ -370,5 +372,10 @@ namespace DXF
 		}
 
 		#endregion
+
+		private void flipButton_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }
