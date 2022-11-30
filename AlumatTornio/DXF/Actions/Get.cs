@@ -51,7 +51,7 @@ namespace DXF.Actions
 			return gapY;
 		}
 
-		public static List<Line> DxfLines(List<string> dxfText)
+		public static List<Line> LinesFromDxf(List<string> dxfText)
 		{
 			List<Line> dxfLines = new List<Line>();
 			for (int i = 0; i < dxfText.Count; i++)
@@ -87,7 +87,7 @@ namespace DXF.Actions
 			return dxfLines;
 		}
 
-		public static List<Arc> DxfArcs(List<string> dxfText)
+		public static List<Arc> ArcsFromDxf(List<string> dxfText)
 		{
 			List<Arc> dxfArcs = new List<Arc>();
 			for (int i = 0; i < dxfText.Count; i++)

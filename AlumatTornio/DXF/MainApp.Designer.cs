@@ -795,13 +795,13 @@ namespace DXF
 			// 
 			this.fileName.AutoSize = true;
 			this.fileName.BackColor = System.Drawing.SystemColors.WindowFrame;
-			this.fileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.fileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.fileName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
 			this.fileName.Location = new System.Drawing.Point(346, 484);
 			this.fileName.Name = "fileName";
-			this.fileName.Size = new System.Drawing.Size(108, 20);
+			this.fileName.Size = new System.Drawing.Size(98, 20);
 			this.fileName.TabIndex = 12;
-			this.fileName.Text = "not selected";
+			this.fileName.Text = "Not selected";
 			// 
 			// fileNameLabel
 			// 

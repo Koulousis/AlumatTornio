@@ -11,7 +11,6 @@ namespace DXF.Elements
 	public static class Parameter
 	{
 		#region For DXF
-		public static List<string> DxfText { get; set; }
 		public static List<Line> AllLines { get; set; }
 		public static List<Arc> AllArcs { get; set; }
 

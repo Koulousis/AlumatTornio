@@ -194,59 +194,17 @@ namespace DXF.Actions
 			
 		}
 
-		public static void CenterLines(List<Line> lines, float gapX , float gapY)
+		public static void MoveElementsToOrigin(List<Line> lines , List<Arc> arcs, float gapX , float gapY)
 		{
 			if (gapX != 0)
 			{
-				if (gapX > 0)
-				{
-					gapX = -gapX;
-				}
-				else
-				{
-					gapX = Math.Abs(gapX);
-				}
+				gapX = gapX > 0 ? -gapX : Math.Abs(gapX);
 
 				foreach (Line line in lines)
 				{
 					line.StartX += gapX;
 					line.EndX += gapX;
 				}
-			}
-
-			if (gapY != 0)
-			{
-				if (gapY > 0)
-				{
-					gapY = -gapY;
-				}
-				else
-				{
-					gapY = Math.Abs(gapY);
-				}
-
-				foreach (Line line in lines)
-				{
-					line.StartY += gapY;
-					line.EndY += gapY;
-				}
-			}
-
-		}
-
-		public static void CenterArcs(List<Arc> arcs, float gapX, float gapY)
-		{
-			if (gapX != 0)
-			{
-				if (gapX > 0)
-				{
-					gapX = -gapX;
-				}
-				else
-				{
-					gapX = Math.Abs(gapX);
-				}
-
 				foreach (Arc arc in arcs)
 				{
 					arc.CenterX += gapX;
@@ -258,13 +216,13 @@ namespace DXF.Actions
 
 			if (gapY != 0)
 			{
-				if (gapY > 0)
+
+				gapY = gapY > 0 ? -gapY : Math.Abs(gapY);
+
+				foreach (Line line in lines)
 				{
-					gapY = -gapY;
-				}
-				else
-				{
-					gapY = Math.Abs(gapY);
+					line.StartY += gapY;
+					line.EndY += gapY;
 				}
 
 				foreach (Arc arc in arcs)
@@ -276,9 +234,9 @@ namespace DXF.Actions
 				}
 			}
 
-
 		}
 
+		
 		public static void DecimalsCorrection(List<Line> lines, List<Arc> arcs)
 		{
 			foreach (Line line in lines)

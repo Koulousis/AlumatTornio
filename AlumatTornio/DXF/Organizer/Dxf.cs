@@ -11,31 +11,10 @@ namespace DXF.Organizer
 {
 	public static class Dxf
 	{
+		
 		public static void ManageGeneral(OpenFileDialog selectedDxfDialog)
 		{
-			Parameter.DxfText = new List<string>();
-			Parameter.AllLines = new List<Line>();
-			Parameter.AllArcs = new List<Arc>();
-			Parameter.DieLines = new List<Line>();
-			Parameter.G71ProfilePointsFirstSide = new List<GCodePoint>();
-
-			//Read the selected file
-			Parameter.DxfText = Read.DxfFile(selectedDxfDialog);
-			if (Parameter.DxfText == null) return;
-
-			//Read Dxf elements
-			Parameter.AllLines = Get.DxfLines(Parameter.DxfText);
-			Parameter.AllArcs = Get.DxfArcs(Parameter.DxfText);
-
-			//Check if the dxf starts from X0:Y0
-			float gapX = Get.GapX(Parameter.AllLines);
-			float gapY = Get.GapY(Parameter.AllLines);
-			if (gapX != 0 || gapY != 0)
-			{
-				Edit.CenterLines(Parameter.AllLines, gapX, gapY);
-				Edit.CenterArcs(Parameter.AllArcs, gapX, gapY);
-			}
-			Edit.DecimalsCorrection(Parameter.AllLines, Parameter.AllArcs);
+			
 
 
 			//Construct specific element lists

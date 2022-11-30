@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -31,26 +32,17 @@ namespace DXF
 		#region Application Load
 		private void MainApp_Load(object sender, EventArgs e)
 		{
-			firstSideSelectorGroup.Enabled = false;
-			sideSelectorGroup.Enabled = false;
-			cavaSelectorGroup.Enabled = false;
-			stockValuesSelectorGroup.Enabled = false;
+			//Disable UI
+			tabPanel.Enabled = false;
 
-			LoadG71Settings();
-			LoadG72Settings();
-			fileName.Text = "Not selected";
-		}
-
-		void LoadG71Settings()
-		{
+			//Fill inputs with saved G71 Settings
 			g71DepthOfCutInput.Value = Convert.ToDecimal(Settings.Default["G71DepthOfCut"]);
 			g71RetractInput.Value = Convert.ToDecimal(Settings.Default["G71Retract"]);
 			g71XAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G71XAllowance"]);
 			g71ZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G71ZAllowance"]);
 			g71FeedRateInput.Value = Convert.ToDecimal(Settings.Default["G71FeedRate"]);
-		}
-		void LoadG72Settings()
-		{
+
+			//Fill inputs with saved G72 Settings
 			g72DepthOfCutInput.Value = Convert.ToDecimal(Settings.Default["G72DepthOfCut"]);
 			g72RetractInput.Value = Convert.ToDecimal(Settings.Default["G72Retract"]);
 			g72XAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G72XAllowance"]);
@@ -62,7 +54,7 @@ namespace DXF
 		#region File Open
 		private void fileDxfMenuItem_Click(object sender, EventArgs e)
 		{
-			//Select DXF file from the opened dialog
+			//Create file dialog
 			OpenFileDialog selectDxfDialog = new OpenFileDialog()
 			{
 				Title = @"Select file",
@@ -70,6 +62,48 @@ namespace DXF
 				DefaultExt = @".dxf",
 				Filter = @"DXF Files (*.dxf)|*.dxf"
 			};
+
+			//Read the selected file
+			if (selectDxfDialog.ShowDialog() == DialogResult.Cancel) return;
+			string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectDxfDialog.FileName);
+			List<string> dxfText = File.ReadAllLines(selectDxfDialog.FileName).ToList();
+
+			//Validate the selected file
+			bool fileNotHaveEntities = !dxfText.Contains("ENTITIES");
+			if (fileNotHaveEntities)
+			{
+				MessageBox.Show("The selected DXF file does not contains elements"); 
+				return;
+			}
+
+			//Remove file part above entities section
+			int indexOfFirstLine = 0;
+			int elementsAmountBeforeEntities = dxfText.IndexOf("ENTITIES");
+			dxfText.RemoveRange(indexOfFirstLine, elementsAmountBeforeEntities);
+
+			//Remove file part below entities section
+			int indexOfFirstLineAfterEntities = dxfText.IndexOf("ENDSEC") + 1;
+			int elementsAmountAfterEntities = dxfText.LastIndexOf("EOF") - dxfText.IndexOf("ENDSEC");
+			dxfText.RemoveRange(indexOfFirstLineAfterEntities, elementsAmountAfterEntities);
+
+			//Get elements from the entities section of the file
+			List<Line> allLines = Get.LinesFromDxf(dxfText);
+			List<Arc> allArcs = Get.ArcsFromDxf(dxfText);
+
+			//Check for gap from origin point X0,Y0
+			float gapX = Get.GapX(allLines);
+			float gapY = Get.GapY(allLines);
+			if (gapX != 0 || gapY != 0)
+			{
+				Edit.MoveElementsToOrigin(allLines, allArcs, gapX, gapY);
+			}
+			Edit.DecimalsCorrection(allLines, allArcs);
+
+			//Global Parameters
+			Set.GlobalParameters();
+			Parameter.DxfFileName = fileNameWithoutExtension;
+			Parameter.AllLines = Get.LinesFromDxf(dxfText);
+			Parameter.AllArcs = Get.ArcsFromDxf(dxfText);
 
 			//File management
 			Dxf.ManageGeneral(selectDxfDialog);
@@ -252,7 +286,7 @@ namespace DXF
 			preview.Transform = new Matrix(1, 0, 0, -1, 0, 0);
 			preview.TranslateTransform(Calculation.TransformWidth(VisuilizationPanel.Width), Calculation.TransformHeight(VisuilizationPanel.Height), MatrixOrder.Append);
 
-			if (Parameter.DxfText == null) return;
+			if (Parameter.DxfFileName == string.Empty) return;
 			Parameter.ZoomFactor = Calculation.Scale(VisuilizationPanel.Width, VisuilizationPanel.Height);
 			preview.ScaleTransform(Parameter.ZoomFactor, Parameter.ZoomFactor);
 			//Create die path
@@ -317,7 +351,6 @@ namespace DXF
 		#region Export
 		private void exportGCode_Click(object sender, EventArgs e)
 		{
-			if (Parameter.DxfText == null ) { MessageBox.Show("There's no DXF file selected yet"); return; }
 			if (cavaCheckBox.Enabled) { MessageBox.Show("Cava is not applied"); return; }
 
 			//Update Progress Bar

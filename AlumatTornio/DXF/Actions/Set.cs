@@ -10,6 +10,13 @@ namespace DXF.Actions
 {
 	public class Set
 	{
+		public static void GlobalParameters()
+		{
+			Parameter.DxfFileName = string.Empty;
+			Parameter.AllLines = new List<Line>();
+			Parameter.AllArcs = new List<Arc>();
+		}
+
 		public static void StockDiameter(float dieDiameter)
 		{
 			Parameter.StockDiameter = (float)Math.Ceiling(dieDiameter);
