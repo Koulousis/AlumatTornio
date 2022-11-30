@@ -14,16 +14,16 @@ namespace DXF.Lathe
 {
 	public static class GCode
 	{
-		public static List<string> RightSide = new List<string>();
-		public static List<string> LeftSide = new List<string>();
+		public static List<string> FirstSide = new List<string>();
+		public static List<string> SecondSide = new List<string>();
 
 		public static void Export()
 		{
 			string exportRightSide = $@"{Settings.Default["ExportFolderPath"]}\{Parameter.DxfFileName}_Right_Side.txt";
-			System.IO.File.WriteAllLines(exportRightSide, GCode.RightSide);
+			System.IO.File.WriteAllLines(exportRightSide, GCode.FirstSide);
 
 			string exportLeftSide = $@"{Settings.Default["ExportFolderPath"]}\{Parameter.DxfFileName}_Left_Side.txt";
-			System.IO.File.WriteAllLines(exportLeftSide, GCode.LeftSide);
+			System.IO.File.WriteAllLines(exportLeftSide, GCode.SecondSide);
 		}
 		
 		public static void G71(Graphics preview)

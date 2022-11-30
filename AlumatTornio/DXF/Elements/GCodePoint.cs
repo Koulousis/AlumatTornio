@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DXF.Elements
 {
-	public class G71ProfilePoint
+	public class GCodePoint
 	{
 		public float X { get; set;}
 		public float Z { get; set; }
@@ -14,13 +14,13 @@ namespace DXF.Elements
 		public bool Clockwise { get; set; }
 		public bool AntiClockwise { get; set; }
 
-		public G71ProfilePoint(float x, float z)
+		public GCodePoint(float x, float z)
 		{
 			X = x;
 			Z = z;
 		}
 
-		public G71ProfilePoint(float x, float z, float r, bool clockwise, bool antiClockwise)
+		public GCodePoint(float x, float z, float r, bool clockwise, bool antiClockwise)
 		{
 			X = x;
 			Z = z;

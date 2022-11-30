@@ -17,7 +17,7 @@ namespace DXF.Organizer
 			Parameter.AllLines = new List<Line>();
 			Parameter.AllArcs = new List<Arc>();
 			Parameter.DieLines = new List<Line>();
-			Parameter.G71ProfilePointsRightSide = new List<G71ProfilePoint>();
+			Parameter.G71ProfilePointsFirstSide = new List<GCodePoint>();
 
 			//Read the selected file
 			Parameter.DxfText = Read.DxfFile(selectedDxfDialog);

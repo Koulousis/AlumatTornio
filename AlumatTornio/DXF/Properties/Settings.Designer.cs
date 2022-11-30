@@ -169,25 +169,25 @@ namespace DXF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
-        public float XStockValue {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float XStockDiameter {
             get {
-                return ((float)(this["XStockValue"]));
+                return ((float)(this["XStockDiameter"]));
             }
             set {
-                this["XStockValue"] = value;
+                this["XStockDiameter"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
-        public float ZStockValue {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float ZStockWidth {
             get {
-                return ((float)(this["ZStockValue"]));
+                return ((float)(this["ZStockWidth"]));
             }
             set {
-                this["ZStockValue"] = value;
+                this["ZStockWidth"] = value;
             }
         }
     }

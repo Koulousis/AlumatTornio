@@ -70,34 +70,21 @@ namespace DXF.Actions
 			dieBrush.Dispose();
 		}
 
-		public static void Stock(Graphics drawPanel, List<Line> dieLines, List<Arc> dieArcs)
+		public static void Stock(Graphics drawPanel)
 		{
 			Pen stockPen = new Pen(Color.Beige);
 			stockPen.DashStyle = DashStyle.Solid;
 			stockPen.ScaleTransform(1 / Parameter.ZoomFactor, 1 / Parameter.ZoomFactor);
 			stockPen.Alignment = PenAlignment.Center;
 
-			float maximumProfilePointY = 0;
-			foreach (Line line in dieLines)
-			{
-				if (line.EndY > maximumProfilePointY)
-				{
-					maximumProfilePointY = line.EndY;
-				}
-			}
-
-			float minimumProfilePointX = 0;
-			foreach (Line line in dieLines)
-			{
-				if (line.EndX < minimumProfilePointX)
-				{
-					minimumProfilePointX = line.EndX;
-				}
-			}
-
-			drawPanel.DrawLine(stockPen, Parameter.StockZ, 0, Parameter.StockZ, maximumProfilePointY + Parameter.StockX);
-			drawPanel.DrawLine(stockPen, Parameter.StockZ, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZ, maximumProfilePointY + Parameter.StockX);
-			drawPanel.DrawLine(stockPen, minimumProfilePointX - Parameter.StockZ, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZ, 0);
+			PointF stockPoint1 = new PointF(Parameter.StockZFirstSide, 0);
+			PointF stockPoint2 = new PointF(Parameter.StockZFirstSide, Parameter.DieDiameter / 2 + Parameter.StockX / 2);
+			PointF stockPoint3 = new PointF(-Parameter.DieWidth - Parameter.StockZSecondSide, Parameter.DieDiameter / 2 + Parameter.StockX / 2);
+			PointF stockPoint4 = new PointF(-Parameter.DieWidth - Parameter.StockZSecondSide, 0);
+			
+			drawPanel.DrawLine(stockPen, stockPoint1, stockPoint2);
+			drawPanel.DrawLine(stockPen, stockPoint2, stockPoint3);
+			drawPanel.DrawLine(stockPen, stockPoint3, stockPoint4);
 		}
 
 		public static void Chock(Graphics drawPanel, List<Line> dieLines, List<Arc> dieArcs)
@@ -128,20 +115,20 @@ namespace DXF.Actions
 
 			GraphicsPath chock = new GraphicsPath();
 			chock.StartFigure();
-			chock.AddLine(minimumProfilePointX - Parameter.StockZ, 0, minimumProfilePointX - Parameter.StockZ, maximumProfilePointY + Parameter.StockX);
-			chock.AddLine(minimumProfilePointX - Parameter.StockZ, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX);
-			chock.AddLine(minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX + 40);
-			chock.AddLine(minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX + 40, minimumProfilePointX - Parameter.StockZ + 40 - 80, maximumProfilePointY + Parameter.StockX + 40);
-			chock.AddLine(minimumProfilePointX - Parameter.StockZ + 40 - 80, maximumProfilePointY + Parameter.StockX + 40, minimumProfilePointX - Parameter.StockZ + 40 - 80, 0);
+			chock.AddLine(minimumProfilePointX - Parameter.StockZFirstSide, 0, minimumProfilePointX - Parameter.StockZFirstSide, maximumProfilePointY + Parameter.StockX);
+			chock.AddLine(minimumProfilePointX - Parameter.StockZFirstSide, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZFirstSide + 40, maximumProfilePointY + Parameter.StockX);
+			chock.AddLine(minimumProfilePointX - Parameter.StockZFirstSide + 40, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZFirstSide + 40, maximumProfilePointY + Parameter.StockX + 40);
+			chock.AddLine(minimumProfilePointX - Parameter.StockZFirstSide + 40, maximumProfilePointY + Parameter.StockX + 40, minimumProfilePointX - Parameter.StockZFirstSide + 40 - 80, maximumProfilePointY + Parameter.StockX + 40);
+			chock.AddLine(minimumProfilePointX - Parameter.StockZFirstSide + 40 - 80, maximumProfilePointY + Parameter.StockX + 40, minimumProfilePointX - Parameter.StockZFirstSide + 40 - 80, 0);
 			chock.CloseFigure();
 
 			drawPanel.FillPath(chochBrush,chock);
 
-			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZ, 0, minimumProfilePointX - Parameter.StockZ, maximumProfilePointY + Parameter.StockX);
-			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZ, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX);
-			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX + 40);
-			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZ + 40, maximumProfilePointY + Parameter.StockX + 40, minimumProfilePointX - Parameter.StockZ + 40 - 80, maximumProfilePointY + Parameter.StockX + 40);
-			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZ + 40 - 80, maximumProfilePointY + Parameter.StockX + 40, minimumProfilePointX - Parameter.StockZ + 40 - 80, 0);
+			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZFirstSide, 0, minimumProfilePointX - Parameter.StockZFirstSide, maximumProfilePointY + Parameter.StockX);
+			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZFirstSide, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZFirstSide + 40, maximumProfilePointY + Parameter.StockX);
+			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZFirstSide + 40, maximumProfilePointY + Parameter.StockX, minimumProfilePointX - Parameter.StockZFirstSide + 40, maximumProfilePointY + Parameter.StockX + 40);
+			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZFirstSide + 40, maximumProfilePointY + Parameter.StockX + 40, minimumProfilePointX - Parameter.StockZFirstSide + 40 - 80, maximumProfilePointY + Parameter.StockX + 40);
+			drawPanel.DrawLine(chockPen, minimumProfilePointX - Parameter.StockZFirstSide + 40 - 80, maximumProfilePointY + Parameter.StockX + 40, minimumProfilePointX - Parameter.StockZFirstSide + 40 - 80, 0);
 		}
 
 		public static void Profile(Graphics drawPanel, List<Line> profileLines, List<Arc> profileArcs)
@@ -201,8 +188,8 @@ namespace DXF.Actions
 			//Draw G71 Profile
 			//Draw and Fill Full Die Path
 
-			drawPanel.DrawLine(profilePen, Parameter.StockZ, maximumProfilePointY + Parameter.StockX, Parameter.StockZ, firstElementY);
-			drawPanel.DrawLine(profilePen, Parameter.StockZ, firstElementY, 0, firstElementY);
+			drawPanel.DrawLine(profilePen, Parameter.StockZFirstSide, maximumProfilePointY + Parameter.StockX, Parameter.StockZFirstSide, firstElementY);
+			drawPanel.DrawLine(profilePen, Parameter.StockZFirstSide, firstElementY, 0, firstElementY);
 
 
 			//Dispose
@@ -240,11 +227,26 @@ namespace DXF.Actions
 			//Draw G71 Profile
 			//Draw and Fill Full Die Path
 			drawPanel.DrawLine(profilePen, lastElementX, lastElementY, lastElementX, lastElementY + Parameter.StockX);
-			drawPanel.DrawLine(profilePen, lastElementX, lastElementY + Parameter.StockX, Parameter.StockZ, lastElementY + Parameter.StockX);
+			drawPanel.DrawLine(profilePen, lastElementX, lastElementY + Parameter.StockX, Parameter.StockZFirstSide, lastElementY + Parameter.StockX);
 
 			//Dispose
 			profilePen.Dispose();
 		}
 
+		public static void RightSide(Graphics drawPanel)
+		{
+			Draw.Die(drawPanel, Parameter.DieLines, Parameter.DieArcs);
+			Draw.StartPositionToProfileStart(drawPanel, Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
+			Draw.Profile(drawPanel, Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
+			Draw.ProfileEndToEndPosition(drawPanel, Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
+		}
+
+		public static void LeftSide(Graphics drawPanel)
+		{
+			Draw.Die(drawPanel, Parameter.DieLinesFlipped, Parameter.DieArcsFlipped);
+			Draw.StartPositionToProfileStart(drawPanel, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
+			Draw.Profile(drawPanel, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
+			Draw.ProfileEndToEndPosition(drawPanel, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
+		}
 	}
 }

@@ -312,5 +312,18 @@ namespace DXF.Actions
 			return cavaArcs;
 		}
 
+		public static float DieDiameter(List<Line> dieLines)
+		{
+			float dieDiameter = dieLines.Max(line => line.EndY);
+			dieDiameter = Math.Abs(dieDiameter) * 2;
+			return dieDiameter;
+		}
+
+		public static float DieWidth(List<Line> dieLines)
+		{
+			float dieWidth = dieLines.Min(line => line.EndX);
+			dieWidth = Math.Abs(dieWidth);
+			return dieWidth;
+		}
 	}
 }

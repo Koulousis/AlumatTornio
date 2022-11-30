@@ -26,4 +26,3 @@ C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\
 C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.pdb
 C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.Properties.Resources.resources
 C:\Users\30698\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.Properties.Resources.resources
-C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.csproj.AssemblyReference.cache

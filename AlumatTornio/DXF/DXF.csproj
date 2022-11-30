@@ -53,6 +53,7 @@
     <Compile Include="Actions\Draw.cs" />
     <Compile Include="Actions\Read.cs" />
     <Compile Include="Actions\Remove.cs" />
+    <Compile Include="Actions\Set.cs" />
     <Compile Include="Organizer\Dxf.cs" />
     <Compile Include="Elements\Parameter.cs" />
     <Compile Include="Lathe\CodeBlock.cs" />
@@ -82,7 +83,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Elements\G71ProfilePoint.cs" />
+    <Compile Include="Elements\GCodePoint.cs" />
     <Compile Include="Tools\Calculation.cs" />
     <Compile Include="Tools\Conversion.cs" />
     <Compile Include="Tools\Validation.cs" />
