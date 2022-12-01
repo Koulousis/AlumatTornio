@@ -23,11 +23,11 @@ namespace DXF.Actions
 			List<int> indexes = new List<int>();
 
 			//Create sorted indexes list
-			foreach (Line line in Parameter.DieLines)
+			foreach (Line line in Parameter.DieLinesAsDesigned)
 			{
 				indexes.Add(line.Index);
 			}
-			foreach (Arc arc in Parameter.DieArcs)
+			foreach (Arc arc in Parameter.DieArcsAsDesigned)
 			{
 				indexes.Add(arc.Index);
 			}
@@ -36,7 +36,7 @@ namespace DXF.Actions
 
 			foreach (int index in indexes)
 			{
-				foreach (Line line in Parameter.DieLines)
+				foreach (Line line in Parameter.DieLinesAsDesigned)
 				{
 					if (line.Index == index)
 					{
@@ -45,7 +45,7 @@ namespace DXF.Actions
 					}
 				}
 
-				foreach (Arc arc in Parameter.DieArcs)
+				foreach (Arc arc in Parameter.DieArcsAsDesigned)
 				{
 					if (arc.Index == index)
 					{
@@ -70,8 +70,8 @@ namespace DXF.Actions
 		{
 			//TODO: Ginetai lathos generate gia to EXA109710-1 - 1.dxf
 			GraphicsPath g71Profile = new GraphicsPath();
-			List<Line> lines = new List<Line>(Parameter.DieLines);
-			List<Arc> arcs = new List<Arc>(Parameter.DieArcs);
+			List<Line> lines = new List<Line>(Parameter.DieLinesAsDesigned);
+			List<Arc> arcs = new List<Arc>(Parameter.DieArcsAsDesigned);
 
 			//Remove from lines list the vertical and horizontal lines which are attached to X axis
 			for (int i = 0; i < lines.Count; i++)
@@ -87,7 +87,7 @@ namespace DXF.Actions
 			}
 
 			
-			//Sort AddIndexesAndMakeCorrections
+			//Sort AddIndexesAndCounterClockwiseElements
 			List<int> indexers = new List<int>();
 			foreach (Line line in lines)
 			{

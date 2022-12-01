@@ -12,15 +12,15 @@ namespace DXF.Actions
 {
 	public static class Edit
 	{
-		public static void AddIndexesAndMakeCorrections(List<Line> linesList, List<Arc> arcsList)
+		public static void AddIndexesAndCounterClockwiseElements(List<Line> dieLines, List<Arc> dieArcs)
 		{
-			List<Line> lines = new List<Line>(linesList);
-			List<Arc> arcs = new List<Arc>(arcsList);
+			List<Line> dieLinesAsDesigned = new List<Line>(dieLines);
+			List<Arc> dieArcsAsDesigned = new List<Arc>(dieArcs);
 			int index = 1;
 
 			//Find the first Vertical Line which has equal to zero starting points or ending points
-			Line firstLineMatchingStart = lines.Find(first => first.StartX == 0 && first.StartY == 0 && first.EndX == 0 && first.EndY > 0);
-			Line firstLineMatchingEnd = lines.Find(first => first.EndX == 0 && first.EndY == 0 && first.StartX == 0 && first.StartY > 0);
+			Line firstLineMatchingStart = dieLinesAsDesigned.Find(first => first.StartX == 0 && first.StartY == 0 && first.EndX == 0 && first.EndY > 0);
+			Line firstLineMatchingEnd = dieLinesAsDesigned.Find(first => first.EndX == 0 && first.EndY == 0 && first.StartX == 0 && first.StartY > 0);
 
 			PointF lastPoint = new PointF();
 			if (firstLineMatchingStart != null)
@@ -28,7 +28,7 @@ namespace DXF.Actions
 				firstLineMatchingStart.Index = index;
 				lastPoint.X = firstLineMatchingStart.EndX;
 				lastPoint.Y = firstLineMatchingStart.EndY;
-				lines.Remove(firstLineMatchingStart);
+				dieLinesAsDesigned.Remove(firstLineMatchingStart);
 				index++;
 			}
 			if (firstLineMatchingEnd != null)
@@ -42,19 +42,19 @@ namespace DXF.Actions
 				firstLineMatchingEnd.EndX = lastPoint.X;
 				firstLineMatchingEnd.EndY = lastPoint.Y;
 
-				lines.Remove(firstLineMatchingEnd);
+				dieLinesAsDesigned.Remove(firstLineMatchingEnd);
 				index++;
 			}
 
 			//Iterate through all elements to add them in a queue by giving an Index value and fix their direction
-			int totalElements = lines.Count + arcs.Count;
+			int totalElements = dieLinesAsDesigned.Count + dieArcsAsDesigned.Count;
 			for (int elementsLeft = totalElements; elementsLeft != 0;)
 			{
 				//Find the point of any element that match the last point
-				Line startPointLineMatching = lines.Find(line => line.StartX == lastPoint.X && line.StartY == lastPoint.Y);
-				Line endPointLineMatching = lines.Find(line => line.EndX == lastPoint.X && line.EndY == lastPoint.Y);
-				Arc startPointArcMatching = arcs.Find(arc => arc.StartX == lastPoint.X && arc.StartY == lastPoint.Y);
-				Arc endPointArcMatching = arcs.Find(arc =>arc.EndX == lastPoint.X && arc.EndY == lastPoint.Y);
+				Line startPointLineMatching = dieLinesAsDesigned.Find(line => line.StartX == lastPoint.X && line.StartY == lastPoint.Y);
+				Line endPointLineMatching = dieLinesAsDesigned.Find(line => line.EndX == lastPoint.X && line.EndY == lastPoint.Y);
+				Arc startPointArcMatching = dieArcsAsDesigned.Find(arc => arc.StartX == lastPoint.X && arc.StartY == lastPoint.Y);
+				Arc endPointArcMatching = dieArcsAsDesigned.Find(arc =>arc.EndX == lastPoint.X && arc.EndY == lastPoint.Y);
 
 				//To the matching element set an index
 				//record the new last point
@@ -64,7 +64,7 @@ namespace DXF.Actions
 					startPointLineMatching.Index = index;
 					lastPoint.X = startPointLineMatching.EndX;
 					lastPoint.Y = startPointLineMatching.EndY;
-					lines.Remove(startPointLineMatching);
+					dieLinesAsDesigned.Remove(startPointLineMatching);
 					elementsLeft--;
 					index++;
 					continue;
@@ -81,7 +81,7 @@ namespace DXF.Actions
 					endPointLineMatching.EndX = lastPoint.X;
 					endPointLineMatching.EndY = lastPoint.Y;
 
-					lines.Remove(endPointLineMatching);
+					dieLinesAsDesigned.Remove(endPointLineMatching);
 					elementsLeft--;
 					index++;
 					continue;
@@ -92,7 +92,7 @@ namespace DXF.Actions
 					startPointArcMatching.Index = index;
 					lastPoint.X = startPointArcMatching.EndX;
 					lastPoint.Y = startPointArcMatching.EndY;
-					arcs.Remove(startPointArcMatching);
+					dieArcsAsDesigned.Remove(startPointArcMatching);
 					elementsLeft--;
 					index++;
 					continue;
@@ -109,7 +109,7 @@ namespace DXF.Actions
 					endPointArcMatching.EndX = lastPoint.X;
 					endPointArcMatching.EndY = lastPoint.Y;
 
-					arcs.Remove(endPointArcMatching);
+					dieArcsAsDesigned.Remove(endPointArcMatching);
 					elementsLeft--;
 					index++;
 					continue;
@@ -122,19 +122,19 @@ namespace DXF.Actions
 			}
 		}
 
-		public static void FlipElements(List<Line> g71Lines, List<Arc> g71Arcs)
+		public static void FlipElements(List<Line> dieLines, List<Arc> dieArcs)
 		{
-			List<Line> g71LinesLeftSide = new List<Line>(g71Lines);
-			List<Arc> g71ArcsLeftSide = new List<Arc>(g71Arcs);
+			List<Line> dieLinesFlipped = new List<Line>(dieLines);
+			List<Arc> dieArcsFlipped = new List<Arc>(dieArcs);
 
-			g71LinesLeftSide = g71LinesLeftSide.OrderBy(arc => arc.Index).ToList();
-			g71LinesLeftSide.Reverse();
+			dieLinesFlipped = dieLinesFlipped.OrderBy(arc => arc.Index).ToList();
+			dieLinesFlipped.Reverse();
 
-			g71ArcsLeftSide = g71ArcsLeftSide.OrderBy(arc => arc.Index).ToList();
-			g71ArcsLeftSide.Reverse();
+			dieArcsFlipped = dieArcsFlipped.OrderBy(arc => arc.Index).ToList();
+			dieArcsFlipped.Reverse();
 
 			float distanceFromAxis = 0;
-			foreach (Line line in g71LinesLeftSide)
+			foreach (Line line in dieLinesFlipped)
 			{
 				if (line.EndX < distanceFromAxis)
 				{
@@ -143,7 +143,7 @@ namespace DXF.Actions
 			}
 			distanceFromAxis = Math.Abs(distanceFromAxis);
 
-			foreach (Line line in g71LinesLeftSide)
+			foreach (Line line in dieLinesFlipped)
 			{
 				line.StartX += distanceFromAxis;
 				line.EndX += distanceFromAxis;
@@ -156,7 +156,7 @@ namespace DXF.Actions
 				(line.StartX, line.StartY, line.EndX, line.EndY) = (line.EndX, line.EndY, line.StartX, line.StartY);
 			}
 
-			foreach (Arc arc in g71ArcsLeftSide)
+			foreach (Arc arc in dieArcsFlipped)
 			{
 				arc.CenterX += distanceFromAxis;
 				arc.RectangularCornerX += distanceFromAxis;

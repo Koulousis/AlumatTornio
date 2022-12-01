@@ -128,7 +128,7 @@ namespace DXF.Actions
 			return dxfArcs;
 		}
 		
-		public static List<Line> DieLines(List<Line> allLines)
+		public static List<Line> DieLinesAsDisigned(List<Line> allLines)
 		{
 			List<Line> dieLines = new List<Line>();
 			foreach (Line line in allLines) { dieLines.Add(line.Clone()); }
@@ -145,7 +145,7 @@ namespace DXF.Actions
 			return dieLines;
 		}
 
-		public static List<Arc> DieArcs(List<Arc> allArcs)
+		public static List<Arc> DieArcsAsDesigned(List<Arc> allArcs)
 		{
 			List<Arc> dieArcs = new List<Arc>();
 			foreach (Arc arc in allArcs) { dieArcs.Add(arc.Clone()); }
@@ -161,26 +161,26 @@ namespace DXF.Actions
 			return dieArcs;
 		}
 
-		public static List<Line> DieLinesMirrored(List<Line> dieLines)
+		public static List<Line> DieLinesFlipped(List<Line> dieLines)
 		{
-			List<Line> dieLinesMirrored = new List<Line>();
-			foreach (Line line in Parameter.DieLines)
+			List<Line> dieLinesToBeFlipped = new List<Line>();
+			foreach (Line line in dieLines)
 			{
-				dieLinesMirrored.Add(line.Clone());
+				dieLinesToBeFlipped.Add(line.Clone());
 			}
 
-			return dieLinesMirrored;
+			return dieLinesToBeFlipped;
 		}
 
-		public static List<Arc> DieArcsMirrored(List<Arc> dieArcs)
+		public static List<Arc> DieArcsFlipped(List<Arc> dieArcs)
 		{
-			List<Arc> dieArcsMirrored = new List<Arc>();
-			foreach (Arc arc in Parameter.DieArcs)
+			List<Arc> dieArcsToBeFlipped = new List<Arc>();
+			foreach (Arc arc in dieArcs)
 			{
-				dieArcsMirrored.Add(arc.Clone());
+				dieArcsToBeFlipped.Add(arc.Clone());
 			}
 
-			return dieArcsMirrored;
+			return dieArcsToBeFlipped;
 		}
 
 		public static List<Line> G71LinesRightSide(List<Line> dieLines)
@@ -312,18 +312,8 @@ namespace DXF.Actions
 			return cavaArcs;
 		}
 
-		public static float DieDiameter(List<Line> dieLines)
-		{
-			float dieDiameter = dieLines.Max(line => line.EndY);
-			dieDiameter = Math.Abs(dieDiameter) * 2;
-			return dieDiameter;
-		}
+		
 
-		public static float DieWidth(List<Line> dieLines)
-		{
-			float dieWidth = dieLines.Min(line => line.EndX);
-			dieWidth = Math.Abs(dieWidth);
-			return dieWidth;
-		}
+		
 	}
 }

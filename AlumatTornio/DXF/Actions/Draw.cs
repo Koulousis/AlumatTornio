@@ -235,7 +235,7 @@ namespace DXF.Actions
 
 		public static void RightSide(Graphics drawPanel)
 		{
-			Draw.Die(drawPanel, Parameter.DieLines, Parameter.DieArcs);
+			Draw.Die(drawPanel, Parameter.DieLinesAsDesigned, Parameter.DieArcsAsDesigned);
 			Draw.StartPositionToProfileStart(drawPanel, Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
 			Draw.Profile(drawPanel, Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
 			Draw.ProfileEndToEndPosition(drawPanel, Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);

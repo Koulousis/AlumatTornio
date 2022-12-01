@@ -70,7 +70,7 @@ namespace DXF.Tools
 			float dummyWidth = 0;
 			float dummyHeight = 0;
 
-			foreach (Line line in Parameter.DieLines)
+			foreach (Line line in Parameter.DieLinesAsDesigned)
 			{
 				//Width
 				if (line.StartX < dummyWidth)
@@ -87,7 +87,7 @@ namespace DXF.Tools
 				}
 			}
 
-			foreach (Line line in Parameter.DieLines)
+			foreach (Line line in Parameter.DieLinesAsDesigned)
 			{
 				if (line.StartY > dummyHeight)
 				{

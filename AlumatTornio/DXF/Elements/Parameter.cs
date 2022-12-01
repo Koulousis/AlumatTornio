@@ -14,14 +14,17 @@ namespace DXF.Elements
 		public static List<Line> AllLines { get; set; }
 		public static List<Arc> AllArcs { get; set; }
 
-		public static bool RightSideSelectedAsFirst { get; set; }
-		public static bool LeftSideSelectedAsFirst { get; set; }
-
-		public static List<Line> DieLines { get; set; }
-		public static List<Arc> DieArcs { get; set; }
+		public static List<Line> DieLinesAsDesigned { get; set; }
+		public static List<Arc> DieArcsAsDesigned { get; set; }
 
 		public static List<Line> DieLinesFlipped { get; set; }
 		public static List<Arc> DieArcsFlipped { get; set; }
+
+		public static List<Line> FirstSideLines { get; set; }
+		public static List<Arc> FirstSideArcs { get; set; }
+
+		public static bool FirstMachiningSideAsDesigned { get; set; }
+		public static bool FirstMachiningSideFlipped { get; set; }
 
 		public static List<Line> G71LinesRightSide { get; set; }
 		public static List<Arc> G71ArcsRightSide { get; set; }
@@ -67,11 +70,12 @@ namespace DXF.Elements
 		public static float StockZFirstSide { get; set; }
 		public static float StockZSecondSide { get; set; }
 		public static float CavaExtra { get; set; }
+
 		#endregion
 
 		#region For Settings
 		public static float ZoomFactor = 1f;
-		public static string DxfFileName = "Default";
+		public static string DxfFileName = "";
 		public static bool ComesFromFileLoad = false;
 
 		#endregion

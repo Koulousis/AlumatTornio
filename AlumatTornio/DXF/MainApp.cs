@@ -51,9 +51,12 @@ namespace DXF
 		}
 		#endregion
 
-		#region File Open
+		#region File Elements Setup
 		private void fileDxfMenuItem_Click(object sender, EventArgs e)
 		{
+			//Initial or re-initial  global parameters
+			Initial.GlobalParameters();
+
 			//Create file dialog
 			OpenFileDialog selectDxfDialog = new OpenFileDialog()
 			{
@@ -72,7 +75,7 @@ namespace DXF
 			bool fileNotHaveEntities = !dxfText.Contains("ENTITIES");
 			if (fileNotHaveEntities)
 			{
-				MessageBox.Show("The selected DXF file does not contains elements"); 
+				MessageBox.Show("The selected DXF file does not contains elements");
 				return;
 			}
 
@@ -99,55 +102,50 @@ namespace DXF
 			}
 			Edit.DecimalsCorrection(allLines, allArcs);
 
-			//Global Parameters
-			Set.GlobalParameters();
+			//Create lines and arcs with coordinates as designed
+			List<Line> dieLinesAsDesigned = Get.DieLinesAsDisigned(allLines);
+			List<Arc> dieArcsAsDesigned = Get.DieArcsAsDesigned(allArcs);
+			Edit.AddIndexesAndCounterClockwiseElements(dieLinesAsDesigned, dieArcsAsDesigned);
+
+			//Create lines and arcs with coordinates as flipped from design
+			List<Line> dieLinesFlipped = Get.DieLinesFlipped(dieLinesAsDesigned);
+			List<Arc> dieArcsFlipped = Get.DieArcsFlipped(dieArcsAsDesigned);
+			Edit.FlipElements(dieLinesFlipped, dieArcsFlipped);
+			
+			//Set information to user interface
+			fileName.Text = fileNameWithoutExtension;
+			Set.DieDiameterLabel(dieDiameterLabel, dieLinesAsDesigned);
+			Set.DieWidthLabel(dieWidthLabel, dieLinesAsDesigned);
+			
+			//Enable UI to select first machining side
+			tabPanel.Enabled = true;
+			sideSelectorGroup.Enabled = false;
+			cavaSelectorGroup.Enabled = false;
+			stockValuesSelectorGroup.Enabled = false;
+			generateCode.Enabled = false;
+
+			//Set global parameters
 			Parameter.DxfFileName = fileNameWithoutExtension;
-			Parameter.AllLines = Get.LinesFromDxf(dxfText);
-			Parameter.AllArcs = Get.ArcsFromDxf(dxfText);
+			Parameter.DieLinesAsDesigned = dieLinesAsDesigned;
+			Parameter.DieArcsAsDesigned = dieArcsAsDesigned;
+			Parameter.DieLinesFlipped = dieLinesFlipped;
+			Parameter.DieArcsFlipped = dieArcsFlipped;
 
-			//File management
-			Dxf.ManageGeneral(selectDxfDialog);
-			Dxf.ManageRightSide();
-			Dxf.ManageLeftSide();
-			Dxf.ManageCava();
-
-			//Die Dimensions
-			Parameter.DieDiameter = Get.DieDiameter(Parameter.DieLines);
-			dieDiameterLabel.Text = "Die Diameter: ";
-			dieDiameterLabel.Text += Parameter.DieDiameter;
-			Parameter.DieWidth = Get.DieWidth(Parameter.DieLines);
-			dieWidthLabel.Text = "Die Width: ";
-			dieWidthLabel.Text += Parameter.DieWidth;
+			//Draw
+			visualizationPanel.Refresh();
 
 			//Application Changes
-			ReloadApplicationItemsStatus();
-			SetStockValues();
-			VisuilizationPanel.Refresh();
+			//ReloadApplicationItemsStatus();
+			//SetStockValues();
+
+			//File management
+			//Dxf.ManageRightSide();
+			//Dxf.ManageLeftSide();
+			//Dxf.ManageCava();
 		}
 
 		private void ReloadApplicationItemsStatus()
 		{
-			fileName.Text = Parameter.DxfFileName;
-
-			flipButton.Enabled = true;
-			setFirstSide.Enabled = true;
-			setFirstSide.Checked = false;
-			setFirstSide.Text = "       Set       ";
-			Parameter.RightSideSelectedAsFirst = true;
-			Parameter.LeftSideSelectedAsFirst = false;
-
-			firstSide.Enabled = false;
-			firstSide.Checked = false;
-			secondSide.Enabled = false;
-			secondSide.Checked = false;
-
-			xStockDiameterInput.Enabled = true;
-			zStockWidthInput.Enabled = true;
-			zStockFirstSide.Enabled = true;
-			zStockSecondSide.Enabled = false;
-			
-			cavaCheckBox.Enabled = true;
-			cavaCheckBox.Checked = false;
 
 			exportProgressBar.Value = 0;
 			gCodeTextBox.Lines = Array.Empty<string>();
@@ -194,6 +192,154 @@ namespace DXF
 			Parameter.ComesFromFileLoad = false;
 		}
 		#endregion
+
+		#region Events
+		private void visualizationPanel_Paint(object sender, PaintEventArgs e)
+		{
+			if (Parameter.DxfFileName == string.Empty) return;
+
+			//Setup Graphics and modify origin point and coordinates to cartesian system
+			Graphics preview = e.Graphics;
+			preview.SmoothingMode = SmoothingMode.AntiAlias;
+			Matrix cartesian = new Matrix(1, 0, 0, -1, 0, 0);
+			preview.Transform = cartesian;
+			preview.TranslateTransform(Calculation.TransformWidth(visualizationPanel.Width), Calculation.TransformHeight(visualizationPanel.Height), MatrixOrder.Append);
+			
+			preview.Transform = new Matrix(1, 0, 0, -1, 0, 0);
+			preview.TranslateTransform(Calculation.TransformWidth(visualizationPanel.Width), Calculation.TransformHeight(visualizationPanel.Height), MatrixOrder.Append);
+			Parameter.ZoomFactor = Calculation.Scale(visualizationPanel.Width, visualizationPanel.Height);
+			preview.ScaleTransform(Parameter.ZoomFactor, Parameter.ZoomFactor);
+
+
+			Draw.Axes(preview, (float)visualizationPanel.Width * Elements.Parameter.ZoomFactor, (float)visualizationPanel.Height * Elements.Parameter.ZoomFactor);
+
+
+			//Create die path
+			//GraphicsPath diePath = Create.Path();
+			//GraphicsPath diePath = Create.FullPath();
+			//GraphicsPath g71Profile = Create.G71Profile();
+
+			//Visualize
+			//bool firstSideIsRight = firstSide.Checked && Parameter.FirstMachiningSideAsDesigned;
+			//bool firstSideIsLeftButRightIsSelected = secondSide.Checked && Parameter.FirstMachiningSideFlipped;
+			//bool flippedToRight = Parameter.FirstMachiningSideAsDesigned && flipButton.Enabled;
+
+			//bool firstSideIsLeft = firstSide.Checked && Parameter.FirstMachiningSideFlipped;
+			//bool firstSideIsRightButLeftIsSelected = secondSide.Checked && Parameter.FirstMachiningSideAsDesigned;
+			//bool flippedToLeft = Parameter.FirstMachiningSideFlipped && flipButton.Enabled;
+
+
+			//if ((firstSideIsRight) || (firstSideIsLeftButRightIsSelected) || (flippedToRight))
+			//{
+			//	Draw.RightSide(preview);
+			//}
+			//else if ((firstSideIsLeft) || (firstSideIsRightButLeftIsSelected) || (flippedToLeft))
+			//{
+			//	Draw.LeftSide(preview);
+			//}
+
+			//Draw.Stock(preview);
+			//Draw.Chock(preview, Parameter.DieLinesAsDesigned, Parameter.DieArcsAsDesigned);
+		}
+
+		private void flipButton_Click(object sender, EventArgs e)
+		{
+			Parameter.FirstSideLines = Parameter.DieLinesAsDesigned;
+			Parameter.FirstSideArcs = Parameter.DieArcsAsDesigned;
+
+			Parameter.FirstMachiningSideAsDesigned = !Parameter.FirstMachiningSideAsDesigned;
+			Parameter.FirstMachiningSideFlipped = !Parameter.FirstMachiningSideFlipped;
+			visualizationPanel.Refresh();
+		}
+
+		private void visualizationPanel_MouseMove(object sender, MouseEventArgs e)
+		{
+			//Pixels to millimeters
+			//Graphics object to retrieve data
+			Graphics screen = CreateGraphics();
+
+			//Move X and Y origin location
+			double cursorPositionX = Calculation.TransformWidth(visualizationPanel.Width) - e.Location.X;
+			double cursorPositionY = Calculation.TransformHeight(visualizationPanel.Height) - e.Location.Y;
+			//Transform pixels to millimeters
+			cursorPositionX += 25.4f / screen.DpiX;
+			cursorPositionY += 25.4f / screen.DpiY;
+
+			//Set Labels text to X and Y mouse position
+			coordinatesLabel.Text = $@"X:{(cursorPositionY / Elements.Parameter.ZoomFactor) * 2,0:F3}, Z:{-cursorPositionX / Elements.Parameter.ZoomFactor,0:F3}";
+		}
+		
+		private void firstSide_CheckedChanged(object sender, EventArgs e)
+		{
+			gCodeTextBox.Lines = firstSide.Checked ? GCode.FirstSide.ToArray() : GCode.SecondSide.ToArray();
+			visualizationPanel.Refresh();
+		}
+		#endregion
+
+		#region Machining Sides Setup
+
+		
+
+		#endregion
+
+		#region Export
+		private void exportGCode_Click(object sender, EventArgs e)
+		{
+			if (cavaCheckBox.Enabled) { MessageBox.Show("Cava is not applied"); return; }
+
+			//Update Progress Bar
+			exportProgressBar.Value = 0;
+			gCodeTextBox.Lines = Array.Empty<string>();
+			GCode.FirstSide.Clear();
+			for (int i = 0; i < 100; i++) { for (int j = 0; j < 10000; j++) { } exportProgressBar.Value++; }
+
+			//Set G71 Attributes
+			G71Attributes g71Attributes = new G71Attributes(g71DepthOfCutInput.Value, g71RetractInput.Value, g71XAllowanceInput.Value, g71ZAllowanceInput.Value, g71FeedRateInput.Value);
+			G72Attributes g72Attributes = new G72Attributes(g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
+
+			//Get G71 profile points
+			Parameter.G72ProfilePointsFirstSide = Create.G72ProfilePoints(Parameter.DieLinesAsDesigned);
+			Parameter.G71ProfilePointsFirstSide = Create.G71ProfilePointsFirstSide(Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
+			Parameter.G71ProfilePointsSecondSide = Create.G71ProfilePointsSecondSide(Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
+
+			//Fill G-Code File
+			//First Side
+			GCode.FirstSide.AddRange(CodeBlock.LatheInitialization());
+
+			GCode.FirstSide.AddRange(CodeBlock.StartPosition(Parameter.G72ProfilePointsFirstSide));
+			GCode.FirstSide.AddRange(CodeBlock.G72Facing(g72Attributes));
+			GCode.FirstSide.AddRange(CodeBlock.G72Profile(Parameter.G72ProfilePointsFirstSide));
+
+			GCode.FirstSide.AddRange(CodeBlock.StartPosition(Parameter.G71ProfilePointsFirstSide));
+			GCode.FirstSide.AddRange(CodeBlock.G71Roughing(g71Attributes));
+			GCode.FirstSide.AddRange(CodeBlock.G71Profile(Parameter.G71ProfilePointsFirstSide));
+			GCode.FirstSide.AddRange(CodeBlock.G70Finishing());
+			GCode.FirstSide.AddRange(CodeBlock.LatheEnd());
+
+			//Second Side
+			GCode.SecondSide.AddRange(CodeBlock.LatheInitialization());
+			GCode.SecondSide.AddRange(CodeBlock.StartPosition(Parameter.G72ProfilePointsFirstSide));
+			GCode.SecondSide.AddRange(CodeBlock.G72Facing(g72Attributes));
+			GCode.SecondSide.AddRange(CodeBlock.G72Profile(Parameter.G72ProfilePointsFirstSide));
+
+			
+			GCode.SecondSide.AddRange(CodeBlock.StartPosition(Parameter.G71ProfilePointsSecondSide));
+			GCode.SecondSide.AddRange(CodeBlock.G71Roughing(g71Attributes));
+			GCode.SecondSide.AddRange(CodeBlock.G71Profile(Parameter.G71ProfilePointsSecondSide));
+			GCode.SecondSide.AddRange(CodeBlock.G70Finishing());
+			GCode.SecondSide.AddRange(CodeBlock.LatheEnd());
+
+			//G-Code File Export
+			GCode.Export();
+
+			//Update File Status
+			fileName.Text = Parameter.DxfFileName;
+			gCodeTextBox.Lines = firstSide.Checked ? GCode.FirstSide.ToArray() : GCode.SecondSide.ToArray();
+			
+		}
+		#endregion
+
+		//Secondary Procedures
 
 		#region Menu Settings
 		private void changeDXFFolderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -271,142 +417,7 @@ namespace DXF
 			}
 		}
 		#endregion
-
-		#region Visualization Events
-		private void View_Paint(object sender, PaintEventArgs e)
-		{
-			//Setup Graphics and modify origin point and coordinates to cartesian system
-			Graphics preview = e.Graphics;
-			preview.SmoothingMode = SmoothingMode.AntiAlias;
-			Matrix cartesian = new Matrix(1, 0, 0, -1, 0, 0);
-			preview.Transform = cartesian;
-			preview.TranslateTransform(Calculation.TransformWidth(VisuilizationPanel.Width), Calculation.TransformHeight(VisuilizationPanel.Height), MatrixOrder.Append);
-
-			Draw.Axes(preview, (float)VisuilizationPanel.Width * Elements.Parameter.ZoomFactor, (float)VisuilizationPanel.Height * Elements.Parameter.ZoomFactor);
-			preview.Transform = new Matrix(1, 0, 0, -1, 0, 0);
-			preview.TranslateTransform(Calculation.TransformWidth(VisuilizationPanel.Width), Calculation.TransformHeight(VisuilizationPanel.Height), MatrixOrder.Append);
-
-			if (Parameter.DxfFileName == string.Empty) return;
-			Parameter.ZoomFactor = Calculation.Scale(VisuilizationPanel.Width, VisuilizationPanel.Height);
-			preview.ScaleTransform(Parameter.ZoomFactor, Parameter.ZoomFactor);
-			//Create die path
-			//GraphicsPath diePath = Create.Path();
-			GraphicsPath diePath = Create.FullPath();
-			GraphicsPath g71Profile = Create.G71Profile();
-
-			//Visualize
-			bool firstSideIsRight = firstSide.Checked && Parameter.RightSideSelectedAsFirst;
-			bool firstSideIsLeftButRightIsSelected = secondSide.Checked && Parameter.LeftSideSelectedAsFirst;
-			bool flippedToRight = Parameter.RightSideSelectedAsFirst && flipButton.Enabled;
-
-			bool firstSideIsLeft = firstSide.Checked && Parameter.LeftSideSelectedAsFirst;
-			bool firstSideIsRightButLeftIsSelected = secondSide.Checked && Parameter.RightSideSelectedAsFirst;
-			bool flippedToLeft = Parameter.LeftSideSelectedAsFirst && flipButton.Enabled;
-
-
-			if ((firstSideIsRight) || (firstSideIsLeftButRightIsSelected) || (flippedToRight))
-			{
-				Draw.RightSide(preview);
-			}
-			else if((firstSideIsLeft) || (firstSideIsRightButLeftIsSelected) || (flippedToLeft))
-			{
-				Draw.LeftSide(preview);
-			}
-
-			Draw.Stock(preview);
-			Draw.Chock(preview, Parameter.DieLines, Parameter.DieArcs);
-		}
-
-		private void View_MouseMove(object sender, MouseEventArgs e)
-		{
-			//Pixels to millimeters
-			//Graphics object to retrieve data
-			Graphics screen = CreateGraphics();
-
-			//Move X and Y origin location
-			double cursorPositionX = Calculation.TransformWidth(VisuilizationPanel.Width) - e.Location.X;
-			double cursorPositionY = Calculation.TransformHeight(VisuilizationPanel.Height) - e.Location.Y;
-			//Transform pixels to millimeters
-			cursorPositionX += 25.4f / screen.DpiX;
-			cursorPositionY += 25.4f / screen.DpiY;
-
-			//Set Labels text to X and Y mouse position
-			coordinatesLabel.Text = $@"X:{(cursorPositionY / Elements.Parameter.ZoomFactor) * 2,0:F3}, Z:{-cursorPositionX / Elements.Parameter.ZoomFactor,0:F3}";
-		}
-
-		private void flipButton_Click(object sender, EventArgs e)
-		{
-			Parameter.RightSideSelectedAsFirst = !Parameter.RightSideSelectedAsFirst;
-			Parameter.LeftSideSelectedAsFirst = !Parameter.LeftSideSelectedAsFirst;
-			VisuilizationPanel.Refresh();
-		}
-
-		private void firstSide_CheckedChanged(object sender, EventArgs e)
-		{
-			gCodeTextBox.Lines = firstSide.Checked ? GCode.FirstSide.ToArray() : GCode.SecondSide.ToArray();
-			VisuilizationPanel.Refresh();
-		}
-		#endregion
-
-		#region Export
-		private void exportGCode_Click(object sender, EventArgs e)
-		{
-			if (cavaCheckBox.Enabled) { MessageBox.Show("Cava is not applied"); return; }
-
-			//Update Progress Bar
-			exportProgressBar.Value = 0;
-			gCodeTextBox.Lines = Array.Empty<string>();
-			GCode.FirstSide.Clear();
-			for (int i = 0; i < 100; i++) { for (int j = 0; j < 10000; j++) { } exportProgressBar.Value++; }
-
-			//Set G71 Attributes
-			G71Attributes g71Attributes = new G71Attributes(g71DepthOfCutInput.Value, g71RetractInput.Value, g71XAllowanceInput.Value, g71ZAllowanceInput.Value, g71FeedRateInput.Value);
-			G72Attributes g72Attributes = new G72Attributes(g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
-
-			//Get G71 profile points
-			Parameter.G72ProfilePointsFirstSide = Create.G72ProfilePoints(Parameter.DieLines);
-			Parameter.G71ProfilePointsFirstSide = Create.G71ProfilePointsFirstSide(Parameter.G71LinesRightSide, Parameter.G71ArcsRightSide);
-			Parameter.G71ProfilePointsSecondSide = Create.G71ProfilePointsSecondSide(Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
-
-			//Fill G-Code File
-			//First Side
-			GCode.FirstSide.AddRange(CodeBlock.LatheInitialization());
-
-			GCode.FirstSide.AddRange(CodeBlock.StartPosition(Parameter.G72ProfilePointsFirstSide));
-			GCode.FirstSide.AddRange(CodeBlock.G72Facing(g72Attributes));
-			GCode.FirstSide.AddRange(CodeBlock.G72Profile(Parameter.G72ProfilePointsFirstSide));
-
-			GCode.FirstSide.AddRange(CodeBlock.StartPosition(Parameter.G71ProfilePointsFirstSide));
-			GCode.FirstSide.AddRange(CodeBlock.G71Roughing(g71Attributes));
-			GCode.FirstSide.AddRange(CodeBlock.G71Profile(Parameter.G71ProfilePointsFirstSide));
-			GCode.FirstSide.AddRange(CodeBlock.G70Finishing());
-			GCode.FirstSide.AddRange(CodeBlock.LatheEnd());
-
-			//Second Side
-			GCode.SecondSide.AddRange(CodeBlock.LatheInitialization());
-			GCode.SecondSide.AddRange(CodeBlock.StartPosition(Parameter.G72ProfilePointsFirstSide));
-			GCode.SecondSide.AddRange(CodeBlock.G72Facing(g72Attributes));
-			GCode.SecondSide.AddRange(CodeBlock.G72Profile(Parameter.G72ProfilePointsFirstSide));
-
-			
-			GCode.SecondSide.AddRange(CodeBlock.StartPosition(Parameter.G71ProfilePointsSecondSide));
-			GCode.SecondSide.AddRange(CodeBlock.G71Roughing(g71Attributes));
-			GCode.SecondSide.AddRange(CodeBlock.G71Profile(Parameter.G71ProfilePointsSecondSide));
-			GCode.SecondSide.AddRange(CodeBlock.G70Finishing());
-			GCode.SecondSide.AddRange(CodeBlock.LatheEnd());
-
-			//G-Code File Export
-			GCode.Export();
-
-			//Update File Status
-			fileName.Text = Parameter.DxfFileName;
-			gCodeTextBox.Lines = firstSide.Checked ? GCode.FirstSide.ToArray() : GCode.SecondSide.ToArray();
-			
-		}
-		#endregion
-
-		//Secondary Procedures
-
+		
 		#region G71 Cycle Values Save
 		private void g71DepthOfCutInput_ValueChanged(object sender, EventArgs e)
 		{
@@ -478,7 +489,7 @@ namespace DXF
 			Parameter.StockDiameter = (float)xStockDiameterInput.Value;
 			Parameter.StockX = Parameter.StockDiameter - Parameter.DieDiameter;
 			Parameter.StockX = Conversion.StringToThreeDigitFloat(Convert.ToString(Parameter.StockX));
-			VisuilizationPanel.Refresh();
+			visualizationPanel.Refresh();
 		}
 
 		private void zStockWidthInput_ValueChanged(object sender, EventArgs e)
@@ -488,7 +499,7 @@ namespace DXF
 			Parameter.StockZFirstSide = Parameter.StockWidth - Parameter.DieWidth - Parameter.StockZSecondSide;
 			Parameter.StockZFirstSide = Conversion.StringToThreeDigitFloat(Convert.ToString(Parameter.StockZFirstSide));
 			zStockFirstSide.Value = Convert.ToDecimal(Parameter.StockZFirstSide);
-			VisuilizationPanel.Refresh();
+			visualizationPanel.Refresh();
 		}
 
 		private void zStockFirstSide_ValueChanged(object sender, EventArgs e)
@@ -497,7 +508,7 @@ namespace DXF
 			Parameter.StockZFirstSide = (float)zStockFirstSide.Value;
 			Parameter.StockWidth = Parameter.DieWidth + Parameter.StockZFirstSide + Parameter.StockZSecondSide;
 			zStockWidthInput.Value = Convert.ToDecimal(Parameter.StockWidth);
-			VisuilizationPanel.Refresh();
+			visualizationPanel.Refresh();
 
 		}
 		#endregion
@@ -517,7 +528,7 @@ namespace DXF
 				cavaCheckBox.Enabled = false;
 			}
 
-			VisuilizationPanel.Refresh();
+			visualizationPanel.Refresh();
 		}
 
 		#endregion
@@ -534,5 +545,6 @@ namespace DXF
 			setFirstSide.Text = "     Setted    ";
 		}
 
+		
 	}
 }

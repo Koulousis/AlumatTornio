@@ -49,7 +49,7 @@ namespace DXF
 			this.copyrightsBanner = new System.Windows.Forms.Panel();
 			this.copyrights = new System.Windows.Forms.TextBox();
 			this.banner = new System.Windows.Forms.PictureBox();
-			this.exportGCode = new System.Windows.Forms.Button();
+			this.generateCode = new System.Windows.Forms.Button();
 			this.exportProgressBar = new System.Windows.Forms.ProgressBar();
 			this.g71Settings = new System.Windows.Forms.GroupBox();
 			this.g71FeedRateInput = new System.Windows.Forms.NumericUpDown();
@@ -91,7 +91,7 @@ namespace DXF
 			this.tabSetup = new System.Windows.Forms.TabPage();
 			this.dieWidthLabel = new System.Windows.Forms.Label();
 			this.dieDiameterLabel = new System.Windows.Forms.Label();
-			this.VisuilizationPanel = new System.Windows.Forms.PictureBox();
+			this.visualizationPanel = new System.Windows.Forms.PictureBox();
 			this.firstSideSelectorGroup = new System.Windows.Forms.GroupBox();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.flipButton = new System.Windows.Forms.Button();
@@ -121,7 +121,7 @@ namespace DXF
 			this.cavaSelectorGroup.SuspendLayout();
 			this.tabPanel.SuspendLayout();
 			this.tabSetup.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.VisuilizationPanel)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.visualizationPanel)).BeginInit();
 			this.firstSideSelectorGroup.SuspendLayout();
 			this.tabSettings.SuspendLayout();
 			this.SuspendLayout();
@@ -310,16 +310,16 @@ namespace DXF
 			this.banner.TabIndex = 0;
 			this.banner.TabStop = false;
 			// 
-			// exportGCode
+			// generateCode
 			// 
-			this.exportGCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.exportGCode.Location = new System.Drawing.Point(522, 357);
-			this.exportGCode.Name = "exportGCode";
-			this.exportGCode.Size = new System.Drawing.Size(193, 74);
-			this.exportGCode.TabIndex = 5;
-			this.exportGCode.Text = "Generate G Code";
-			this.exportGCode.UseVisualStyleBackColor = true;
-			this.exportGCode.Click += new System.EventHandler(this.exportGCode_Click);
+			this.generateCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.generateCode.Location = new System.Drawing.Point(522, 357);
+			this.generateCode.Name = "generateCode";
+			this.generateCode.Size = new System.Drawing.Size(193, 74);
+			this.generateCode.TabIndex = 5;
+			this.generateCode.Text = "Generate G Code";
+			this.generateCode.UseVisualStyleBackColor = true;
+			this.generateCode.Click += new System.EventHandler(this.exportGCode_Click);
 			// 
 			// exportProgressBar
 			// 
@@ -995,13 +995,13 @@ namespace DXF
 			this.tabSetup.BackColor = System.Drawing.SystemColors.WindowFrame;
 			this.tabSetup.Controls.Add(this.dieWidthLabel);
 			this.tabSetup.Controls.Add(this.dieDiameterLabel);
-			this.tabSetup.Controls.Add(this.VisuilizationPanel);
+			this.tabSetup.Controls.Add(this.visualizationPanel);
 			this.tabSetup.Controls.Add(this.firstSideSelectorGroup);
 			this.tabSetup.Controls.Add(this.sideSelectorGroup);
 			this.tabSetup.Controls.Add(this.cavaSelectorGroup);
 			this.tabSetup.Controls.Add(this.gCodeTextBox);
 			this.tabSetup.Controls.Add(this.stockValuesSelectorGroup);
-			this.tabSetup.Controls.Add(this.exportGCode);
+			this.tabSetup.Controls.Add(this.generateCode);
 			this.tabSetup.Controls.Add(this.fileNameLabel);
 			this.tabSetup.Controls.Add(this.exportProgressBar);
 			this.tabSetup.Controls.Add(this.fileName);
@@ -1033,18 +1033,18 @@ namespace DXF
 			this.dieDiameterLabel.TabIndex = 18;
 			this.dieDiameterLabel.Text = "Die Diameter:";
 			// 
-			// VisuilizationPanel
+			// visualizationPanel
 			// 
-			this.VisuilizationPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-			this.VisuilizationPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.VisuilizationPanel.Cursor = System.Windows.Forms.Cursors.Cross;
-			this.VisuilizationPanel.Location = new System.Drawing.Point(6, 3);
-			this.VisuilizationPanel.Name = "VisuilizationPanel";
-			this.VisuilizationPanel.Size = new System.Drawing.Size(300, 500);
-			this.VisuilizationPanel.TabIndex = 0;
-			this.VisuilizationPanel.TabStop = false;
-			this.VisuilizationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.View_Paint);
-			this.VisuilizationPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.View_MouseMove);
+			this.visualizationPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+			this.visualizationPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.visualizationPanel.Cursor = System.Windows.Forms.Cursors.Cross;
+			this.visualizationPanel.Location = new System.Drawing.Point(6, 3);
+			this.visualizationPanel.Name = "visualizationPanel";
+			this.visualizationPanel.Size = new System.Drawing.Size(300, 500);
+			this.visualizationPanel.TabIndex = 0;
+			this.visualizationPanel.TabStop = false;
+			this.visualizationPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.visualizationPanel_Paint);
+			this.visualizationPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.visualizationPanel_MouseMove);
 			// 
 			// firstSideSelectorGroup
 			// 
@@ -1155,7 +1155,7 @@ namespace DXF
 			this.tabPanel.ResumeLayout(false);
 			this.tabSetup.ResumeLayout(false);
 			this.tabSetup.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.VisuilizationPanel)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.visualizationPanel)).EndInit();
 			this.firstSideSelectorGroup.ResumeLayout(false);
 			this.firstSideSelectorGroup.PerformLayout();
 			this.tabSettings.ResumeLayout(false);
@@ -1174,7 +1174,7 @@ namespace DXF
 		private System.Windows.Forms.TextBox copyrights;
 		private System.Windows.Forms.ToolStripMenuItem fileDxfMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem tornituraToolStripMenuItem;
-		private System.Windows.Forms.Button exportGCode;
+		private System.Windows.Forms.Button generateCode;
 		private System.Windows.Forms.ProgressBar exportProgressBar;
 		private System.Windows.Forms.GroupBox g71Settings;
 		private System.Windows.Forms.Label g71FeedRateLabel;
@@ -1220,7 +1220,7 @@ namespace DXF
 		private System.Windows.Forms.CheckBox cavaCheckBox;
 		private System.Windows.Forms.TabControl tabPanel;
 		private System.Windows.Forms.TabPage tabSetup;
-		private System.Windows.Forms.PictureBox VisuilizationPanel;
+		private System.Windows.Forms.PictureBox visualizationPanel;
 		private System.Windows.Forms.TabPage tabSettings;
 		private System.Windows.Forms.NumericUpDown zStockSecondSide;
 		private System.Windows.Forms.Label zStockSecondSideLabel;

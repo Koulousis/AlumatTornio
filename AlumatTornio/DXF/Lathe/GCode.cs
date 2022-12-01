@@ -44,7 +44,7 @@ namespace DXF.Lathe
 		{
 			float dummyHeight = 0;
 
-			foreach (Line line in Parameter.DieLines)
+			foreach (Line line in Parameter.DieLinesAsDesigned)
 			{
 				if (line.StartY > dummyHeight)
 				{
@@ -64,7 +64,7 @@ namespace DXF.Lathe
 		public static float StartingBlockHeight()
 		{
 			float dummyHeight2 = 0;
-			foreach (Line line in Parameter.DieLines)
+			foreach (Line line in Parameter.DieLinesAsDesigned)
 			{
 				if (line.StartX == 0 && line.EndX == 0)
 				{
@@ -89,7 +89,7 @@ namespace DXF.Lathe
 		{
 			float dummyWidth = 0;
 
-			foreach (Line line in Parameter.DieLines)
+			foreach (Line line in Parameter.DieLinesAsDesigned)
 			{
 				if (line.StartX < dummyWidth)
 				{

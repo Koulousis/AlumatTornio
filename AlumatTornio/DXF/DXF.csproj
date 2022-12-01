@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Actions\Add.cs" />
     <Compile Include="Actions\Draw.cs" />
+    <Compile Include="Actions\Initial.cs" />
     <Compile Include="Actions\Remove.cs" />
     <Compile Include="Actions\Set.cs" />
     <Compile Include="Organizer\Dxf.cs" />
