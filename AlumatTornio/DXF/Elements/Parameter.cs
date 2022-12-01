@@ -22,6 +22,12 @@ namespace DXF.Elements
 
 		public static List<Line> FirstSideLines { get; set; }
 		public static List<Arc> FirstSideArcs { get; set; }
+		
+		public static List<Line> SecondSideLines { get; set; }
+		public static List<Arc> SecondSideArcs { get; set; }
+
+
+
 
 		public static bool FirstMachiningSideAsDesigned { get; set; }
 		public static bool FirstMachiningSideFlipped { get; set; }

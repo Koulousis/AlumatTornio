@@ -14,6 +14,12 @@ namespace DXF.Actions
 			Parameter.DxfFileName = string.Empty;
 			Parameter.AllLines = new List<Line>();
 			Parameter.AllArcs = new List<Arc>();
-		}
+
+			Parameter.FirstSideLines = new List<Line>();
+			Parameter.FirstSideArcs = new List<Arc>();
+
+			Parameter.SecondSideLines = new List<Line>();
+			Parameter.SecondSideArcs = new List<Arc>();
+	}
 	}
 }

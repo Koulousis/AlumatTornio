@@ -25,26 +25,26 @@ namespace DXF.Actions
 			graphics.DrawLine(axisPen, 0, -crossY, 0, crossY);
 
 
-			Pen arrowZ = new Pen(Color.Aqua);
-			Brush letterZ = new SolidBrush(Color.Aqua);
-			Font fontZ = new Font(new FontFamily("Arial"), 16, FontStyle.Regular, GraphicsUnit.Pixel);
-			graphics.DrawLine(arrowZ, -245, -40, -220, -40);
-			graphics.DrawLine(arrowZ, -225, -38, -225, -42);
-			graphics.DrawLine(arrowZ, -225, -42, -220, -40);
-			graphics.DrawLine(arrowZ, -220, -40, -225, -38);
+			//Pen arrowZ = new Pen(Color.Aqua);
+			//Brush letterZ = new SolidBrush(Color.Aqua);
+			//Font fontZ = new Font(new FontFamily("Arial"), 16, FontStyle.Regular, GraphicsUnit.Pixel);
+			//graphics.DrawLine(arrowZ, -245, -40, -220, -40);
+			//graphics.DrawLine(arrowZ, -225, -38, -225, -42);
+			//graphics.DrawLine(arrowZ, -225, -42, -220, -40);
+			//graphics.DrawLine(arrowZ, -220, -40, -225, -38);
 
-			Pen arrowX = new Pen(Color.Aqua);
-			graphics.DrawLine(arrowX, -245, -40, -245, -20);
-			graphics.DrawLine(arrowX, -247, -20, -243, -20);
-			graphics.DrawLine(arrowX, -247, -20, -245, -15);
-			graphics.DrawLine(arrowX, -245, -15, -243, -20);
+			//Pen arrowX = new Pen(Color.Aqua);
+			//graphics.DrawLine(arrowX, -245, -40, -245, -20);
+			//graphics.DrawLine(arrowX, -247, -20, -243, -20);
+			//graphics.DrawLine(arrowX, -247, -20, -245, -15);
+			//graphics.DrawLine(arrowX, -245, -15, -243, -20);
 
-			graphics.Transform = new Matrix(1, 0, 0, 1, 0, 0);
-			graphics.DrawString("Z", fontZ, letterZ, 30, 478);
-			graphics.DrawString("X", fontZ, letterZ, -3, 450);
+			////graphics.Transform = new Matrix(1, 0, 0, 1, 0, 0);
+			//graphics.DrawString("Z", fontZ, letterZ, -150, -15);
+			//graphics.DrawString("X", fontZ, letterZ, -125, -20);
 
-			//Dispose
-			axisPen.Dispose();
+			////Dispose
+			//axisPen.Dispose();
 		}
 		
 		public static void Die(Graphics drawPanel, List<Line> dieLines, List<Arc> dieArcs)
@@ -66,8 +66,8 @@ namespace DXF.Actions
 			}
 
 			//Dispose
-			diePen.Dispose();
-			dieBrush.Dispose();
+			//diePen.Dispose();
+			//dieBrush.Dispose();
 		}
 
 		public static void Stock(Graphics drawPanel)

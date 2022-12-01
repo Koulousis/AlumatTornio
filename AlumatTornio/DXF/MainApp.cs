@@ -119,6 +119,11 @@ namespace DXF
 			
 			//Enable UI to select first machining side
 			tabPanel.Enabled = true;
+
+			firstSideSelectorGroup.Enabled = true;
+			asDesignedButton.Checked = false;
+			flippedButton.Checked = false;
+
 			sideSelectorGroup.Enabled = false;
 			cavaSelectorGroup.Enabled = false;
 			stockValuesSelectorGroup.Enabled = false;
@@ -131,7 +136,7 @@ namespace DXF
 			Parameter.DieLinesFlipped = dieLinesFlipped;
 			Parameter.DieArcsFlipped = dieArcsFlipped;
 
-			//Draw
+			//
 			visualizationPanel.Refresh();
 
 			//Application Changes
@@ -193,13 +198,55 @@ namespace DXF
 		}
 		#endregion
 
-		#region Events
+		#region Set First Machining Side Setup
+		private void asDesignedButton_CheckedChanged(object sender, EventArgs e)
+		{
+			if (asDesignedButton.Checked)
+			{
+				Parameter.FirstSideLines = Parameter.DieLinesAsDesigned;
+				Parameter.FirstSideArcs = Parameter.DieArcsAsDesigned;
+				Parameter.SecondSideLines = Parameter.DieLinesFlipped;
+				Parameter.SecondSideArcs = Parameter.DieArcsFlipped;
+			}
+
+			//Draw die
+			visualizationPanel.Refresh();
+		}
+
+		private void flippedButton_CheckedChanged(object sender, EventArgs e)
+		{
+			if (flippedButton.Checked)
+			{
+				Parameter.FirstSideLines = Parameter.DieLinesFlipped;
+				Parameter.FirstSideArcs = Parameter.DieArcsFlipped;
+				Parameter.SecondSideLines = Parameter.DieLinesFlipped;
+				Parameter.SecondSideArcs = Parameter.DieArcsFlipped;
+			}
+
+			//Draw die
+			visualizationPanel.Refresh();
+		}
+
+		private void lockFirstSideSelectionButton_Click(object sender, EventArgs e)
+		{
+			//Change UI after first machining side selected
+			firstSideSelectorGroup.Enabled = false;
+			sideSelectorGroup.Enabled = true;
+			cavaSelectorGroup.Enabled = true;
+			stockValuesSelectorGroup.Enabled = true;
+			generateCode.Enabled = true;
+		}
+
+		#endregion
+		
+		#region Draw on Visualization Panel
 		private void visualizationPanel_Paint(object sender, PaintEventArgs e)
 		{
-			if (Parameter.DxfFileName == string.Empty) return;
-
 			//Setup Graphics and modify origin point and coordinates to cartesian system
 			Graphics preview = e.Graphics;
+			preview.Clear(Color.FromArgb(24, 24, 24));
+			if (Parameter.DxfFileName == string.Empty) return;
+
 			preview.SmoothingMode = SmoothingMode.AntiAlias;
 			Matrix cartesian = new Matrix(1, 0, 0, -1, 0, 0);
 			preview.Transform = cartesian;
@@ -210,8 +257,9 @@ namespace DXF
 			Parameter.ZoomFactor = Calculation.Scale(visualizationPanel.Width, visualizationPanel.Height);
 			preview.ScaleTransform(Parameter.ZoomFactor, Parameter.ZoomFactor);
 
-
+			
 			Draw.Axes(preview, (float)visualizationPanel.Width * Elements.Parameter.ZoomFactor, (float)visualizationPanel.Height * Elements.Parameter.ZoomFactor);
+			Draw.Die(preview, Parameter.FirstSideLines, Parameter.FirstSideArcs);
 
 
 			//Create die path
@@ -242,16 +290,7 @@ namespace DXF
 			//Draw.Chock(preview, Parameter.DieLinesAsDesigned, Parameter.DieArcsAsDesigned);
 		}
 
-		private void flipButton_Click(object sender, EventArgs e)
-		{
-			Parameter.FirstSideLines = Parameter.DieLinesAsDesigned;
-			Parameter.FirstSideArcs = Parameter.DieArcsAsDesigned;
-
-			Parameter.FirstMachiningSideAsDesigned = !Parameter.FirstMachiningSideAsDesigned;
-			Parameter.FirstMachiningSideFlipped = !Parameter.FirstMachiningSideFlipped;
-			visualizationPanel.Refresh();
-		}
-
+		
 		private void visualizationPanel_MouseMove(object sender, MouseEventArgs e)
 		{
 			//Pixels to millimeters
@@ -275,13 +314,7 @@ namespace DXF
 			visualizationPanel.Refresh();
 		}
 		#endregion
-
-		#region Machining Sides Setup
-
 		
-
-		#endregion
-
 		#region Export
 		private void exportGCode_Click(object sender, EventArgs e)
 		{
@@ -537,7 +570,7 @@ namespace DXF
 
 		private void setFirstSide_CheckedChanged(object sender, EventArgs e)
 		{
-			flipButton.Enabled = false;
+			//flipButton.Enabled = false;
 			setFirstSide.Enabled = false;
 			firstSide.Enabled = true;
 			firstSide.Checked = true;
