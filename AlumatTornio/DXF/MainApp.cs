@@ -111,12 +111,20 @@ namespace DXF
 			List<Line> dieLinesFlipped = Get.DieLinesFlipped(dieLinesAsDesigned);
 			List<Arc> dieArcsFlipped = Get.DieArcsFlipped(dieArcsAsDesigned);
 			Edit.FlipElements(dieLinesFlipped, dieArcsFlipped);
-			
+
+			//Calculate die dimensions
+			float dieDiameter = dieLinesAsDesigned.Max(line => line.EndY);
+			dieDiameter = Math.Abs(dieDiameter) * 2;
+			float dieWidth = dieLinesAsDesigned.Min(line => line.EndX);
+			dieWidth = Math.Abs(dieWidth);
+
 			//Set information to user interface
 			fileName.Text = fileNameWithoutExtension;
-			Set.DieDiameterLabel(dieDiameterLabel, dieLinesAsDesigned);
-			Set.DieWidthLabel(dieWidthLabel, dieLinesAsDesigned);
-			
+			dieDiameterLabel.Text = string.Empty;
+			dieDiameterLabel.Text = $"Die Diameter: {dieDiameter}";
+			dieWidthLabel.Text = string.Empty;
+			dieWidthLabel.Text = $"Die Width: {dieWidth}";
+
 			//Enable UI to select first machining side
 			tabPanel.Enabled = true;
 
@@ -124,10 +132,13 @@ namespace DXF
 			asDesignedButton.Checked = false;
 			flippedButton.Checked = false;
 
-			sideSelectorGroup.Enabled = false;
+			viewSideSelectorGroup.Enabled = false;
 			cavaSelectorGroup.Enabled = false;
 			stockValuesSelectorGroup.Enabled = false;
 			generateCode.Enabled = false;
+
+			drawFirstSideButton.Checked = false;
+			drawSecondSideButton.Checked = false;
 
 			//Set global parameters
 			Parameter.DxfFileName = fileNameWithoutExtension;
@@ -135,8 +146,11 @@ namespace DXF
 			Parameter.DieArcsAsDesigned = dieArcsAsDesigned;
 			Parameter.DieLinesFlipped = dieLinesFlipped;
 			Parameter.DieArcsFlipped = dieArcsFlipped;
+			Parameter.DieDiameter = dieDiameter;
+			Parameter.DieRadius = dieDiameter / 2;
+			Parameter.DieWidth = dieWidth;
 
-			//
+			//Draw
 			visualizationPanel.Refresh();
 
 			//Application Changes
@@ -219,78 +233,88 @@ namespace DXF
 			{
 				Parameter.FirstSideLines = Parameter.DieLinesFlipped;
 				Parameter.FirstSideArcs = Parameter.DieArcsFlipped;
-				Parameter.SecondSideLines = Parameter.DieLinesFlipped;
-				Parameter.SecondSideArcs = Parameter.DieArcsFlipped;
+				Parameter.SecondSideLines = Parameter.DieLinesAsDesigned;
+				Parameter.SecondSideArcs = Parameter.DieArcsAsDesigned;
 			}
 
 			//Draw die
 			visualizationPanel.Refresh();
 		}
 
-		private void lockFirstSideSelectionButton_Click(object sender, EventArgs e)
+		private void setFirstSideSelectionButton_Click(object sender, EventArgs e)
 		{
 			//Change UI after first machining side selected
+			drawFirstSideButton.Checked = true;
 			firstSideSelectorGroup.Enabled = false;
-			sideSelectorGroup.Enabled = true;
+			viewSideSelectorGroup.Enabled = true;
 			cavaSelectorGroup.Enabled = true;
 			stockValuesSelectorGroup.Enabled = true;
 			generateCode.Enabled = true;
 		}
 
 		#endregion
-		
+
 		#region Draw on Visualization Panel
 		private void visualizationPanel_Paint(object sender, PaintEventArgs e)
 		{
-			//Setup Graphics and modify origin point and coordinates to cartesian system
-			Graphics preview = e.Graphics;
-			preview.Clear(Color.FromArgb(24, 24, 24));
-			if (Parameter.DxfFileName == string.Empty) return;
+			//Initialize graphics and clear the visualization panel
+			Graphics visualizationPanelGraphics = e.Graphics;
+			visualizationPanelGraphics.Clear(Color.FromArgb(24, 24, 24));
 
-			preview.SmoothingMode = SmoothingMode.AntiAlias;
-			Matrix cartesian = new Matrix(1, 0, 0, -1, 0, 0);
-			preview.Transform = cartesian;
-			preview.TranslateTransform(Calculation.TransformWidth(visualizationPanel.Width), Calculation.TransformHeight(visualizationPanel.Height), MatrixOrder.Append);
+			//Check for file existence to continue drawing 
+			if (string.IsNullOrEmpty(Parameter.DxfFileName)) return;
+
+			//Graphics draw mode to smooth
+			visualizationPanelGraphics.SmoothingMode = SmoothingMode.AntiAlias;
 			
-			preview.Transform = new Matrix(1, 0, 0, -1, 0, 0);
-			preview.TranslateTransform(Calculation.TransformWidth(visualizationPanel.Width), Calculation.TransformHeight(visualizationPanel.Height), MatrixOrder.Append);
-			Parameter.ZoomFactor = Calculation.Scale(visualizationPanel.Width, visualizationPanel.Height);
-			preview.ScaleTransform(Parameter.ZoomFactor, Parameter.ZoomFactor);
+			//Graphics work-plane to cartesian with origin the left-down corner
+			Matrix cartesianOnlyPositives = new Matrix(1, 0, 0, -1, 0, visualizationPanel.Height);
+			visualizationPanelGraphics.MultiplyTransform(cartesianOnlyPositives);
 
+			//Graphics work-plane movement to provide space for x axis negatives
+			float xAxisPercentageMove = (float)(visualizationPanel.Width * 0.9);
+			float yAxisPercentageMove = (float)(visualizationPanel.Height * 0.05);
+			visualizationPanelGraphics.TranslateTransform(xAxisPercentageMove, yAxisPercentageMove);
 			
-			Draw.Axes(preview, (float)visualizationPanel.Width * Elements.Parameter.ZoomFactor, (float)visualizationPanel.Height * Elements.Parameter.ZoomFactor);
-			Draw.Die(preview, Parameter.FirstSideLines, Parameter.FirstSideArcs);
+			//Graphics scale to fit the die to as close as possible
+			float scaleToFitDiameter = (float)visualizationPanel.Height / Parameter.DieRadius;
+			float scaleToFitWidth = (float)visualizationPanel.Width / Parameter.DieWidth;
+			float scaleFactor = scaleToFitDiameter < scaleToFitWidth ? scaleToFitDiameter : scaleToFitWidth;
+			scaleFactor *= 0.8f;
+			visualizationPanelGraphics.ScaleTransform(scaleFactor, scaleFactor);
+			
+			//Draw
+			Draw.Axes(visualizationPanel, visualizationPanelGraphics);
 
+			//Draw when selecting first machining side
+			if (firstSideSelectorGroup.Enabled)
+			{
+				Draw.Die(visualizationPanelGraphics, Parameter.FirstSideLines, Parameter.FirstSideArcs);
+			}
 
-			//Create die path
-			//GraphicsPath diePath = Create.Path();
-			//GraphicsPath diePath = Create.FullPath();
-			//GraphicsPath g71Profile = Create.G71Profile();
-
-			//Visualize
-			//bool firstSideIsRight = firstSide.Checked && Parameter.FirstMachiningSideAsDesigned;
-			//bool firstSideIsLeftButRightIsSelected = secondSide.Checked && Parameter.FirstMachiningSideFlipped;
-			//bool flippedToRight = Parameter.FirstMachiningSideAsDesigned && flipButton.Enabled;
-
-			//bool firstSideIsLeft = firstSide.Checked && Parameter.FirstMachiningSideFlipped;
-			//bool firstSideIsRightButLeftIsSelected = secondSide.Checked && Parameter.FirstMachiningSideAsDesigned;
-			//bool flippedToLeft = Parameter.FirstMachiningSideFlipped && flipButton.Enabled;
-
-
-			//if ((firstSideIsRight) || (firstSideIsLeftButRightIsSelected) || (flippedToRight))
-			//{
-			//	Draw.RightSide(preview);
-			//}
-			//else if ((firstSideIsLeft) || (firstSideIsRightButLeftIsSelected) || (flippedToLeft))
-			//{
-			//	Draw.LeftSide(preview);
-			//}
-
-			//Draw.Stock(preview);
-			//Draw.Chock(preview, Parameter.DieLinesAsDesigned, Parameter.DieArcsAsDesigned);
+			//Draw when selecting side to draw and print
+			if (viewSideSelectorGroup.Enabled)
+			{
+				if (drawFirstSideButton.Checked)
+				{
+					Draw.Die(visualizationPanelGraphics, Parameter.FirstSideLines, Parameter.FirstSideArcs);
+				}
+				else if (drawSecondSideButton.Checked)
+				{
+					Draw.Die(visualizationPanelGraphics, Parameter.SecondSideLines, Parameter.SecondSideArcs);
+				}
+			}
+			
+			
+			
 		}
 
+		private void firstSide_CheckedChanged(object sender, EventArgs e)
+		{
+			visualizationPanel.Refresh();
+		}
 		
+
 		private void visualizationPanel_MouseMove(object sender, MouseEventArgs e)
 		{
 			//Pixels to millimeters
@@ -306,12 +330,6 @@ namespace DXF
 
 			//Set Labels text to X and Y mouse position
 			coordinatesLabel.Text = $@"X:{(cursorPositionY / Elements.Parameter.ZoomFactor) * 2,0:F3}, Z:{-cursorPositionX / Elements.Parameter.ZoomFactor,0:F3}";
-		}
-		
-		private void firstSide_CheckedChanged(object sender, EventArgs e)
-		{
-			gCodeTextBox.Lines = firstSide.Checked ? GCode.FirstSide.ToArray() : GCode.SecondSide.ToArray();
-			visualizationPanel.Refresh();
 		}
 		#endregion
 		
@@ -367,7 +385,7 @@ namespace DXF
 
 			//Update File Status
 			fileName.Text = Parameter.DxfFileName;
-			gCodeTextBox.Lines = firstSide.Checked ? GCode.FirstSide.ToArray() : GCode.SecondSide.ToArray();
+			gCodeTextBox.Lines = drawFirstSideButton.Checked ? GCode.FirstSide.ToArray() : GCode.SecondSide.ToArray();
 			
 		}
 		#endregion
@@ -549,13 +567,13 @@ namespace DXF
 		#region Cava Handle
 		private void cavaCheckBox_CheckedChanged(object sender, EventArgs e)
 		{
-			if (firstSide.Checked && cavaCheckBox.Checked)
+			if (drawFirstSideButton.Checked && cavaCheckBox.Checked)
 			{
 				Add.CavaToRightSide();
 				cavaCheckBox.Enabled = false;
 			}
 
-			if (secondSide.Checked && cavaCheckBox.Checked)
+			if (drawSecondSideButton.Checked && cavaCheckBox.Checked)
 			{
 				Add.CavaToLeftSide();
 				cavaCheckBox.Enabled = false;
@@ -572,9 +590,9 @@ namespace DXF
 		{
 			//flipButton.Enabled = false;
 			setFirstSide.Enabled = false;
-			firstSide.Enabled = true;
-			firstSide.Checked = true;
-			secondSide.Enabled = true;
+			drawFirstSideButton.Enabled = true;
+			drawFirstSideButton.Checked = true;
+			drawSecondSideButton.Enabled = true;
 			setFirstSide.Text = "     Setted    ";
 		}
 

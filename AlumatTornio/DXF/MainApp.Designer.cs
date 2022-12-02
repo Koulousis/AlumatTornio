@@ -43,9 +43,9 @@ namespace DXF
 			this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.g71RoughingCycleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.g72FacingCycleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.sideSelectorGroup = new System.Windows.Forms.GroupBox();
-			this.secondSide = new System.Windows.Forms.RadioButton();
-			this.firstSide = new System.Windows.Forms.RadioButton();
+			this.viewSideSelectorGroup = new System.Windows.Forms.GroupBox();
+			this.drawSecondSideButton = new System.Windows.Forms.RadioButton();
+			this.drawFirstSideButton = new System.Windows.Forms.RadioButton();
 			this.copyrightsBanner = new System.Windows.Forms.Panel();
 			this.copyrights = new System.Windows.Forms.TextBox();
 			this.banner = new System.Windows.Forms.PictureBox();
@@ -93,14 +93,15 @@ namespace DXF
 			this.dieDiameterLabel = new System.Windows.Forms.Label();
 			this.visualizationPanel = new System.Windows.Forms.PictureBox();
 			this.firstSideSelectorGroup = new System.Windows.Forms.GroupBox();
+			this.setFirstSideSelectionButton = new System.Windows.Forms.Button();
+			this.firstSideSelectorLabel = new System.Windows.Forms.Label();
+			this.flippedButton = new System.Windows.Forms.RadioButton();
+			this.asDesignedButton = new System.Windows.Forms.RadioButton();
 			this.tabSettings = new System.Windows.Forms.TabPage();
 			this.setFirstSide = new System.Windows.Forms.CheckBox();
-			this.asDesignedButton = new System.Windows.Forms.RadioButton();
-			this.flippedButton = new System.Windows.Forms.RadioButton();
-			this.label1 = new System.Windows.Forms.Label();
-			this.lockFirstSideSelectionButton = new System.Windows.Forms.Button();
+			this.viewSideSelectorLabel = new System.Windows.Forms.Label();
 			this.mainAppMenu.SuspendLayout();
-			this.sideSelectorGroup.SuspendLayout();
+			this.viewSideSelectorGroup.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.banner)).BeginInit();
 			this.g71Settings.SuspendLayout();
@@ -237,45 +238,44 @@ namespace DXF
 			this.g72FacingCycleToolStripMenuItem.Text = "G72 Facing Cycle";
 			this.g72FacingCycleToolStripMenuItem.Click += new System.EventHandler(this.g72FacingCycleToolStripMenuItem_Click);
 			// 
-			// sideSelectorGroup
+			// viewSideSelectorGroup
 			// 
-			this.sideSelectorGroup.Controls.Add(this.secondSide);
-			this.sideSelectorGroup.Controls.Add(this.firstSide);
-			this.sideSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.sideSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.sideSelectorGroup.Location = new System.Drawing.Point(316, 205);
-			this.sideSelectorGroup.Margin = new System.Windows.Forms.Padding(2);
-			this.sideSelectorGroup.Name = "sideSelectorGroup";
-			this.sideSelectorGroup.Padding = new System.Windows.Forms.Padding(2);
-			this.sideSelectorGroup.Size = new System.Drawing.Size(200, 42);
-			this.sideSelectorGroup.TabIndex = 3;
-			this.sideSelectorGroup.TabStop = false;
-			this.sideSelectorGroup.Text = "Draw and Print";
+			this.viewSideSelectorGroup.Controls.Add(this.viewSideSelectorLabel);
+			this.viewSideSelectorGroup.Controls.Add(this.drawSecondSideButton);
+			this.viewSideSelectorGroup.Controls.Add(this.drawFirstSideButton);
+			this.viewSideSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.viewSideSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.viewSideSelectorGroup.Location = new System.Drawing.Point(316, 91);
+			this.viewSideSelectorGroup.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.viewSideSelectorGroup.Name = "viewSideSelectorGroup";
+			this.viewSideSelectorGroup.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.viewSideSelectorGroup.Size = new System.Drawing.Size(255, 80);
+			this.viewSideSelectorGroup.TabIndex = 3;
+			this.viewSideSelectorGroup.TabStop = false;
+			this.viewSideSelectorGroup.Text = "Draw and Print";
 			// 
-			// secondSide
+			// drawSecondSideButton
 			// 
-			this.secondSide.AutoSize = true;
-			this.secondSide.ForeColor = System.Drawing.Color.Black;
-			this.secondSide.Location = new System.Drawing.Point(93, 16);
-			this.secondSide.Name = "secondSide";
-			this.secondSide.Size = new System.Drawing.Size(102, 20);
-			this.secondSide.TabIndex = 1;
-			this.secondSide.TabStop = true;
-			this.secondSide.Text = "Second side";
-			this.secondSide.UseVisualStyleBackColor = true;
+			this.drawSecondSideButton.AutoSize = true;
+			this.drawSecondSideButton.ForeColor = System.Drawing.Color.Black;
+			this.drawSecondSideButton.Location = new System.Drawing.Point(116, 50);
+			this.drawSecondSideButton.Name = "drawSecondSideButton";
+			this.drawSecondSideButton.Size = new System.Drawing.Size(102, 20);
+			this.drawSecondSideButton.TabIndex = 1;
+			this.drawSecondSideButton.Text = "Second side";
+			this.drawSecondSideButton.UseVisualStyleBackColor = true;
 			// 
-			// firstSide
+			// drawFirstSideButton
 			// 
-			this.firstSide.AutoSize = true;
-			this.firstSide.ForeColor = System.Drawing.Color.Black;
-			this.firstSide.Location = new System.Drawing.Point(9, 16);
-			this.firstSide.Name = "firstSide";
-			this.firstSide.Size = new System.Drawing.Size(80, 20);
-			this.firstSide.TabIndex = 0;
-			this.firstSide.TabStop = true;
-			this.firstSide.Text = "First side";
-			this.firstSide.UseVisualStyleBackColor = true;
-			this.firstSide.CheckedChanged += new System.EventHandler(this.firstSide_CheckedChanged);
+			this.drawFirstSideButton.AutoSize = true;
+			this.drawFirstSideButton.ForeColor = System.Drawing.Color.Black;
+			this.drawFirstSideButton.Location = new System.Drawing.Point(12, 50);
+			this.drawFirstSideButton.Name = "drawFirstSideButton";
+			this.drawFirstSideButton.Size = new System.Drawing.Size(80, 20);
+			this.drawFirstSideButton.TabIndex = 0;
+			this.drawFirstSideButton.Text = "First side";
+			this.drawFirstSideButton.UseVisualStyleBackColor = true;
+			this.drawFirstSideButton.CheckedChanged += new System.EventHandler(this.firstSide_CheckedChanged);
 			// 
 			// copyrightsBanner
 			// 
@@ -283,7 +283,7 @@ namespace DXF
 			this.copyrightsBanner.Controls.Add(this.copyrights);
 			this.copyrightsBanner.Controls.Add(this.banner);
 			this.copyrightsBanner.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.copyrightsBanner.Location = new System.Drawing.Point(0, 559);
+			this.copyrightsBanner.Location = new System.Drawing.Point(0, 560);
 			this.copyrightsBanner.Name = "copyrightsBanner";
 			this.copyrightsBanner.Size = new System.Drawing.Size(795, 95);
 			this.copyrightsBanner.TabIndex = 4;
@@ -989,7 +989,7 @@ namespace DXF
 			this.tabPanel.Location = new System.Drawing.Point(0, 24);
 			this.tabPanel.Name = "tabPanel";
 			this.tabPanel.SelectedIndex = 0;
-			this.tabPanel.Size = new System.Drawing.Size(795, 535);
+			this.tabPanel.Size = new System.Drawing.Size(795, 536);
 			this.tabPanel.TabIndex = 16;
 			// 
 			// tabSetup
@@ -999,7 +999,7 @@ namespace DXF
 			this.tabSetup.Controls.Add(this.dieDiameterLabel);
 			this.tabSetup.Controls.Add(this.visualizationPanel);
 			this.tabSetup.Controls.Add(this.firstSideSelectorGroup);
-			this.tabSetup.Controls.Add(this.sideSelectorGroup);
+			this.tabSetup.Controls.Add(this.viewSideSelectorGroup);
 			this.tabSetup.Controls.Add(this.cavaSelectorGroup);
 			this.tabSetup.Controls.Add(this.gCodeTextBox);
 			this.tabSetup.Controls.Add(this.stockValuesSelectorGroup);
@@ -1010,8 +1010,8 @@ namespace DXF
 			this.tabSetup.Controls.Add(this.coordinatesLabel);
 			this.tabSetup.Location = new System.Drawing.Point(4, 22);
 			this.tabSetup.Name = "tabSetup";
-			this.tabSetup.Padding = new System.Windows.Forms.Padding(3);
-			this.tabSetup.Size = new System.Drawing.Size(787, 509);
+			this.tabSetup.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+			this.tabSetup.Size = new System.Drawing.Size(787, 510);
 			this.tabSetup.TabIndex = 0;
 			this.tabSetup.Text = "Machining Setup";
 			// 
@@ -1050,18 +1050,63 @@ namespace DXF
 			// 
 			// firstSideSelectorGroup
 			// 
-			this.firstSideSelectorGroup.Controls.Add(this.lockFirstSideSelectionButton);
-			this.firstSideSelectorGroup.Controls.Add(this.label1);
+			this.firstSideSelectorGroup.Controls.Add(this.setFirstSideSelectionButton);
+			this.firstSideSelectorGroup.Controls.Add(this.firstSideSelectorLabel);
 			this.firstSideSelectorGroup.Controls.Add(this.flippedButton);
 			this.firstSideSelectorGroup.Controls.Add(this.asDesignedButton);
 			this.firstSideSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.firstSideSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
 			this.firstSideSelectorGroup.Location = new System.Drawing.Point(316, 6);
 			this.firstSideSelectorGroup.Name = "firstSideSelectorGroup";
-			this.firstSideSelectorGroup.Size = new System.Drawing.Size(255, 82);
+			this.firstSideSelectorGroup.Size = new System.Drawing.Size(255, 80);
 			this.firstSideSelectorGroup.TabIndex = 17;
 			this.firstSideSelectorGroup.TabStop = false;
 			this.firstSideSelectorGroup.Text = "Set first machining side";
+			// 
+			// setFirstSideSelectionButton
+			// 
+			this.setFirstSideSelectionButton.ForeColor = System.Drawing.Color.Black;
+			this.setFirstSideSelectionButton.Location = new System.Drawing.Point(191, 50);
+			this.setFirstSideSelectionButton.Name = "setFirstSideSelectionButton";
+			this.setFirstSideSelectionButton.Size = new System.Drawing.Size(57, 23);
+			this.setFirstSideSelectionButton.TabIndex = 20;
+			this.setFirstSideSelectionButton.Text = "Set";
+			this.setFirstSideSelectionButton.UseVisualStyleBackColor = true;
+			this.setFirstSideSelectionButton.Click += new System.EventHandler(this.setFirstSideSelectionButton_Click);
+			// 
+			// firstSideSelectorLabel
+			// 
+			this.firstSideSelectorLabel.AutoSize = true;
+			this.firstSideSelectorLabel.ForeColor = System.Drawing.Color.Black;
+			this.firstSideSelectorLabel.Location = new System.Drawing.Point(9, 22);
+			this.firstSideSelectorLabel.Name = "firstSideSelectorLabel";
+			this.firstSideSelectorLabel.Size = new System.Drawing.Size(186, 16);
+			this.firstSideSelectorLabel.TabIndex = 2;
+			this.firstSideSelectorLabel.Text = "Select the first machining side:";
+			// 
+			// flippedButton
+			// 
+			this.flippedButton.AutoSize = true;
+			this.flippedButton.ForeColor = System.Drawing.Color.Black;
+			this.flippedButton.Location = new System.Drawing.Point(116, 51);
+			this.flippedButton.Name = "flippedButton";
+			this.flippedButton.Size = new System.Drawing.Size(72, 20);
+			this.flippedButton.TabIndex = 1;
+			this.flippedButton.Text = "Flipped";
+			this.flippedButton.UseVisualStyleBackColor = true;
+			this.flippedButton.CheckedChanged += new System.EventHandler(this.flippedButton_CheckedChanged);
+			// 
+			// asDesignedButton
+			// 
+			this.asDesignedButton.AutoSize = true;
+			this.asDesignedButton.ForeColor = System.Drawing.Color.Black;
+			this.asDesignedButton.Location = new System.Drawing.Point(12, 51);
+			this.asDesignedButton.Name = "asDesignedButton";
+			this.asDesignedButton.Size = new System.Drawing.Size(104, 20);
+			this.asDesignedButton.TabIndex = 0;
+			this.asDesignedButton.Text = "As Designed";
+			this.asDesignedButton.UseVisualStyleBackColor = true;
+			this.asDesignedButton.CheckedChanged += new System.EventHandler(this.asDesignedButton_CheckedChanged);
 			// 
 			// tabSettings
 			// 
@@ -1070,8 +1115,8 @@ namespace DXF
 			this.tabSettings.Controls.Add(this.g72Settings);
 			this.tabSettings.Location = new System.Drawing.Point(4, 22);
 			this.tabSettings.Name = "tabSettings";
-			this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-			this.tabSettings.Size = new System.Drawing.Size(720, 509);
+			this.tabSettings.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+			this.tabSettings.Size = new System.Drawing.Size(787, 512);
 			this.tabSettings.TabIndex = 1;
 			this.tabSettings.Text = "Machining Settings";
 			// 
@@ -1088,57 +1133,22 @@ namespace DXF
 			this.setFirstSide.UseVisualStyleBackColor = true;
 			this.setFirstSide.CheckedChanged += new System.EventHandler(this.setFirstSide_CheckedChanged);
 			// 
-			// asDesignedButton
+			// viewSideSelectorLabel
 			// 
-			this.asDesignedButton.AutoSize = true;
-			this.asDesignedButton.ForeColor = System.Drawing.Color.Black;
-			this.asDesignedButton.Location = new System.Drawing.Point(12, 53);
-			this.asDesignedButton.Name = "asDesignedButton";
-			this.asDesignedButton.Size = new System.Drawing.Size(104, 20);
-			this.asDesignedButton.TabIndex = 0;
-			this.asDesignedButton.Text = "As Designed";
-			this.asDesignedButton.UseVisualStyleBackColor = true;
-			this.asDesignedButton.CheckedChanged += new System.EventHandler(this.asDesignedButton_CheckedChanged);
-			// 
-			// flippedButton
-			// 
-			this.flippedButton.AutoSize = true;
-			this.flippedButton.ForeColor = System.Drawing.Color.Black;
-			this.flippedButton.Location = new System.Drawing.Point(113, 53);
-			this.flippedButton.Name = "flippedButton";
-			this.flippedButton.Size = new System.Drawing.Size(72, 20);
-			this.flippedButton.TabIndex = 1;
-			this.flippedButton.Text = "Flipped";
-			this.flippedButton.UseVisualStyleBackColor = true;
-			this.flippedButton.CheckedChanged += new System.EventHandler(this.flippedButton_CheckedChanged);
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.ForeColor = System.Drawing.Color.Black;
-			this.label1.Location = new System.Drawing.Point(9, 22);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(236, 16);
-			this.label1.TabIndex = 2;
-			this.label1.Text = "The first machining side will be placed:";
-			// 
-			// lockFirstSideSelectionButton
-			// 
-			this.lockFirstSideSelectionButton.ForeColor = System.Drawing.Color.Black;
-			this.lockFirstSideSelectionButton.Location = new System.Drawing.Point(191, 50);
-			this.lockFirstSideSelectionButton.Name = "lockFirstSideSelectionButton";
-			this.lockFirstSideSelectionButton.Size = new System.Drawing.Size(57, 26);
-			this.lockFirstSideSelectionButton.TabIndex = 20;
-			this.lockFirstSideSelectionButton.Text = "Lock";
-			this.lockFirstSideSelectionButton.UseVisualStyleBackColor = true;
-			this.lockFirstSideSelectionButton.Click += new System.EventHandler(this.lockFirstSideSelectionButton_Click);
+			this.viewSideSelectorLabel.AutoSize = true;
+			this.viewSideSelectorLabel.ForeColor = System.Drawing.Color.Black;
+			this.viewSideSelectorLabel.Location = new System.Drawing.Point(9, 22);
+			this.viewSideSelectorLabel.Name = "viewSideSelectorLabel";
+			this.viewSideSelectorLabel.Size = new System.Drawing.Size(202, 16);
+			this.viewSideSelectorLabel.TabIndex = 21;
+			this.viewSideSelectorLabel.Text = "Select the side to draw and print :";
 			// 
 			// MainApp
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.WindowFrame;
-			this.ClientSize = new System.Drawing.Size(795, 654);
+			this.ClientSize = new System.Drawing.Size(795, 655);
 			this.Controls.Add(this.tabPanel);
 			this.Controls.Add(this.copyrightsBanner);
 			this.Controls.Add(this.mainAppMenu);
@@ -1151,8 +1161,8 @@ namespace DXF
 			this.Load += new System.EventHandler(this.MainApp_Load);
 			this.mainAppMenu.ResumeLayout(false);
 			this.mainAppMenu.PerformLayout();
-			this.sideSelectorGroup.ResumeLayout(false);
-			this.sideSelectorGroup.PerformLayout();
+			this.viewSideSelectorGroup.ResumeLayout(false);
+			this.viewSideSelectorGroup.PerformLayout();
 			this.copyrightsBanner.ResumeLayout(false);
 			this.copyrightsBanner.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.banner)).EndInit();
@@ -1194,7 +1204,7 @@ namespace DXF
 		private System.Windows.Forms.Label coordinatesLabel;
 		private System.Windows.Forms.MenuStrip mainAppMenu;
 		private System.Windows.Forms.ToolStripMenuItem fileMenuItem;
-		private System.Windows.Forms.GroupBox sideSelectorGroup;
+		private System.Windows.Forms.GroupBox viewSideSelectorGroup;
 		private System.Windows.Forms.Panel copyrightsBanner;
 		private System.Windows.Forms.PictureBox banner;
 		private System.Windows.Forms.TextBox copyrights;
@@ -1240,8 +1250,8 @@ namespace DXF
 		private System.Windows.Forms.NumericUpDown xStockDiameterInput;
 		private System.Windows.Forms.Label zStockFirstSideLabel;
 		private System.Windows.Forms.Label xStockDiameterLabel;
-		private System.Windows.Forms.RadioButton firstSide;
-		private System.Windows.Forms.RadioButton secondSide;
+		private System.Windows.Forms.RadioButton drawFirstSideButton;
+		private System.Windows.Forms.RadioButton drawSecondSideButton;
 		private System.Windows.Forms.GroupBox cavaSelectorGroup;
 		private System.Windows.Forms.CheckBox cavaCheckBox;
 		private System.Windows.Forms.TabControl tabPanel;
@@ -1256,9 +1266,10 @@ namespace DXF
 		private System.Windows.Forms.Label xStockWidthLabel;
 		private System.Windows.Forms.Label dieWidthLabel;
 		private System.Windows.Forms.Label dieDiameterLabel;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label firstSideSelectorLabel;
 		private System.Windows.Forms.RadioButton flippedButton;
 		private System.Windows.Forms.RadioButton asDesignedButton;
-		private System.Windows.Forms.Button lockFirstSideSelectionButton;
+		private System.Windows.Forms.Button setFirstSideSelectionButton;
+		private System.Windows.Forms.Label viewSideSelectorLabel;
 	}
 }

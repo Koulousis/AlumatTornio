@@ -11,22 +11,6 @@ namespace DXF.Actions
 {
 	public class Set
 	{
-		public static void DieDiameterLabel(Label dieDiameterLabel, List<Line> dieLines)
-		{
-			float dieDiameter = dieLines.Max(line => line.EndY);
-			dieDiameter = Math.Abs(dieDiameter) * 2;
-			dieDiameterLabel.Text = string.Empty;
-			dieDiameterLabel.Text = $"Die Diameter: {dieDiameter}";
-		}
-
-		public static void DieWidthLabel(Label dieWidthLabel, List<Line> dieLines)
-		{
-			float dieWidth = dieLines.Min(line => line.EndX);
-			dieWidth = Math.Abs(dieWidth);
-			dieWidthLabel.Text = string.Empty;
-			dieWidthLabel.Text = $"Die Width: {dieWidth}";
-		}
-
 		public static void StockDiameter(float dieDiameter)
 		{
 			Parameter.StockDiameter = (float)Math.Ceiling(dieDiameter);

@@ -10,24 +10,27 @@ namespace DXF.Elements
 {
 	public static class Parameter
 	{
-		#region For DXF
-		public static List<Line> AllLines { get; set; }
-		public static List<Arc> AllArcs { get; set; }
+		#region Setted on file selection
+		public static string DxfFileName { get; set; }
 
 		public static List<Line> DieLinesAsDesigned { get; set; }
 		public static List<Arc> DieArcsAsDesigned { get; set; }
 
 		public static List<Line> DieLinesFlipped { get; set; }
 		public static List<Arc> DieArcsFlipped { get; set; }
+		
+		public static float DieDiameter { get; set; }
+		public static float DieRadius { get; set; }
+		public static float DieWidth { get; set; }
+		#endregion
 
+		#region Setted on first side selection
 		public static List<Line> FirstSideLines { get; set; }
 		public static List<Arc> FirstSideArcs { get; set; }
 		
 		public static List<Line> SecondSideLines { get; set; }
 		public static List<Arc> SecondSideArcs { get; set; }
-
-
-
+		#endregion
 
 		public static bool FirstMachiningSideAsDesigned { get; set; }
 		public static bool FirstMachiningSideFlipped { get; set; }
@@ -50,11 +53,9 @@ namespace DXF.Elements
 		public static string White = "7";
 		public static string ByBlock = "0";
 		public static string ByLayer = "256";
-		#endregion
+		
 
 		#region Common Values
-		public static float DieDiameter { get; set; }
-		public static float DieWidth { get; set; }
 		#endregion
 
 		#region For GCode
@@ -81,7 +82,6 @@ namespace DXF.Elements
 
 		#region For Settings
 		public static float ZoomFactor = 1f;
-		public static string DxfFileName = "";
 		public static bool ComesFromFileLoad = false;
 
 		#endregion
