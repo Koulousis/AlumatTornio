@@ -125,90 +125,29 @@ namespace DXF
 			dieWidthLabel.Text = string.Empty;
 			dieWidthLabel.Text = $"Die Width: {dieWidth}";
 
-			//Enable UI to select first machining side
+			//Set UI to select first machining side
 			tabPanel.Enabled = true;
-
 			firstSideSelectorGroup.Enabled = true;
 			asDesignedButton.Checked = false;
 			flippedButton.Checked = false;
-
 			viewSideSelectorGroup.Enabled = false;
-			cavaSelectorGroup.Enabled = false;
 			stockValuesSelectorGroup.Enabled = false;
 			generateCode.Enabled = false;
-
 			drawFirstSideButton.Checked = false;
 			drawSecondSideButton.Checked = false;
 
 			//Set global parameters
 			Parameter.DxfFileName = fileNameWithoutExtension;
-			Parameter.DieLinesAsDesigned = dieLinesAsDesigned;
-			Parameter.DieArcsAsDesigned = dieArcsAsDesigned;
-			Parameter.DieLinesFlipped = dieLinesFlipped;
-			Parameter.DieArcsFlipped = dieArcsFlipped;
+			Parameter.DieLinesAsDesigned = dieLinesAsDesigned.OrderBy(line => line.Index).ToList();
+			Parameter.DieArcsAsDesigned = dieArcsAsDesigned.OrderBy(arc => arc.Index).ToList();
+			Parameter.DieLinesFlipped = dieLinesFlipped.OrderBy(line => line.Index).Reverse().ToList();
+			Parameter.DieArcsFlipped = dieArcsFlipped.OrderBy(arc => arc.Index).Reverse().ToList();
 			Parameter.DieDiameter = dieDiameter;
 			Parameter.DieRadius = dieDiameter / 2;
 			Parameter.DieWidth = dieWidth;
 
 			//Draw
 			visualizationPanel.Refresh();
-
-			//Application Changes
-			//ReloadApplicationItemsStatus();
-			//SetStockValues();
-
-			//File management
-			//Dxf.ManageRightSide();
-			//Dxf.ManageLeftSide();
-			//Dxf.ManageCava();
-		}
-
-		private void ReloadApplicationItemsStatus()
-		{
-
-			exportProgressBar.Value = 0;
-			gCodeTextBox.Lines = Array.Empty<string>();
-			GCode.FirstSide.Clear();
-			GCode.SecondSide.Clear();
-
-		}
-
-		private void SetStockValues()
-		{
-			Parameter.ComesFromFileLoad = true;
-			Parameter.StockDiameter = 0;
-			Parameter.StockWidth = 0;
-			Parameter.StockX = 0;
-			Parameter.StockZSecondSide = 0;
-			Parameter.StockZFirstSide = 0;
-
-			xStockDiameterInput.Maximum = 0;
-			zStockWidthInput.Maximum = 0;
-			zStockSecondSide.Maximum = 0;
-			zStockFirstSide.Maximum = 0;
-
-			xStockDiameterInput.Minimum = 0;
-			zStockWidthInput.Minimum = 0;
-			zStockSecondSide.Minimum = 0;
-			zStockFirstSide.Minimum = 0;
-
-			Set.StockDiameter(Parameter.DieDiameter);
-			Set.StockWidth(Parameter.DieWidth);
-			Set.StockX(Parameter.StockDiameter, Parameter.DieDiameter);
-			Set.StockZSecondSide(Parameter.DieWidth);
-			Set.StockZFirstSide(Parameter.StockWidth, Parameter.DieWidth);
-
-			xStockDiameterInput.Maximum = Convert.ToDecimal(Parameter.StockDiameter + Parameter.StockDiameterExtraMax);
-			zStockWidthInput.Maximum = Convert.ToDecimal(Parameter.StockWidth + Parameter.StockWidthExtraMax);
-			zStockSecondSide.Maximum = Convert.ToDecimal(Parameter.StockZSecondSide);
-			zStockFirstSide.Maximum = Convert.ToDecimal(Parameter.StockZFirstSide + Parameter.StockWidthExtraMax);
-
-			xStockDiameterInput.Minimum = Convert.ToDecimal(Parameter.StockDiameter);
-			zStockWidthInput.Minimum = Convert.ToDecimal(Parameter.StockWidth);
-			zStockSecondSide.Minimum = Convert.ToDecimal(Parameter.StockZSecondSide);
-			zStockFirstSide.Minimum = Convert.ToDecimal(Parameter.StockZFirstSide);
-
-			Parameter.ComesFromFileLoad = false;
 		}
 		#endregion
 
@@ -247,9 +186,22 @@ namespace DXF
 			drawFirstSideButton.Checked = true;
 			firstSideSelectorGroup.Enabled = false;
 			viewSideSelectorGroup.Enabled = true;
-			cavaSelectorGroup.Enabled = true;
 			stockValuesSelectorGroup.Enabled = true;
 			generateCode.Enabled = true;
+
+			//Set stock values
+			float stockDiameterValue = Parameter.DieDiameter;
+			stockDiameterValue += 1 - Parameter.DieDiameter % 1;
+			stockDiameterValue += 2;
+			stockDiameterInput.Minimum = Convert.ToDecimal(stockDiameterValue);
+			stockDiameterInput.Maximum = stockDiameterInput.Minimum + 10;
+
+			float stockWidthValue = Parameter.DieWidth;
+			stockWidthValue += 1 - Parameter.DieWidth % 1;
+			stockWidthValue += 2;
+			stockWidthInput.Minimum = Convert.ToDecimal(stockWidthValue);
+			stockWidthInput.Maximum = stockWidthInput.Minimum + 10;
+
 		}
 
 		#endregion
@@ -336,7 +288,6 @@ namespace DXF
 		#region Export
 		private void exportGCode_Click(object sender, EventArgs e)
 		{
-			if (cavaCheckBox.Enabled) { MessageBox.Show("Cava is not applied"); return; }
 
 			//Update Progress Bar
 			exportProgressBar.Value = 0;
@@ -533,69 +484,14 @@ namespace DXF
 		}
 		#endregion
 
-		#region Stock Values Changes
-		private void xStockDiameterInput_ValueChanged(object sender, EventArgs e)
+		private void stockDiameterInput_ValueChanged(object sender, EventArgs e)
 		{
-			if (Parameter.ComesFromFileLoad) return;
-			Parameter.StockDiameter = (float)xStockDiameterInput.Value;
-			Parameter.StockX = Parameter.StockDiameter - Parameter.DieDiameter;
-			Parameter.StockX = Conversion.StringToThreeDigitFloat(Convert.ToString(Parameter.StockX));
-			visualizationPanel.Refresh();
+			Console.WriteLine("wtf");
 		}
 
-		private void zStockWidthInput_ValueChanged(object sender, EventArgs e)
+		private void stockWidthInput_ValueChanged(object sender, EventArgs e)
 		{
-			if (Parameter.ComesFromFileLoad) return;
-			Parameter.StockWidth = (float) zStockWidthInput.Value;
-			Parameter.StockZFirstSide = Parameter.StockWidth - Parameter.DieWidth - Parameter.StockZSecondSide;
-			Parameter.StockZFirstSide = Conversion.StringToThreeDigitFloat(Convert.ToString(Parameter.StockZFirstSide));
-			zStockFirstSide.Value = Convert.ToDecimal(Parameter.StockZFirstSide);
-			visualizationPanel.Refresh();
+			Console.WriteLine("wtf");
 		}
-
-		private void zStockFirstSide_ValueChanged(object sender, EventArgs e)
-		{
-			if (Parameter.ComesFromFileLoad) return;
-			Parameter.StockZFirstSide = (float)zStockFirstSide.Value;
-			Parameter.StockWidth = Parameter.DieWidth + Parameter.StockZFirstSide + Parameter.StockZSecondSide;
-			zStockWidthInput.Value = Convert.ToDecimal(Parameter.StockWidth);
-			visualizationPanel.Refresh();
-
-		}
-		#endregion
-
-		#region Cava Handle
-		private void cavaCheckBox_CheckedChanged(object sender, EventArgs e)
-		{
-			if (drawFirstSideButton.Checked && cavaCheckBox.Checked)
-			{
-				Add.CavaToRightSide();
-				cavaCheckBox.Enabled = false;
-			}
-
-			if (drawSecondSideButton.Checked && cavaCheckBox.Checked)
-			{
-				Add.CavaToLeftSide();
-				cavaCheckBox.Enabled = false;
-			}
-
-			visualizationPanel.Refresh();
-		}
-
-		#endregion
-
-		
-
-		private void setFirstSide_CheckedChanged(object sender, EventArgs e)
-		{
-			//flipButton.Enabled = false;
-			setFirstSide.Enabled = false;
-			drawFirstSideButton.Enabled = true;
-			drawFirstSideButton.Checked = true;
-			drawSecondSideButton.Enabled = true;
-			setFirstSide.Text = "     Setted    ";
-		}
-
-		
 	}
 }

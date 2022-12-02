@@ -44,6 +44,7 @@ namespace DXF
 			this.g71RoughingCycleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.g72FacingCycleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewSideSelectorGroup = new System.Windows.Forms.GroupBox();
+			this.viewSideSelectorLabel = new System.Windows.Forms.Label();
 			this.drawSecondSideButton = new System.Windows.Forms.RadioButton();
 			this.drawFirstSideButton = new System.Windows.Forms.RadioButton();
 			this.copyrightsBanner = new System.Windows.Forms.Panel();
@@ -77,16 +78,10 @@ namespace DXF
 			this.fileName = new System.Windows.Forms.Label();
 			this.fileNameLabel = new System.Windows.Forms.Label();
 			this.stockValuesSelectorGroup = new System.Windows.Forms.GroupBox();
-			this.zStockWidthInput = new System.Windows.Forms.NumericUpDown();
+			this.stockWidthInput = new System.Windows.Forms.NumericUpDown();
 			this.xStockWidthLabel = new System.Windows.Forms.Label();
-			this.zStockSecondSide = new System.Windows.Forms.NumericUpDown();
-			this.zStockSecondSideLabel = new System.Windows.Forms.Label();
-			this.zStockFirstSide = new System.Windows.Forms.NumericUpDown();
-			this.xStockDiameterInput = new System.Windows.Forms.NumericUpDown();
-			this.zStockFirstSideLabel = new System.Windows.Forms.Label();
+			this.stockDiameterInput = new System.Windows.Forms.NumericUpDown();
 			this.xStockDiameterLabel = new System.Windows.Forms.Label();
-			this.cavaSelectorGroup = new System.Windows.Forms.GroupBox();
-			this.cavaCheckBox = new System.Windows.Forms.CheckBox();
 			this.tabPanel = new System.Windows.Forms.TabControl();
 			this.tabSetup = new System.Windows.Forms.TabPage();
 			this.dieWidthLabel = new System.Windows.Forms.Label();
@@ -98,8 +93,10 @@ namespace DXF
 			this.flippedButton = new System.Windows.Forms.RadioButton();
 			this.asDesignedButton = new System.Windows.Forms.RadioButton();
 			this.tabSettings = new System.Windows.Forms.TabPage();
-			this.setFirstSide = new System.Windows.Forms.CheckBox();
-			this.viewSideSelectorLabel = new System.Windows.Forms.Label();
+			this.cavaSelectorGroup = new System.Windows.Forms.GroupBox();
+			this.cavaSelectorLabel = new System.Windows.Forms.Label();
+			this.cavaFirstSideCheckBox = new System.Windows.Forms.CheckBox();
+			this.cavaSecondSideCheckBox = new System.Windows.Forms.CheckBox();
 			this.mainAppMenu.SuspendLayout();
 			this.viewSideSelectorGroup.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
@@ -117,16 +114,14 @@ namespace DXF
 			((System.ComponentModel.ISupportInitialize)(this.g72RetractInput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.g72DepthOfCutInput)).BeginInit();
 			this.stockValuesSelectorGroup.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.zStockWidthInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.zStockSecondSide)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.zStockFirstSide)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.xStockDiameterInput)).BeginInit();
-			this.cavaSelectorGroup.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.stockWidthInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.stockDiameterInput)).BeginInit();
 			this.tabPanel.SuspendLayout();
 			this.tabSetup.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.visualizationPanel)).BeginInit();
 			this.firstSideSelectorGroup.SuspendLayout();
 			this.tabSettings.SuspendLayout();
+			this.cavaSelectorGroup.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// coordinatesLabel
@@ -245,20 +240,30 @@ namespace DXF
 			this.viewSideSelectorGroup.Controls.Add(this.drawFirstSideButton);
 			this.viewSideSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.viewSideSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.viewSideSelectorGroup.Location = new System.Drawing.Point(316, 91);
-			this.viewSideSelectorGroup.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.viewSideSelectorGroup.Location = new System.Drawing.Point(316, 103);
+			this.viewSideSelectorGroup.Margin = new System.Windows.Forms.Padding(2);
 			this.viewSideSelectorGroup.Name = "viewSideSelectorGroup";
-			this.viewSideSelectorGroup.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.viewSideSelectorGroup.Padding = new System.Windows.Forms.Padding(2);
 			this.viewSideSelectorGroup.Size = new System.Drawing.Size(255, 80);
 			this.viewSideSelectorGroup.TabIndex = 3;
 			this.viewSideSelectorGroup.TabStop = false;
 			this.viewSideSelectorGroup.Text = "Draw and Print";
 			// 
+			// viewSideSelectorLabel
+			// 
+			this.viewSideSelectorLabel.AutoSize = true;
+			this.viewSideSelectorLabel.ForeColor = System.Drawing.Color.Black;
+			this.viewSideSelectorLabel.Location = new System.Drawing.Point(9, 22);
+			this.viewSideSelectorLabel.Name = "viewSideSelectorLabel";
+			this.viewSideSelectorLabel.Size = new System.Drawing.Size(202, 16);
+			this.viewSideSelectorLabel.TabIndex = 21;
+			this.viewSideSelectorLabel.Text = "Select the side to draw and print :";
+			// 
 			// drawSecondSideButton
 			// 
 			this.drawSecondSideButton.AutoSize = true;
 			this.drawSecondSideButton.ForeColor = System.Drawing.Color.Black;
-			this.drawSecondSideButton.Location = new System.Drawing.Point(116, 50);
+			this.drawSecondSideButton.Location = new System.Drawing.Point(116, 46);
 			this.drawSecondSideButton.Name = "drawSecondSideButton";
 			this.drawSecondSideButton.Size = new System.Drawing.Size(102, 20);
 			this.drawSecondSideButton.TabIndex = 1;
@@ -269,7 +274,7 @@ namespace DXF
 			// 
 			this.drawFirstSideButton.AutoSize = true;
 			this.drawFirstSideButton.ForeColor = System.Drawing.Color.Black;
-			this.drawFirstSideButton.Location = new System.Drawing.Point(12, 50);
+			this.drawFirstSideButton.Location = new System.Drawing.Point(12, 45);
 			this.drawFirstSideButton.Name = "drawFirstSideButton";
 			this.drawFirstSideButton.Size = new System.Drawing.Size(80, 20);
 			this.drawFirstSideButton.TabIndex = 0;
@@ -315,9 +320,9 @@ namespace DXF
 			// generateCode
 			// 
 			this.generateCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.generateCode.Location = new System.Drawing.Point(586, 357);
+			this.generateCode.Location = new System.Drawing.Point(316, 409);
 			this.generateCode.Name = "generateCode";
-			this.generateCode.Size = new System.Drawing.Size(193, 74);
+			this.generateCode.Size = new System.Drawing.Size(255, 34);
 			this.generateCode.TabIndex = 5;
 			this.generateCode.Text = "Generate G Code";
 			this.generateCode.UseVisualStyleBackColor = true;
@@ -325,9 +330,9 @@ namespace DXF
 			// 
 			// exportProgressBar
 			// 
-			this.exportProgressBar.Location = new System.Drawing.Point(586, 437);
+			this.exportProgressBar.Location = new System.Drawing.Point(316, 449);
 			this.exportProgressBar.Name = "exportProgressBar";
-			this.exportProgressBar.Size = new System.Drawing.Size(193, 24);
+			this.exportProgressBar.Size = new System.Drawing.Size(255, 12);
 			this.exportProgressBar.TabIndex = 6;
 			// 
 			// g71Settings
@@ -786,10 +791,10 @@ namespace DXF
 			// 
 			this.gCodeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
 			this.gCodeTextBox.ForeColor = System.Drawing.Color.WhiteSmoke;
-			this.gCodeTextBox.Location = new System.Drawing.Point(586, 3);
+			this.gCodeTextBox.Location = new System.Drawing.Point(581, 3);
 			this.gCodeTextBox.Name = "gCodeTextBox";
 			this.gCodeTextBox.ReadOnly = true;
-			this.gCodeTextBox.Size = new System.Drawing.Size(193, 348);
+			this.gCodeTextBox.Size = new System.Drawing.Size(198, 458);
 			this.gCodeTextBox.TabIndex = 11;
 			this.gCodeTextBox.Text = "";
 			// 
@@ -817,169 +822,80 @@ namespace DXF
 			// 
 			// stockValuesSelectorGroup
 			// 
-			this.stockValuesSelectorGroup.Controls.Add(this.zStockWidthInput);
+			this.stockValuesSelectorGroup.Controls.Add(this.stockWidthInput);
 			this.stockValuesSelectorGroup.Controls.Add(this.xStockWidthLabel);
-			this.stockValuesSelectorGroup.Controls.Add(this.zStockSecondSide);
-			this.stockValuesSelectorGroup.Controls.Add(this.zStockSecondSideLabel);
-			this.stockValuesSelectorGroup.Controls.Add(this.zStockFirstSide);
-			this.stockValuesSelectorGroup.Controls.Add(this.xStockDiameterInput);
-			this.stockValuesSelectorGroup.Controls.Add(this.zStockFirstSideLabel);
+			this.stockValuesSelectorGroup.Controls.Add(this.stockDiameterInput);
 			this.stockValuesSelectorGroup.Controls.Add(this.xStockDiameterLabel);
 			this.stockValuesSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.stockValuesSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.stockValuesSelectorGroup.Location = new System.Drawing.Point(316, 329);
+			this.stockValuesSelectorGroup.Location = new System.Drawing.Point(316, 318);
 			this.stockValuesSelectorGroup.Name = "stockValuesSelectorGroup";
-			this.stockValuesSelectorGroup.Size = new System.Drawing.Size(200, 132);
+			this.stockValuesSelectorGroup.Size = new System.Drawing.Size(255, 85);
 			this.stockValuesSelectorGroup.TabIndex = 14;
 			this.stockValuesSelectorGroup.TabStop = false;
 			this.stockValuesSelectorGroup.Text = "Stock";
 			// 
-			// zStockWidthInput
+			// stockWidthInput
 			// 
-			this.zStockWidthInput.DecimalPlaces = 1;
-			this.zStockWidthInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.zStockWidthInput.Increment = new decimal(new int[] {
+			this.stockWidthInput.DecimalPlaces = 1;
+			this.stockWidthInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.stockWidthInput.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.zStockWidthInput.Location = new System.Drawing.Point(129, 42);
-			this.zStockWidthInput.Maximum = new decimal(new int[] {
+			this.stockWidthInput.Location = new System.Drawing.Point(130, 46);
+			this.stockWidthInput.Maximum = new decimal(new int[] {
             7,
             0,
             0,
             0});
-			this.zStockWidthInput.Name = "zStockWidthInput";
-			this.zStockWidthInput.Size = new System.Drawing.Size(64, 26);
-			this.zStockWidthInput.TabIndex = 15;
-			this.zStockWidthInput.ValueChanged += new System.EventHandler(this.zStockWidthInput_ValueChanged);
+			this.stockWidthInput.Name = "stockWidthInput";
+			this.stockWidthInput.Size = new System.Drawing.Size(81, 26);
+			this.stockWidthInput.TabIndex = 15;
+			this.stockWidthInput.ValueChanged += new System.EventHandler(this.stockWidthInput_ValueChanged);
 			// 
 			// xStockWidthLabel
 			// 
 			this.xStockWidthLabel.AutoSize = true;
 			this.xStockWidthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.xStockWidthLabel.ForeColor = System.Drawing.Color.Black;
-			this.xStockWidthLabel.Location = new System.Drawing.Point(6, 45);
+			this.xStockWidthLabel.Location = new System.Drawing.Point(6, 51);
 			this.xStockWidthLabel.Name = "xStockWidthLabel";
 			this.xStockWidthLabel.Size = new System.Drawing.Size(82, 16);
 			this.xStockWidthLabel.TabIndex = 14;
 			this.xStockWidthLabel.Text = "Stock Width:";
 			// 
-			// zStockSecondSide
+			// stockDiameterInput
 			// 
-			this.zStockSecondSide.DecimalPlaces = 1;
-			this.zStockSecondSide.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.zStockSecondSide.Increment = new decimal(new int[] {
+			this.stockDiameterInput.DecimalPlaces = 1;
+			this.stockDiameterInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.stockDiameterInput.Increment = new decimal(new int[] {
             5,
             0,
             0,
             65536});
-			this.zStockSecondSide.Location = new System.Drawing.Point(129, 99);
-			this.zStockSecondSide.Maximum = new decimal(new int[] {
+			this.stockDiameterInput.Location = new System.Drawing.Point(130, 18);
+			this.stockDiameterInput.Maximum = new decimal(new int[] {
             7,
             0,
             0,
             0});
-			this.zStockSecondSide.Name = "zStockSecondSide";
-			this.zStockSecondSide.Size = new System.Drawing.Size(64, 26);
-			this.zStockSecondSide.TabIndex = 13;
-			// 
-			// zStockSecondSideLabel
-			// 
-			this.zStockSecondSideLabel.AutoSize = true;
-			this.zStockSecondSideLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.zStockSecondSideLabel.ForeColor = System.Drawing.Color.Black;
-			this.zStockSecondSideLabel.Location = new System.Drawing.Point(6, 102);
-			this.zStockSecondSideLabel.Name = "zStockSecondSideLabel";
-			this.zStockSecondSideLabel.Size = new System.Drawing.Size(126, 16);
-			this.zStockSecondSideLabel.TabIndex = 12;
-			this.zStockSecondSideLabel.Text = "Stock Second Side:";
-			// 
-			// zStockFirstSide
-			// 
-			this.zStockFirstSide.DecimalPlaces = 1;
-			this.zStockFirstSide.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.zStockFirstSide.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.zStockFirstSide.Location = new System.Drawing.Point(129, 70);
-			this.zStockFirstSide.Maximum = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-			this.zStockFirstSide.Name = "zStockFirstSide";
-			this.zStockFirstSide.Size = new System.Drawing.Size(64, 26);
-			this.zStockFirstSide.TabIndex = 11;
-			this.zStockFirstSide.ValueChanged += new System.EventHandler(this.zStockFirstSide_ValueChanged);
-			// 
-			// xStockDiameterInput
-			// 
-			this.xStockDiameterInput.DecimalPlaces = 1;
-			this.xStockDiameterInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.xStockDiameterInput.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-			this.xStockDiameterInput.Location = new System.Drawing.Point(129, 13);
-			this.xStockDiameterInput.Maximum = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-			this.xStockDiameterInput.Name = "xStockDiameterInput";
-			this.xStockDiameterInput.Size = new System.Drawing.Size(64, 26);
-			this.xStockDiameterInput.TabIndex = 10;
-			this.xStockDiameterInput.ValueChanged += new System.EventHandler(this.xStockDiameterInput_ValueChanged);
-			// 
-			// zStockFirstSideLabel
-			// 
-			this.zStockFirstSideLabel.AutoSize = true;
-			this.zStockFirstSideLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.zStockFirstSideLabel.ForeColor = System.Drawing.Color.Black;
-			this.zStockFirstSideLabel.Location = new System.Drawing.Point(6, 73);
-			this.zStockFirstSideLabel.Name = "zStockFirstSideLabel";
-			this.zStockFirstSideLabel.Size = new System.Drawing.Size(104, 16);
-			this.zStockFirstSideLabel.TabIndex = 2;
-			this.zStockFirstSideLabel.Text = "Stock First Side:";
+			this.stockDiameterInput.Name = "stockDiameterInput";
+			this.stockDiameterInput.Size = new System.Drawing.Size(81, 26);
+			this.stockDiameterInput.TabIndex = 10;
+			this.stockDiameterInput.ValueChanged += new System.EventHandler(this.stockDiameterInput_ValueChanged);
 			// 
 			// xStockDiameterLabel
 			// 
 			this.xStockDiameterLabel.AutoSize = true;
 			this.xStockDiameterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.xStockDiameterLabel.ForeColor = System.Drawing.Color.Black;
-			this.xStockDiameterLabel.Location = new System.Drawing.Point(6, 18);
+			this.xStockDiameterLabel.Location = new System.Drawing.Point(6, 23);
 			this.xStockDiameterLabel.Name = "xStockDiameterLabel";
 			this.xStockDiameterLabel.Size = new System.Drawing.Size(103, 16);
 			this.xStockDiameterLabel.TabIndex = 1;
 			this.xStockDiameterLabel.Text = "Stock Diameter:";
-			// 
-			// cavaSelectorGroup
-			// 
-			this.cavaSelectorGroup.Controls.Add(this.cavaCheckBox);
-			this.cavaSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cavaSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.cavaSelectorGroup.Location = new System.Drawing.Point(316, 252);
-			this.cavaSelectorGroup.Name = "cavaSelectorGroup";
-			this.cavaSelectorGroup.Size = new System.Drawing.Size(200, 42);
-			this.cavaSelectorGroup.TabIndex = 15;
-			this.cavaSelectorGroup.TabStop = false;
-			this.cavaSelectorGroup.Text = "Cava";
-			// 
-			// cavaCheckBox
-			// 
-			this.cavaCheckBox.AutoSize = true;
-			this.cavaCheckBox.ForeColor = System.Drawing.Color.Black;
-			this.cavaCheckBox.Location = new System.Drawing.Point(9, 16);
-			this.cavaCheckBox.Name = "cavaCheckBox";
-			this.cavaCheckBox.Size = new System.Drawing.Size(185, 20);
-			this.cavaCheckBox.TabIndex = 0;
-			this.cavaCheckBox.Text = "Apply on the selected side";
-			this.cavaCheckBox.UseVisualStyleBackColor = true;
-			this.cavaCheckBox.CheckedChanged += new System.EventHandler(this.cavaCheckBox_CheckedChanged);
 			// 
 			// tabPanel
 			// 
@@ -995,12 +911,12 @@ namespace DXF
 			// tabSetup
 			// 
 			this.tabSetup.BackColor = System.Drawing.SystemColors.WindowFrame;
+			this.tabSetup.Controls.Add(this.cavaSelectorGroup);
 			this.tabSetup.Controls.Add(this.dieWidthLabel);
 			this.tabSetup.Controls.Add(this.dieDiameterLabel);
 			this.tabSetup.Controls.Add(this.visualizationPanel);
 			this.tabSetup.Controls.Add(this.firstSideSelectorGroup);
 			this.tabSetup.Controls.Add(this.viewSideSelectorGroup);
-			this.tabSetup.Controls.Add(this.cavaSelectorGroup);
 			this.tabSetup.Controls.Add(this.gCodeTextBox);
 			this.tabSetup.Controls.Add(this.stockValuesSelectorGroup);
 			this.tabSetup.Controls.Add(this.generateCode);
@@ -1010,7 +926,7 @@ namespace DXF
 			this.tabSetup.Controls.Add(this.coordinatesLabel);
 			this.tabSetup.Location = new System.Drawing.Point(4, 22);
 			this.tabSetup.Name = "tabSetup";
-			this.tabSetup.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+			this.tabSetup.Padding = new System.Windows.Forms.Padding(3);
 			this.tabSetup.Size = new System.Drawing.Size(787, 510);
 			this.tabSetup.TabIndex = 0;
 			this.tabSetup.Text = "Machining Setup";
@@ -1066,7 +982,7 @@ namespace DXF
 			// setFirstSideSelectionButton
 			// 
 			this.setFirstSideSelectionButton.ForeColor = System.Drawing.Color.Black;
-			this.setFirstSideSelectionButton.Location = new System.Drawing.Point(191, 50);
+			this.setFirstSideSelectionButton.Location = new System.Drawing.Point(192, 46);
 			this.setFirstSideSelectionButton.Name = "setFirstSideSelectionButton";
 			this.setFirstSideSelectionButton.Size = new System.Drawing.Size(57, 23);
 			this.setFirstSideSelectionButton.TabIndex = 20;
@@ -1080,15 +996,15 @@ namespace DXF
 			this.firstSideSelectorLabel.ForeColor = System.Drawing.Color.Black;
 			this.firstSideSelectorLabel.Location = new System.Drawing.Point(9, 22);
 			this.firstSideSelectorLabel.Name = "firstSideSelectorLabel";
-			this.firstSideSelectorLabel.Size = new System.Drawing.Size(186, 16);
+			this.firstSideSelectorLabel.Size = new System.Drawing.Size(189, 16);
 			this.firstSideSelectorLabel.TabIndex = 2;
-			this.firstSideSelectorLabel.Text = "Select the first machining side:";
+			this.firstSideSelectorLabel.Text = "Select the first machining side :";
 			// 
 			// flippedButton
 			// 
 			this.flippedButton.AutoSize = true;
 			this.flippedButton.ForeColor = System.Drawing.Color.Black;
-			this.flippedButton.Location = new System.Drawing.Point(116, 51);
+			this.flippedButton.Location = new System.Drawing.Point(116, 48);
 			this.flippedButton.Name = "flippedButton";
 			this.flippedButton.Size = new System.Drawing.Size(72, 20);
 			this.flippedButton.TabIndex = 1;
@@ -1100,7 +1016,7 @@ namespace DXF
 			// 
 			this.asDesignedButton.AutoSize = true;
 			this.asDesignedButton.ForeColor = System.Drawing.Color.Black;
-			this.asDesignedButton.Location = new System.Drawing.Point(12, 51);
+			this.asDesignedButton.Location = new System.Drawing.Point(12, 48);
 			this.asDesignedButton.Name = "asDesignedButton";
 			this.asDesignedButton.Size = new System.Drawing.Size(104, 20);
 			this.asDesignedButton.TabIndex = 0;
@@ -1115,33 +1031,58 @@ namespace DXF
 			this.tabSettings.Controls.Add(this.g72Settings);
 			this.tabSettings.Location = new System.Drawing.Point(4, 22);
 			this.tabSettings.Name = "tabSettings";
-			this.tabSettings.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-			this.tabSettings.Size = new System.Drawing.Size(787, 512);
+			this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
+			this.tabSettings.Size = new System.Drawing.Size(787, 510);
 			this.tabSettings.TabIndex = 1;
 			this.tabSettings.Text = "Machining Settings";
 			// 
-			// setFirstSide
+			// cavaSelectorGroup
 			// 
-			this.setFirstSide.Appearance = System.Windows.Forms.Appearance.Button;
-			this.setFirstSide.AutoSize = true;
-			this.setFirstSide.ForeColor = System.Drawing.Color.Black;
-			this.setFirstSide.Location = new System.Drawing.Point(104, 22);
-			this.setFirstSide.Name = "setFirstSide";
-			this.setFirstSide.Size = new System.Drawing.Size(80, 26);
-			this.setFirstSide.TabIndex = 1;
-			this.setFirstSide.Text = "       Set       ";
-			this.setFirstSide.UseVisualStyleBackColor = true;
-			this.setFirstSide.CheckedChanged += new System.EventHandler(this.setFirstSide_CheckedChanged);
+			this.cavaSelectorGroup.Controls.Add(this.cavaSecondSideCheckBox);
+			this.cavaSelectorGroup.Controls.Add(this.cavaFirstSideCheckBox);
+			this.cavaSelectorGroup.Controls.Add(this.cavaSelectorLabel);
+			this.cavaSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.cavaSelectorGroup.Location = new System.Drawing.Point(316, 202);
+			this.cavaSelectorGroup.Margin = new System.Windows.Forms.Padding(2);
+			this.cavaSelectorGroup.Name = "cavaSelectorGroup";
+			this.cavaSelectorGroup.Padding = new System.Windows.Forms.Padding(2);
+			this.cavaSelectorGroup.Size = new System.Drawing.Size(255, 96);
+			this.cavaSelectorGroup.TabIndex = 20;
+			this.cavaSelectorGroup.TabStop = false;
+			this.cavaSelectorGroup.Text = "Set cava";
 			// 
-			// viewSideSelectorLabel
+			// cavaSelectorLabel
 			// 
-			this.viewSideSelectorLabel.AutoSize = true;
-			this.viewSideSelectorLabel.ForeColor = System.Drawing.Color.Black;
-			this.viewSideSelectorLabel.Location = new System.Drawing.Point(9, 22);
-			this.viewSideSelectorLabel.Name = "viewSideSelectorLabel";
-			this.viewSideSelectorLabel.Size = new System.Drawing.Size(202, 16);
-			this.viewSideSelectorLabel.TabIndex = 21;
-			this.viewSideSelectorLabel.Text = "Select the side to draw and print :";
+			this.cavaSelectorLabel.AutoSize = true;
+			this.cavaSelectorLabel.ForeColor = System.Drawing.Color.Black;
+			this.cavaSelectorLabel.Location = new System.Drawing.Point(9, 22);
+			this.cavaSelectorLabel.Name = "cavaSelectorLabel";
+			this.cavaSelectorLabel.Size = new System.Drawing.Size(221, 16);
+			this.cavaSelectorLabel.TabIndex = 21;
+			this.cavaSelectorLabel.Text = "Select where to apply cava overlap:";
+			// 
+			// cavaFirstSideCheckBox
+			// 
+			this.cavaFirstSideCheckBox.AutoSize = true;
+			this.cavaFirstSideCheckBox.ForeColor = System.Drawing.Color.Black;
+			this.cavaFirstSideCheckBox.Location = new System.Drawing.Point(12, 44);
+			this.cavaFirstSideCheckBox.Name = "cavaFirstSideCheckBox";
+			this.cavaFirstSideCheckBox.Size = new System.Drawing.Size(165, 20);
+			this.cavaFirstSideCheckBox.TabIndex = 22;
+			this.cavaFirstSideCheckBox.Text = "Apply cava on first side";
+			this.cavaFirstSideCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// cavaSecondSideCheckBox
+			// 
+			this.cavaSecondSideCheckBox.AutoSize = true;
+			this.cavaSecondSideCheckBox.ForeColor = System.Drawing.Color.Black;
+			this.cavaSecondSideCheckBox.Location = new System.Drawing.Point(12, 65);
+			this.cavaSecondSideCheckBox.Name = "cavaSecondSideCheckBox";
+			this.cavaSecondSideCheckBox.Size = new System.Drawing.Size(190, 20);
+			this.cavaSecondSideCheckBox.TabIndex = 23;
+			this.cavaSecondSideCheckBox.Text = "Apply cava on second side";
+			this.cavaSecondSideCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// MainApp
 			// 
@@ -1182,12 +1123,8 @@ namespace DXF
 			((System.ComponentModel.ISupportInitialize)(this.g72DepthOfCutInput)).EndInit();
 			this.stockValuesSelectorGroup.ResumeLayout(false);
 			this.stockValuesSelectorGroup.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.zStockWidthInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.zStockSecondSide)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.zStockFirstSide)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.xStockDiameterInput)).EndInit();
-			this.cavaSelectorGroup.ResumeLayout(false);
-			this.cavaSelectorGroup.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.stockWidthInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.stockDiameterInput)).EndInit();
 			this.tabPanel.ResumeLayout(false);
 			this.tabSetup.ResumeLayout(false);
 			this.tabSetup.PerformLayout();
@@ -1195,6 +1132,8 @@ namespace DXF
 			this.firstSideSelectorGroup.ResumeLayout(false);
 			this.firstSideSelectorGroup.PerformLayout();
 			this.tabSettings.ResumeLayout(false);
+			this.cavaSelectorGroup.ResumeLayout(false);
+			this.cavaSelectorGroup.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1246,23 +1185,16 @@ namespace DXF
 		private System.Windows.Forms.ToolStripMenuItem openDXFFolderToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem openExportFolderToolStripMenuItem;
 		private System.Windows.Forms.GroupBox stockValuesSelectorGroup;
-		private System.Windows.Forms.NumericUpDown zStockFirstSide;
-		private System.Windows.Forms.NumericUpDown xStockDiameterInput;
-		private System.Windows.Forms.Label zStockFirstSideLabel;
+		private System.Windows.Forms.NumericUpDown stockDiameterInput;
 		private System.Windows.Forms.Label xStockDiameterLabel;
 		private System.Windows.Forms.RadioButton drawFirstSideButton;
 		private System.Windows.Forms.RadioButton drawSecondSideButton;
-		private System.Windows.Forms.GroupBox cavaSelectorGroup;
-		private System.Windows.Forms.CheckBox cavaCheckBox;
 		private System.Windows.Forms.TabControl tabPanel;
 		private System.Windows.Forms.TabPage tabSetup;
 		private System.Windows.Forms.PictureBox visualizationPanel;
 		private System.Windows.Forms.TabPage tabSettings;
-		private System.Windows.Forms.NumericUpDown zStockSecondSide;
-		private System.Windows.Forms.Label zStockSecondSideLabel;
 		private System.Windows.Forms.GroupBox firstSideSelectorGroup;
-		private System.Windows.Forms.CheckBox setFirstSide;
-		private System.Windows.Forms.NumericUpDown zStockWidthInput;
+		private System.Windows.Forms.NumericUpDown stockWidthInput;
 		private System.Windows.Forms.Label xStockWidthLabel;
 		private System.Windows.Forms.Label dieWidthLabel;
 		private System.Windows.Forms.Label dieDiameterLabel;
@@ -1271,5 +1203,9 @@ namespace DXF
 		private System.Windows.Forms.RadioButton asDesignedButton;
 		private System.Windows.Forms.Button setFirstSideSelectionButton;
 		private System.Windows.Forms.Label viewSideSelectorLabel;
+		private System.Windows.Forms.GroupBox cavaSelectorGroup;
+		private System.Windows.Forms.Label cavaSelectorLabel;
+		private System.Windows.Forms.CheckBox cavaSecondSideCheckBox;
+		private System.Windows.Forms.CheckBox cavaFirstSideCheckBox;
 	}
 }
