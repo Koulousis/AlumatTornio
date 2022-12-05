@@ -84,6 +84,10 @@ namespace DXF
 			this.xStockDiameterLabel = new System.Windows.Forms.Label();
 			this.tabPanel = new System.Windows.Forms.TabControl();
 			this.tabSetup = new System.Windows.Forms.TabPage();
+			this.cavaSelectorGroup = new System.Windows.Forms.GroupBox();
+			this.cavaSecondSideCheckBox = new System.Windows.Forms.CheckBox();
+			this.cavaFirstSideCheckBox = new System.Windows.Forms.CheckBox();
+			this.cavaSelectorLabel = new System.Windows.Forms.Label();
 			this.dieWidthLabel = new System.Windows.Forms.Label();
 			this.dieDiameterLabel = new System.Windows.Forms.Label();
 			this.visualizationPanel = new System.Windows.Forms.PictureBox();
@@ -93,10 +97,6 @@ namespace DXF
 			this.flippedButton = new System.Windows.Forms.RadioButton();
 			this.asDesignedButton = new System.Windows.Forms.RadioButton();
 			this.tabSettings = new System.Windows.Forms.TabPage();
-			this.cavaSelectorGroup = new System.Windows.Forms.GroupBox();
-			this.cavaSelectorLabel = new System.Windows.Forms.Label();
-			this.cavaFirstSideCheckBox = new System.Windows.Forms.CheckBox();
-			this.cavaSecondSideCheckBox = new System.Windows.Forms.CheckBox();
 			this.mainAppMenu.SuspendLayout();
 			this.viewSideSelectorGroup.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
@@ -118,10 +118,10 @@ namespace DXF
 			((System.ComponentModel.ISupportInitialize)(this.stockDiameterInput)).BeginInit();
 			this.tabPanel.SuspendLayout();
 			this.tabSetup.SuspendLayout();
+			this.cavaSelectorGroup.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.visualizationPanel)).BeginInit();
 			this.firstSideSelectorGroup.SuspendLayout();
 			this.tabSettings.SuspendLayout();
-			this.cavaSelectorGroup.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// coordinatesLabel
@@ -280,7 +280,7 @@ namespace DXF
 			this.drawFirstSideButton.TabIndex = 0;
 			this.drawFirstSideButton.Text = "First side";
 			this.drawFirstSideButton.UseVisualStyleBackColor = true;
-			this.drawFirstSideButton.CheckedChanged += new System.EventHandler(this.firstSide_CheckedChanged);
+			this.drawFirstSideButton.CheckedChanged += new System.EventHandler(this.drawFirstSideButton_CheckedChanged);
 			// 
 			// copyrightsBanner
 			// 
@@ -931,6 +931,54 @@ namespace DXF
 			this.tabSetup.TabIndex = 0;
 			this.tabSetup.Text = "Machining Setup";
 			// 
+			// cavaSelectorGroup
+			// 
+			this.cavaSelectorGroup.Controls.Add(this.cavaSecondSideCheckBox);
+			this.cavaSelectorGroup.Controls.Add(this.cavaFirstSideCheckBox);
+			this.cavaSelectorGroup.Controls.Add(this.cavaSelectorLabel);
+			this.cavaSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.cavaSelectorGroup.Location = new System.Drawing.Point(316, 202);
+			this.cavaSelectorGroup.Margin = new System.Windows.Forms.Padding(2);
+			this.cavaSelectorGroup.Name = "cavaSelectorGroup";
+			this.cavaSelectorGroup.Padding = new System.Windows.Forms.Padding(2);
+			this.cavaSelectorGroup.Size = new System.Drawing.Size(255, 96);
+			this.cavaSelectorGroup.TabIndex = 20;
+			this.cavaSelectorGroup.TabStop = false;
+			this.cavaSelectorGroup.Text = "Set cava";
+			// 
+			// cavaSecondSideCheckBox
+			// 
+			this.cavaSecondSideCheckBox.AutoSize = true;
+			this.cavaSecondSideCheckBox.ForeColor = System.Drawing.Color.Black;
+			this.cavaSecondSideCheckBox.Location = new System.Drawing.Point(12, 65);
+			this.cavaSecondSideCheckBox.Name = "cavaSecondSideCheckBox";
+			this.cavaSecondSideCheckBox.Size = new System.Drawing.Size(190, 20);
+			this.cavaSecondSideCheckBox.TabIndex = 23;
+			this.cavaSecondSideCheckBox.Text = "Apply cava on second side";
+			this.cavaSecondSideCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// cavaFirstSideCheckBox
+			// 
+			this.cavaFirstSideCheckBox.AutoSize = true;
+			this.cavaFirstSideCheckBox.ForeColor = System.Drawing.Color.Black;
+			this.cavaFirstSideCheckBox.Location = new System.Drawing.Point(12, 44);
+			this.cavaFirstSideCheckBox.Name = "cavaFirstSideCheckBox";
+			this.cavaFirstSideCheckBox.Size = new System.Drawing.Size(165, 20);
+			this.cavaFirstSideCheckBox.TabIndex = 22;
+			this.cavaFirstSideCheckBox.Text = "Apply cava on first side";
+			this.cavaFirstSideCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// cavaSelectorLabel
+			// 
+			this.cavaSelectorLabel.AutoSize = true;
+			this.cavaSelectorLabel.ForeColor = System.Drawing.Color.Black;
+			this.cavaSelectorLabel.Location = new System.Drawing.Point(9, 22);
+			this.cavaSelectorLabel.Name = "cavaSelectorLabel";
+			this.cavaSelectorLabel.Size = new System.Drawing.Size(221, 16);
+			this.cavaSelectorLabel.TabIndex = 21;
+			this.cavaSelectorLabel.Text = "Select where to apply cava overlap:";
+			// 
 			// dieWidthLabel
 			// 
 			this.dieWidthLabel.AutoSize = true;
@@ -1036,54 +1084,6 @@ namespace DXF
 			this.tabSettings.TabIndex = 1;
 			this.tabSettings.Text = "Machining Settings";
 			// 
-			// cavaSelectorGroup
-			// 
-			this.cavaSelectorGroup.Controls.Add(this.cavaSecondSideCheckBox);
-			this.cavaSelectorGroup.Controls.Add(this.cavaFirstSideCheckBox);
-			this.cavaSelectorGroup.Controls.Add(this.cavaSelectorLabel);
-			this.cavaSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cavaSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.cavaSelectorGroup.Location = new System.Drawing.Point(316, 202);
-			this.cavaSelectorGroup.Margin = new System.Windows.Forms.Padding(2);
-			this.cavaSelectorGroup.Name = "cavaSelectorGroup";
-			this.cavaSelectorGroup.Padding = new System.Windows.Forms.Padding(2);
-			this.cavaSelectorGroup.Size = new System.Drawing.Size(255, 96);
-			this.cavaSelectorGroup.TabIndex = 20;
-			this.cavaSelectorGroup.TabStop = false;
-			this.cavaSelectorGroup.Text = "Set cava";
-			// 
-			// cavaSelectorLabel
-			// 
-			this.cavaSelectorLabel.AutoSize = true;
-			this.cavaSelectorLabel.ForeColor = System.Drawing.Color.Black;
-			this.cavaSelectorLabel.Location = new System.Drawing.Point(9, 22);
-			this.cavaSelectorLabel.Name = "cavaSelectorLabel";
-			this.cavaSelectorLabel.Size = new System.Drawing.Size(221, 16);
-			this.cavaSelectorLabel.TabIndex = 21;
-			this.cavaSelectorLabel.Text = "Select where to apply cava overlap:";
-			// 
-			// cavaFirstSideCheckBox
-			// 
-			this.cavaFirstSideCheckBox.AutoSize = true;
-			this.cavaFirstSideCheckBox.ForeColor = System.Drawing.Color.Black;
-			this.cavaFirstSideCheckBox.Location = new System.Drawing.Point(12, 44);
-			this.cavaFirstSideCheckBox.Name = "cavaFirstSideCheckBox";
-			this.cavaFirstSideCheckBox.Size = new System.Drawing.Size(165, 20);
-			this.cavaFirstSideCheckBox.TabIndex = 22;
-			this.cavaFirstSideCheckBox.Text = "Apply cava on first side";
-			this.cavaFirstSideCheckBox.UseVisualStyleBackColor = true;
-			// 
-			// cavaSecondSideCheckBox
-			// 
-			this.cavaSecondSideCheckBox.AutoSize = true;
-			this.cavaSecondSideCheckBox.ForeColor = System.Drawing.Color.Black;
-			this.cavaSecondSideCheckBox.Location = new System.Drawing.Point(12, 65);
-			this.cavaSecondSideCheckBox.Name = "cavaSecondSideCheckBox";
-			this.cavaSecondSideCheckBox.Size = new System.Drawing.Size(190, 20);
-			this.cavaSecondSideCheckBox.TabIndex = 23;
-			this.cavaSecondSideCheckBox.Text = "Apply cava on second side";
-			this.cavaSecondSideCheckBox.UseVisualStyleBackColor = true;
-			// 
 			// MainApp
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1128,12 +1128,12 @@ namespace DXF
 			this.tabPanel.ResumeLayout(false);
 			this.tabSetup.ResumeLayout(false);
 			this.tabSetup.PerformLayout();
+			this.cavaSelectorGroup.ResumeLayout(false);
+			this.cavaSelectorGroup.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.visualizationPanel)).EndInit();
 			this.firstSideSelectorGroup.ResumeLayout(false);
 			this.firstSideSelectorGroup.PerformLayout();
 			this.tabSettings.ResumeLayout(false);
-			this.cavaSelectorGroup.ResumeLayout(false);
-			this.cavaSelectorGroup.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

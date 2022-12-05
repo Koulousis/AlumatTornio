@@ -24,12 +24,17 @@ namespace DXF.Elements
 		public static float DieWidth { get; set; }
 		#endregion
 
-		#region Setted on first side selection
+		#region Setted on machining setup
 		public static List<Line> FirstSideLines { get; set; }
 		public static List<Arc> FirstSideArcs { get; set; }
 		
 		public static List<Line> SecondSideLines { get; set; }
 		public static List<Arc> SecondSideArcs { get; set; }
+
+		public static float StockFromDiameter { get; set; }
+		public static float StockFromRadius { get; set; }
+		public static int StockFromWidthSecondSide { get; set; }
+		public static float StockFromWidthFirstSide { get; set; }
 		#endregion
 
 		public static bool FirstMachiningSideAsDesigned { get; set; }
@@ -65,11 +70,11 @@ namespace DXF.Elements
 		public static List<GCodePoint> G72ProfilePointsSecondSide { get; set; }
 		public static List<GCodePoint> G71ProfilePointsSecondSide { get; set; }
 
-		public static float StockDiameter { get; set; }
+		
 		public static float StockDiameterExtra = 1;
 		public static float StockDiameterExtraMax = 7;
 
-		public static float StockWidth { get; set; }
+		
 		public static float StockWidthExtra = 2;
 		public static float StockWidthExtraMax = 7;
 
@@ -81,7 +86,7 @@ namespace DXF.Elements
 		#endregion
 
 		#region For Settings
-		public static float ZoomFactor = 1f;
+		public static float ScaleFactor = 1f;
 		public static bool ComesFromFileLoad = false;
 
 		#endregion

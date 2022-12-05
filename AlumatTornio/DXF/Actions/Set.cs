@@ -13,15 +13,15 @@ namespace DXF.Actions
 	{
 		public static void StockDiameter(float dieDiameter)
 		{
-			Parameter.StockDiameter = (float)Math.Ceiling(dieDiameter);
-			Parameter.StockDiameter += Parameter.StockDiameterExtra;
+			Parameter.StockFromDiameter = (float)Math.Ceiling(dieDiameter);
+			Parameter.StockFromDiameter += Parameter.StockDiameterExtra;
 		}
 
 
 		public static void StockWidth(float dieWidth)
 		{
-			Parameter.StockWidth = (float)Math.Ceiling(dieWidth);
-			Parameter.StockWidth += Parameter.StockWidthExtra;
+			Parameter.StockFromWidthFirstSide = (float)Math.Ceiling(dieWidth);
+			Parameter.StockFromWidthFirstSide += Parameter.StockWidthExtra;
 		}
 
 		public static void StockX(float stockDiameter, float dieDiameter)

@@ -22,36 +22,7 @@ namespace DXF.Actions
 
 			return lines;
 		}
-
-		public static List<Line> NotProfileLines(List<Line> lines)
-		{
-			float y1 = lines[0].StartY;
-			float y2 = lines[0].EndY;
-			bool profileDone = false;
-
-			for (int i = 1; i < lines.Count; i++)
-			{
-				bool atLeastOnePointSmallerY = lines[i].StartY < y1 || lines[i].EndY < y1 || lines[i].StartY < y2 || lines[i].EndY < y2;
-				if (profileDone)
-				{
-					lines.Remove(lines[i]);
-					i--;
-				}
-				else if (atLeastOnePointSmallerY)
-				{
-					profileDone = true;
-					lines.Remove(lines[i]);
-					i--;
-				}
-				else
-				{
-					y1 = lines[i].StartY;
-					y2 = lines[i].EndY;
-				}
-			}
-
-			return lines;
-		}
+		
 
 		public static List<Arc> NotProfileArcs(List<Line> lines, List<Arc> arcs, string side)
 		{

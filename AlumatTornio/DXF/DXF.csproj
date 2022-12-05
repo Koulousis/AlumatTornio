@@ -54,7 +54,6 @@
     <Compile Include="Actions\Initial.cs" />
     <Compile Include="Actions\Remove.cs" />
     <Compile Include="Actions\Set.cs" />
-    <Compile Include="Organizer\Dxf.cs" />
     <Compile Include="Elements\Parameter.cs" />
     <Compile Include="Lathe\CodeBlock.cs" />
     <Compile Include="Lathe\G72Attributes.cs" />

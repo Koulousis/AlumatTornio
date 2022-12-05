@@ -12,7 +12,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DXF.Actions;
-using DXF.Organizer;
 using DXF.Elements;
 using DXF.Lathe;
 using DXF.Properties;
@@ -103,7 +102,7 @@ namespace DXF
 			Edit.DecimalsCorrection(allLines, allArcs);
 
 			//Create lines and arcs with coordinates as designed
-			List<Line> dieLinesAsDesigned = Get.DieLinesAsDisigned(allLines);
+			List<Line> dieLinesAsDesigned = Get.DieLinesAsDesigned(allLines);
 			List<Arc> dieArcsAsDesigned = Get.DieArcsAsDesigned(allArcs);
 			Edit.AddIndexesAndCounterClockwiseElements(dieLinesAsDesigned, dieArcsAsDesigned);
 
@@ -151,7 +150,7 @@ namespace DXF
 		}
 		#endregion
 
-		#region Set First Machining Side Setup
+		#region Machining Setup
 		private void asDesignedButton_CheckedChanged(object sender, EventArgs e)
 		{
 			if (asDesignedButton.Checked)
@@ -188,7 +187,7 @@ namespace DXF
 			viewSideSelectorGroup.Enabled = true;
 			stockValuesSelectorGroup.Enabled = true;
 			generateCode.Enabled = true;
-
+			
 			//Set stock values
 			float stockDiameterValue = Parameter.DieDiameter;
 			stockDiameterValue += 1 - Parameter.DieDiameter % 1;
@@ -202,8 +201,26 @@ namespace DXF
 			stockWidthInput.Minimum = Convert.ToDecimal(stockWidthValue);
 			stockWidthInput.Maximum = stockWidthInput.Minimum + 10;
 
+			//First side G71 profile
+			List<Line> firstSideOuterHorizontalMachiningLines = Get.OuterHorizontalMachiningLines(Parameter.FirstSideLines);
+			List<Arc> firstSideOuterHorizontalMachiningArcs = Get.OuterHorizontalMachiningArcs(Parameter.FirstSideLines, Parameter.FirstSideArcs);
+
 		}
 
+		private void stockDiameterInput_ValueChanged(object sender, EventArgs e)
+		{
+			Parameter.StockFromDiameter = (float)stockDiameterInput.Value - Parameter.DieDiameter;
+			Parameter.StockFromRadius = Parameter.StockFromDiameter / 2;
+			visualizationPanel.Refresh();
+		}
+
+		private void stockWidthInput_ValueChanged(object sender, EventArgs e)
+		{
+			Parameter.StockFromWidthSecondSide = 1;
+			Parameter.StockFromWidthFirstSide = (float)stockWidthInput.Value - Parameter.DieWidth - Parameter.StockFromWidthSecondSide;
+			Parameter.StockFromWidthFirstSide = Conversion.StringToThreeDigitFloat(Parameter.StockFromWidthFirstSide.ToString());
+			visualizationPanel.Refresh();
+		}
 		#endregion
 
 		#region Draw on Visualization Panel
@@ -234,6 +251,9 @@ namespace DXF
 			float scaleFactor = scaleToFitDiameter < scaleToFitWidth ? scaleToFitDiameter : scaleToFitWidth;
 			scaleFactor *= 0.8f;
 			visualizationPanelGraphics.ScaleTransform(scaleFactor, scaleFactor);
+
+			//Set global parameters
+			Parameter.ScaleFactor = scaleFactor;
 			
 			//Draw
 			Draw.Axes(visualizationPanel, visualizationPanelGraphics);
@@ -247,12 +267,17 @@ namespace DXF
 			//Draw when selecting side to draw and print
 			if (viewSideSelectorGroup.Enabled)
 			{
+				//Side and stock draw
 				if (drawFirstSideButton.Checked)
 				{
+					Draw.Stock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthFirstSide, Parameter.StockFromWidthSecondSide);
+					Draw.Chock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthSecondSide);
 					Draw.Die(visualizationPanelGraphics, Parameter.FirstSideLines, Parameter.FirstSideArcs);
 				}
 				else if (drawSecondSideButton.Checked)
 				{
+					Draw.Stock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthSecondSide, Parameter.StockFromWidthFirstSide);
+					Draw.Chock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthFirstSide);
 					Draw.Die(visualizationPanelGraphics, Parameter.SecondSideLines, Parameter.SecondSideArcs);
 				}
 			}
@@ -261,11 +286,11 @@ namespace DXF
 			
 		}
 
-		private void firstSide_CheckedChanged(object sender, EventArgs e)
+		private void drawFirstSideButton_CheckedChanged(object sender, EventArgs e)
 		{
 			visualizationPanel.Refresh();
 		}
-		
+
 
 		private void visualizationPanel_MouseMove(object sender, MouseEventArgs e)
 		{
@@ -274,14 +299,17 @@ namespace DXF
 			Graphics screen = CreateGraphics();
 
 			//Move X and Y origin location
-			double cursorPositionX = Calculation.TransformWidth(visualizationPanel.Width) - e.Location.X;
-			double cursorPositionY = Calculation.TransformHeight(visualizationPanel.Height) - e.Location.Y;
+			double cursorPositionX = (visualizationPanel.Width * 0.9) - e.Location.X;
+			double cursorPositionY = (visualizationPanel.Height * 0.95) - e.Location.Y;
+
 			//Transform pixels to millimeters
 			cursorPositionX += 25.4f / screen.DpiX;
 			cursorPositionY += 25.4f / screen.DpiY;
 
 			//Set Labels text to X and Y mouse position
-			coordinatesLabel.Text = $@"X:{(cursorPositionY / Elements.Parameter.ZoomFactor) * 2,0:F3}, Z:{-cursorPositionX / Elements.Parameter.ZoomFactor,0:F3}";
+			float latheCoordinateX = (float)cursorPositionY / Parameter.ScaleFactor * 2;
+			float latheCoordinateZ = -(float) cursorPositionX / Parameter.ScaleFactor;
+			coordinatesLabel.Text = $@"X:{latheCoordinateX,0:F3}, Z:{latheCoordinateZ,0:F3}";
 		}
 		#endregion
 		
@@ -484,14 +512,6 @@ namespace DXF
 		}
 		#endregion
 
-		private void stockDiameterInput_ValueChanged(object sender, EventArgs e)
-		{
-			Console.WriteLine("wtf");
-		}
-
-		private void stockWidthInput_ValueChanged(object sender, EventArgs e)
-		{
-			Console.WriteLine("wtf");
-		}
+		
 	}
 }
