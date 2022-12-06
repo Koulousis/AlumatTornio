@@ -201,58 +201,144 @@ namespace DXF.Actions
 				}
 			}
 			
-			//Removed the lines which are before the found line
+			//Remove the lines which are before the closer to zero line
 			while (outerHorizontalMachiningLines[0] != closerToZeroLine)
 			{
 				outerHorizontalMachiningLines.RemoveAt(0);
 			}
 
-			//Start the iteration when the coordinates of X is not attached to axis and do it until coordinates of Y are moving negative
-			
-
-
-
-			float y1 = outerHorizontalMachiningLines[0].StartY;
-			float y2 = outerHorizontalMachiningLines[0].EndY;
-			bool profileDone = false;
-
-			for (int i = 1; i < outerHorizontalMachiningLines.Count; i++)
+			//Remove lines while it's moving across Y Axis
+			while (outerHorizontalMachiningLines[0].StartX == 0 && outerHorizontalMachiningLines[0].EndX == 0)
 			{
-				bool atLeastOnePointSmallerY = outerHorizontalMachiningLines[i].StartY < y1 || outerHorizontalMachiningLines[i].EndY < y1 || outerHorizontalMachiningLines[i].StartY < y2 || outerHorizontalMachiningLines[i].EndY < y2;
-				if (profileDone)
-				{
-					outerHorizontalMachiningLines.Remove(outerHorizontalMachiningLines[i]);
-					i--;
-				}
-				else if (atLeastOnePointSmallerY)
-				{
-					profileDone = true;
-					outerHorizontalMachiningLines.Remove(outerHorizontalMachiningLines[i]);
-					i--;
-				}
-				else
-				{
-					y1 = outerHorizontalMachiningLines[i].StartY;
-					y2 = outerHorizontalMachiningLines[i].EndY;
-				}
+				outerHorizontalMachiningLines.RemoveAt(0);
 			}
 
-
+			//Keep the lines in the list while the Y points are not going to negative direction
+			int i = 0;
+			while (outerHorizontalMachiningLines[i].StartY <= outerHorizontalMachiningLines[i].EndY)
+			{
+				i++;
+			}
+			outerHorizontalMachiningLines.RemoveRange(i, outerHorizontalMachiningLines.Count - i);
 
 			return outerHorizontalMachiningLines;
 		}
 
-		public static List<Arc> OuterHorizontalMachiningArcs(List<Line> anySideLines, List<Arc> anySideArcs)
+		public static List<Arc> OuterHorizontalMachiningArcs(List<Line> outerHorizontalMachiningLines, List<Arc> anySideArcs)
 		{
-			List<Arc> horizontalProfileArcs = new List<Arc>();
-			foreach (Arc arc in anySideArcs) { horizontalProfileArcs.Add(arc.Clone()); }
-			horizontalProfileArcs = horizontalProfileArcs.OrderBy(arc => arc.Index).ToList();
+			List<Arc> outerHorizontalMachiningArcs = new List<Arc>();
+			foreach (Arc arc in anySideArcs) { outerHorizontalMachiningArcs.Add(arc.Clone()); }
 
-			//Remove arcs that has decreased Y from the previous iterated arc
-			horizontalProfileArcs = Remove.NotProfileArcs(anySideLines, horizontalProfileArcs, "Right");
+			int i = 0;
+			if (outerHorizontalMachiningLines.First().Index < outerHorizontalMachiningLines.Last().Index)
+			{
+				while (anySideArcs[i].Index < outerHorizontalMachiningLines[outerHorizontalMachiningLines.Count - 1].Index)
+				{
+					i++;
+				}
+				outerHorizontalMachiningArcs.RemoveRange(i, outerHorizontalMachiningArcs.Count - i);
+			}
+			else if (outerHorizontalMachiningLines.First().Index > outerHorizontalMachiningLines.Last().Index)
+			{
+				while (anySideArcs[i].Index > outerHorizontalMachiningLines[outerHorizontalMachiningLines.Count - 1].Index)
+				{
+					i++;
+				}
+				outerHorizontalMachiningArcs.RemoveRange(i, outerHorizontalMachiningArcs.Count - i);
+			}
+			
+			
 
-			return horizontalProfileArcs;
+			return outerHorizontalMachiningArcs;
 		}
+
+		public static List<Line> FirstSideStockMachiningLines(List<Line> firstSideMachiningLines, List<Arc> firstSideMachiningArcs)
+		{
+			List<Line> firstSideStockMachiningLines = new List<Line>();
+
+			PointF firstProfilePoint = new PointF();
+			PointF lastProfilePoint = new PointF();
+			int stockStartHorizontalIndex = 0;
+			int stockStartVerticalIndex = 0;
+			int stockEndVerticalIndex = 0;
+
+			//Check if the first side is as designed or flipped
+			//find the first profile point coordinates which can be line or arc
+			//and set indexes for the stock lines
+			if (firstSideMachiningLines.First().Index < firstSideMachiningArcs.Last().Index)
+			{
+				//Find first
+				if (firstSideMachiningLines.First().Index < firstSideMachiningArcs.First().Index)
+				{
+					firstProfilePoint.X = firstSideMachiningLines.First().StartX;
+					firstProfilePoint.Y = firstSideMachiningLines.First().StartY;
+				}
+				else if (firstSideMachiningArcs.First().Index < firstSideMachiningLines.First().Index)
+				{
+					firstProfilePoint.X = firstSideMachiningArcs.First().StartX;
+					firstProfilePoint.Y = firstSideMachiningArcs.First().StartY;
+				}
+				//Find last
+				if (firstSideMachiningLines.Last().Index > firstSideMachiningArcs.Last().Index)
+				{
+					lastProfilePoint.X = firstSideMachiningLines.Last().EndX;
+					lastProfilePoint.Y = firstSideMachiningLines.Last().EndY;
+				}
+				else if (firstSideMachiningArcs.Last().Index > firstSideMachiningLines.Last().Index)
+				{
+					lastProfilePoint.X = firstSideMachiningArcs.Last().EndX;
+					lastProfilePoint.Y = firstSideMachiningArcs.Last().EndY;
+				}
+				stockStartHorizontalIndex = firstSideMachiningLines.First().Index - 1;
+				stockStartVerticalIndex = stockStartHorizontalIndex - 1;
+				stockEndVerticalIndex = firstSideMachiningLines.Last().Index + 1;
+			}
+			else if (firstSideMachiningLines.First().Index > firstSideMachiningArcs.Last().Index)
+			{
+				//Find first
+				if (firstSideMachiningLines.First().Index > firstSideMachiningArcs.First().Index)
+				{
+					lastProfilePoint.X = firstSideMachiningLines.First().StartX;
+					lastProfilePoint.Y = firstSideMachiningLines.First().StartY;
+				}
+				else if (firstSideMachiningArcs.First().Index > firstSideMachiningLines.First().Index)
+				{
+					lastProfilePoint.X = firstSideMachiningArcs.First().StartX;
+					lastProfilePoint.Y = firstSideMachiningArcs.First().StartY;
+				}
+				//Find last
+				if (firstSideMachiningLines.Last().Index > firstSideMachiningArcs.Last().Index)
+				{
+					lastProfilePoint.X = firstSideMachiningLines.Last().EndX;
+					lastProfilePoint.Y = firstSideMachiningLines.Last().EndY;
+				}
+				else if (firstSideMachiningArcs.Last().Index > firstSideMachiningLines.Last().Index)
+				{
+					lastProfilePoint.X = firstSideMachiningArcs.Last().EndX;
+					lastProfilePoint.Y = firstSideMachiningArcs.Last().EndY;
+				}
+				stockStartHorizontalIndex = firstSideMachiningLines.First().Index + 1;
+				stockStartVerticalIndex = stockStartHorizontalIndex + 1;
+				stockEndVerticalIndex = firstSideMachiningLines.Last().Index - 1;
+			}
+
+			Line stockStartHorizontal = new Line(Parameter.StockFromWidthFirstSide, firstProfilePoint.Y, firstProfilePoint.X, firstProfilePoint.Y, Parameter.Green);
+			stockStartHorizontal.Index = stockStartHorizontalIndex;
+
+			Line stockStartVertical = new Line(Parameter.StockFromWidthFirstSide, Parameter.DieRadius + Parameter.StockFromRadius, stockStartHorizontal.StartX, stockStartHorizontal.StartY, Parameter.Green);
+			stockStartVertical.Index = stockStartVerticalIndex;
+
+			Line stockEndVertical = new Line(lastProfilePoint.X, lastProfilePoint.Y, lastProfilePoint.X, lastProfilePoint.Y + Parameter.StockFromRadius, Parameter.Green);
+			stockEndVertical.Index = stockEndVerticalIndex;
+
+			firstSideStockMachiningLines.Insert(0, stockEndVertical);
+			firstSideStockMachiningLines.Insert(0, stockStartHorizontal);
+			firstSideStockMachiningLines.Insert(0, stockStartVertical);
+
+			return firstSideStockMachiningLines;
+		}
+
+
 
 		public static List<Line> CavaLines(List<Line> dieLines, List<Line> rightProfileLines, List<Line> leftProfileLines)
 		{

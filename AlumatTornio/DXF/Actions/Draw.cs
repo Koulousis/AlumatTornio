@@ -104,7 +104,7 @@ namespace DXF.Actions
 			};
 
 			GraphicsPath stockPath = new GraphicsPath(stockPoints, stockPointsType);
-			Brush stockBrush = new SolidBrush(Color.FromArgb(255, 120, 120, 90));
+			Brush stockBrush = new SolidBrush(Color.LightSlateGray);
 			visualizationPanel.FillPath(stockBrush,stockPath);
 
 			//Dispose
@@ -140,6 +140,62 @@ namespace DXF.Actions
 			//Dispose
 			chockBrush.Dispose();
 		}
+
+		public static void OuterHorizontalMachiningProfile(Graphics visualizationPanelGraphics, List<Line> outerHorizontalMachiningLines, List<Arc> outerHorizontalMachiningArcs)
+		{
+			//Instantiate a specific Pen
+			Pen profilePen = new Pen(Color.DarkMagenta);
+			profilePen.Alignment = PenAlignment.Center;
+			profilePen.ScaleTransform(0, 0);
+
+			//Indexes
+			if (outerHorizontalMachiningLines == null || outerHorizontalMachiningLines.Count == 0) return;
+			List<int> indexes = new List<int>();
+			indexes.AddRange(outerHorizontalMachiningLines.Select(line => line.Index).ToList());
+			indexes.AddRange(outerHorizontalMachiningArcs.Select(arc => arc.Index).ToList());
+
+			if (outerHorizontalMachiningLines.First().Index < outerHorizontalMachiningLines.Last().Index)
+			{ indexes.Sort(); }
+			else
+			{ indexes.Sort(); indexes.Reverse(); }
+
+			//Draw die lines and arcs
+			GraphicsPath outerHorizontalMachiningPath = new GraphicsPath();
+			Brush outerHorizontalMachiningBrush = new HatchBrush(HatchStyle.NarrowHorizontal,Color.DarkMagenta, Color.LightSlateGray);
+			foreach (int index in indexes)
+			{
+				foreach (Line line in outerHorizontalMachiningLines)
+				{
+					if (line.Index == index)
+					{
+						outerHorizontalMachiningPath.AddLine(line.StartX, line.StartY, line.EndX, line.EndY);
+					}
+				}
+
+				foreach (Arc arc in outerHorizontalMachiningArcs)
+				{
+					if (arc.Index == index)
+					{
+						outerHorizontalMachiningPath.AddArc(arc.RectangularCornerX, arc.RectangularCornerY, arc.Width, arc.Height, arc.StartAngle, arc.SweepAngle);
+					}
+				}
+			}
+
+			visualizationPanelGraphics.FillPath(outerHorizontalMachiningBrush, outerHorizontalMachiningPath);
+			visualizationPanelGraphics.DrawPath(profilePen, outerHorizontalMachiningPath);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
 
 		public static void Profile(Graphics drawPanel, List<Line> profileLines, List<Arc> profileArcs)
 		{
@@ -258,5 +314,6 @@ namespace DXF.Actions
 			Draw.Profile(drawPanel, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
 			Draw.ProfileEndToEndPosition(drawPanel, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
 		}
+
 	}
 }

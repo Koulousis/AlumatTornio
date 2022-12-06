@@ -33,12 +33,15 @@ namespace DXF.Elements
 
 		public static float StockFromDiameter { get; set; }
 		public static float StockFromRadius { get; set; }
-		public static int StockFromWidthSecondSide { get; set; }
+		public static float StockFromWidthSecondSide { get; set; }
 		public static float StockFromWidthFirstSide { get; set; }
+
+		public static List<Line> FirstSideOuterHorizontalMachiningLines { get; set; }
+		public static List<Arc> FirstSideOuterHorizontalMachiningArcs { get; set; }
+		public static List<Line> SecondSideOuterHorizontalMachiningLines { get; set; }
+		public static List<Arc> SecondSideOuterHorizontalMachiningArcs { get; set; }
 		#endregion
 
-		public static bool FirstMachiningSideAsDesigned { get; set; }
-		public static bool FirstMachiningSideFlipped { get; set; }
 
 		public static List<Line> G71LinesRightSide { get; set; }
 		public static List<Arc> G71ArcsRightSide { get; set; }
