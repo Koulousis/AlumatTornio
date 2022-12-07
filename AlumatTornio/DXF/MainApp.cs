@@ -226,7 +226,8 @@ namespace DXF
 			//***************************************************************************************************************************************
 			//First side outer horizontal machining profile
 			List<Line> firstSideOuterVerticalMachiningLines = Get.FirstSideOuterVerticalMachiningLines();
-
+			//Second side outer horizontal machining profile
+			List<Line> secondSideOuterVerticalMachiningLines = Get.SecondSideOuterVerticalMachiningLines();
 			//***************************************************************************************************************************************
 
 			//Set Global Parameters
@@ -236,6 +237,7 @@ namespace DXF
 
 			Parameter.SecondSideOuterHorizontalMachiningLines = secondSideOuterHorizontalMachiningLines;
 			Parameter.SecondSideOuterHorizontalMachiningArcs = secondSideOuterHorizontalMachiningArcs;
+			Parameter.SecondSideOuterVerticalMachiningLines = secondSideOuterVerticalMachiningLines;
 
 			//Draw
 			visualizationPanel.Refresh();
@@ -265,6 +267,12 @@ namespace DXF
 				Parameter.FirstSideOuterVerticalMachiningLines[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
 				Parameter.FirstSideOuterVerticalMachiningLines[0].EndY = Parameter.DieRadius + Parameter.StockFromRadius;
 				Parameter.FirstSideOuterVerticalMachiningLines[1].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
+			}
+			if (Parameter.SecondSideOuterVerticalMachiningLines.Count != 0)
+			{
+				Parameter.SecondSideOuterVerticalMachiningLines[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
+				Parameter.SecondSideOuterVerticalMachiningLines[0].EndY = Parameter.DieRadius + Parameter.StockFromRadius;
+				Parameter.SecondSideOuterVerticalMachiningLines[1].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
 			}
 
 			visualizationPanel.Refresh();
@@ -354,6 +362,7 @@ namespace DXF
 					Draw.Chock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthFirstSide);
 					Draw.Die(visualizationPanelGraphics, Parameter.SecondSideLines, Parameter.SecondSideArcs);
 					Draw.OuterHorizontalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideOuterHorizontalMachiningLines, Parameter.SecondSideOuterHorizontalMachiningArcs);
+					Draw.OuterVerticalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideOuterVerticalMachiningLines);
 				}
 			}
 			
