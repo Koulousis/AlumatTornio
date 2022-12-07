@@ -263,63 +263,67 @@ namespace DXF.Actions
 			int stockEndVerticalIndex = 0;
 
 			//Check if the first side is as designed or flipped
-			//find the first profile point coordinates which can be line or arc
-			//and set indexes for the stock lines
-			if (firstSideMachiningLines.First().Index < firstSideMachiningArcs.Last().Index)
+			if (firstSideMachiningLines.First().Index < firstSideMachiningLines.Last().Index)
 			{
-				//Find first
+				//find the first profile point coordinates which can be line or arc
 				if (firstSideMachiningLines.First().Index < firstSideMachiningArcs.First().Index)
 				{
 					firstProfilePoint.X = firstSideMachiningLines.First().StartX;
 					firstProfilePoint.Y = firstSideMachiningLines.First().StartY;
+					stockStartHorizontalIndex = firstSideMachiningLines.First().Index - 1;
+					stockStartVerticalIndex = firstSideMachiningLines.First().Index - 2;
 				}
 				else if (firstSideMachiningArcs.First().Index < firstSideMachiningLines.First().Index)
 				{
 					firstProfilePoint.X = firstSideMachiningArcs.First().StartX;
 					firstProfilePoint.Y = firstSideMachiningArcs.First().StartY;
+					stockStartHorizontalIndex = firstSideMachiningArcs.First().Index - 1;
+					stockStartVerticalIndex = firstSideMachiningArcs.First().Index - 2;
 				}
-				//Find last
+				//find the last profile point coordinates which can be line or arc
 				if (firstSideMachiningLines.Last().Index > firstSideMachiningArcs.Last().Index)
 				{
 					lastProfilePoint.X = firstSideMachiningLines.Last().EndX;
 					lastProfilePoint.Y = firstSideMachiningLines.Last().EndY;
+					stockEndVerticalIndex = firstSideMachiningLines.Last().Index + 1;
 				}
 				else if (firstSideMachiningArcs.Last().Index > firstSideMachiningLines.Last().Index)
 				{
 					lastProfilePoint.X = firstSideMachiningArcs.Last().EndX;
 					lastProfilePoint.Y = firstSideMachiningArcs.Last().EndY;
+					stockEndVerticalIndex = firstSideMachiningArcs.Last().Index + 1;
 				}
-				stockStartHorizontalIndex = firstSideMachiningLines.First().Index - 1;
-				stockStartVerticalIndex = stockStartHorizontalIndex - 1;
-				stockEndVerticalIndex = firstSideMachiningLines.Last().Index + 1;
 			}
-			else if (firstSideMachiningLines.First().Index > firstSideMachiningArcs.Last().Index)
+			else if (firstSideMachiningLines.First().Index > firstSideMachiningLines.Last().Index)
 			{
-				//Find first
+				//find the first profile point coordinates which can be line or arc
 				if (firstSideMachiningLines.First().Index > firstSideMachiningArcs.First().Index)
 				{
-					lastProfilePoint.X = firstSideMachiningLines.First().StartX;
-					lastProfilePoint.Y = firstSideMachiningLines.First().StartY;
+					firstProfilePoint.X = firstSideMachiningLines.First().StartX;
+					firstProfilePoint.Y = firstSideMachiningLines.First().StartY;
+					stockStartHorizontalIndex = firstSideMachiningLines.First().Index + 1;
+					stockStartVerticalIndex = firstSideMachiningLines.First().Index + 2;
 				}
 				else if (firstSideMachiningArcs.First().Index > firstSideMachiningLines.First().Index)
 				{
-					lastProfilePoint.X = firstSideMachiningArcs.First().StartX;
-					lastProfilePoint.Y = firstSideMachiningArcs.First().StartY;
+					firstProfilePoint.X = firstSideMachiningArcs.First().StartX;
+					firstProfilePoint.Y = firstSideMachiningArcs.First().StartY;
+					stockStartHorizontalIndex = firstSideMachiningArcs.First().Index + 1;
+					stockStartVerticalIndex = firstSideMachiningArcs.First().Index + 2;
 				}
-				//Find last
-				if (firstSideMachiningLines.Last().Index > firstSideMachiningArcs.Last().Index)
+				//find the last profile point coordinates which can be line or arc
+				if (firstSideMachiningLines.Last().Index < firstSideMachiningArcs.Last().Index)
 				{
 					lastProfilePoint.X = firstSideMachiningLines.Last().EndX;
 					lastProfilePoint.Y = firstSideMachiningLines.Last().EndY;
+					stockEndVerticalIndex = firstSideMachiningLines.Last().Index - 1;
 				}
-				else if (firstSideMachiningArcs.Last().Index > firstSideMachiningLines.Last().Index)
+				else if (firstSideMachiningArcs.Last().Index < firstSideMachiningLines.Last().Index)
 				{
 					lastProfilePoint.X = firstSideMachiningArcs.Last().EndX;
 					lastProfilePoint.Y = firstSideMachiningArcs.Last().EndY;
+					stockEndVerticalIndex = firstSideMachiningArcs.Last().Index - 1;
 				}
-				stockStartHorizontalIndex = firstSideMachiningLines.First().Index + 1;
-				stockStartVerticalIndex = stockStartHorizontalIndex + 1;
-				stockEndVerticalIndex = firstSideMachiningLines.Last().Index - 1;
 			}
 
 			Line stockStartHorizontal = new Line(Parameter.StockFromWidthFirstSide, firstProfilePoint.Y, firstProfilePoint.X, firstProfilePoint.Y, Parameter.Green);
