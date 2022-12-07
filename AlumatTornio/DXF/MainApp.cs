@@ -216,7 +216,10 @@ namespace DXF
 			List<Arc> secondSideOuterHorizontalMachiningArcs = Get.OuterHorizontalMachiningArcs(secondSideOuterHorizontalMachiningLines, Parameter.SecondSideArcs);
 
 			//Insert lines from stock start position until profile start and from profile end to stock end position for second side
-
+			List<Line> secondSideStockMachiningLines = Get.SecondSideStockMachiningLines(secondSideOuterHorizontalMachiningLines, secondSideOuterHorizontalMachiningArcs);
+			secondSideOuterHorizontalMachiningLines.Add(secondSideStockMachiningLines[2]);
+			secondSideOuterHorizontalMachiningLines.Insert(0, secondSideStockMachiningLines[1]);
+			secondSideOuterHorizontalMachiningLines.Insert(0, secondSideStockMachiningLines[0]);
 
 
 			//Set Global Parameters
@@ -242,7 +245,12 @@ namespace DXF
 				Parameter.FirstSideOuterHorizontalMachiningLines[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
 				Parameter.FirstSideOuterHorizontalMachiningLines[Parameter.FirstSideOuterHorizontalMachiningLines.Count - 1].EndY = Parameter.FirstSideOuterHorizontalMachiningLines[Parameter.FirstSideOuterHorizontalMachiningLines.Count - 1].StartY + Parameter.StockFromRadius;
 			}
-			
+			if (Parameter.SecondSideOuterHorizontalMachiningLines.Count != 0)
+			{
+				Parameter.SecondSideOuterHorizontalMachiningLines[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
+				Parameter.SecondSideOuterHorizontalMachiningLines[Parameter.SecondSideOuterHorizontalMachiningLines.Count - 1].EndY = Parameter.SecondSideOuterHorizontalMachiningLines[Parameter.SecondSideOuterHorizontalMachiningLines.Count - 1].StartY + Parameter.StockFromRadius;
+			}
+
 			visualizationPanel.Refresh();
 		}
 
