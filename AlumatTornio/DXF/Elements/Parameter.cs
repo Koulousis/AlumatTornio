@@ -38,8 +38,11 @@ namespace DXF.Elements
 
 		public static List<Line> FirstSideOuterHorizontalMachiningLines { get; set; }
 		public static List<Arc> FirstSideOuterHorizontalMachiningArcs { get; set; }
+		public static List<Line> FirstSideOuterVerticalMachiningLines { get; set; }
+
 		public static List<Line> SecondSideOuterHorizontalMachiningLines { get; set; }
 		public static List<Arc> SecondSideOuterHorizontalMachiningArcs { get; set; }
+		public static List<Line> SecondSideOuterVerticalMachiningLines { get; set; }
 		#endregion
 
 

@@ -432,6 +432,29 @@ namespace DXF.Actions
 			return secondSideStockMachiningLines;
 		}
 
+		public static List<Line> FirstSideOuterVerticalMachiningLines()
+		{
+			List<Line> firstSideOuterVerticalMachiningLines = new List<Line>();
+
+			//Upper horizontal line
+			Line upperHorizontalLine = new Line(Parameter.StockFromWidthFirstSide, Parameter.DieRadius + Parameter.StockFromRadius, 0, Parameter.DieRadius + Parameter.StockFromRadius, Parameter.Green);
+			upperHorizontalLine.Index = 1;
+
+			//Left vertical line
+			Line leftVerticalLine = new Line(0, Parameter.DieRadius + Parameter.StockFromRadius, 0, -1, Parameter.Green);
+			leftVerticalLine.Index = 2;
+
+			//Lower horizontal line
+			Line lowerHorizontalLine = new Line(0, -1, Parameter.StockFromWidthFirstSide, -1, Parameter.Green);
+			lowerHorizontalLine.Index = 3;
+
+			firstSideOuterVerticalMachiningLines.Add(upperHorizontalLine);
+			firstSideOuterVerticalMachiningLines.Add(leftVerticalLine);
+			firstSideOuterVerticalMachiningLines.Add(lowerHorizontalLine);
+
+			return firstSideOuterVerticalMachiningLines;
+		}
+
 		public static List<Line> CavaLines(List<Line> dieLines, List<Line> rightProfileLines, List<Line> leftProfileLines)
 		{
 			List<Line> cavaLines = new List<Line>();
@@ -501,7 +524,6 @@ namespace DXF.Actions
 
 			return cavaArcs;
 		}
-		
 		
 	}
 }

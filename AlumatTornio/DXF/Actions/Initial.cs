@@ -40,10 +40,13 @@ namespace DXF.Actions
 
 			Parameter.FirstSideOuterHorizontalMachiningLines = new List<Line>();
 			Parameter.FirstSideOuterHorizontalMachiningArcs = new List<Arc>();
+			Parameter.FirstSideOuterVerticalMachiningLines = new List<Line>();
+
 			Parameter.SecondSideOuterHorizontalMachiningLines = new List<Line>();
 			Parameter.SecondSideOuterHorizontalMachiningArcs = new List<Arc>();
-		#endregion
+			Parameter.SecondSideOuterVerticalMachiningLines = new List<Line>();
+			#endregion
 
-	}
+		}
 }
 }

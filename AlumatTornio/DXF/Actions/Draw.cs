@@ -159,9 +159,9 @@ namespace DXF.Actions
 			else
 			{ indexes.Sort(); indexes.Reverse(); }
 
-			//Draw die lines and arcs
+			//Draw profile lines and arcs
 			GraphicsPath outerHorizontalMachiningPath = new GraphicsPath();
-			Brush outerHorizontalMachiningBrush = new HatchBrush(HatchStyle.NarrowHorizontal,Color.DarkMagenta, Color.LightSlateGray);
+			Brush outerHorizontalMachiningBrush = new HatchBrush(HatchStyle.NarrowHorizontal,Color.DarkMagenta, Color.FromArgb(0, 0, 0, 0));
 			foreach (int index in indexes)
 			{
 				foreach (Line line in outerHorizontalMachiningLines)
@@ -185,7 +185,25 @@ namespace DXF.Actions
 			visualizationPanelGraphics.DrawPath(profilePen, outerHorizontalMachiningPath);
 		}
 
+		public static void OuterVerticalMachiningProfile(Graphics visualizationPanelGraphics, List<Line> firstSideOuterVerticalMachiningLines)
+		{
+			//Instantiate a specific Pen
+			Pen profilePen = new Pen(Color.DarkGoldenrod);
+			profilePen.Alignment = PenAlignment.Center;
+			profilePen.ScaleTransform(0, 0);
+			
+			//Draw profile lines
+			GraphicsPath outerVerticalMachiningPath = new GraphicsPath();
+			Brush outerHorizontalMachiningBrush = new HatchBrush(HatchStyle.NarrowVertical, Color.DarkGoldenrod, Color.FromArgb(0,0,0,0));
+			
+			foreach (Line line in firstSideOuterVerticalMachiningLines)
+			{
+				outerVerticalMachiningPath.AddLine(line.StartX, line.StartY, line.EndX, line.EndY);
+			}
 
+			visualizationPanelGraphics.FillPath(outerHorizontalMachiningBrush, outerVerticalMachiningPath);
+			visualizationPanelGraphics.DrawPath(profilePen, outerVerticalMachiningPath);
+		}
 
 
 
@@ -315,5 +333,6 @@ namespace DXF.Actions
 			Draw.ProfileEndToEndPosition(drawPanel, Parameter.G71LinesLeftSide, Parameter.G71ArcsLeftSide);
 		}
 
+		
 	}
 }

@@ -201,7 +201,8 @@ namespace DXF
 			stockWidthInput.Minimum = Convert.ToDecimal(stockWidthValue);
 			stockWidthInput.Maximum = stockWidthInput.Minimum + 10;
 
-			//First side outer machining profile
+			//***************************************************************************************************************************************
+			//First side outer horizontal machining profile
 			List<Line> firstSideOuterHorizontalMachiningLines = Get.OuterHorizontalMachiningLines(Parameter.FirstSideLines);
 			List<Arc> firstSideOuterHorizontalMachiningArcs = Get.OuterHorizontalMachiningArcs(firstSideOuterHorizontalMachiningLines, Parameter.FirstSideArcs);
 
@@ -220,11 +221,18 @@ namespace DXF
 			secondSideOuterHorizontalMachiningLines.Add(secondSideStockMachiningLines[2]);
 			secondSideOuterHorizontalMachiningLines.Insert(0, secondSideStockMachiningLines[1]);
 			secondSideOuterHorizontalMachiningLines.Insert(0, secondSideStockMachiningLines[0]);
+			//***************************************************************************************************************************************
 
+			//***************************************************************************************************************************************
+			//First side outer horizontal machining profile
+			List<Line> firstSideOuterVerticalMachiningLines = Get.FirstSideOuterVerticalMachiningLines();
+
+			//***************************************************************************************************************************************
 
 			//Set Global Parameters
 			Parameter.FirstSideOuterHorizontalMachiningLines = firstSideOuterHorizontalMachiningLines;
 			Parameter.FirstSideOuterHorizontalMachiningArcs = firstSideOuterHorizontalMachiningArcs;
+			Parameter.FirstSideOuterVerticalMachiningLines = firstSideOuterVerticalMachiningLines;
 
 			Parameter.SecondSideOuterHorizontalMachiningLines = secondSideOuterHorizontalMachiningLines;
 			Parameter.SecondSideOuterHorizontalMachiningArcs = secondSideOuterHorizontalMachiningArcs;
@@ -239,7 +247,7 @@ namespace DXF
 			Parameter.StockFromDiameter = (float)stockDiameterInput.Value - Parameter.DieDiameter;
 			Parameter.StockFromRadius = Parameter.StockFromDiameter / 2;
 
-			//Update machining profile stock to profile lines
+			//Update outer horizontal machining stock to profile lines
 			if (Parameter.FirstSideOuterHorizontalMachiningLines.Count != 0)
 			{
 				Parameter.FirstSideOuterHorizontalMachiningLines[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
@@ -251,6 +259,14 @@ namespace DXF
 				Parameter.SecondSideOuterHorizontalMachiningLines[Parameter.SecondSideOuterHorizontalMachiningLines.Count - 1].EndY = Parameter.SecondSideOuterHorizontalMachiningLines[Parameter.SecondSideOuterHorizontalMachiningLines.Count - 1].StartY + Parameter.StockFromRadius;
 			}
 
+			//Update outer vertical machining lines
+			if (Parameter.FirstSideOuterVerticalMachiningLines.Count != 0)
+			{
+				Parameter.FirstSideOuterVerticalMachiningLines[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
+				Parameter.FirstSideOuterVerticalMachiningLines[0].EndY = Parameter.DieRadius + Parameter.StockFromRadius;
+				Parameter.FirstSideOuterVerticalMachiningLines[1].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
+			}
+
 			visualizationPanel.Refresh();
 		}
 
@@ -260,12 +276,19 @@ namespace DXF
 			Parameter.StockFromWidthFirstSide = (float)stockWidthInput.Value - Parameter.DieWidth - Parameter.StockFromWidthSecondSide;
 			Parameter.StockFromWidthFirstSide = Conversion.StringToThreeDigitFloat(Parameter.StockFromWidthFirstSide.ToString());
 
-			//Update machining profile stock to profile lines
+			//Update outer horizontal machining stock to profile lines
 			if (Parameter.FirstSideOuterHorizontalMachiningLines.Count != 0)
 			{
 				Parameter.FirstSideOuterHorizontalMachiningLines[0].StartX = Parameter.StockFromWidthFirstSide;
 				Parameter.FirstSideOuterHorizontalMachiningLines[0].EndX = Parameter.StockFromWidthFirstSide;
 				Parameter.FirstSideOuterHorizontalMachiningLines[1].StartX = Parameter.StockFromWidthFirstSide;
+			}
+
+			//Update outer vertical machining lines
+			if (Parameter.FirstSideOuterVerticalMachiningLines.Count != 0)
+			{
+				Parameter.FirstSideOuterVerticalMachiningLines[0].StartX = Parameter.StockFromWidthFirstSide;
+				Parameter.FirstSideOuterVerticalMachiningLines[2].EndX = Parameter.StockFromWidthFirstSide;
 			}
 
 			visualizationPanel.Refresh();
@@ -323,6 +346,7 @@ namespace DXF
 					Draw.Chock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthSecondSide);
 					Draw.Die(visualizationPanelGraphics, Parameter.FirstSideLines, Parameter.FirstSideArcs);
 					Draw.OuterHorizontalMachiningProfile(visualizationPanelGraphics, Parameter.FirstSideOuterHorizontalMachiningLines, Parameter.FirstSideOuterHorizontalMachiningArcs);
+					Draw.OuterVerticalMachiningProfile(visualizationPanelGraphics, Parameter.FirstSideOuterVerticalMachiningLines);
 				}
 				else if (drawSecondSideButton.Checked)
 				{

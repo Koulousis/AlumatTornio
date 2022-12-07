@@ -1044,9 +1044,9 @@ namespace DXF
 			this.firstSideSelectorLabel.ForeColor = System.Drawing.Color.Black;
 			this.firstSideSelectorLabel.Location = new System.Drawing.Point(9, 22);
 			this.firstSideSelectorLabel.Name = "firstSideSelectorLabel";
-			this.firstSideSelectorLabel.Size = new System.Drawing.Size(189, 16);
+			this.firstSideSelectorLabel.Size = new System.Drawing.Size(217, 16);
 			this.firstSideSelectorLabel.TabIndex = 2;
-			this.firstSideSelectorLabel.Text = "Select the first machining side :";
+			this.firstSideSelectorLabel.Text = "First machining side will be placed :";
 			// 
 			// flippedButton
 			// 
