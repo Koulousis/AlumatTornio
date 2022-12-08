@@ -135,6 +135,12 @@ namespace DXF
 			drawFirstSideButton.Checked = false;
 			drawSecondSideButton.Checked = false;
 
+			//Set placement for lines and arcs
+			foreach (Line line in dieLinesAsDesigned) { line.Placement = "AsDesigned"; }
+			foreach (Arc arc in dieArcsAsDesigned) { arc.Placement = "AsDesigned"; }
+			foreach (Line line in dieLinesFlipped) { line.Placement = "Flipped"; }
+			foreach (Arc arc in dieArcsFlipped) { arc.Placement = "Flipped"; }
+
 			//Set global parameters
 			Parameter.DxfFileName = fileNameWithoutExtension;
 			Parameter.DieLinesAsDesigned = dieLinesAsDesigned.OrderBy(line => line.Index).ToList();
@@ -194,12 +200,14 @@ namespace DXF
 			stockDiameterValue += 2;
 			stockDiameterInput.Minimum = Convert.ToDecimal(stockDiameterValue);
 			stockDiameterInput.Maximum = stockDiameterInput.Minimum + 10;
+			stockDiameterInput.Value = stockDiameterInput.Minimum;
 
 			float stockWidthValue = Parameter.DieWidth;
 			stockWidthValue += 1 - Parameter.DieWidth % 1;
 			stockWidthValue += 2;
 			stockWidthInput.Minimum = Convert.ToDecimal(stockWidthValue);
 			stockWidthInput.Maximum = stockWidthInput.Minimum + 10;
+			stockWidthInput.Value = stockWidthInput.Minimum;
 
 			//***************************************************************************************************************************************
 			//First side outer horizontal machining profile
@@ -212,7 +220,7 @@ namespace DXF
 			firstSideOuterHorizontalMachiningLines.Insert(0,firstSideStockMachiningLines[1]);
 			firstSideOuterHorizontalMachiningLines.Insert(0, firstSideStockMachiningLines[0]);
 
-			//Second side outer machining profile
+			//Second side outer horizontal machining profile
 			List<Line> secondSideOuterHorizontalMachiningLines = Get.OuterHorizontalMachiningLines(Parameter.SecondSideLines);
 			List<Arc> secondSideOuterHorizontalMachiningArcs = Get.OuterHorizontalMachiningArcs(secondSideOuterHorizontalMachiningLines, Parameter.SecondSideArcs);
 
@@ -224,9 +232,9 @@ namespace DXF
 			//***************************************************************************************************************************************
 
 			//***************************************************************************************************************************************
-			//First side outer horizontal machining profile
+			//First side outer vertical machining profile
 			List<Line> firstSideOuterVerticalMachiningLines = Get.FirstSideOuterVerticalMachiningLines();
-			//Second side outer horizontal machining profile
+			//Second side outer vertical machining profile
 			List<Line> secondSideOuterVerticalMachiningLines = Get.SecondSideOuterVerticalMachiningLines();
 			//***************************************************************************************************************************************
 
@@ -359,7 +367,7 @@ namespace DXF
 				else if (drawSecondSideButton.Checked)
 				{
 					Draw.Stock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthSecondSide, Parameter.StockFromWidthFirstSide);
-					Draw.Chock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthFirstSide);
+					Draw.Chock(visualizationPanelGraphics, Parameter.StockFromRadius, 0);
 					Draw.Die(visualizationPanelGraphics, Parameter.SecondSideLines, Parameter.SecondSideArcs);
 					Draw.OuterHorizontalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideOuterHorizontalMachiningLines, Parameter.SecondSideOuterHorizontalMachiningArcs);
 					Draw.OuterVerticalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideOuterVerticalMachiningLines);

@@ -11,6 +11,7 @@ namespace DXF.Elements
 {
 	public class Arc
 	{
+		public string Placement { get; set; }
 		public int Index { get; set; }
 		public float CenterX { get; set; }		//Value 10 in DXF
 		public float CenterY { get; set; }       //Value 20 in DXF
@@ -102,6 +103,7 @@ namespace DXF.Elements
 				StartAngle = this.StartAngle,
 				EndAngle = this.EndAngle,
 				Color = this.Color,
+				Placement = this.Placement,
 				Index = this.Index,
 				RectangularCornerX = this.RectangularCornerX,
 				RectangularCornerY = this.RectangularCornerY,

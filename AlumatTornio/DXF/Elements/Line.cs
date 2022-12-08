@@ -9,6 +9,7 @@ namespace DXF.Elements
 {
 	public class Line
 	{
+		public string Placement { get; set; }
 		public int Index { get; set; }
 		public float StartX { get; set; } //Value 10 in DXF
 		public float StartY { get; set; } //Value 20 in DXF
@@ -38,6 +39,7 @@ namespace DXF.Elements
 				StartY = this.StartY,
 				EndX = this.EndX,
 				EndY = this.EndY,
+				Placement = this.Placement,
 				Index = this.Index,
 				Color = this.Color
 			};

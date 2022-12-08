@@ -230,7 +230,7 @@ namespace DXF.Actions
 			foreach (Arc arc in anySideArcs) { outerHorizontalMachiningArcs.Add(arc.Clone()); }
 
 			int i = 0;
-			if (outerHorizontalMachiningLines.First().Index < outerHorizontalMachiningLines.Last().Index)
+			if (outerHorizontalMachiningLines.First().Placement == "AsDesigned")
 			{
 				while (anySideArcs[i].Index < outerHorizontalMachiningLines[outerHorizontalMachiningLines.Count - 1].Index)
 				{
@@ -238,7 +238,7 @@ namespace DXF.Actions
 				}
 				outerHorizontalMachiningArcs.RemoveRange(i, outerHorizontalMachiningArcs.Count - i);
 			}
-			else if (outerHorizontalMachiningLines.First().Index > outerHorizontalMachiningLines.Last().Index)
+			else if (outerHorizontalMachiningLines.First().Placement == "Flipped")
 			{
 				while (anySideArcs[i].Index > outerHorizontalMachiningLines[outerHorizontalMachiningLines.Count - 1].Index)
 				{
@@ -246,8 +246,6 @@ namespace DXF.Actions
 				}
 				outerHorizontalMachiningArcs.RemoveRange(i, outerHorizontalMachiningArcs.Count - i);
 			}
-			
-			
 
 			return outerHorizontalMachiningArcs;
 		}
@@ -263,7 +261,7 @@ namespace DXF.Actions
 			int stockEndVerticalIndex = 0;
 
 			//Check if the first side is as designed or flipped
-			if (firstSideMachiningLines.First().Index < firstSideMachiningLines.Last().Index)
+			if (firstSideMachiningLines.First().Placement == "AsDesigned")
 			{
 				//find the first profile point coordinates which can be line or arc
 				if (firstSideMachiningLines.First().Index < firstSideMachiningArcs.First().Index)
@@ -294,7 +292,7 @@ namespace DXF.Actions
 					stockEndVerticalIndex = firstSideMachiningArcs.Last().Index + 1;
 				}
 			}
-			else if (firstSideMachiningLines.First().Index > firstSideMachiningLines.Last().Index)
+			else if (firstSideMachiningLines.First().Placement == "Flipped")
 			{
 				//find the first profile point coordinates which can be line or arc
 				if (firstSideMachiningLines.First().Index > firstSideMachiningArcs.First().Index)
@@ -353,7 +351,7 @@ namespace DXF.Actions
 			int stockEndVerticalIndex = 0;
 
 			//Check if the second side is as designed or flipped
-			if (secondSideMachiningLines.First().Index < secondSideMachiningLines.Last().Index)
+			if (secondSideMachiningLines.First().Placement == "AsDesigned")
 			{
 				//find the first profile point coordinates which can be line or arc
 				if (secondSideMachiningLines.First().Index < secondSideMachiningArcs.First().Index)
@@ -384,7 +382,7 @@ namespace DXF.Actions
 					stockEndVerticalIndex = secondSideMachiningArcs.Last().Index + 1;
 				}
 			}
-			else if (secondSideMachiningLines.First().Index > secondSideMachiningLines.Last().Index)
+			else if (secondSideMachiningLines.First().Placement == "Flipped")
 			{
 				//find the first profile point coordinates which can be line or arc
 				if (secondSideMachiningLines.First().Index > secondSideMachiningArcs.First().Index)

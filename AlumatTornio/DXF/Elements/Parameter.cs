@@ -65,7 +65,6 @@ namespace DXF.Elements
 		public static string ByBlock = "0";
 		public static string ByLayer = "256";
 		
-
 		#region Common Values
 		#endregion
 
