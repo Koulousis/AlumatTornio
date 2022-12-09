@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 
 namespace DXF.Lathe
 {
-	public class G71Attributes
+	public class G72
 	{
+		public string ProfileStart { get; set; }
+		public string ProfileEnd { get; set; }
 		public decimal DepthOfCut { get; set; }
 		public decimal Retract { get; set; }
 		public decimal AllowanceX { get; set; }
 		public decimal AllowanceZ { get; set; }
 		public decimal FeedRate { get; set; }
 
-		public G71Attributes(decimal depthOfCut, decimal retract, decimal allowanceX, decimal allowanceZ, decimal feedRate)
+		public G72(string profileStart, string profileEnd, decimal depthOfCut, decimal retract, decimal allowanceX, decimal allowanceZ, decimal feedRate)
 		{
+			ProfileStart = profileStart;
+			ProfileEnd = profileEnd;
 			DepthOfCut = depthOfCut;
 			Retract = retract;
 			AllowanceX = allowanceX;

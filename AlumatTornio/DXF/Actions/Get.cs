@@ -259,6 +259,7 @@ namespace DXF.Actions
 			int stockStartHorizontalIndex = 0;
 			int stockStartVerticalIndex = 0;
 			int stockEndVerticalIndex = 0;
+			string placement = firstSideMachiningLines.First().Placement;
 
 			//Check if the first side is as designed or flipped
 			if (firstSideMachiningLines.First().Placement == "AsDesigned")
@@ -326,12 +327,15 @@ namespace DXF.Actions
 
 			Line stockStartHorizontal = new Line(Parameter.StockFromWidthFirstSide, firstProfilePoint.Y, firstProfilePoint.X, firstProfilePoint.Y, Parameter.Green);
 			stockStartHorizontal.Index = stockStartHorizontalIndex;
+			stockStartHorizontal.Placement = placement;
 
 			Line stockStartVertical = new Line(Parameter.StockFromWidthFirstSide, Parameter.DieRadius + Parameter.StockFromRadius, stockStartHorizontal.StartX, stockStartHorizontal.StartY, Parameter.Green);
 			stockStartVertical.Index = stockStartVerticalIndex;
+			stockStartVertical.Placement = placement;
 
 			Line stockEndVertical = new Line(lastProfilePoint.X, lastProfilePoint.Y, lastProfilePoint.X, lastProfilePoint.Y + Parameter.StockFromRadius, Parameter.Green);
 			stockEndVertical.Index = stockEndVerticalIndex;
+			stockEndVertical.Placement = placement;
 
 			firstSideStockMachiningLines.Insert(0, stockEndVertical);
 			firstSideStockMachiningLines.Insert(0, stockStartHorizontal);
@@ -349,6 +353,7 @@ namespace DXF.Actions
 			int stockStartHorizontalIndex = 0;
 			int stockStartVerticalIndex = 0;
 			int stockEndVerticalIndex = 0;
+			string placement = secondSideMachiningLines.First().Placement;
 
 			//Check if the second side is as designed or flipped
 			if (secondSideMachiningLines.First().Placement == "AsDesigned")
@@ -416,12 +421,15 @@ namespace DXF.Actions
 
 			Line stockStartHorizontal = new Line(Parameter.StockFromWidthSecondSide, firstProfilePoint.Y, firstProfilePoint.X, firstProfilePoint.Y, Parameter.Green);
 			stockStartHorizontal.Index = stockStartHorizontalIndex;
+			stockStartHorizontal.Placement = placement;
 
 			Line stockStartVertical = new Line(Parameter.StockFromWidthSecondSide, Parameter.DieRadius + Parameter.StockFromRadius, stockStartHorizontal.StartX, stockStartHorizontal.StartY, Parameter.Green);
 			stockStartVertical.Index = stockStartVerticalIndex;
+			stockStartVertical.Placement = placement;
 
 			Line stockEndVertical = new Line(lastProfilePoint.X, lastProfilePoint.Y, lastProfilePoint.X, lastProfilePoint.Y + Parameter.StockFromRadius, Parameter.Green);
 			stockEndVertical.Index = stockEndVerticalIndex;
+			stockEndVertical.Placement = placement;
 
 			secondSideStockMachiningLines.Insert(0, stockEndVertical);
 			secondSideStockMachiningLines.Insert(0, stockStartHorizontal);
@@ -476,7 +484,48 @@ namespace DXF.Actions
 			return secondSideOuterVerticalMachiningLines;
 		}
 
+		public static List<ProfilePoint> OuterHorizontalProfilePoints(List<Line> lines, List<Arc> arcs)
+		{
+			//Set index list to loop through profile
+			List<int> indexes = new List<int>();
+			foreach (Line line in lines) { indexes.Add(line.Index); }
+			foreach (Arc arc in arcs) { indexes.Add(arc.Index); }
+			indexes.Sort();
+			if (lines.First().Placement == "Flipped") { indexes.Reverse(); }
 
+			//Profiles points list
+			List<ProfilePoint> profilePoints = new List<ProfilePoint>();
+
+			foreach (int index in indexes)
+			{
+				Line dummyLine = lines.Find(line => line.Index == index);
+				Arc dummyArc = arcs.Find(arc => arc.Index == index);
+
+				if (dummyLine != null)
+				{
+					profilePoints.Add(new ProfilePoint(dummyLine.StartY * 2, dummyLine.StartX));
+					profilePoints.Add(new ProfilePoint(dummyLine.EndY * 2, dummyLine.EndX));
+				}
+				else if (dummyArc != null)
+				{
+					profilePoints.Add(new ProfilePoint(dummyArc.EndY * 2, dummyArc.EndX, dummyArc.Radius, dummyArc.Clockwise, dummyArc.AntiClockwise));
+				}
+			}
+
+			//Use the GroupBy method to group the ProfilePoints by their X,Z properties
+			var groups = profilePoints.GroupBy(p => new { p.X, p.Z });
+
+			//Create a new list from the groups, taking only the first element from each group
+			List<ProfilePoint> profilePointsCleared = groups.Select(g => g.First()).ToList();
+
+			//The result must be equal to (lines.Count + 1) + arcs.Count 
+			if (profilePointsCleared.Count != lines.Count + 1 + arcs.Count)
+			{
+				MessageBox.Show("Outer horizintal profile points amount\n are not equal to the planned amount");
+			}
+
+			return profilePointsCleared;
+		}
 
 
 
@@ -554,6 +603,7 @@ namespace DXF.Actions
 
 			return cavaArcs;
 		}
+
 
 		
 	}

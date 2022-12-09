@@ -35,10 +35,10 @@ namespace DXF.Lathe
 			return latheInitialization;
 		}
 
-		public static List<string> StartPosition(List<GCodePoint> g71ProfilePoints)
+		public static List<string> StartPosition(List<ProfilePoint> g71ProfilePoints)
 		{
 			float maximumProfilePointX = 0;
-			foreach (GCodePoint g71ProfilePoint in g71ProfilePoints)
+			foreach (ProfilePoint g71ProfilePoint in g71ProfilePoints)
 			{
 				if (g71ProfilePoint.X > maximumProfilePointX)
 				{
@@ -58,35 +58,35 @@ namespace DXF.Lathe
 			return startPosition;
 		}
 
-		public static List<string> G72Facing(G72Attributes g72Attributes)
+		public static List<string> G72Facing(G72 g72)
 		{
 			//Fill G Code
 			List<string> g72Roughing = new List<string>
 			{
 				"(G72 FACING)",
-				$"G72 W{g72Attributes.DepthOfCut} R{g72Attributes.Retract}",
-				$"G72 P1 Q2 U{g72Attributes.AllowanceX} W{g72Attributes.AllowanceZ} F{g72Attributes.FeedRate}",
+				$"G72 W{g72.DepthOfCut} R{g72.Retract}",
+				$"G72 P1 Q2 U{g72.AllowanceX} W{g72.AllowanceZ} F{g72.FeedRate}",
 				""
 			};
 
 			return g72Roughing;
 		}
 
-		public static List<string> G71Roughing(G71Attributes g71Attributes)
+		public static List<string> G71Roughing(G71 g71)
 		{
 			//Fill G Code
 			List<string> g71Roughing = new List<string>
 			{
 				"(G71 ROUGHING)",
-				$"G71 U{g71Attributes.DepthOfCut} R{g71Attributes.Retract}",
-				$"G71 P3 Q4 U{g71Attributes.AllowanceX} W{g71Attributes.AllowanceZ} F{g71Attributes.FeedRate}",
+				$"G71 U{g71.DepthOfCut} R{g71.Retract}",
+				$"G71 P3 Q4 U{g71.AllowanceX} W{g71.AllowanceZ} F{g71.FeedRate}",
 				""
 			};
 
 			return g71Roughing;
 		}
 
-		public static List<string> G72Profile(List<GCodePoint> g72ProfilePoints)
+		public static List<string> G72Profile(List<ProfilePoint> g72ProfilePoints)
 		{
 			//Fill G Code
 			List<string> profileBlock = new List<string>();
@@ -103,13 +103,13 @@ namespace DXF.Lathe
 			return profileBlock;
 		}
 
-		public static List<string> G71Profile(List<GCodePoint> g71ProfilePoints)
+		public static List<string> G71Profile(List<ProfilePoint> g71ProfilePoints)
 		{
 			//Fill G Code
 			List<string> profileBlock = new List<string>();
 			profileBlock.Add("(PROFILE START)");
 			profileBlock.Add($"N3 G0 G42 X{(g71ProfilePoints[0].X) * 2} Z{g71ProfilePoints[0].Z + Parameter.StockZFirstSide}");
-			foreach (GCodePoint g71ProfilePoint in g71ProfilePoints)
+			foreach (ProfilePoint g71ProfilePoint in g71ProfilePoints)
 			{
 				if (g71ProfilePoint.R == 0)
 				{

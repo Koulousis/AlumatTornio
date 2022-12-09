@@ -78,6 +78,7 @@ namespace DXF
 			this.fileName = new System.Windows.Forms.Label();
 			this.fileNameLabel = new System.Windows.Forms.Label();
 			this.stockValuesSelectorGroup = new System.Windows.Forms.GroupBox();
+			this.secondSideStockLabel = new System.Windows.Forms.Label();
 			this.stockWidthInput = new System.Windows.Forms.NumericUpDown();
 			this.stockWidthLabel = new System.Windows.Forms.Label();
 			this.stockDiameterInput = new System.Windows.Forms.NumericUpDown();
@@ -97,7 +98,6 @@ namespace DXF
 			this.flippedButton = new System.Windows.Forms.RadioButton();
 			this.asDesignedButton = new System.Windows.Forms.RadioButton();
 			this.tabSettings = new System.Windows.Forms.TabPage();
-			this.secondSideStockLabel = new System.Windows.Forms.Label();
 			this.mainAppMenu.SuspendLayout();
 			this.viewSideSelectorGroup.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
@@ -299,7 +299,7 @@ namespace DXF
 			this.copyrights.BackColor = System.Drawing.SystemColors.WindowFrame;
 			this.copyrights.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.copyrights.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.copyrights.Location = new System.Drawing.Point(288, 79);
+			this.copyrights.Location = new System.Drawing.Point(315, 79);
 			this.copyrights.Name = "copyrights";
 			this.copyrights.Size = new System.Drawing.Size(193, 13);
 			this.copyrights.TabIndex = 1;
@@ -837,6 +837,17 @@ namespace DXF
 			this.stockValuesSelectorGroup.TabStop = false;
 			this.stockValuesSelectorGroup.Text = "Stock";
 			// 
+			// secondSideStockLabel
+			// 
+			this.secondSideStockLabel.AutoSize = true;
+			this.secondSideStockLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.secondSideStockLabel.ForeColor = System.Drawing.Color.Black;
+			this.secondSideStockLabel.Location = new System.Drawing.Point(6, 77);
+			this.secondSideStockLabel.Name = "secondSideStockLabel";
+			this.secondSideStockLabel.Size = new System.Drawing.Size(248, 16);
+			this.secondSideStockLabel.TabIndex = 16;
+			this.secondSideStockLabel.Text = "Stock for the second side is always 1mm";
+			// 
 			// stockWidthInput
 			// 
 			this.stockWidthInput.DecimalPlaces = 1;
@@ -1046,9 +1057,9 @@ namespace DXF
 			this.firstSideSelectorLabel.ForeColor = System.Drawing.Color.Black;
 			this.firstSideSelectorLabel.Location = new System.Drawing.Point(9, 22);
 			this.firstSideSelectorLabel.Name = "firstSideSelectorLabel";
-			this.firstSideSelectorLabel.Size = new System.Drawing.Size(217, 16);
+			this.firstSideSelectorLabel.Size = new System.Drawing.Size(145, 16);
 			this.firstSideSelectorLabel.TabIndex = 2;
-			this.firstSideSelectorLabel.Text = "First machining side will be placed :";
+			this.firstSideSelectorLabel.Text = "First machining side is :";
 			// 
 			// flippedButton
 			// 
@@ -1085,17 +1096,6 @@ namespace DXF
 			this.tabSettings.Size = new System.Drawing.Size(787, 510);
 			this.tabSettings.TabIndex = 1;
 			this.tabSettings.Text = "Machining Settings";
-			// 
-			// secondSideStockLabel
-			// 
-			this.secondSideStockLabel.AutoSize = true;
-			this.secondSideStockLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.secondSideStockLabel.ForeColor = System.Drawing.Color.Black;
-			this.secondSideStockLabel.Location = new System.Drawing.Point(6, 77);
-			this.secondSideStockLabel.Name = "secondSideStockLabel";
-			this.secondSideStockLabel.Size = new System.Drawing.Size(248, 16);
-			this.secondSideStockLabel.TabIndex = 16;
-			this.secondSideStockLabel.Text = "Stock for the second side is always 1mm";
 			// 
 			// MainApp
 			// 

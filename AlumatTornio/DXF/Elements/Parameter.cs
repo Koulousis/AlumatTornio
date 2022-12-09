@@ -69,11 +69,11 @@ namespace DXF.Elements
 		#endregion
 
 		#region For GCode
-		public static List<GCodePoint> G72ProfilePointsFirstSide { get; set; }
-		public static List<GCodePoint> G71ProfilePointsFirstSide { get; set; }
+		public static List<ProfilePoint> G72ProfilePointsFirstSide { get; set; }
+		public static List<ProfilePoint> G71ProfilePointsFirstSide { get; set; }
 
-		public static List<GCodePoint> G72ProfilePointsSecondSide { get; set; }
-		public static List<GCodePoint> G71ProfilePointsSecondSide { get; set; }
+		public static List<ProfilePoint> G72ProfilePointsSecondSide { get; set; }
+		public static List<ProfilePoint> G71ProfilePointsSecondSide { get; set; }
 
 		
 		public static float StockDiameterExtra = 1;
