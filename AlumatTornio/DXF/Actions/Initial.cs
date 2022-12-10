@@ -47,6 +47,9 @@ namespace DXF.Actions
 			Parameter.SecondSideOuterVerticalMachiningLines = new List<Line>();
 			#endregion
 
+			#region Validate dimensions
+			Parameter.ElementsHasGap = false;
+			#endregion
 		}
 }
 }

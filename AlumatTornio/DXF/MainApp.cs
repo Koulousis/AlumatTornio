@@ -49,7 +49,7 @@ namespace DXF
 			g72FeedRateInput.Value = Convert.ToDecimal(Settings.Default["G72FeedRate"]);
 		}
 		#endregion
-
+		
 		#region File Elements Setup
 		private void fileDxfMenuItem_Click(object sender, EventArgs e)
 		{
@@ -68,6 +68,11 @@ namespace DXF
 			//Read the selected file
 			if (selectDxfDialog.ShowDialog() == DialogResult.Cancel) return;
 			string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectDxfDialog.FileName);
+			if (fileNameWithoutExtension.Length > 16)
+			{
+				fileNameWithoutExtension = fileNameWithoutExtension.Substring(0, 14);
+				fileNameWithoutExtension += "...";
+			}
 			List<string> dxfText = File.ReadAllLines(selectDxfDialog.FileName).ToList();
 
 			//Validate the selected file
@@ -98,6 +103,7 @@ namespace DXF
 			if (gapX != 0 || gapY != 0)
 			{
 				Edit.MoveElementsToOrigin(allLines, allArcs, gapX, gapY);
+				Parameter.ElementsHasGap = true;
 			}
 			Edit.DecimalsCorrection(allLines, allArcs);
 
@@ -120,15 +126,17 @@ namespace DXF
 			//Set information to user interface
 			fileName.Text = fileNameWithoutExtension;
 			dieDiameterLabel.Text = string.Empty;
-			dieDiameterLabel.Text = $"Die Diameter: {dieDiameter}";
+			dieDiameterLabel.Text = $"Diameter : {dieDiameter}";
 			dieWidthLabel.Text = string.Empty;
-			dieWidthLabel.Text = $"Die Width: {dieWidth}";
+			dieWidthLabel.Text = $"Width : {dieWidth}";
 
 			//Set UI to select first machining side
 			tabPanel.Enabled = true;
-			firstSideSelectorGroup.Enabled = true;
+			validateDimensionsGroup.Enabled = true;
+			firstSideSelectorGroup.Enabled = false;
 			asDesignedButton.Checked = false;
 			flippedButton.Checked = false;
+			cavaSelectorGroup.Enabled = false;
 			viewSideSelectorGroup.Enabled = false;
 			stockValuesSelectorGroup.Enabled = false;
 			generateCode.Enabled = false;
@@ -153,6 +161,20 @@ namespace DXF
 
 			//Draw
 			visualizationPanel.Refresh();
+		}
+		#endregion
+
+		#region Validate Dimensions
+		private void validateDimensionsButton_Click(object sender, EventArgs e)
+		{
+			if (Parameter.ElementsHasGap)
+			{
+				MessageBox.Show("Double check the dimensions because\nthe elements have been moved to be on X0:Y0");
+			}
+
+			validateDimensionsGroup.Enabled = false;
+			firstSideSelectorGroup.Enabled = true;
+
 		}
 		#endregion
 
@@ -190,6 +212,7 @@ namespace DXF
 			//Change UI after first machining side selected
 			drawFirstSideButton.Checked = true;
 			firstSideSelectorGroup.Enabled = false;
+			cavaSelectorGroup.Enabled = true;
 			viewSideSelectorGroup.Enabled = true;
 			stockValuesSelectorGroup.Enabled = true;
 			generateCode.Enabled = true;
@@ -600,8 +623,11 @@ namespace DXF
 			Settings.Default["G72FeedRate"] = g72FeedRateInput.Value;
 			Settings.Default.Save();
 		}
+
 		#endregion
 
 		
+
+
 	}
 }

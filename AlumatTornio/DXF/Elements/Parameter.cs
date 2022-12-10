@@ -64,7 +64,11 @@ namespace DXF.Elements
 		public static string White = "7";
 		public static string ByBlock = "0";
 		public static string ByLayer = "256";
-		
+
+		#region Validate dimensions
+		public static bool ElementsHasGap { get; set; }
+		#endregion
+
 		#region Common Values
 		#endregion
 

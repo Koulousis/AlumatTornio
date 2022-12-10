@@ -85,12 +85,15 @@ namespace DXF
 			this.stockDiameterLabel = new System.Windows.Forms.Label();
 			this.tabPanel = new System.Windows.Forms.TabControl();
 			this.tabSetup = new System.Windows.Forms.TabPage();
+			this.validateDimensionsGroup = new System.Windows.Forms.GroupBox();
+			this.validateDimensionsLabel = new System.Windows.Forms.Label();
+			this.validateDimensionsButton = new System.Windows.Forms.Button();
+			this.dieDiameterLabel = new System.Windows.Forms.Label();
+			this.dieWidthLabel = new System.Windows.Forms.Label();
 			this.cavaSelectorGroup = new System.Windows.Forms.GroupBox();
 			this.cavaSecondSideCheckBox = new System.Windows.Forms.CheckBox();
 			this.cavaFirstSideCheckBox = new System.Windows.Forms.CheckBox();
 			this.cavaSelectorLabel = new System.Windows.Forms.Label();
-			this.dieWidthLabel = new System.Windows.Forms.Label();
-			this.dieDiameterLabel = new System.Windows.Forms.Label();
 			this.visualizationPanel = new System.Windows.Forms.PictureBox();
 			this.firstSideSelectorGroup = new System.Windows.Forms.GroupBox();
 			this.setFirstSideSelectionButton = new System.Windows.Forms.Button();
@@ -119,6 +122,7 @@ namespace DXF
 			((System.ComponentModel.ISupportInitialize)(this.stockDiameterInput)).BeginInit();
 			this.tabPanel.SuspendLayout();
 			this.tabSetup.SuspendLayout();
+			this.validateDimensionsGroup.SuspendLayout();
 			this.cavaSelectorGroup.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.visualizationPanel)).BeginInit();
 			this.firstSideSelectorGroup.SuspendLayout();
@@ -129,7 +133,7 @@ namespace DXF
 			// 
 			this.coordinatesLabel.AutoSize = true;
 			this.coordinatesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.coordinatesLabel.Location = new System.Drawing.Point(312, 464);
+			this.coordinatesLabel.Location = new System.Drawing.Point(312, 415);
 			this.coordinatesLabel.Name = "coordinatesLabel";
 			this.coordinatesLabel.Size = new System.Drawing.Size(152, 20);
 			this.coordinatesLabel.TabIndex = 1;
@@ -146,7 +150,7 @@ namespace DXF
 			this.mainAppMenu.Location = new System.Drawing.Point(0, 0);
 			this.mainAppMenu.Name = "mainAppMenu";
 			this.mainAppMenu.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
-			this.mainAppMenu.Size = new System.Drawing.Size(795, 24);
+			this.mainAppMenu.Size = new System.Drawing.Size(789, 24);
 			this.mainAppMenu.TabIndex = 2;
 			this.mainAppMenu.Text = "menuStrip1";
 			// 
@@ -241,11 +245,11 @@ namespace DXF
 			this.viewSideSelectorGroup.Controls.Add(this.drawFirstSideButton);
 			this.viewSideSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.viewSideSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.viewSideSelectorGroup.Location = new System.Drawing.Point(316, 91);
+			this.viewSideSelectorGroup.Location = new System.Drawing.Point(520, 385);
 			this.viewSideSelectorGroup.Margin = new System.Windows.Forms.Padding(2);
 			this.viewSideSelectorGroup.Name = "viewSideSelectorGroup";
 			this.viewSideSelectorGroup.Padding = new System.Windows.Forms.Padding(2);
-			this.viewSideSelectorGroup.Size = new System.Drawing.Size(255, 80);
+			this.viewSideSelectorGroup.Size = new System.Drawing.Size(254, 75);
 			this.viewSideSelectorGroup.TabIndex = 3;
 			this.viewSideSelectorGroup.TabStop = false;
 			this.viewSideSelectorGroup.Text = "Draw and Print";
@@ -254,17 +258,17 @@ namespace DXF
 			// 
 			this.viewSideSelectorLabel.AutoSize = true;
 			this.viewSideSelectorLabel.ForeColor = System.Drawing.Color.Black;
-			this.viewSideSelectorLabel.Location = new System.Drawing.Point(9, 22);
+			this.viewSideSelectorLabel.Location = new System.Drawing.Point(6, 21);
 			this.viewSideSelectorLabel.Name = "viewSideSelectorLabel";
-			this.viewSideSelectorLabel.Size = new System.Drawing.Size(202, 16);
+			this.viewSideSelectorLabel.Size = new System.Drawing.Size(177, 16);
 			this.viewSideSelectorLabel.TabIndex = 21;
-			this.viewSideSelectorLabel.Text = "Select the side to draw and print :";
+			this.viewSideSelectorLabel.Text = "Select the side to draw/print :";
 			// 
 			// drawSecondSideButton
 			// 
 			this.drawSecondSideButton.AutoSize = true;
 			this.drawSecondSideButton.ForeColor = System.Drawing.Color.Black;
-			this.drawSecondSideButton.Location = new System.Drawing.Point(116, 46);
+			this.drawSecondSideButton.Location = new System.Drawing.Point(116, 45);
 			this.drawSecondSideButton.Name = "drawSecondSideButton";
 			this.drawSecondSideButton.Size = new System.Drawing.Size(102, 20);
 			this.drawSecondSideButton.TabIndex = 1;
@@ -291,7 +295,7 @@ namespace DXF
 			this.copyrightsBanner.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.copyrightsBanner.Location = new System.Drawing.Point(0, 560);
 			this.copyrightsBanner.Name = "copyrightsBanner";
-			this.copyrightsBanner.Size = new System.Drawing.Size(795, 95);
+			this.copyrightsBanner.Size = new System.Drawing.Size(789, 95);
 			this.copyrightsBanner.TabIndex = 4;
 			// 
 			// copyrights
@@ -313,17 +317,17 @@ namespace DXF
 			this.banner.Image = ((System.Drawing.Image)(resources.GetObject("banner.Image")));
 			this.banner.Location = new System.Drawing.Point(0, 0);
 			this.banner.Name = "banner";
-			this.banner.Size = new System.Drawing.Size(795, 74);
+			this.banner.Size = new System.Drawing.Size(789, 74);
 			this.banner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.banner.TabIndex = 0;
 			this.banner.TabStop = false;
 			// 
 			// generateCode
 			// 
-			this.generateCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.generateCode.Location = new System.Drawing.Point(316, 386);
+			this.generateCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.generateCode.Location = new System.Drawing.Point(312, 474);
 			this.generateCode.Name = "generateCode";
-			this.generateCode.Size = new System.Drawing.Size(255, 50);
+			this.generateCode.Size = new System.Drawing.Size(128, 29);
 			this.generateCode.TabIndex = 5;
 			this.generateCode.Text = "Generate G Code";
 			this.generateCode.UseVisualStyleBackColor = true;
@@ -331,9 +335,9 @@ namespace DXF
 			// 
 			// exportProgressBar
 			// 
-			this.exportProgressBar.Location = new System.Drawing.Point(316, 442);
+			this.exportProgressBar.Location = new System.Drawing.Point(450, 474);
 			this.exportProgressBar.Name = "exportProgressBar";
-			this.exportProgressBar.Size = new System.Drawing.Size(255, 19);
+			this.exportProgressBar.Size = new System.Drawing.Size(329, 29);
 			this.exportProgressBar.TabIndex = 6;
 			// 
 			// g71Settings
@@ -792,10 +796,10 @@ namespace DXF
 			// 
 			this.gCodeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
 			this.gCodeTextBox.ForeColor = System.Drawing.Color.WhiteSmoke;
-			this.gCodeTextBox.Location = new System.Drawing.Point(581, 3);
+			this.gCodeTextBox.Location = new System.Drawing.Point(313, 3);
 			this.gCodeTextBox.Name = "gCodeTextBox";
 			this.gCodeTextBox.ReadOnly = true;
-			this.gCodeTextBox.Size = new System.Drawing.Size(198, 458);
+			this.gCodeTextBox.Size = new System.Drawing.Size(198, 409);
 			this.gCodeTextBox.TabIndex = 11;
 			this.gCodeTextBox.Text = "";
 			// 
@@ -805,7 +809,7 @@ namespace DXF
 			this.fileName.BackColor = System.Drawing.SystemColors.WindowFrame;
 			this.fileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.fileName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.fileName.Location = new System.Drawing.Point(346, 484);
+			this.fileName.Location = new System.Drawing.Point(346, 435);
 			this.fileName.Name = "fileName";
 			this.fileName.Size = new System.Drawing.Size(98, 20);
 			this.fileName.TabIndex = 12;
@@ -815,7 +819,7 @@ namespace DXF
 			// 
 			this.fileNameLabel.AutoSize = true;
 			this.fileNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.fileNameLabel.Location = new System.Drawing.Point(312, 484);
+			this.fileNameLabel.Location = new System.Drawing.Point(312, 435);
 			this.fileNameLabel.Name = "fileNameLabel";
 			this.fileNameLabel.Size = new System.Drawing.Size(38, 20);
 			this.fileNameLabel.TabIndex = 13;
@@ -830,7 +834,7 @@ namespace DXF
 			this.stockValuesSelectorGroup.Controls.Add(this.stockDiameterLabel);
 			this.stockValuesSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.stockValuesSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.stockValuesSelectorGroup.Location = new System.Drawing.Point(316, 277);
+			this.stockValuesSelectorGroup.Location = new System.Drawing.Point(520, 176);
 			this.stockValuesSelectorGroup.Name = "stockValuesSelectorGroup";
 			this.stockValuesSelectorGroup.Size = new System.Drawing.Size(255, 103);
 			this.stockValuesSelectorGroup.TabIndex = 14;
@@ -918,15 +922,14 @@ namespace DXF
 			this.tabPanel.Location = new System.Drawing.Point(0, 24);
 			this.tabPanel.Name = "tabPanel";
 			this.tabPanel.SelectedIndex = 0;
-			this.tabPanel.Size = new System.Drawing.Size(795, 536);
+			this.tabPanel.Size = new System.Drawing.Size(789, 536);
 			this.tabPanel.TabIndex = 16;
 			// 
 			// tabSetup
 			// 
 			this.tabSetup.BackColor = System.Drawing.SystemColors.WindowFrame;
+			this.tabSetup.Controls.Add(this.validateDimensionsGroup);
 			this.tabSetup.Controls.Add(this.cavaSelectorGroup);
-			this.tabSetup.Controls.Add(this.dieWidthLabel);
-			this.tabSetup.Controls.Add(this.dieDiameterLabel);
 			this.tabSetup.Controls.Add(this.visualizationPanel);
 			this.tabSetup.Controls.Add(this.firstSideSelectorGroup);
 			this.tabSetup.Controls.Add(this.viewSideSelectorGroup);
@@ -940,9 +943,67 @@ namespace DXF
 			this.tabSetup.Location = new System.Drawing.Point(4, 22);
 			this.tabSetup.Name = "tabSetup";
 			this.tabSetup.Padding = new System.Windows.Forms.Padding(3);
-			this.tabSetup.Size = new System.Drawing.Size(787, 510);
+			this.tabSetup.Size = new System.Drawing.Size(781, 510);
 			this.tabSetup.TabIndex = 0;
 			this.tabSetup.Text = "Machining Setup";
+			// 
+			// validateDimensionsGroup
+			// 
+			this.validateDimensionsGroup.Controls.Add(this.validateDimensionsLabel);
+			this.validateDimensionsGroup.Controls.Add(this.validateDimensionsButton);
+			this.validateDimensionsGroup.Controls.Add(this.dieDiameterLabel);
+			this.validateDimensionsGroup.Controls.Add(this.dieWidthLabel);
+			this.validateDimensionsGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+			this.validateDimensionsGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.validateDimensionsGroup.Location = new System.Drawing.Point(520, 6);
+			this.validateDimensionsGroup.Name = "validateDimensionsGroup";
+			this.validateDimensionsGroup.Size = new System.Drawing.Size(255, 80);
+			this.validateDimensionsGroup.TabIndex = 21;
+			this.validateDimensionsGroup.TabStop = false;
+			this.validateDimensionsGroup.Text = "Validate dimensions";
+			// 
+			// validateDimensionsLabel
+			// 
+			this.validateDimensionsLabel.AutoSize = true;
+			this.validateDimensionsLabel.ForeColor = System.Drawing.Color.Black;
+			this.validateDimensionsLabel.Location = new System.Drawing.Point(9, 18);
+			this.validateDimensionsLabel.Name = "validateDimensionsLabel";
+			this.validateDimensionsLabel.Size = new System.Drawing.Size(226, 16);
+			this.validateDimensionsLabel.TabIndex = 21;
+			this.validateDimensionsLabel.Text = "Compare the dimensions with design";
+			// 
+			// validateDimensionsButton
+			// 
+			this.validateDimensionsButton.ForeColor = System.Drawing.Color.Black;
+			this.validateDimensionsButton.Location = new System.Drawing.Point(192, 40);
+			this.validateDimensionsButton.Name = "validateDimensionsButton";
+			this.validateDimensionsButton.Size = new System.Drawing.Size(57, 23);
+			this.validateDimensionsButton.TabIndex = 21;
+			this.validateDimensionsButton.Text = "OK";
+			this.validateDimensionsButton.UseVisualStyleBackColor = true;
+			this.validateDimensionsButton.Click += new System.EventHandler(this.validateDimensionsButton_Click);
+			// 
+			// dieDiameterLabel
+			// 
+			this.dieDiameterLabel.AutoSize = true;
+			this.dieDiameterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+			this.dieDiameterLabel.ForeColor = System.Drawing.Color.Black;
+			this.dieDiameterLabel.Location = new System.Drawing.Point(9, 38);
+			this.dieDiameterLabel.Name = "dieDiameterLabel";
+			this.dieDiameterLabel.Size = new System.Drawing.Size(69, 16);
+			this.dieDiameterLabel.TabIndex = 18;
+			this.dieDiameterLabel.Text = "Diameter :";
+			// 
+			// dieWidthLabel
+			// 
+			this.dieWidthLabel.AutoSize = true;
+			this.dieWidthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+			this.dieWidthLabel.ForeColor = System.Drawing.Color.Black;
+			this.dieWidthLabel.Location = new System.Drawing.Point(30, 54);
+			this.dieWidthLabel.Name = "dieWidthLabel";
+			this.dieWidthLabel.Size = new System.Drawing.Size(48, 16);
+			this.dieWidthLabel.TabIndex = 19;
+			this.dieWidthLabel.Text = "Width :";
 			// 
 			// cavaSelectorGroup
 			// 
@@ -951,7 +1012,7 @@ namespace DXF
 			this.cavaSelectorGroup.Controls.Add(this.cavaSelectorLabel);
 			this.cavaSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cavaSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.cavaSelectorGroup.Location = new System.Drawing.Point(316, 176);
+			this.cavaSelectorGroup.Location = new System.Drawing.Point(520, 284);
 			this.cavaSelectorGroup.Margin = new System.Windows.Forms.Padding(2);
 			this.cavaSelectorGroup.Name = "cavaSelectorGroup";
 			this.cavaSelectorGroup.Padding = new System.Windows.Forms.Padding(2);
@@ -992,26 +1053,6 @@ namespace DXF
 			this.cavaSelectorLabel.TabIndex = 21;
 			this.cavaSelectorLabel.Text = "Select where to apply cava overlap:";
 			// 
-			// dieWidthLabel
-			// 
-			this.dieWidthLabel.AutoSize = true;
-			this.dieWidthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.dieWidthLabel.Location = new System.Drawing.Point(582, 484);
-			this.dieWidthLabel.Name = "dieWidthLabel";
-			this.dieWidthLabel.Size = new System.Drawing.Size(82, 20);
-			this.dieWidthLabel.TabIndex = 19;
-			this.dieWidthLabel.Text = "Die Width:";
-			// 
-			// dieDiameterLabel
-			// 
-			this.dieDiameterLabel.AutoSize = true;
-			this.dieDiameterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.dieDiameterLabel.Location = new System.Drawing.Point(582, 464);
-			this.dieDiameterLabel.Name = "dieDiameterLabel";
-			this.dieDiameterLabel.Size = new System.Drawing.Size(106, 20);
-			this.dieDiameterLabel.TabIndex = 18;
-			this.dieDiameterLabel.Text = "Die Diameter:";
-			// 
 			// visualizationPanel
 			// 
 			this.visualizationPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
@@ -1033,7 +1074,7 @@ namespace DXF
 			this.firstSideSelectorGroup.Controls.Add(this.asDesignedButton);
 			this.firstSideSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.firstSideSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.firstSideSelectorGroup.Location = new System.Drawing.Point(316, 6);
+			this.firstSideSelectorGroup.Location = new System.Drawing.Point(520, 90);
 			this.firstSideSelectorGroup.Name = "firstSideSelectorGroup";
 			this.firstSideSelectorGroup.Size = new System.Drawing.Size(255, 80);
 			this.firstSideSelectorGroup.TabIndex = 17;
@@ -1093,7 +1134,7 @@ namespace DXF
 			this.tabSettings.Location = new System.Drawing.Point(4, 22);
 			this.tabSettings.Name = "tabSettings";
 			this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-			this.tabSettings.Size = new System.Drawing.Size(787, 510);
+			this.tabSettings.Size = new System.Drawing.Size(779, 510);
 			this.tabSettings.TabIndex = 1;
 			this.tabSettings.Text = "Machining Settings";
 			// 
@@ -1102,7 +1143,7 @@ namespace DXF
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.WindowFrame;
-			this.ClientSize = new System.Drawing.Size(795, 655);
+			this.ClientSize = new System.Drawing.Size(789, 655);
 			this.Controls.Add(this.tabPanel);
 			this.Controls.Add(this.copyrightsBanner);
 			this.Controls.Add(this.mainAppMenu);
@@ -1141,6 +1182,8 @@ namespace DXF
 			this.tabPanel.ResumeLayout(false);
 			this.tabSetup.ResumeLayout(false);
 			this.tabSetup.PerformLayout();
+			this.validateDimensionsGroup.ResumeLayout(false);
+			this.validateDimensionsGroup.PerformLayout();
 			this.cavaSelectorGroup.ResumeLayout(false);
 			this.cavaSelectorGroup.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.visualizationPanel)).EndInit();
@@ -1221,5 +1264,8 @@ namespace DXF
 		private System.Windows.Forms.CheckBox cavaSecondSideCheckBox;
 		private System.Windows.Forms.CheckBox cavaFirstSideCheckBox;
 		private System.Windows.Forms.Label secondSideStockLabel;
+		private System.Windows.Forms.GroupBox validateDimensionsGroup;
+		private System.Windows.Forms.Label validateDimensionsLabel;
+		private System.Windows.Forms.Button validateDimensionsButton;
 	}
 }

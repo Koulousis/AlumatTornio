@@ -19,8 +19,23 @@ namespace DXF.Actions
 			int index = 1;
 
 			//Find the first Vertical Line which has equal to zero starting points or ending points
-			Line firstLineMatchingStart = dieLinesAsDesigned.Find(first => first.StartX == 0 && first.StartY == 0 && first.EndX == 0 && first.EndY > 0);
-			Line firstLineMatchingEnd = dieLinesAsDesigned.Find(first => first.EndX == 0 && first.EndY == 0 && first.StartX == 0 && first.StartY > 0);
+			Line firstLineMatchingStart = null;
+			Line firstLineMatchingEnd = null;
+
+			Line startClosestToZero = dieLinesAsDesigned.OrderBy(line => Math.Abs(line.StartX) + Math.Abs(line.StartY)).FirstOrDefault();
+			Line endClosestToZero = dieLinesAsDesigned.OrderBy(line => Math.Abs(line.EndX) + Math.Abs(line.EndY)).FirstOrDefault();
+
+			bool lineWithClosestStart = Math.Abs(startClosestToZero.StartX) + Math.Abs(startClosestToZero.StartY) < Math.Abs(startClosestToZero.EndX) + Math.Abs(endClosestToZero.StartY);
+			if (lineWithClosestStart)
+			{
+				firstLineMatchingStart = startClosestToZero;
+			}
+			else
+			{
+				firstLineMatchingEnd = endClosestToZero;
+			}
+
+			
 
 			PointF lastPoint = new PointF();
 			if (firstLineMatchingStart != null)
