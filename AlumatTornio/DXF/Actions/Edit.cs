@@ -25,7 +25,7 @@ namespace DXF.Actions
 			Line startClosestToZero = dieLinesAsDesigned.OrderBy(line => Math.Abs(line.StartX) + Math.Abs(line.StartY)).FirstOrDefault();
 			Line endClosestToZero = dieLinesAsDesigned.OrderBy(line => Math.Abs(line.EndX) + Math.Abs(line.EndY)).FirstOrDefault();
 
-			bool lineWithClosestStart = Math.Abs(startClosestToZero.StartX) + Math.Abs(startClosestToZero.StartY) < Math.Abs(startClosestToZero.EndX) + Math.Abs(endClosestToZero.StartY);
+			bool lineWithClosestStart = Math.Abs(startClosestToZero.StartX) + Math.Abs(startClosestToZero.StartY) < Math.Abs(endClosestToZero.EndX) + Math.Abs(endClosestToZero.EndY);
 			if (lineWithClosestStart)
 			{
 				firstLineMatchingStart = startClosestToZero;
