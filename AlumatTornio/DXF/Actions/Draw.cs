@@ -111,16 +111,16 @@ namespace DXF.Actions
 			stockPath.Dispose();
 		}
 
-		public static void Chock(Graphics visualizationPanel, float stockRadius, float stockLeft)
+		public static void Chock(Graphics visualizationPanel, float stockRadius, float stockLeft, float chockSize)
 		{
 			PointF[] chockPoints = 
 			{
 				new PointF(-Parameter.DieWidth - stockLeft, 0),
 				new PointF(-Parameter.DieWidth - stockLeft, Parameter.DieRadius + stockRadius),
-				new PointF(-Parameter.DieWidth - stockLeft + 40, Parameter.DieRadius + stockRadius),
-				new PointF(-Parameter.DieWidth - stockLeft + 40, Parameter.DieRadius + stockRadius + 40),
-				new PointF(-Parameter.DieWidth - stockLeft + 40 - 80, Parameter.DieRadius + stockRadius + 40),
-				new PointF(-Parameter.DieWidth - stockLeft + 40 - 80, 0)
+				new PointF(-Parameter.DieWidth - stockLeft + chockSize, Parameter.DieRadius + stockRadius),
+				new PointF(-Parameter.DieWidth - stockLeft + chockSize, Parameter.DieRadius + stockRadius + 40),
+				new PointF(-Parameter.DieWidth - stockLeft - 40, Parameter.DieRadius + stockRadius + 40),
+				new PointF(-Parameter.DieWidth - stockLeft -40, 0)
 			};
 
 			byte[] chockPointsType =

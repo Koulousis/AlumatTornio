@@ -101,6 +101,10 @@ namespace DXF
 			this.flippedButton = new System.Windows.Forms.RadioButton();
 			this.asDesignedButton = new System.Windows.Forms.RadioButton();
 			this.tabSettings = new System.Windows.Forms.TabPage();
+			this.chockSizeGroup = new System.Windows.Forms.GroupBox();
+			this.chockSizeLabel = new System.Windows.Forms.Label();
+			this.chockSizeInput = new System.Windows.Forms.NumericUpDown();
+			this.label1 = new System.Windows.Forms.Label();
 			this.mainAppMenu.SuspendLayout();
 			this.viewSideSelectorGroup.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
@@ -127,6 +131,8 @@ namespace DXF
 			((System.ComponentModel.ISupportInitialize)(this.visualizationPanel)).BeginInit();
 			this.firstSideSelectorGroup.SuspendLayout();
 			this.tabSettings.SuspendLayout();
+			this.chockSizeGroup.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.chockSizeInput)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// coordinatesLabel
@@ -150,7 +156,7 @@ namespace DXF
 			this.mainAppMenu.Location = new System.Drawing.Point(0, 0);
 			this.mainAppMenu.Name = "mainAppMenu";
 			this.mainAppMenu.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
-			this.mainAppMenu.Size = new System.Drawing.Size(789, 24);
+			this.mainAppMenu.Size = new System.Drawing.Size(970, 24);
 			this.mainAppMenu.TabIndex = 2;
 			this.mainAppMenu.Text = "menuStrip1";
 			// 
@@ -295,19 +301,20 @@ namespace DXF
 			this.copyrightsBanner.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.copyrightsBanner.Location = new System.Drawing.Point(0, 560);
 			this.copyrightsBanner.Name = "copyrightsBanner";
-			this.copyrightsBanner.Size = new System.Drawing.Size(789, 95);
+			this.copyrightsBanner.Size = new System.Drawing.Size(970, 95);
 			this.copyrightsBanner.TabIndex = 4;
 			// 
 			// copyrights
 			// 
+			this.copyrights.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
 			this.copyrights.BackColor = System.Drawing.SystemColors.WindowFrame;
 			this.copyrights.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.copyrights.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.copyrights.Location = new System.Drawing.Point(315, 79);
+			this.copyrights.Location = new System.Drawing.Point(404, 79);
 			this.copyrights.Name = "copyrights";
-			this.copyrights.Size = new System.Drawing.Size(193, 13);
+			this.copyrights.Size = new System.Drawing.Size(226, 13);
 			this.copyrights.TabIndex = 1;
-			this.copyrights.Text = "© Alumat Srl 2022. All Rights Reserved";
+			this.copyrights.Text = "© Alumat Srl 2022 - 2023. All Rights Reserved";
 			// 
 			// banner
 			// 
@@ -317,7 +324,7 @@ namespace DXF
 			this.banner.Image = ((System.Drawing.Image)(resources.GetObject("banner.Image")));
 			this.banner.Location = new System.Drawing.Point(0, 0);
 			this.banner.Name = "banner";
-			this.banner.Size = new System.Drawing.Size(789, 74);
+			this.banner.Size = new System.Drawing.Size(970, 74);
 			this.banner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.banner.TabIndex = 0;
 			this.banner.TabStop = false;
@@ -922,12 +929,13 @@ namespace DXF
 			this.tabPanel.Location = new System.Drawing.Point(0, 24);
 			this.tabPanel.Name = "tabPanel";
 			this.tabPanel.SelectedIndex = 0;
-			this.tabPanel.Size = new System.Drawing.Size(789, 536);
+			this.tabPanel.Size = new System.Drawing.Size(970, 536);
 			this.tabPanel.TabIndex = 16;
 			// 
 			// tabSetup
 			// 
 			this.tabSetup.BackColor = System.Drawing.SystemColors.WindowFrame;
+			this.tabSetup.Controls.Add(this.chockSizeGroup);
 			this.tabSetup.Controls.Add(this.validateDimensionsGroup);
 			this.tabSetup.Controls.Add(this.cavaSelectorGroup);
 			this.tabSetup.Controls.Add(this.visualizationPanel);
@@ -943,7 +951,7 @@ namespace DXF
 			this.tabSetup.Location = new System.Drawing.Point(4, 22);
 			this.tabSetup.Name = "tabSetup";
 			this.tabSetup.Padding = new System.Windows.Forms.Padding(3);
-			this.tabSetup.Size = new System.Drawing.Size(781, 510);
+			this.tabSetup.Size = new System.Drawing.Size(962, 510);
 			this.tabSetup.TabIndex = 0;
 			this.tabSetup.Text = "Machining Setup";
 			// 
@@ -1134,16 +1142,65 @@ namespace DXF
 			this.tabSettings.Location = new System.Drawing.Point(4, 22);
 			this.tabSettings.Name = "tabSettings";
 			this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-			this.tabSettings.Size = new System.Drawing.Size(779, 510);
+			this.tabSettings.Size = new System.Drawing.Size(781, 510);
 			this.tabSettings.TabIndex = 1;
 			this.tabSettings.Text = "Machining Settings";
+			// 
+			// chockSizeGroup
+			// 
+			this.chockSizeGroup.Controls.Add(this.label1);
+			this.chockSizeGroup.Controls.Add(this.chockSizeInput);
+			this.chockSizeGroup.Controls.Add(this.chockSizeLabel);
+			this.chockSizeGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+			this.chockSizeGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.chockSizeGroup.Location = new System.Drawing.Point(792, 7);
+			this.chockSizeGroup.Name = "chockSizeGroup";
+			this.chockSizeGroup.Size = new System.Drawing.Size(150, 79);
+			this.chockSizeGroup.TabIndex = 22;
+			this.chockSizeGroup.TabStop = false;
+			this.chockSizeGroup.Text = "Chock size";
+			// 
+			// chockSizeLabel
+			// 
+			this.chockSizeLabel.AutoSize = true;
+			this.chockSizeLabel.ForeColor = System.Drawing.Color.Black;
+			this.chockSizeLabel.Location = new System.Drawing.Point(6, 18);
+			this.chockSizeLabel.Name = "chockSizeLabel";
+			this.chockSizeLabel.Size = new System.Drawing.Size(142, 16);
+			this.chockSizeLabel.TabIndex = 22;
+			this.chockSizeLabel.Text = "Set chock length value";
+			// 
+			// chockSizeInput
+			// 
+			this.chockSizeInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.chockSizeInput.Location = new System.Drawing.Point(84, 40);
+			this.chockSizeInput.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.chockSizeInput.Name = "chockSizeInput";
+			this.chockSizeInput.Size = new System.Drawing.Size(60, 26);
+			this.chockSizeInput.TabIndex = 17;
+			this.chockSizeInput.ValueChanged += new System.EventHandler(this.chockSizeInput_ValueChanged);
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+			this.label1.ForeColor = System.Drawing.Color.Black;
+			this.label1.Location = new System.Drawing.Point(6, 45);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(78, 16);
+			this.label1.TabIndex = 23;
+			this.label1.Text = "Size in mm :";
 			// 
 			// MainApp
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.WindowFrame;
-			this.ClientSize = new System.Drawing.Size(789, 655);
+			this.ClientSize = new System.Drawing.Size(970, 655);
 			this.Controls.Add(this.tabPanel);
 			this.Controls.Add(this.copyrightsBanner);
 			this.Controls.Add(this.mainAppMenu);
@@ -1190,6 +1247,9 @@ namespace DXF
 			this.firstSideSelectorGroup.ResumeLayout(false);
 			this.firstSideSelectorGroup.PerformLayout();
 			this.tabSettings.ResumeLayout(false);
+			this.chockSizeGroup.ResumeLayout(false);
+			this.chockSizeGroup.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.chockSizeInput)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1267,5 +1327,9 @@ namespace DXF
 		private System.Windows.Forms.GroupBox validateDimensionsGroup;
 		private System.Windows.Forms.Label validateDimensionsLabel;
 		private System.Windows.Forms.Button validateDimensionsButton;
+		private System.Windows.Forms.GroupBox chockSizeGroup;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.NumericUpDown chockSizeInput;
+		private System.Windows.Forms.Label chockSizeLabel;
 	}
 }

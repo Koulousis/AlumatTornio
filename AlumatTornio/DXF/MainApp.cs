@@ -47,6 +47,9 @@ namespace DXF
 			g72XAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G72XAllowance"]);
 			g72ZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G72ZAllowance"]);
 			g72FeedRateInput.Value = Convert.ToDecimal(Settings.Default["G72FeedRate"]);
+
+			//Fill chock size input with saved value
+			chockSizeInput.Value = Convert.ToDecimal(Settings.Default["ChockSize"]);
 		}
 		#endregion
 		
@@ -138,6 +141,7 @@ namespace DXF
 			flippedButton.Checked = false;
 			cavaSelectorGroup.Enabled = false;
 			viewSideSelectorGroup.Enabled = false;
+			chockSizeGroup.Enabled = false;
 			stockValuesSelectorGroup.Enabled = false;
 			generateCode.Enabled = false;
 			drawFirstSideButton.Checked = false;
@@ -215,6 +219,7 @@ namespace DXF
 			cavaSelectorGroup.Enabled = true;
 			viewSideSelectorGroup.Enabled = true;
 			stockValuesSelectorGroup.Enabled = true;
+			chockSizeGroup.Enabled = true;
 			generateCode.Enabled = true;
 			
 			//Set stock values
@@ -382,7 +387,7 @@ namespace DXF
 				if (drawFirstSideButton.Checked)
 				{
 					Draw.Stock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthFirstSide, Parameter.StockFromWidthSecondSide);
-					Draw.Chock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthSecondSide);
+					Draw.Chock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthSecondSide, (float)chockSizeInput.Value);
 					Draw.Die(visualizationPanelGraphics, Parameter.FirstSideLines, Parameter.FirstSideArcs);
 					Draw.OuterHorizontalMachiningProfile(visualizationPanelGraphics, Parameter.FirstSideOuterHorizontalMachiningLines, Parameter.FirstSideOuterHorizontalMachiningArcs);
 					Draw.OuterVerticalMachiningProfile(visualizationPanelGraphics, Parameter.FirstSideOuterVerticalMachiningLines);
@@ -390,7 +395,7 @@ namespace DXF
 				else if (drawSecondSideButton.Checked)
 				{
 					Draw.Stock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthSecondSide, Parameter.StockFromWidthFirstSide);
-					Draw.Chock(visualizationPanelGraphics, Parameter.StockFromRadius, 0);
+					Draw.Chock(visualizationPanelGraphics, Parameter.StockFromRadius, 0, (float)chockSizeInput.Value);
 					Draw.Die(visualizationPanelGraphics, Parameter.SecondSideLines, Parameter.SecondSideArcs);
 					Draw.OuterHorizontalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideOuterHorizontalMachiningLines, Parameter.SecondSideOuterHorizontalMachiningArcs);
 					Draw.OuterVerticalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideOuterVerticalMachiningLines);
@@ -624,10 +629,19 @@ namespace DXF
 			Settings.Default.Save();
 		}
 
+
+
+
 		#endregion
 
-		
-
+		#region Chock Size Save
+		private void chockSizeInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["ChockSize"] = chockSizeInput.Value;
+			Settings.Default.Save();
+			visualizationPanel.Refresh();
+		}
+		#endregion
 
 	}
 }
