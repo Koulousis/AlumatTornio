@@ -146,6 +146,7 @@ namespace DXF
 			generateCode.Enabled = false;
 			drawFirstSideButton.Checked = false;
 			drawSecondSideButton.Checked = false;
+			exportProgressBar.Value = 0;
 
 			//Set placement for lines and arcs
 			foreach (Line line in dieLinesAsDesigned) { line.Placement = "AsDesigned"; }
@@ -408,6 +409,15 @@ namespace DXF
 
 		private void drawFirstSideButton_CheckedChanged(object sender, EventArgs e)
 		{
+			if (drawFirstSideButton.Checked)
+			{
+				gCodeTextBox.Lines = Parameter.GCodeFirstSide.ToArray();
+			}
+			else if (drawSecondSideButton.Checked)
+			{
+				gCodeTextBox.Lines = Parameter.GCodeSecondSide.ToArray();
+			}
+			
 			visualizationPanel.Refresh();
 		}
 
@@ -436,54 +446,49 @@ namespace DXF
 		#region Export
 		private void exportGCode_Click(object sender, EventArgs e)
 		{
+			//Clear texts
+			gCodeTextBox.Lines = Array.Empty<string>();
+			Parameter.GCodeFirstSide.Clear();
+			Parameter.GCodeSecondSide.Clear();
+
 			//Update Progress Bar
 			exportProgressBar.Value = 0;
-			gCodeTextBox.Lines = Array.Empty<string>();
 			GCode.FirstSide.Clear();
 			for (int i = 0; i < 100; i++) { for (int j = 0; j < 10000; j++) { } exportProgressBar.Value++; }
 
 			//Set G71 and G72 Attributes
-			G71 g71 = new G71("10","20",g71DepthOfCutInput.Value, g71RetractInput.Value, g71XAllowanceInput.Value, g71ZAllowanceInput.Value, g71FeedRateInput.Value);
-			G72 g72 = new G72("30","40",g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
+			G72 g72 = new G72("10", "20", g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
+			G71 g71 = new G71("30", "40",g71DepthOfCutInput.Value, g71RetractInput.Value, g71XAllowanceInput.Value, g71ZAllowanceInput.Value, g71FeedRateInput.Value);
 
-			//Get first side outer horizontal profile points
-			List<ProfilePoint> firstSideOuterHorizontalProfilePoints = Get.OuterHorizontalProfilePoints(Parameter.FirstSideOuterHorizontalMachiningLines, Parameter.FirstSideOuterHorizontalMachiningArcs);
+			//Get first side outer horizontal and outer vertical profile points
+			List<ProfilePoint> firstSideOuterHorizontalProfilePoints = Get.ProfilePoints(Parameter.FirstSideOuterHorizontalMachiningLines, Parameter.FirstSideOuterHorizontalMachiningArcs);
+			List<ProfilePoint> firstSideOuterVerticalProfilePoints = Get.ProfilePoints(Parameter.FirstSideOuterVerticalMachiningLines, Parameter.FirstSideOuterVerticalMachiningArcs);
 
+			//Create g code for first side
+			List<string> gCodeFirstSide = new List<string>();
+			gCodeFirstSide.AddRange(CodeBlock.LatheInitialization());
+			gCodeFirstSide.AddRange(CodeBlock.OuterVerticalProfile(g72, firstSideOuterVerticalProfilePoints));
+			gCodeFirstSide.AddRange(CodeBlock.OuterHorizontalProfile(g71, firstSideOuterHorizontalProfilePoints));
+			gCodeFirstSide.AddRange(CodeBlock.LatheEnd());
 
-			//Fill G-Code File
-			//First Side
-			//GCode.FirstSide.AddRange(CodeBlock.LatheInitialization());
-
-			//GCode.FirstSide.AddRange(CodeBlock.StartPosition(Parameter.G72ProfilePointsFirstSide));
-			//GCode.FirstSide.AddRange(CodeBlock.G72Facing(g72));
-			//GCode.FirstSide.AddRange(CodeBlock.G72Profile(Parameter.G72ProfilePointsFirstSide));
-
-			//GCode.FirstSide.AddRange(CodeBlock.StartPosition(Parameter.G71ProfilePointsFirstSide));
-			//GCode.FirstSide.AddRange(CodeBlock.G71Roughing(g71));
-			//GCode.FirstSide.AddRange(CodeBlock.G71Profile(Parameter.G71ProfilePointsFirstSide));
-			//GCode.FirstSide.AddRange(CodeBlock.G70Finishing());
-			//GCode.FirstSide.AddRange(CodeBlock.LatheEnd());
-
-			//Second Side
-			//GCode.SecondSide.AddRange(CodeBlock.LatheInitialization());
-			//GCode.SecondSide.AddRange(CodeBlock.StartPosition(Parameter.G72ProfilePointsFirstSide));
-			//GCode.SecondSide.AddRange(CodeBlock.G72Facing(g72));
-			//GCode.SecondSide.AddRange(CodeBlock.G72Profile(Parameter.G72ProfilePointsFirstSide));
+			//Get second side outer horizontal and outer vertical profile points
+			List<ProfilePoint> secondSideOuterHorizontalProfilePoints = Get.ProfilePoints(Parameter.SecondSideOuterHorizontalMachiningLines, Parameter.SecondSideOuterHorizontalMachiningArcs);
+			List<ProfilePoint> secondSideOuterVerticalProfilePoints = Get.ProfilePoints(Parameter.SecondSideOuterVerticalMachiningLines, Parameter.SecondSideOuterVerticalMachiningArcs);
+			
+			//Create g code for second side
+			List<string> gCodeSecondSide = new List<string>();
+			gCodeSecondSide.AddRange(CodeBlock.LatheInitialization());
+			gCodeSecondSide.AddRange(CodeBlock.OuterVerticalProfile(g72, secondSideOuterHorizontalProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.OuterHorizontalProfile(g71, secondSideOuterVerticalProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.LatheEnd());
 
 
-			//GCode.SecondSide.AddRange(CodeBlock.StartPosition(Parameter.G71ProfilePointsSecondSide));
-			//GCode.SecondSide.AddRange(CodeBlock.G71Roughing(g71));
-			//GCode.SecondSide.AddRange(CodeBlock.G71Profile(Parameter.G71ProfilePointsSecondSide));
-			//GCode.SecondSide.AddRange(CodeBlock.G70Finishing());
-			//GCode.SecondSide.AddRange(CodeBlock.LatheEnd());
+			//Fill rich text box
+			gCodeTextBox.Lines = drawFirstSideButton.Checked ? gCodeFirstSide.ToArray() : gCodeSecondSide.ToArray();
 
-			//G-Code File Export
-			//GCode.Export();
-
-			//Update File Status
-			//fileName.Text = Parameter.DxfFileName;
-			//gCodeTextBox.Lines = drawFirstSideButton.Checked ? GCode.FirstSide.ToArray() : GCode.SecondSide.ToArray();
-
+			//Set global parameters
+			Parameter.GCodeFirstSide.AddRange(gCodeFirstSide);
+			Parameter.GCodeSecondSide.AddRange(gCodeSecondSide);
 		}
 		#endregion
 

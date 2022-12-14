@@ -547,7 +547,7 @@ namespace DXF.Actions
 			return secondSideOuterVerticalMachiningLines;
 		}
 
-		public static List<ProfilePoint> OuterHorizontalProfilePoints(List<Line> lines, List<Arc> arcs)
+		public static List<ProfilePoint> ProfilePoints(List<Line> lines, List<Arc> arcs)
 		{
 			//Set index list to loop through profile
 			List<int> indexes = new List<int>();
@@ -579,17 +579,17 @@ namespace DXF.Actions
 			var groups = profilePoints.GroupBy(p => new { p.X, p.Z });
 
 			//Create a new list from the groups, taking only the first element from each group
-			List<ProfilePoint> profilePointsCleared = groups.Select(g => g.First()).ToList();
+			List<ProfilePoint> profilePointsWithoutDuplicates = groups.Select(g => g.First()).ToList();
 
 			//The result must be equal to (lines.Count + 1) + arcs.Count 
-			if (profilePointsCleared.Count != lines.Count + 1 + arcs.Count)
+			if (profilePointsWithoutDuplicates.Count != lines.Count + 1 + arcs.Count)
 			{
 				MessageBox.Show("Outer horizintal profile points amount\n are not equal to the planned amount");
 			}
 
-			return profilePointsCleared;
+			return profilePointsWithoutDuplicates;
 		}
-
+		
 
 
 

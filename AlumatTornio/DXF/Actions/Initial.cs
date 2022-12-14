@@ -41,14 +41,27 @@ namespace DXF.Actions
 			Parameter.FirstSideOuterHorizontalMachiningLines = new List<Line>();
 			Parameter.FirstSideOuterHorizontalMachiningArcs = new List<Arc>();
 			Parameter.FirstSideOuterVerticalMachiningLines = new List<Line>();
+			Parameter.FirstSideOuterVerticalMachiningArcs = new List<Arc>();
 
 			Parameter.SecondSideOuterHorizontalMachiningLines = new List<Line>();
 			Parameter.SecondSideOuterHorizontalMachiningArcs = new List<Arc>();
 			Parameter.SecondSideOuterVerticalMachiningLines = new List<Line>();
+			Parameter.SecondSideOuterVerticalMachiningArcs = new List<Arc>();
 			#endregion
 
 			#region Validate dimensions
 			Parameter.ElementsHasGap = false;
+			#endregion
+
+			#region Setted on export
+			Parameter.G72ProfilePointsFirstSide = new List<ProfilePoint>();
+			Parameter.G71ProfilePointsFirstSide = new List<ProfilePoint>();
+
+			Parameter.G72ProfilePointsSecondSide = new List<ProfilePoint>();
+			Parameter.G71ProfilePointsSecondSide = new List<ProfilePoint>();
+
+			Parameter.GCodeFirstSide = new List<string>();
+			Parameter.GCodeSecondSide = new List<string>();
 			#endregion
 		}
 }

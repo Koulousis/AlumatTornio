@@ -39,10 +39,12 @@ namespace DXF.Elements
 		public static List<Line> FirstSideOuterHorizontalMachiningLines { get; set; }
 		public static List<Arc> FirstSideOuterHorizontalMachiningArcs { get; set; }
 		public static List<Line> FirstSideOuterVerticalMachiningLines { get; set; }
+		public static List<Arc> FirstSideOuterVerticalMachiningArcs { get; set; }
 
 		public static List<Line> SecondSideOuterHorizontalMachiningLines { get; set; }
 		public static List<Arc> SecondSideOuterHorizontalMachiningArcs { get; set; }
 		public static List<Line> SecondSideOuterVerticalMachiningLines { get; set; }
+		public static List<Arc> SecondSideOuterVerticalMachiningArcs { get; set; }
 		#endregion
 
 
@@ -69,28 +71,15 @@ namespace DXF.Elements
 		public static bool ElementsHasGap { get; set; }
 		#endregion
 
-		#region Common Values
-		#endregion
-
-		#region For GCode
+		#region Setted on export
 		public static List<ProfilePoint> G72ProfilePointsFirstSide { get; set; }
 		public static List<ProfilePoint> G71ProfilePointsFirstSide { get; set; }
 
 		public static List<ProfilePoint> G72ProfilePointsSecondSide { get; set; }
 		public static List<ProfilePoint> G71ProfilePointsSecondSide { get; set; }
 
-		
-		public static float StockDiameterExtra = 1;
-		public static float StockDiameterExtraMax = 7;
-
-		
-		public static float StockWidthExtra = 2;
-		public static float StockWidthExtraMax = 7;
-
-		public static float StockX { get; set; }
-		public static float StockZFirstSide { get; set; }
-		public static float StockZSecondSide { get; set; }
-		public static float CavaExtra { get; set; }
+		public static List<string> GCodeFirstSide { get; set; }
+		public static List<string> GCodeSecondSide { get; set; }
 
 		#endregion
 

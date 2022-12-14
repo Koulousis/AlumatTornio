@@ -12,7 +12,7 @@ namespace DXF.Elements
 		public float Z { get; set; }
 		public float R { get; set; }
 		public bool Clockwise { get; set; }
-		public bool AntiClockwise { get; set; }
+		public bool CounterClockwise { get; set; }
 
 		public ProfilePoint(float x, float z)
 		{
@@ -20,13 +20,13 @@ namespace DXF.Elements
 			Z = z;
 		}
 
-		public ProfilePoint(float x, float z, float r, bool clockwise, bool antiClockwise)
+		public ProfilePoint(float x, float z, float r, bool clockwise, bool counterClockwise)
 		{
 			X = x;
 			Z = z;
 			R = r;
 			Clockwise = clockwise;
-			AntiClockwise = antiClockwise;
+			CounterClockwise = counterClockwise;
 		}
 	}
 }

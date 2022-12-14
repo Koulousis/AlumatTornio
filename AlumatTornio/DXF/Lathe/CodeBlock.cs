@@ -16,7 +16,7 @@ namespace DXF.Lathe
 			{
 				"%",
 				"O71",
-				"(LATHE INITIALIZATION)",
+				"(-----LATHE INITIALIZATION-----)",
 				"G54",
 				"M46",
 				"G99G18",
@@ -35,114 +35,104 @@ namespace DXF.Lathe
 			return latheInitialization;
 		}
 
-		public static List<string> StartPosition(List<ProfilePoint> g71ProfilePoints)
+		public static List<string> OuterVerticalProfile(G72 g72, List<ProfilePoint> profilePoints)
 		{
-			float maximumProfilePointX = 0;
-			foreach (ProfilePoint g71ProfilePoint in g71ProfilePoints)
+			List<string> gCode = new List<string>();
+
+			//Get specific profile points to add extra attributes
+			ProfilePoint startPosition = profilePoints[0];
+			ProfilePoint profileStart = profilePoints[1];
+			ProfilePoint profileEnd = profilePoints[profilePoints.Count - 1];
+			profilePoints.RemoveAt(0);
+			profilePoints.RemoveAt(1);
+			profilePoints.RemoveAt(profilePoints.Count - 1);
+
+			//Set g code
+			gCode.Add("(-----VERTICAL FACING-----)");
+			gCode.Add("(START POSITION)");
+			gCode.Add($"G0 Z{startPosition.Z}");
+			gCode.Add($"G0 X{startPosition.X}");
+			gCode.Add("");
+			gCode.Add("(G72 PARAMETERS)");
+			gCode.Add($"G72 W{g72.DepthOfCut} R{g72.Retract}");
+			gCode.Add($"G72 P{g72.ProfileStart} Q{g72.ProfileEnd} U{g72.AllowanceX} W{g72.AllowanceZ} F{g72.FeedRate}");
+			gCode.Add("");
+			gCode.Add("PROFILE");
+			gCode.Add($"N{g72.ProfileStart} G0 G41 X{profileStart.X} Z{profileStart.Z}");
+
+			foreach (ProfilePoint profilePoint in profilePoints)
 			{
-				if (g71ProfilePoint.X > maximumProfilePointX)
+				if (profilePoint.R == 0)
 				{
-					maximumProfilePointX = g71ProfilePoint.X;
+					gCode.Add($"G1 X{profilePoint.X} Z{profilePoint.Z}");
+				}
+				else if (profilePoint.Clockwise)
+				{
+					gCode.Add($"G2 X{profilePoint.X} Z{profilePoint.Z} R{profilePoint.R}");
+				}
+				else if (profilePoint.CounterClockwise)
+				{
+					gCode.Add($"G3 X{profilePoint.X} Z{profilePoint.Z} R{profilePoint.R}");
 				}
 			}
 
-			//Fill G Code
-			List<string> startPosition = new List<string>
-			{
-				"(START POSITION)",
-				$"G0 Z{g71ProfilePoints[0].Z + Parameter.StockZFirstSide}",
-				$"X{(maximumProfilePointX* 2) + Parameter.StockX}",
-				""
-			};
+			gCode.Add($"N{g72.ProfileEnd} G1 G40 X{profileEnd.X} Z{profileEnd.Z}");
+			gCode.Add("");
+			gCode.Add("(-----VERTICAL FINISHING-----)");
+			gCode.Add($"G70 P{g72.ProfileStart} Q{g72.ProfileEnd}");
+			gCode.Add("");
 
-			return startPosition;
+			return gCode;
 		}
 
-		public static List<string> G72Facing(G72 g72)
+		public static List<string> OuterHorizontalProfile(G71 g71, List<ProfilePoint> profilePoints)
 		{
-			//Fill G Code
-			List<string> g72Roughing = new List<string>
+			List<string> gCode = new List<string>();
+
+			//Get specific profile points to add extra attributes
+			ProfilePoint startPosition = profilePoints[0];
+			ProfilePoint profileStart = profilePoints[1];
+			ProfilePoint profileEnd = profilePoints[profilePoints.Count - 1];
+			profilePoints.RemoveAt(0);
+			profilePoints.RemoveAt(1);
+			profilePoints.RemoveAt(profilePoints.Count - 1);
+
+			//Set g code
+			gCode.Add("(-----HORIZONTAL ROUGHING-----)");
+			gCode.Add("(START POSITION)");
+			gCode.Add($"G0 Z{startPosition.Z}");
+			gCode.Add($"G0 X{startPosition.X}");
+			gCode.Add("");
+			gCode.Add("(G71 PARAMETERS)");
+			gCode.Add($"G71 U{g71.DepthOfCut} R{g71.Retract}");
+			gCode.Add($"G71 P{g71.ProfileStart} Q{g71.ProfileEnd} U{g71.AllowanceX} W{g71.AllowanceZ} F{g71.FeedRate}");
+			gCode.Add("");
+			gCode.Add("(PROFILE)");
+			gCode.Add($"N{g71.ProfileStart} G0 G42 X{profileStart.X} Z{profileStart.Z}");
+
+			foreach (ProfilePoint profilePoint in profilePoints)
 			{
-				"(G72 FACING)",
-				$"G72 W{g72.DepthOfCut} R{g72.Retract}",
-				$"G72 P1 Q2 U{g72.AllowanceX} W{g72.AllowanceZ} F{g72.FeedRate}",
-				""
-			};
-
-			return g72Roughing;
-		}
-
-		public static List<string> G71Roughing(G71 g71)
-		{
-			//Fill G Code
-			List<string> g71Roughing = new List<string>
-			{
-				"(G71 ROUGHING)",
-				$"G71 U{g71.DepthOfCut} R{g71.Retract}",
-				$"G71 P3 Q4 U{g71.AllowanceX} W{g71.AllowanceZ} F{g71.FeedRate}",
-				""
-			};
-
-			return g71Roughing;
-		}
-
-		public static List<string> G72Profile(List<ProfilePoint> g72ProfilePoints)
-		{
-			//Fill G Code
-			List<string> profileBlock = new List<string>();
-			profileBlock.Add("(PROFILE START)");
-			profileBlock.Add($"N1 G0 G41 X{(g72ProfilePoints[0].X * 2) + Parameter.StockX} Z{g72ProfilePoints[0].Z}");
-			profileBlock.Add($"G1 X{g72ProfilePoints[1].X} Z{g72ProfilePoints[1].Z}");
-			profileBlock.Add($"N2 G1 G40 X{g72ProfilePoints[1].X} Z{g72ProfilePoints[1].Z + Parameter.StockZFirstSide}");
-			profileBlock.Add("(PROFILE END)");
-			profileBlock.Add("");
-			profileBlock.Add("(G70 FINISHING)");
-			profileBlock.Add("G70 P1 Q2");
-			profileBlock.Add("");
-
-			return profileBlock;
-		}
-
-		public static List<string> G71Profile(List<ProfilePoint> g71ProfilePoints)
-		{
-			//Fill G Code
-			List<string> profileBlock = new List<string>();
-			profileBlock.Add("(PROFILE START)");
-			profileBlock.Add($"N3 G0 G42 X{(g71ProfilePoints[0].X) * 2} Z{g71ProfilePoints[0].Z + Parameter.StockZFirstSide}");
-			foreach (ProfilePoint g71ProfilePoint in g71ProfilePoints)
-			{
-				if (g71ProfilePoint.R == 0)
+				if (profilePoint.R == 0)
 				{
-					profileBlock.Add($"G1 X{g71ProfilePoint.X * 2} Z{g71ProfilePoint.Z}");
+					gCode.Add($"G1 X{profilePoint.X} Z{profilePoint.Z}");
 				}
-				else if(g71ProfilePoint.Clockwise)
+				else if (profilePoint.Clockwise)
 				{
-					profileBlock.Add($"G2 X{g71ProfilePoint.X * 2} Z{g71ProfilePoint.Z} R{g71ProfilePoint.R}");
+					gCode.Add($"G2 X{profilePoint.X} Z{profilePoint.Z} R{profilePoint.R}");
 				}
-				else
+				else if (profilePoint.CounterClockwise)
 				{
-					profileBlock.Add($"G3 X{g71ProfilePoint.X * 2} Z{g71ProfilePoint.Z} R{g71ProfilePoint.R}");
+					gCode.Add($"G3 X{profilePoint.X} Z{profilePoint.Z} R{profilePoint.R}");
 				}
 			}
+			
+			gCode.Add($"N{g71.ProfileEnd} G1 G40 X{profileEnd.X} Z{profileEnd.Z}");
+			gCode.Add("");
+			gCode.Add("(-----HORIZONTAL FINISHING-----)");
+			gCode.Add($"G70 P{g71.ProfileStart} Q{g71.ProfileEnd}");
+			gCode.Add("");
 
-			profileBlock.Add($"N4 G1 G40 X{(g71ProfilePoints[g71ProfilePoints.Count - 1].X + Parameter.StockX) * 2} Z{g71ProfilePoints[g71ProfilePoints.Count - 1].Z}");
-			profileBlock.Add("(PROFILE END)");
-			profileBlock.Add("");
-
-			return profileBlock;
-		}
-
-		public static List<string> G70Finishing()
-		{
-			//Fill G Code
-			List<string> g70Finishing = new List<string>
-			{
-				"(G70 FINISHING)",
-				"G70 P3 Q4",
-				""
-			};
-
-			return g70Finishing;
+			return gCode;
 		}
 
 		public static List<string> LatheEnd()
@@ -150,7 +140,7 @@ namespace DXF.Lathe
 			//Fill G Code
 			List<string> latheEnd = new List<string>
 			{
-				"(LATHE END)",
+				"(-----LATHE END-----)",
 				"G0",
 				"G40",
 				"G28U0",
@@ -163,5 +153,6 @@ namespace DXF.Lathe
 
 			return latheEnd;
 		}
+
 	}
 }

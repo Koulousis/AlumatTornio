@@ -102,9 +102,9 @@ namespace DXF
 			this.asDesignedButton = new System.Windows.Forms.RadioButton();
 			this.tabSettings = new System.Windows.Forms.TabPage();
 			this.chockSizeGroup = new System.Windows.Forms.GroupBox();
-			this.chockSizeLabel = new System.Windows.Forms.Label();
-			this.chockSizeInput = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
+			this.chockSizeInput = new System.Windows.Forms.NumericUpDown();
+			this.chockSizeLabel = new System.Windows.Forms.Label();
 			this.mainAppMenu.SuspendLayout();
 			this.viewSideSelectorGroup.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
@@ -156,7 +156,7 @@ namespace DXF
 			this.mainAppMenu.Location = new System.Drawing.Point(0, 0);
 			this.mainAppMenu.Name = "mainAppMenu";
 			this.mainAppMenu.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
-			this.mainAppMenu.Size = new System.Drawing.Size(970, 24);
+			this.mainAppMenu.Size = new System.Drawing.Size(790, 24);
 			this.mainAppMenu.TabIndex = 2;
 			this.mainAppMenu.Text = "menuStrip1";
 			// 
@@ -301,7 +301,7 @@ namespace DXF
 			this.copyrightsBanner.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.copyrightsBanner.Location = new System.Drawing.Point(0, 560);
 			this.copyrightsBanner.Name = "copyrightsBanner";
-			this.copyrightsBanner.Size = new System.Drawing.Size(970, 95);
+			this.copyrightsBanner.Size = new System.Drawing.Size(790, 95);
 			this.copyrightsBanner.TabIndex = 4;
 			// 
 			// copyrights
@@ -310,7 +310,7 @@ namespace DXF
 			this.copyrights.BackColor = System.Drawing.SystemColors.WindowFrame;
 			this.copyrights.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.copyrights.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.copyrights.Location = new System.Drawing.Point(404, 79);
+			this.copyrights.Location = new System.Drawing.Point(314, 79);
 			this.copyrights.Name = "copyrights";
 			this.copyrights.Size = new System.Drawing.Size(226, 13);
 			this.copyrights.TabIndex = 1;
@@ -324,7 +324,7 @@ namespace DXF
 			this.banner.Image = ((System.Drawing.Image)(resources.GetObject("banner.Image")));
 			this.banner.Location = new System.Drawing.Point(0, 0);
 			this.banner.Name = "banner";
-			this.banner.Size = new System.Drawing.Size(970, 74);
+			this.banner.Size = new System.Drawing.Size(790, 74);
 			this.banner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.banner.TabIndex = 0;
 			this.banner.TabStop = false;
@@ -344,7 +344,7 @@ namespace DXF
 			// 
 			this.exportProgressBar.Location = new System.Drawing.Point(450, 474);
 			this.exportProgressBar.Name = "exportProgressBar";
-			this.exportProgressBar.Size = new System.Drawing.Size(329, 29);
+			this.exportProgressBar.Size = new System.Drawing.Size(324, 29);
 			this.exportProgressBar.TabIndex = 6;
 			// 
 			// g71Settings
@@ -929,13 +929,12 @@ namespace DXF
 			this.tabPanel.Location = new System.Drawing.Point(0, 24);
 			this.tabPanel.Name = "tabPanel";
 			this.tabPanel.SelectedIndex = 0;
-			this.tabPanel.Size = new System.Drawing.Size(970, 536);
+			this.tabPanel.Size = new System.Drawing.Size(790, 536);
 			this.tabPanel.TabIndex = 16;
 			// 
 			// tabSetup
 			// 
 			this.tabSetup.BackColor = System.Drawing.SystemColors.WindowFrame;
-			this.tabSetup.Controls.Add(this.chockSizeGroup);
 			this.tabSetup.Controls.Add(this.validateDimensionsGroup);
 			this.tabSetup.Controls.Add(this.cavaSelectorGroup);
 			this.tabSetup.Controls.Add(this.visualizationPanel);
@@ -951,7 +950,7 @@ namespace DXF
 			this.tabSetup.Location = new System.Drawing.Point(4, 22);
 			this.tabSetup.Name = "tabSetup";
 			this.tabSetup.Padding = new System.Windows.Forms.Padding(3);
-			this.tabSetup.Size = new System.Drawing.Size(962, 510);
+			this.tabSetup.Size = new System.Drawing.Size(782, 510);
 			this.tabSetup.TabIndex = 0;
 			this.tabSetup.Text = "Machining Setup";
 			// 
@@ -1137,12 +1136,13 @@ namespace DXF
 			// tabSettings
 			// 
 			this.tabSettings.BackColor = System.Drawing.SystemColors.WindowFrame;
+			this.tabSettings.Controls.Add(this.chockSizeGroup);
 			this.tabSettings.Controls.Add(this.g71Settings);
 			this.tabSettings.Controls.Add(this.g72Settings);
 			this.tabSettings.Location = new System.Drawing.Point(4, 22);
 			this.tabSettings.Name = "tabSettings";
 			this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-			this.tabSettings.Size = new System.Drawing.Size(781, 510);
+			this.tabSettings.Size = new System.Drawing.Size(962, 510);
 			this.tabSettings.TabIndex = 1;
 			this.tabSettings.Text = "Machining Settings";
 			// 
@@ -1153,22 +1153,23 @@ namespace DXF
 			this.chockSizeGroup.Controls.Add(this.chockSizeLabel);
 			this.chockSizeGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
 			this.chockSizeGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.chockSizeGroup.Location = new System.Drawing.Point(792, 7);
+			this.chockSizeGroup.Location = new System.Drawing.Point(346, 6);
 			this.chockSizeGroup.Name = "chockSizeGroup";
-			this.chockSizeGroup.Size = new System.Drawing.Size(150, 79);
-			this.chockSizeGroup.TabIndex = 22;
+			this.chockSizeGroup.Size = new System.Drawing.Size(150, 174);
+			this.chockSizeGroup.TabIndex = 23;
 			this.chockSizeGroup.TabStop = false;
 			this.chockSizeGroup.Text = "Chock size";
 			// 
-			// chockSizeLabel
+			// label1
 			// 
-			this.chockSizeLabel.AutoSize = true;
-			this.chockSizeLabel.ForeColor = System.Drawing.Color.Black;
-			this.chockSizeLabel.Location = new System.Drawing.Point(6, 18);
-			this.chockSizeLabel.Name = "chockSizeLabel";
-			this.chockSizeLabel.Size = new System.Drawing.Size(142, 16);
-			this.chockSizeLabel.TabIndex = 22;
-			this.chockSizeLabel.Text = "Set chock length value";
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+			this.label1.ForeColor = System.Drawing.Color.Black;
+			this.label1.Location = new System.Drawing.Point(6, 45);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(78, 16);
+			this.label1.TabIndex = 23;
+			this.label1.Text = "Size in mm :";
 			// 
 			// chockSizeInput
 			// 
@@ -1182,25 +1183,23 @@ namespace DXF
 			this.chockSizeInput.Name = "chockSizeInput";
 			this.chockSizeInput.Size = new System.Drawing.Size(60, 26);
 			this.chockSizeInput.TabIndex = 17;
-			this.chockSizeInput.ValueChanged += new System.EventHandler(this.chockSizeInput_ValueChanged);
 			// 
-			// label1
+			// chockSizeLabel
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-			this.label1.ForeColor = System.Drawing.Color.Black;
-			this.label1.Location = new System.Drawing.Point(6, 45);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(78, 16);
-			this.label1.TabIndex = 23;
-			this.label1.Text = "Size in mm :";
+			this.chockSizeLabel.AutoSize = true;
+			this.chockSizeLabel.ForeColor = System.Drawing.Color.Black;
+			this.chockSizeLabel.Location = new System.Drawing.Point(6, 18);
+			this.chockSizeLabel.Name = "chockSizeLabel";
+			this.chockSizeLabel.Size = new System.Drawing.Size(142, 16);
+			this.chockSizeLabel.TabIndex = 22;
+			this.chockSizeLabel.Text = "Set chock length value";
 			// 
 			// MainApp
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.WindowFrame;
-			this.ClientSize = new System.Drawing.Size(970, 655);
+			this.ClientSize = new System.Drawing.Size(790, 655);
 			this.Controls.Add(this.tabPanel);
 			this.Controls.Add(this.copyrightsBanner);
 			this.Controls.Add(this.mainAppMenu);
