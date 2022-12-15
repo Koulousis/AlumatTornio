@@ -27,7 +27,6 @@ namespace DXF.Elements
 		#region Setted on machining setup
 		public static List<Line> FirstSideLines { get; set; }
 		public static List<Arc> FirstSideArcs { get; set; }
-		
 		public static List<Line> SecondSideLines { get; set; }
 		public static List<Arc> SecondSideArcs { get; set; }
 
@@ -40,11 +39,15 @@ namespace DXF.Elements
 		public static List<Arc> FirstSideOuterHorizontalMachiningArcs { get; set; }
 		public static List<Line> FirstSideOuterVerticalMachiningLines { get; set; }
 		public static List<Arc> FirstSideOuterVerticalMachiningArcs { get; set; }
+		public static List<Line> FirstSideCavaLines { get; set; }
+		public static List<Arc> FirstSideCavaArcs { get; set; }
 
 		public static List<Line> SecondSideOuterHorizontalMachiningLines { get; set; }
 		public static List<Arc> SecondSideOuterHorizontalMachiningArcs { get; set; }
 		public static List<Line> SecondSideOuterVerticalMachiningLines { get; set; }
 		public static List<Arc> SecondSideOuterVerticalMachiningArcs { get; set; }
+		public static List<Line> SecondSideCavaLines { get; set; }
+		public static List<Arc> SecondSideCavaArcs { get; set; }
 		#endregion
 
 
@@ -80,6 +83,7 @@ namespace DXF.Elements
 
 		public static List<string> GCodeFirstSide { get; set; }
 		public static List<string> GCodeSecondSide { get; set; }
+		
 
 		#endregion
 

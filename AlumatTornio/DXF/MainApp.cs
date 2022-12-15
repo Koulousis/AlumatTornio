@@ -216,15 +216,6 @@ namespace DXF
 
 		private void setFirstSideSelectionButton_Click(object sender, EventArgs e)
 		{
-			//Change UI after first machining side selected
-			drawFirstSideButton.Checked = true;
-			firstSideSelectorGroup.Enabled = false;
-			cavaSelectorGroup.Enabled = true;
-			viewSideSelectorGroup.Enabled = true;
-			stockValuesSelectorGroup.Enabled = true;
-			chockSizeGroup.Enabled = true;
-			generateCode.Enabled = true;
-			
 			//Set stock values
 			float stockDiameterValue = Parameter.DieDiameter;
 			stockDiameterValue += 1 - Parameter.DieDiameter % 1;
@@ -273,7 +264,8 @@ namespace DXF
 			//
 			List<Line> firstSideCavaLines = Get.CavaLines(Parameter.FirstSideLines);
 			List<Arc> firstSideCavaArcs = Get.CavaArcs(Parameter.FirstSideLines, Parameter.FirstSideArcs);
-			float cavaLength = Calculation.ElementsLength(firstSideCavaLines, firstSideCavaArcs);
+			List<Line> secondSideCavaLines = Get.CavaLines(Parameter.SecondSideLines);
+			List<Arc> secondSideCavaArcs = Get.CavaArcs(Parameter.SecondSideLines, Parameter.SecondSideArcs);
 
 			//Set Global Parameters
 			Parameter.FirstSideOuterHorizontalMachiningLines = firstSideOuterHorizontalMachiningLines;
@@ -283,6 +275,20 @@ namespace DXF
 			Parameter.SecondSideOuterHorizontalMachiningLines = secondSideOuterHorizontalMachiningLines;
 			Parameter.SecondSideOuterHorizontalMachiningArcs = secondSideOuterHorizontalMachiningArcs;
 			Parameter.SecondSideOuterVerticalMachiningLines = secondSideOuterVerticalMachiningLines;
+
+			Parameter.FirstSideCavaLines = firstSideCavaLines;
+			Parameter.FirstSideCavaArcs = firstSideCavaArcs;
+			Parameter.SecondSideCavaLines = secondSideCavaLines;
+			Parameter.SecondSideCavaArcs = secondSideCavaArcs;
+
+			//Change UI after first machining side selected
+			drawFirstSideButton.Checked = true;
+			firstSideSelectorGroup.Enabled = false;
+			cavaSelectorGroup.Enabled = true;
+			viewSideSelectorGroup.Enabled = true;
+			stockValuesSelectorGroup.Enabled = true;
+			chockSizeGroup.Enabled = true;
+			generateCode.Enabled = true;
 
 			//Draw
 			visualizationPanel.Refresh();
@@ -346,6 +352,60 @@ namespace DXF
 
 			visualizationPanel.Refresh();
 		}
+		#endregion
+
+		#region Cava Manipulation
+
+		private void autoCavaButton_CheckedChanged(object sender, EventArgs e)
+		{
+			if (autoCavaButton.Checked)
+			{
+				autoCavaSelectorGroup.Enabled = true;
+				manualCavaSelectorGroup.Enabled = false;
+			}
+			else if (manualCavaButton.Checked)
+			{
+				autoCavaSelectorGroup.Enabled = false;
+				manualCavaSelectorGroup.Enabled = true;
+			}
+		}
+
+		private void cavaFirstSideButton_CheckedChanged(object sender, EventArgs e)
+		{
+			float cavaLength = Calculation.ElementsLength(Parameter.FirstSideCavaLines, Parameter.FirstSideCavaArcs);
+			if (cavaFirstSideButton.Checked)
+			{
+				Parameter.FirstSideOuterHorizontalMachiningLines.Last().StartX -= cavaLength;
+				Parameter.FirstSideOuterHorizontalMachiningLines.Last().EndX -= cavaLength;
+				Parameter.FirstSideOuterHorizontalMachiningLines[Parameter.FirstSideOuterHorizontalMachiningLines.Count - 2].EndX = Parameter.FirstSideOuterHorizontalMachiningLines.Last().StartX;
+			}
+			else if (cavaSecondSideButton.Checked)
+			{
+				Parameter.FirstSideOuterHorizontalMachiningLines.Last().StartX += cavaLength;
+				Parameter.FirstSideOuterHorizontalMachiningLines.Last().EndX += cavaLength;
+				Parameter.FirstSideOuterHorizontalMachiningLines[Parameter.FirstSideOuterHorizontalMachiningLines.Count - 2].EndX = Parameter.FirstSideOuterHorizontalMachiningLines.Last().StartX;
+			}
+			visualizationPanel.Refresh();
+		}
+
+		private void cavaSecondSideButton_CheckedChanged(object sender, EventArgs e)
+		{
+			float cavaLength = Calculation.ElementsLength(Parameter.FirstSideCavaLines, Parameter.FirstSideCavaArcs);
+			if (cavaSecondSideButton.Checked)
+			{
+				Parameter.SecondSideOuterHorizontalMachiningLines.Last().StartX -= cavaLength;
+				Parameter.SecondSideOuterHorizontalMachiningLines.Last().EndX -= cavaLength;
+				Parameter.SecondSideOuterHorizontalMachiningLines[Parameter.SecondSideOuterHorizontalMachiningLines.Count - 2].EndX = Parameter.SecondSideOuterHorizontalMachiningLines.Last().StartX;
+			}
+			else if (cavaFirstSideButton.Checked)
+			{
+				Parameter.SecondSideOuterHorizontalMachiningLines.Last().StartX += cavaLength;
+				Parameter.SecondSideOuterHorizontalMachiningLines.Last().EndX += cavaLength;
+				Parameter.SecondSideOuterHorizontalMachiningLines[Parameter.SecondSideOuterHorizontalMachiningLines.Count - 2].EndX = Parameter.SecondSideOuterHorizontalMachiningLines.Last().StartX;
+			}
+			visualizationPanel.Refresh();
+		}
+
 		#endregion
 
 		#region Draw on Visualization Panel
@@ -656,18 +716,6 @@ namespace DXF
 		}
 		#endregion
 
-		private void autoCavaButton_CheckedChanged(object sender, EventArgs e)
-		{
-			if (autoCavaButton.Checked)
-			{
-				autoCavaSelectorGroup.Enabled = true;
-				manualCavaSelectorGroup.Enabled = false;
-			}
-			else if (manualCavaButton.Checked)
-			{
-				autoCavaSelectorGroup.Enabled = false;
-				manualCavaSelectorGroup.Enabled = true;
-			}
-		}
+		
 	}
 }

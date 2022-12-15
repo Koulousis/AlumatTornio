@@ -29,7 +29,6 @@ namespace DXF.Actions
 			#region Setted on machining setup
 			Parameter.FirstSideLines = new List<Line>();
 			Parameter.FirstSideArcs = new List<Arc>();
-
 			Parameter.SecondSideLines = new List<Line>();
 			Parameter.SecondSideArcs = new List<Arc>();
 
@@ -42,11 +41,15 @@ namespace DXF.Actions
 			Parameter.FirstSideOuterHorizontalMachiningArcs = new List<Arc>();
 			Parameter.FirstSideOuterVerticalMachiningLines = new List<Line>();
 			Parameter.FirstSideOuterVerticalMachiningArcs = new List<Arc>();
+			Parameter.FirstSideCavaLines = new List<Line>();
+			Parameter.FirstSideArcs = new List<Arc>();
 
 			Parameter.SecondSideOuterHorizontalMachiningLines = new List<Line>();
 			Parameter.SecondSideOuterHorizontalMachiningArcs = new List<Arc>();
 			Parameter.SecondSideOuterVerticalMachiningLines = new List<Line>();
 			Parameter.SecondSideOuterVerticalMachiningArcs = new List<Arc>();
+			Parameter.SecondSideCavaLines = new List<Line>();
+			Parameter.SecondSideCavaArcs = new List<Arc>();
 			#endregion
 
 			#region Validate dimensions
