@@ -590,75 +590,66 @@ namespace DXF.Actions
 			return profilePointsWithoutDuplicates;
 		}
 		
-
-
-
-
-
-
-
-		public static List<Line> CavaLines(List<Line> dieLines, List<Line> rightProfileLines, List<Line> leftProfileLines)
+		public static List<Line> CavaLines(List<Line> lines)
 		{
+			//Create cava lines list
 			List<Line> cavaLines = new List<Line>();
-			foreach (Line line in dieLines) { cavaLines.Add(line.Clone()); }
-			cavaLines = Remove.LinesAttachedToAxisX(cavaLines);
 
-			for (int i = 0; i < cavaLines.Count; i++)
+			//Remove lines until the line is on diameter
+			bool lineOnDiameter = false;
+			bool lineOnCava = false;
+			foreach (Line line in lines)
 			{
-				foreach (Line line in rightProfileLines)
+				if (!lineOnDiameter)
 				{
-					if (cavaLines[i].Index == line.Index)
+					lineOnDiameter = line.EndY == Parameter.DieRadius;
+				}
+				else if (lineOnDiameter)
+				{
+					if(line.StartY < Parameter.DieRadius || line.EndY < Parameter.DieRadius)
 					{
-						cavaLines.Remove(cavaLines[i]);
-						i--;
-						break;
+						lineOnCava = true;
+						cavaLines.Add(line.Clone());
 					}
+					else if(lineOnCava)
+					{
+						break;
+					}	
 				}
 			}
-
-			for (int i = 0; i < cavaLines.Count; i++)
-			{
-				foreach (Line line in leftProfileLines)
-				{
-					if (cavaLines[i].Index == line.Index)
-					{
-						cavaLines.Remove(cavaLines[i]);
-						i--;
-						break;
-					}
-				}
-			}
-
 
 			return cavaLines;
 		}
 
-		public static List<Arc> CavaArcs(List<Arc> dieArcs, List<Arc> rightProfileArcs, List<Arc> leftProfilesArcs)
+		public static List<Arc> CavaArcs(List<Line> lines, List<Arc> arcs)
 		{
+			//Create cava lines list
 			List<Arc> cavaArcs = new List<Arc>();
-			foreach (Arc arc in dieArcs) { cavaArcs.Add(arc.Clone()); }
 
-			for (int i = 0; i < cavaArcs.Count; i++)
+			//Remove lines until the line is on diameter
+			bool lineOnDiameter = false;
+			bool lineOnCava = false;
+			foreach (Line line in lines)
 			{
-				foreach (Arc arc in rightProfileArcs)
+				if (!lineOnDiameter)
 				{
-					if (cavaArcs[i].Index == arc.Index)
-					{
-						cavaArcs.Remove(cavaArcs[i]);
-						i--;
-						break;
-					}
+					lineOnDiameter = line.EndY == Parameter.DieRadius;
 				}
-			}
-
-			for (int i = 0; i < cavaArcs.Count; i++)
-			{
-				foreach (Arc arc in leftProfilesArcs)
+				else if (lineOnDiameter)
 				{
-					if (cavaArcs[i].Index == arc.Index)
+					if (line.StartY < Parameter.DieRadius || line.EndY < Parameter.DieRadius)
 					{
-						cavaArcs.Remove(cavaArcs[i]);
-						i--;
+						lineOnCava = true;
+						foreach (Arc arc in arcs)
+						{
+							if ((arc.EndX == line.StartX && arc.EndY == line.StartY) || (arc.StartX == line.EndX && arc.StartY == line.EndY))
+							{
+								cavaArcs.Add(arc.Clone());
+							}
+						}
+					}
+					else if (lineOnCava)
+					{
 						break;
 					}
 				}

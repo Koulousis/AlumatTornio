@@ -140,6 +140,8 @@ namespace DXF
 			asDesignedButton.Checked = false;
 			flippedButton.Checked = false;
 			cavaSelectorGroup.Enabled = false;
+			manualCavaSelectorGroup.Enabled = false;
+			autoCavaButton.Checked = true;
 			viewSideSelectorGroup.Enabled = false;
 			chockSizeGroup.Enabled = false;
 			stockValuesSelectorGroup.Enabled = false;
@@ -265,6 +267,12 @@ namespace DXF
 			List<Line> firstSideOuterVerticalMachiningLines = Get.FirstSideOuterVerticalMachiningLines();
 			//Second side outer vertical machining profile
 			List<Line> secondSideOuterVerticalMachiningLines = Get.SecondSideOuterVerticalMachiningLines();
+			//***************************************************************************************************************************************
+
+			//***************************************************************************************************************************************
+			List<Line> firstSideCavaLines = Get.CavaLines(Parameter.FirstSideLines);
+			List<Arc> firstSideCavaArcs = Get.CavaArcs(Parameter.FirstSideLines, Parameter.FirstSideArcs);
+
 			//***************************************************************************************************************************************
 
 			//Set Global Parameters
@@ -648,5 +656,18 @@ namespace DXF
 		}
 		#endregion
 
+		private void autoCavaButton_CheckedChanged(object sender, EventArgs e)
+		{
+			if (autoCavaButton.Checked)
+			{
+				autoCavaSelectorGroup.Enabled = true;
+				manualCavaSelectorGroup.Enabled = false;
+			}
+			else if (manualCavaButton.Checked)
+			{
+				autoCavaSelectorGroup.Enabled = false;
+				manualCavaSelectorGroup.Enabled = true;
+			}
+		}
 	}
 }
