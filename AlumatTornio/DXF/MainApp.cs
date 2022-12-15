@@ -240,8 +240,9 @@ namespace DXF
 			stockWidthInput.Maximum = stockWidthInput.Minimum + 10;
 			stockWidthInput.Value = stockWidthInput.Minimum;
 
-			//***************************************************************************************************************************************
-			//First side outer horizontal machining profile
+			//
+			//Horizontal profile
+			//
 			List<Line> firstSideOuterHorizontalMachiningLines = Get.OuterHorizontalMachiningLines(Parameter.FirstSideLines);
 			List<Arc> firstSideOuterHorizontalMachiningArcs = Get.OuterHorizontalMachiningArcs(firstSideOuterHorizontalMachiningLines, Parameter.FirstSideArcs);
 
@@ -260,20 +261,19 @@ namespace DXF
 			secondSideOuterHorizontalMachiningLines.Add(secondSideStockMachiningLines[2]);
 			secondSideOuterHorizontalMachiningLines.Insert(0, secondSideStockMachiningLines[1]);
 			secondSideOuterHorizontalMachiningLines.Insert(0, secondSideStockMachiningLines[0]);
-			//***************************************************************************************************************************************
 
-			//***************************************************************************************************************************************
-			//First side outer vertical machining profile
+			//
+			//Facing profile
+			//
 			List<Line> firstSideOuterVerticalMachiningLines = Get.FirstSideOuterVerticalMachiningLines();
-			//Second side outer vertical machining profile
 			List<Line> secondSideOuterVerticalMachiningLines = Get.SecondSideOuterVerticalMachiningLines();
-			//***************************************************************************************************************************************
 
-			//***************************************************************************************************************************************
+			//
+			//Cava profile
+			//
 			List<Line> firstSideCavaLines = Get.CavaLines(Parameter.FirstSideLines);
 			List<Arc> firstSideCavaArcs = Get.CavaArcs(Parameter.FirstSideLines, Parameter.FirstSideArcs);
-
-			//***************************************************************************************************************************************
+			float cavaLength = Calculation.ElementsLength(firstSideCavaLines, firstSideCavaArcs);
 
 			//Set Global Parameters
 			Parameter.FirstSideOuterHorizontalMachiningLines = firstSideOuterHorizontalMachiningLines;

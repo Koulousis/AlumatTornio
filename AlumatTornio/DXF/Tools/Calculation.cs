@@ -62,59 +62,24 @@ namespace DXF.Tools
 			int transformHeight = height - (height / 10);
 			return transformHeight;
 		}
-		
-		public static float Scale(int viewWidth, int viewHeight)
+
+		public static float ElementsLength(List<Line> lines, List<Arc> arcs)
 		{
-			float scaleOnWidth = 0;
-			float scaleOnHeight = 0;
-			float dummyWidth = 0;
-			float dummyHeight = 0;
+			float length = 0;
 
-			foreach (Line line in Parameter.DieLinesAsDesigned)
+			foreach (Line line in lines)
 			{
-				//Width
-				if (line.StartX < dummyWidth)
-				{
-					dummyWidth = line.StartX;
-				}
-				else if (line.EndX < dummyWidth)
-				{
-					dummyWidth = line.EndX;
-				}
-				else
-				{
-					continue;
-				}
+				length += Math.Abs(line.EndX) - Math.Abs(line.StartX);
 			}
 
-			foreach (Line line in Parameter.DieLinesAsDesigned)
+			foreach (Arc arc in arcs)
 			{
-				if (line.StartY > dummyHeight)
-				{
-					dummyHeight = line.StartY;
-				}
-				else if (line.EndY > dummyHeight)
-				{
-					dummyHeight = line.EndY;
-				}
-				else
-				{
-					continue;
-				}
+				length += Math.Abs(arc.EndX) - Math.Abs(arc.StartX);
 			}
 
-			scaleOnWidth = ((float)viewWidth - 100) / Math.Abs(dummyWidth);
-			scaleOnHeight = ((float)viewHeight - 100) / dummyHeight;
+			length = Conversion.StringToThreeDigitFloat(length.ToString());
 
-			if (scaleOnWidth < scaleOnHeight)
-			{
-				return scaleOnWidth;
-			}
-			else
-			{
-				return scaleOnHeight;
-			}
+			return length;
 		}
-
 	}
 }
