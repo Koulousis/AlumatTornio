@@ -128,7 +128,6 @@ namespace DXF.Actions
 
 		}
 
-		
 		public static void DecimalsCorrection(List<Line> lines, List<Arc> arcs)
 		{
 			foreach (Line line in lines)

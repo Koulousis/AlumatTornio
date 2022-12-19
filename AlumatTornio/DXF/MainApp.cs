@@ -155,7 +155,7 @@ namespace DXF
 			exportProgressBar.Value = 0;
 
 			//Set global parameters
-			Parameter.DxfFileName = fileNameWithoutExtension;
+			Parameter.FileName = fileNameWithoutExtension;
 			Parameter.LinesAsDesigned = linesAsDesigned.OrderBy(line => line.Index).ToList();
 			Parameter.ArcsAsDesigned = arcsAsDesigned.OrderBy(arc => arc.Index).ToList();
 			Parameter.LinesFlipped = linesFlipped.OrderBy(line => line.Index).Reverse().ToList();
@@ -299,7 +299,7 @@ namespace DXF
 			Parameter.FirstSideCavaArcs = firstSideCavaArcs;
 			Parameter.SecondSideCavaLines = secondSideCavaLines;
 			Parameter.SecondSideCavaArcs = secondSideCavaArcs;
-
+			
 			//Change UI after sides selected
 			drawFirstSideButton.Checked = true;
 			firstSideSelectorGroup.Enabled = false;
@@ -387,12 +387,21 @@ namespace DXF
 			{
 				autoCavaSelectorGroup.Enabled = true;
 				manualCavaSelectorGroup.Enabled = false;
+
+				Parameter.FirstSideHorizontalProfileLines[Parameter.FirstSideHorizontalProfileLines.Count - 1] = Parameter.FirstSideHorizontalProfileLastLine.Clone();
+				Parameter.FirstSideHorizontalProfileLines[Parameter.FirstSideHorizontalProfileLines.Count - 2].EndX = Parameter.FirstSideHorizontalProfileLines.Last().StartX;
+
+				Parameter.SecondSideHorizontalProfileLines[Parameter.SecondSideHorizontalProfileLines.Count - 1] = Parameter.SecondSideHorizontalProfileLastLine.Clone();
+				Parameter.SecondSideHorizontalProfileLines[Parameter.SecondSideHorizontalProfileLines.Count - 2].EndX = Parameter.SecondSideHorizontalProfileLines.Last().StartX;
 			}
 			else if (manualCavaButton.Checked)
 			{
 				autoCavaSelectorGroup.Enabled = false;
 				manualCavaSelectorGroup.Enabled = true;
 			}
+
+			//Draw
+			visualizationPanel.Refresh();
 		}
 
 		private void cavaFirstSideButton_CheckedChanged(object sender, EventArgs e)
@@ -437,6 +446,7 @@ namespace DXF
 			float cavaLengthSecondSide = Calculation.ElementsLength(Parameter.SecondSideCavaLines, Parameter.SecondSideCavaArcs);
 			if (manualCavaButton.Checked)
 			{
+				//Set the horizontal profile back to initial
 				if (cavaFirstSideButton.Checked)
 				{
 					cavaFirstSideButton.Checked = false;
@@ -451,8 +461,68 @@ namespace DXF
 					Parameter.SecondSideHorizontalProfileLines.Last().EndX += cavaLengthSecondSide;
 					Parameter.SecondSideHorizontalProfileLines[Parameter.SecondSideHorizontalProfileLines.Count - 2].EndX = Parameter.SecondSideHorizontalProfileLines.Last().StartX;
 				}
+
+
+				//Save initial horizontal profile values to change the profile back to normal if swap to automatic
+				Parameter.FirstSideHorizontalProfileLastLine = Parameter.FirstSideHorizontalProfileLines.Last().Clone();
+				Parameter.SecondSideHorizontalProfileLastLine = Parameter.SecondSideHorizontalProfileLines.Last().Clone();
+
 			}
 
+			visualizationPanel.Refresh();
+		}
+
+		private void increaseFirstSideButton_Click(object sender, EventArgs e)
+		{
+			Parameter.FirstSideHorizontalProfileLines.Last().StartX -= 1;
+			Parameter.FirstSideHorizontalProfileLines.Last().EndX -= 1;
+			Parameter.FirstSideHorizontalProfileLines[Parameter.FirstSideHorizontalProfileLines.Count - 2].EndX = Parameter.FirstSideHorizontalProfileLines.Last().StartX;
+
+			//Draw
+			visualizationPanel.Refresh();
+		}
+
+		private void decreaseFirstSideButton_Click(object sender, EventArgs e)
+		{
+			if (Parameter.FirstSideHorizontalProfileLastLine.EndX == Parameter.FirstSideHorizontalProfileLines.Last().EndX)
+			{
+				MessageBox.Show("You can't move the profile below the initial point");
+			}
+			else
+			{
+				Parameter.FirstSideHorizontalProfileLines.Last().StartX += 1;
+				Parameter.FirstSideHorizontalProfileLines.Last().EndX += 1;
+				Parameter.FirstSideHorizontalProfileLines[Parameter.FirstSideHorizontalProfileLines.Count - 2].EndX = Parameter.FirstSideHorizontalProfileLines.Last().StartX;
+			}
+
+			//Draw
+			visualizationPanel.Refresh();
+		}
+
+		private void increaseSecondSideButton_Click(object sender, EventArgs e)
+		{
+			Parameter.SecondSideHorizontalProfileLines.Last().StartX -= 1;
+			Parameter.SecondSideHorizontalProfileLines.Last().EndX -= 1;
+			Parameter.SecondSideHorizontalProfileLines[Parameter.SecondSideHorizontalProfileLines.Count - 2].EndX = Parameter.SecondSideHorizontalProfileLines.Last().StartX;
+
+			//Draw
+			visualizationPanel.Refresh();
+		}
+
+		private void decreaseSecondSideButton_Click(object sender, EventArgs e)
+		{
+			if (Parameter.SecondSideHorizontalProfileLastLine.EndX == Parameter.SecondSideHorizontalProfileLines.Last().EndX)
+			{
+				MessageBox.Show("You can't move the profile below the initial point");
+			}
+			else
+			{
+				Parameter.SecondSideHorizontalProfileLines.Last().StartX += 1;
+				Parameter.SecondSideHorizontalProfileLines.Last().EndX += 1;
+				Parameter.SecondSideHorizontalProfileLines[Parameter.SecondSideHorizontalProfileLines.Count - 2].EndX = Parameter.SecondSideHorizontalProfileLines.Last().StartX;
+			}
+
+			//Draw
 			visualizationPanel.Refresh();
 		}
 
@@ -466,7 +536,7 @@ namespace DXF
 			visualizationPanelGraphics.Clear(Color.FromArgb(24, 24, 24));
 
 			//Check for file existence to continue drawing 
-			if (string.IsNullOrEmpty(Parameter.DxfFileName)) return;
+			if (string.IsNullOrEmpty(Parameter.FileName)) return;
 
 			//Graphics draw mode to smooth
 			visualizationPanelGraphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -599,7 +669,6 @@ namespace DXF
 			gCodeSecondSide.AddRange(CodeBlock.OuterVerticalProfile(g72, secondSideOuterHorizontalProfilePoints));
 			gCodeSecondSide.AddRange(CodeBlock.OuterHorizontalProfile(g71, secondSideOuterVerticalProfilePoints));
 			gCodeSecondSide.AddRange(CodeBlock.LatheEnd());
-
 
 			//Fill rich text box
 			gCodeTextBox.Lines = drawFirstSideButton.Checked ? gCodeFirstSide.ToArray() : gCodeSecondSide.ToArray();
@@ -765,6 +834,6 @@ namespace DXF
 			visualizationPanel.Refresh();
 		}
 		#endregion
-
+		
 	}
 }

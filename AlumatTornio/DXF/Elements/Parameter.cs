@@ -11,7 +11,7 @@ namespace DXF.Elements
 	public static class Parameter
 	{
 		#region Setted on file selection
-		public static string DxfFileName { get; set; }
+		public static string FileName { get; set; }
 
 		public static List<Line> LinesAsDesigned { get; set; }
 		public static List<Arc> ArcsAsDesigned { get; set; }
@@ -83,7 +83,8 @@ namespace DXF.Elements
 
 		public static List<string> GCodeFirstSide { get; set; }
 		public static List<string> GCodeSecondSide { get; set; }
-		
+		public static Line FirstSideHorizontalProfileLastLine { get; set; }
+		public static Line SecondSideHorizontalProfileLastLine { get; set; }
 
 		#endregion
 

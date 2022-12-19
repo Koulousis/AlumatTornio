@@ -19,10 +19,10 @@ namespace DXF.Lathe
 
 		public static void Export()
 		{
-			string exportRightSide = $@"{Settings.Default["ExportFolderPath"]}\{Parameter.DxfFileName}_Right_Side.txt";
+			string exportRightSide = $@"{Settings.Default["ExportFolderPath"]}\{Parameter.FileName}_Right_Side.txt";
 			System.IO.File.WriteAllLines(exportRightSide, GCode.FirstSide);
 
-			string exportLeftSide = $@"{Settings.Default["ExportFolderPath"]}\{Parameter.DxfFileName}_Left_Side.txt";
+			string exportLeftSide = $@"{Settings.Default["ExportFolderPath"]}\{Parameter.FileName}_Left_Side.txt";
 			System.IO.File.WriteAllLines(exportLeftSide, GCode.SecondSide);
 		}
 		

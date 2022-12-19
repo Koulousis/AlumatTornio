@@ -986,9 +986,9 @@ namespace DXF
 			this.validateDimensionsLabel.ForeColor = System.Drawing.Color.Black;
 			this.validateDimensionsLabel.Location = new System.Drawing.Point(9, 18);
 			this.validateDimensionsLabel.Name = "validateDimensionsLabel";
-			this.validateDimensionsLabel.Size = new System.Drawing.Size(226, 16);
+			this.validateDimensionsLabel.Size = new System.Drawing.Size(225, 16);
 			this.validateDimensionsLabel.TabIndex = 21;
-			this.validateDimensionsLabel.Text = "Compare the dimensions with design";
+			this.validateDimensionsLabel.Text = "Compare file dimensions with design";
 			// 
 			// validateDimensionsButton
 			// 
@@ -1046,7 +1046,7 @@ namespace DXF
 			// 
 			this.setCavaSelectorGroupSecondSideLabel.AutoSize = true;
 			this.setCavaSelectorGroupSecondSideLabel.ForeColor = System.Drawing.Color.Black;
-			this.setCavaSelectorGroupSecondSideLabel.Location = new System.Drawing.Point(4, 72);
+			this.setCavaSelectorGroupSecondSideLabel.Location = new System.Drawing.Point(4, 70);
 			this.setCavaSelectorGroupSecondSideLabel.Name = "setCavaSelectorGroupSecondSideLabel";
 			this.setCavaSelectorGroupSecondSideLabel.Size = new System.Drawing.Size(84, 16);
 			this.setCavaSelectorGroupSecondSideLabel.TabIndex = 28;
@@ -1056,7 +1056,7 @@ namespace DXF
 			// 
 			this.setCavaSelectorFirstSideLabel.AutoSize = true;
 			this.setCavaSelectorFirstSideLabel.ForeColor = System.Drawing.Color.Black;
-			this.setCavaSelectorFirstSideLabel.Location = new System.Drawing.Point(26, 46);
+			this.setCavaSelectorFirstSideLabel.Location = new System.Drawing.Point(26, 48);
 			this.setCavaSelectorFirstSideLabel.Name = "setCavaSelectorFirstSideLabel";
 			this.setCavaSelectorFirstSideLabel.Size = new System.Drawing.Size(62, 16);
 			this.setCavaSelectorFirstSideLabel.TabIndex = 22;
@@ -1084,6 +1084,7 @@ namespace DXF
 			this.decreaseSecondSideButton.TabIndex = 3;
 			this.decreaseSecondSideButton.Text = "-";
 			this.decreaseSecondSideButton.UseVisualStyleBackColor = true;
+			this.decreaseSecondSideButton.Click += new System.EventHandler(this.decreaseSecondSideButton_Click);
 			// 
 			// increaseSecondSideButton
 			// 
@@ -1096,6 +1097,7 @@ namespace DXF
 			this.increaseSecondSideButton.Text = "+";
 			this.increaseSecondSideButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			this.increaseSecondSideButton.UseVisualStyleBackColor = true;
+			this.increaseSecondSideButton.Click += new System.EventHandler(this.increaseSecondSideButton_Click);
 			// 
 			// decreaseFirstSideButton
 			// 
@@ -1107,6 +1109,7 @@ namespace DXF
 			this.decreaseFirstSideButton.TabIndex = 1;
 			this.decreaseFirstSideButton.Text = "-";
 			this.decreaseFirstSideButton.UseVisualStyleBackColor = true;
+			this.decreaseFirstSideButton.Click += new System.EventHandler(this.decreaseFirstSideButton_Click);
 			// 
 			// increaseFirstSideButton
 			// 
@@ -1119,6 +1122,7 @@ namespace DXF
 			this.increaseFirstSideButton.Text = "+";
 			this.increaseFirstSideButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			this.increaseFirstSideButton.UseVisualStyleBackColor = true;
+			this.increaseFirstSideButton.Click += new System.EventHandler(this.increaseFirstSideButton_Click);
 			// 
 			// autoCavaSelectorGroup
 			// 
@@ -1166,7 +1170,6 @@ namespace DXF
 			this.manualCavaButton.Name = "manualCavaButton";
 			this.manualCavaButton.Size = new System.Drawing.Size(70, 20);
 			this.manualCavaButton.TabIndex = 25;
-			this.manualCavaButton.TabStop = true;
 			this.manualCavaButton.Text = "Manual";
 			this.manualCavaButton.UseVisualStyleBackColor = true;
 			this.manualCavaButton.CheckedChanged += new System.EventHandler(this.manualCavaButton_CheckedChanged);

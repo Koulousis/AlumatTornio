@@ -51,76 +51,76 @@ namespace DXF.Actions
 			return gapFromY;
 		}
 
-		public static List<Line> LinesFromFile(List<string> dxfText)
+		public static List<Line> LinesFromFile(List<string> file)
 		{
 			List<Line> dxfLines = new List<Line>();
-			for (int i = 0; i < dxfText.Count; i++)
+			for (int i = 0; i < file.Count; i++)
 			{
-				if (dxfText.ElementAt(i) == "LINE")
+				if (file.ElementAt(i) == "LINE")
 				{
 					float startX = 0, startY = 0, endX = 0, endY = 0; string color = "";
 					do
 					{
 						i++;
-						switch (dxfText.ElementAt(i).Trim())
+						switch (file.ElementAt(i).Trim())
 						{
 							case "AcDbEntity":
-								color = dxfText.ElementAt(i + 6).Trim();
-								if (color.Length > 1) { color = dxfText.ElementAt(i + 4).Trim(); }								break;
+								color = file.ElementAt(i + 6).Trim();
+								if (color.Length > 1) { color = file.ElementAt(i + 4).Trim(); }								break;
 							case "10":
-								startX = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
+								startX = Conversion.StringToFourDigitFloat(file.ElementAt(i + 1));
 								break;
 							case "20":
-								startY = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
+								startY = Conversion.StringToFourDigitFloat(file.ElementAt(i + 1));
 								break;
 							case "11":
-								endX = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
+								endX = Conversion.StringToFourDigitFloat(file.ElementAt(i + 1));
 								break;
 							case "21":
-								endY = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
+								endY = Conversion.StringToFourDigitFloat(file.ElementAt(i + 1));
 								break;
 						}
-					} while (!Validation.DxfElementTitle(dxfText.ElementAt(i + 1)));
+					} while (!Validation.DxfElementTitle(file.ElementAt(i + 1)));
 					dxfLines.Add(new Line(startX, startY, endX, endY, color));
 				}
 			}
 			return dxfLines;
 		}
 
-		public static List<Arc> ArcsFromFile(List<string> dxfText)
+		public static List<Arc> ArcsFromFile(List<string> file)
 		{
 			List<Arc> dxfArcs = new List<Arc>();
-			for (int i = 0; i < dxfText.Count; i++)
+			for (int i = 0; i < file.Count; i++)
 			{
-				if (dxfText.ElementAt(i) == "ARC")
+				if (file.ElementAt(i) == "ARC")
 				{
 					float centerX = 0, centerY = 0, radius = 0, startAngle = 0, endAngle = 0; string color = "";
 					do
 					{
 						i++;
-						switch (dxfText.ElementAt(i).Trim())
+						switch (file.ElementAt(i).Trim())
 						{
 							case "AcDbEntity":
-								color = dxfText.ElementAt(i + 6).Trim();
-								if (color.Length > 1) { color = dxfText.ElementAt(i + 4).Trim(); }
+								color = file.ElementAt(i + 6).Trim();
+								if (color.Length > 1) { color = file.ElementAt(i + 4).Trim(); }
 								break;
 							case "10":
-								centerX = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
+								centerX = Conversion.StringToFourDigitFloat(file.ElementAt(i + 1));
 								break;
 							case "20":
-								centerY = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
+								centerY = Conversion.StringToFourDigitFloat(file.ElementAt(i + 1));
 								break;
 							case "40":
-								radius = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
+								radius = Conversion.StringToFourDigitFloat(file.ElementAt(i + 1));
 								break;
 							case "50":
-								startAngle = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
+								startAngle = Conversion.StringToFourDigitFloat(file.ElementAt(i + 1));
 								break;
 							case "51":
-								endAngle = Conversion.StringToFourDigitFloat(dxfText.ElementAt(i + 1));
+								endAngle = Conversion.StringToFourDigitFloat(file.ElementAt(i + 1));
 								break;
 						}
-					} while (!Validation.DxfElementTitle(dxfText.ElementAt(i + 1)));
+					} while (!Validation.DxfElementTitle(file.ElementAt(i + 1)));
 					dxfArcs.Add(new Arc(centerX, centerY, radius, startAngle, endAngle, color));
 				}
 			}
@@ -161,11 +161,11 @@ namespace DXF.Actions
 			return arcsAsDesigned;
 		}
 
-		public static List<Line> HorizontalProfileLines(List<Line> anySideLines)
+		public static List<Line> HorizontalProfileLines(List<Line> lines)
 		{
 			//Read die lines ordered by index
 			List<Line> outerHorizontalMachiningLines = new List<Line>();
-			foreach (Line line in anySideLines) { outerHorizontalMachiningLines.Add(line.Clone()); }
+			foreach (Line line in lines) { outerHorizontalMachiningLines.Add(line.Clone()); }
 
 			//Find the first line which is closer to Y Axis
 			Line closerToZeroLine = new Line();
@@ -204,23 +204,23 @@ namespace DXF.Actions
 			return outerHorizontalMachiningLines;
 		}
 
-		public static List<Arc> HorizontalProfileArcs(List<Line> outerHorizontalMachiningLines, List<Arc> anySideArcs)
+		public static List<Arc> HorizontalProfileArcs(List<Line> lines, List<Arc> arcs)
 		{
 			List<Arc> outerHorizontalMachiningArcs = new List<Arc>();
-			foreach (Arc arc in anySideArcs) { outerHorizontalMachiningArcs.Add(arc.Clone()); }
+			foreach (Arc arc in arcs) { outerHorizontalMachiningArcs.Add(arc.Clone()); }
 
 			int i = 0;
-			if (outerHorizontalMachiningLines.First().Placement == "AsDesigned")
+			if (lines.First().Placement == "AsDesigned")
 			{
-				while (anySideArcs[i].Index < outerHorizontalMachiningLines[outerHorizontalMachiningLines.Count - 1].Index)
+				while (arcs[i].Index < lines[lines.Count - 1].Index)
 				{
 					i++;
 				}
 				outerHorizontalMachiningArcs.RemoveRange(i, outerHorizontalMachiningArcs.Count - i);
 			}
-			else if (outerHorizontalMachiningLines.First().Placement == "Flipped")
+			else if (lines.First().Placement == "Flipped")
 			{
-				while (anySideArcs[i].Index > outerHorizontalMachiningLines[outerHorizontalMachiningLines.Count - 1].Index)
+				while (arcs[i].Index > lines[lines.Count - 1].Index)
 				{
 					i++;
 				}
@@ -241,7 +241,7 @@ namespace DXF.Actions
 			return outerHorizontalMachiningArcs;
 		}
 
-		public static List<Line> FirstSideHorizontalProfileStockLines(List<Line> firstSideMachiningLines, List<Arc> firstSideMachiningArcs)
+		public static List<Line> FirstSideHorizontalProfileStockLines(List<Line> lines, List<Arc> arcs)
 		{
 			List<Line> firstSideStockMachiningLines = new List<Line>();
 
@@ -250,12 +250,12 @@ namespace DXF.Actions
 			int stockStartHorizontalIndex = 0;
 			int stockStartVerticalIndex = 0;
 			int stockEndVerticalIndex = 0;
-			string placement = firstSideMachiningLines.First().Placement;
+			string placement = lines.First().Placement;
 
 			//Set conditions
-			bool elementsAsDesigned = firstSideMachiningLines.First().Placement == "AsDesigned";
-			bool elementsFlipped = firstSideMachiningLines.First().Placement == "Flipped";
-			bool arcElementsExist = firstSideMachiningArcs.Count != 0;
+			bool elementsAsDesigned = lines.First().Placement == "AsDesigned";
+			bool elementsFlipped = lines.First().Placement == "Flipped";
+			bool arcElementsExist = arcs.Count != 0;
 			bool firstElementIsLine = true;
 			bool firstElementIsArc = false;
 			bool lastElementIsLine = true;
@@ -267,38 +267,38 @@ namespace DXF.Actions
 				//find the first and last element if it is line or arc
 				if (arcElementsExist)
 				{
-					firstElementIsLine = firstSideMachiningLines.First().Index < firstSideMachiningArcs.First().Index;
-					firstElementIsArc = firstSideMachiningArcs.First().Index < firstSideMachiningLines.First().Index;
-					lastElementIsLine = firstSideMachiningLines.Last().Index > firstSideMachiningArcs.Last().Index;
-					lastElementIsArc = firstSideMachiningArcs.Last().Index > firstSideMachiningLines.Last().Index;
+					firstElementIsLine = lines.First().Index < arcs.First().Index;
+					firstElementIsArc = arcs.First().Index < lines.First().Index;
+					lastElementIsLine = lines.Last().Index > arcs.Last().Index;
+					lastElementIsArc = arcs.Last().Index > lines.Last().Index;
 				}
 				//Get first point
 				if (firstElementIsLine)
 				{
-					firstProfilePoint.X = firstSideMachiningLines.First().StartX;
-					firstProfilePoint.Y = firstSideMachiningLines.First().StartY;
-					stockStartHorizontalIndex = firstSideMachiningLines.First().Index - 1;
-					stockStartVerticalIndex = firstSideMachiningLines.First().Index - 2;
+					firstProfilePoint.X = lines.First().StartX;
+					firstProfilePoint.Y = lines.First().StartY;
+					stockStartHorizontalIndex = lines.First().Index - 1;
+					stockStartVerticalIndex = lines.First().Index - 2;
 				}
 				else if (firstElementIsArc)
 				{
-					firstProfilePoint.X = firstSideMachiningArcs.First().StartX;
-					firstProfilePoint.Y = firstSideMachiningArcs.First().StartY;
-					stockStartHorizontalIndex = firstSideMachiningArcs.First().Index - 1;
-					stockStartVerticalIndex = firstSideMachiningArcs.First().Index - 2;
+					firstProfilePoint.X = arcs.First().StartX;
+					firstProfilePoint.Y = arcs.First().StartY;
+					stockStartHorizontalIndex = arcs.First().Index - 1;
+					stockStartVerticalIndex = arcs.First().Index - 2;
 				}
 				//Get last point
 				if (lastElementIsLine)
 				{
-					lastProfilePoint.X = firstSideMachiningLines.Last().EndX;
-					lastProfilePoint.Y = firstSideMachiningLines.Last().EndY;
-					stockEndVerticalIndex = firstSideMachiningLines.Last().Index + 1;
+					lastProfilePoint.X = lines.Last().EndX;
+					lastProfilePoint.Y = lines.Last().EndY;
+					stockEndVerticalIndex = lines.Last().Index + 1;
 				}
 				else if (lastElementIsArc)
 				{
-					lastProfilePoint.X = firstSideMachiningArcs.Last().EndX;
-					lastProfilePoint.Y = firstSideMachiningArcs.Last().EndY;
-					stockEndVerticalIndex = firstSideMachiningArcs.Last().Index + 1;
+					lastProfilePoint.X = arcs.Last().EndX;
+					lastProfilePoint.Y = arcs.Last().EndY;
+					stockEndVerticalIndex = arcs.Last().Index + 1;
 				}
 			}
 			else if (elementsFlipped)
@@ -306,38 +306,38 @@ namespace DXF.Actions
 				//find the first and last element if it is line or arc
 				if (arcElementsExist)
 				{
-					firstElementIsLine = firstSideMachiningLines.First().Index > firstSideMachiningArcs.First().Index;
-					firstElementIsArc = firstSideMachiningArcs.First().Index > firstSideMachiningLines.First().Index;
-					lastElementIsLine = firstSideMachiningLines.Last().Index < firstSideMachiningArcs.Last().Index;
-					lastElementIsArc = firstSideMachiningArcs.Last().Index < firstSideMachiningLines.Last().Index;
+					firstElementIsLine = lines.First().Index > arcs.First().Index;
+					firstElementIsArc = arcs.First().Index > lines.First().Index;
+					lastElementIsLine = lines.Last().Index < arcs.Last().Index;
+					lastElementIsArc = arcs.Last().Index < lines.Last().Index;
 				}
 				//Get first point
 				if (firstElementIsLine)
 				{
-					firstProfilePoint.X = firstSideMachiningLines.First().StartX;
-					firstProfilePoint.Y = firstSideMachiningLines.First().StartY;
-					stockStartHorizontalIndex = firstSideMachiningLines.First().Index + 1;
-					stockStartVerticalIndex = firstSideMachiningLines.First().Index + 2;
+					firstProfilePoint.X = lines.First().StartX;
+					firstProfilePoint.Y = lines.First().StartY;
+					stockStartHorizontalIndex = lines.First().Index + 1;
+					stockStartVerticalIndex = lines.First().Index + 2;
 				}
 				else if (firstElementIsArc)
 				{
-					firstProfilePoint.X = firstSideMachiningArcs.First().StartX;
-					firstProfilePoint.Y = firstSideMachiningArcs.First().StartY;
-					stockStartHorizontalIndex = firstSideMachiningArcs.First().Index + 1;
-					stockStartVerticalIndex = firstSideMachiningArcs.First().Index + 2;
+					firstProfilePoint.X = arcs.First().StartX;
+					firstProfilePoint.Y = arcs.First().StartY;
+					stockStartHorizontalIndex = arcs.First().Index + 1;
+					stockStartVerticalIndex = arcs.First().Index + 2;
 				}
 				//Get last point
 				if (lastElementIsLine)
 				{
-					lastProfilePoint.X = firstSideMachiningLines.Last().EndX;
-					lastProfilePoint.Y = firstSideMachiningLines.Last().EndY;
-					stockEndVerticalIndex = firstSideMachiningLines.Last().Index - 1;
+					lastProfilePoint.X = lines.Last().EndX;
+					lastProfilePoint.Y = lines.Last().EndY;
+					stockEndVerticalIndex = lines.Last().Index - 1;
 				}
 				else if (lastElementIsArc)
 				{
-					lastProfilePoint.X = firstSideMachiningArcs.Last().EndX;
-					lastProfilePoint.Y = firstSideMachiningArcs.Last().EndY;
-					stockEndVerticalIndex = firstSideMachiningArcs.Last().Index - 1;
+					lastProfilePoint.X = arcs.Last().EndX;
+					lastProfilePoint.Y = arcs.Last().EndY;
+					stockEndVerticalIndex = arcs.Last().Index - 1;
 				}
 			}
 
@@ -360,7 +360,7 @@ namespace DXF.Actions
 			return firstSideStockMachiningLines;
 		}
 
-		public static List<Line> SecondSideHorizontalProfileStockLines(List<Line> secondSideMachiningLines, List<Arc> secondSideMachiningArcs)
+		public static List<Line> SecondSideHorizontalProfileStockLines(List<Line> lines, List<Arc> arcs)
 		{
 			List<Line> secondSideStockMachiningLines = new List<Line>();
 
@@ -369,12 +369,12 @@ namespace DXF.Actions
 			int stockStartHorizontalIndex = 0;
 			int stockStartVerticalIndex = 0;
 			int stockEndVerticalIndex = 0;
-			string placement = secondSideMachiningLines.First().Placement;
+			string placement = lines.First().Placement;
 
 			//Set conditions
-			bool elementsAsDesigned = secondSideMachiningLines.First().Placement == "AsDesigned";
-			bool elementsFlipped = secondSideMachiningLines.First().Placement == "Flipped";
-			bool arcElementsExist = secondSideMachiningArcs.Count != 0;
+			bool elementsAsDesigned = lines.First().Placement == "AsDesigned";
+			bool elementsFlipped = lines.First().Placement == "Flipped";
+			bool arcElementsExist = arcs.Count != 0;
 			bool firstElementIsLine = true;
 			bool firstElementIsArc = false;
 			bool lastElementIsLine = true;
@@ -386,38 +386,38 @@ namespace DXF.Actions
 				//find the first and last element if it is line or arc
 				if (arcElementsExist)
 				{
-					firstElementIsLine = secondSideMachiningLines.First().Index < secondSideMachiningArcs.First().Index;
-					firstElementIsArc = secondSideMachiningArcs.First().Index < secondSideMachiningLines.First().Index;
-					lastElementIsLine = secondSideMachiningLines.Last().Index > secondSideMachiningArcs.Last().Index;
-					lastElementIsArc = secondSideMachiningArcs.Last().Index > secondSideMachiningLines.Last().Index;
+					firstElementIsLine = lines.First().Index < arcs.First().Index;
+					firstElementIsArc = arcs.First().Index < lines.First().Index;
+					lastElementIsLine = lines.Last().Index > arcs.Last().Index;
+					lastElementIsArc = arcs.Last().Index > lines.Last().Index;
 				}
 				//Get first point
 				if (firstElementIsLine)
 				{
-					firstProfilePoint.X = secondSideMachiningLines.First().StartX;
-					firstProfilePoint.Y = secondSideMachiningLines.First().StartY;
-					stockStartHorizontalIndex = secondSideMachiningLines.First().Index - 1;
-					stockStartVerticalIndex = secondSideMachiningLines.First().Index - 2;
+					firstProfilePoint.X = lines.First().StartX;
+					firstProfilePoint.Y = lines.First().StartY;
+					stockStartHorizontalIndex = lines.First().Index - 1;
+					stockStartVerticalIndex = lines.First().Index - 2;
 				}
 				else if (firstElementIsArc)
 				{
-					firstProfilePoint.X = secondSideMachiningArcs.First().StartX;
-					firstProfilePoint.Y = secondSideMachiningArcs.First().StartY;
-					stockStartHorizontalIndex = secondSideMachiningArcs.First().Index - 1;
-					stockStartVerticalIndex = secondSideMachiningArcs.First().Index - 2;
+					firstProfilePoint.X = arcs.First().StartX;
+					firstProfilePoint.Y = arcs.First().StartY;
+					stockStartHorizontalIndex = arcs.First().Index - 1;
+					stockStartVerticalIndex = arcs.First().Index - 2;
 				}
 				//Get last point
 				if (lastElementIsLine)
 				{
-					lastProfilePoint.X = secondSideMachiningLines.Last().EndX;
-					lastProfilePoint.Y = secondSideMachiningLines.Last().EndY;
-					stockEndVerticalIndex = secondSideMachiningLines.Last().Index + 1;
+					lastProfilePoint.X = lines.Last().EndX;
+					lastProfilePoint.Y = lines.Last().EndY;
+					stockEndVerticalIndex = lines.Last().Index + 1;
 				}
 				else if (lastElementIsArc)
 				{
-					lastProfilePoint.X = secondSideMachiningArcs.Last().EndX;
-					lastProfilePoint.Y = secondSideMachiningArcs.Last().EndY;
-					stockEndVerticalIndex = secondSideMachiningArcs.Last().Index + 1;
+					lastProfilePoint.X = arcs.Last().EndX;
+					lastProfilePoint.Y = arcs.Last().EndY;
+					stockEndVerticalIndex = arcs.Last().Index + 1;
 				}
 			}
 			else if (elementsFlipped)
@@ -425,38 +425,38 @@ namespace DXF.Actions
 				//find the first and last element if it is line or arc
 				if (arcElementsExist)
 				{
-					firstElementIsLine = secondSideMachiningLines.First().Index > secondSideMachiningArcs.First().Index;
-					firstElementIsArc = secondSideMachiningArcs.First().Index > secondSideMachiningLines.First().Index;
-					lastElementIsLine = secondSideMachiningLines.Last().Index < secondSideMachiningArcs.Last().Index;
-					lastElementIsArc = secondSideMachiningArcs.Last().Index < secondSideMachiningLines.Last().Index;
+					firstElementIsLine = lines.First().Index > arcs.First().Index;
+					firstElementIsArc = arcs.First().Index > lines.First().Index;
+					lastElementIsLine = lines.Last().Index < arcs.Last().Index;
+					lastElementIsArc = arcs.Last().Index < lines.Last().Index;
 				}
 				//Get first point
 				if (firstElementIsLine)
 				{
-					firstProfilePoint.X = secondSideMachiningLines.First().StartX;
-					firstProfilePoint.Y = secondSideMachiningLines.First().StartY;
-					stockStartHorizontalIndex = secondSideMachiningLines.First().Index + 1;
-					stockStartVerticalIndex = secondSideMachiningLines.First().Index + 2;
+					firstProfilePoint.X = lines.First().StartX;
+					firstProfilePoint.Y = lines.First().StartY;
+					stockStartHorizontalIndex = lines.First().Index + 1;
+					stockStartVerticalIndex = lines.First().Index + 2;
 				}
 				else if (firstElementIsArc)
 				{
-					firstProfilePoint.X = secondSideMachiningArcs.First().StartX;
-					firstProfilePoint.Y = secondSideMachiningArcs.First().StartY;
-					stockStartHorizontalIndex = secondSideMachiningArcs.First().Index + 1;
-					stockStartVerticalIndex = secondSideMachiningArcs.First().Index + 2;
+					firstProfilePoint.X = arcs.First().StartX;
+					firstProfilePoint.Y = arcs.First().StartY;
+					stockStartHorizontalIndex = arcs.First().Index + 1;
+					stockStartVerticalIndex = arcs.First().Index + 2;
 				}
 				//Get last point
 				if (lastElementIsLine)
 				{
-					lastProfilePoint.X = secondSideMachiningLines.Last().EndX;
-					lastProfilePoint.Y = secondSideMachiningLines.Last().EndY;
-					stockEndVerticalIndex = secondSideMachiningLines.Last().Index - 1;
+					lastProfilePoint.X = lines.Last().EndX;
+					lastProfilePoint.Y = lines.Last().EndY;
+					stockEndVerticalIndex = lines.Last().Index - 1;
 				}
 				else if (lastElementIsArc)
 				{
-					lastProfilePoint.X = secondSideMachiningArcs.Last().EndX;
-					lastProfilePoint.Y = secondSideMachiningArcs.Last().EndY;
-					stockEndVerticalIndex = secondSideMachiningArcs.Last().Index - 1;
+					lastProfilePoint.X = arcs.Last().EndX;
+					lastProfilePoint.Y = arcs.Last().EndY;
+					stockEndVerticalIndex = arcs.Last().Index - 1;
 				}
 			}
 
@@ -635,8 +635,6 @@ namespace DXF.Actions
 
 			return cavaArcs;
 		}
-
-
 		
 	}
 }

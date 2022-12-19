@@ -13,7 +13,7 @@ namespace DXF.Actions
 		public static void GlobalParameters()
 		{
 			#region Setted on file selection
-			Parameter.DxfFileName = string.Empty;
+			Parameter.FileName = string.Empty;
 
 			Parameter.LinesAsDesigned = new List<Line>();
 			Parameter.ArcsAsDesigned = new List<Arc>();
@@ -54,6 +54,11 @@ namespace DXF.Actions
 
 			#region Validate dimensions
 			Parameter.ElementsHasGap = false;
+			#endregion
+
+			#region #Setted on cava manipulation
+			Parameter.FirstSideHorizontalProfileLastLine = new Line();
+			Parameter.SecondSideHorizontalProfileLastLine = new Line();
 			#endregion
 
 			#region Setted on export
