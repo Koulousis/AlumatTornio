@@ -13,45 +13,45 @@ namespace DXF.Actions
 {
 	public static class Get
 	{
-		public static float GapX(List<Line> allLines)
+		public static float GapFromX(List<Line> lines)
 		{
-			float gapX = allLines[0].StartX;
+			float gapFromX = lines[0].StartX;
 
 			//Get the closest distance from origin
-			foreach (Line line in allLines)
+			foreach (Line line in lines)
 			{
-				if (line.StartX > gapX)
+				if (line.StartX > gapFromX)
 				{
-					gapX = line.StartX;
+					gapFromX = line.StartX;
 				}
-				if (line.EndX > gapX)
+				if (line.EndX > gapFromX)
 				{
-					gapX = line.EndX;
+					gapFromX = line.EndX;
 				}
 			}
-			return gapX;
+			return gapFromX;
 		}
 
-		public static float GapY(List<Line> allLines)
+		public static float GapFromY(List<Line> lines)
 		{
-			float gapY = allLines[0].StartY;
+			float gapFromY = lines[0].StartY;
 
 			//Get the closest distance from origin
-			foreach (Line line in allLines)
+			foreach (Line line in lines)
 			{
-				if (line.StartY < gapY)
+				if (line.StartY < gapFromY)
 				{
-					gapY = line.StartY;
+					gapFromY = line.StartY;
 				}
-				if (line.EndY < gapY)
+				if (line.EndY < gapFromY)
 				{
-					gapY = line.EndY;
+					gapFromY = line.EndY;
 				}
 			}
-			return gapY;
+			return gapFromY;
 		}
 
-		public static List<Line> LinesFromDxf(List<string> dxfText)
+		public static List<Line> LinesFromFile(List<string> dxfText)
 		{
 			List<Line> dxfLines = new List<Line>();
 			for (int i = 0; i < dxfText.Count; i++)
@@ -87,7 +87,7 @@ namespace DXF.Actions
 			return dxfLines;
 		}
 
-		public static List<Arc> ArcsFromDxf(List<string> dxfText)
+		public static List<Arc> ArcsFromFile(List<string> dxfText)
 		{
 			List<Arc> dxfArcs = new List<Arc>();
 			for (int i = 0; i < dxfText.Count; i++)
@@ -128,62 +128,40 @@ namespace DXF.Actions
 			return dxfArcs;
 		}
 		
-		public static List<Line> DieLinesAsDesigned(List<Line> allLines)
+		public static List<Line> LinesAsDesigned(List<Line> lines)
 		{
-			List<Line> dieLines = new List<Line>();
-			foreach (Line line in allLines) { dieLines.Add(line.Clone()); }
+			List<Line> linesAsDesigned = new List<Line>();
+			foreach (Line line in lines) { linesAsDesigned.Add(line.Clone()); }
 
 			//List<Line> anySideLines = new List<Line>(allLines);
-			for (int i = 0; i < dieLines.Count; i++)
+			for (int i = 0; i < linesAsDesigned.Count; i++)
 			{
-				if (dieLines[i].Color != Parameter.Green)
+				if (linesAsDesigned[i].Color != Parameter.Green)
 				{
-					dieLines.Remove(dieLines[i]);
+					linesAsDesigned.Remove(linesAsDesigned[i]);
 					i--;
 				}
 			}
-			return dieLines;
+			return linesAsDesigned;
 		}
 
-		public static List<Arc> DieArcsAsDesigned(List<Arc> allArcs)
+		public static List<Arc> ArcsAsDesigned(List<Arc> arcs)
 		{
-			List<Arc> dieArcs = new List<Arc>();
-			foreach (Arc arc in allArcs) { dieArcs.Add(arc.Clone()); }
+			List<Arc> arcsAsDesigned = new List<Arc>();
+			foreach (Arc arc in arcs) { arcsAsDesigned.Add(arc.Clone()); }
 
-			for (int i = 0; i < dieArcs.Count; i++)
+			for (int i = 0; i < arcsAsDesigned.Count; i++)
 			{
-				if (dieArcs[i].Color != Parameter.Green)
+				if (arcsAsDesigned[i].Color != Parameter.Green)
 				{
-					dieArcs.Remove(dieArcs[i]);
+					arcsAsDesigned.Remove(arcsAsDesigned[i]);
 					i--;
 				}
 			}
-			return dieArcs;
+			return arcsAsDesigned;
 		}
 
-		public static List<Line> DieLinesFlipped(List<Line> dieLines)
-		{
-			List<Line> dieLinesToBeFlipped = new List<Line>();
-			foreach (Line line in dieLines)
-			{
-				dieLinesToBeFlipped.Add(line.Clone());
-			}
-
-			return dieLinesToBeFlipped;
-		}
-
-		public static List<Arc> DieArcsFlipped(List<Arc> dieArcs)
-		{
-			List<Arc> dieArcsToBeFlipped = new List<Arc>();
-			foreach (Arc arc in dieArcs)
-			{
-				dieArcsToBeFlipped.Add(arc.Clone());
-			}
-
-			return dieArcsToBeFlipped;
-		}
-
-		public static List<Line> OuterHorizontalMachiningLines(List<Line> anySideLines)
+		public static List<Line> HorizontalProfileLines(List<Line> anySideLines)
 		{
 			//Read die lines ordered by index
 			List<Line> outerHorizontalMachiningLines = new List<Line>();
@@ -226,7 +204,7 @@ namespace DXF.Actions
 			return outerHorizontalMachiningLines;
 		}
 
-		public static List<Arc> OuterHorizontalMachiningArcs(List<Line> outerHorizontalMachiningLines, List<Arc> anySideArcs)
+		public static List<Arc> HorizontalProfileArcs(List<Line> outerHorizontalMachiningLines, List<Arc> anySideArcs)
 		{
 			List<Arc> outerHorizontalMachiningArcs = new List<Arc>();
 			foreach (Arc arc in anySideArcs) { outerHorizontalMachiningArcs.Add(arc.Clone()); }
@@ -263,7 +241,7 @@ namespace DXF.Actions
 			return outerHorizontalMachiningArcs;
 		}
 
-		public static List<Line> FirstSideStockMachiningLines(List<Line> firstSideMachiningLines, List<Arc> firstSideMachiningArcs)
+		public static List<Line> FirstSideHorizontalProfileStockLines(List<Line> firstSideMachiningLines, List<Arc> firstSideMachiningArcs)
 		{
 			List<Line> firstSideStockMachiningLines = new List<Line>();
 
@@ -382,7 +360,7 @@ namespace DXF.Actions
 			return firstSideStockMachiningLines;
 		}
 
-		public static List<Line> SecondSideStockMachiningLines(List<Line> secondSideMachiningLines, List<Arc> secondSideMachiningArcs)
+		public static List<Line> SecondSideHorizontalProfileStockLines(List<Line> secondSideMachiningLines, List<Arc> secondSideMachiningArcs)
 		{
 			List<Line> secondSideStockMachiningLines = new List<Line>();
 
@@ -501,7 +479,7 @@ namespace DXF.Actions
 			return secondSideStockMachiningLines;
 		}
 
-		public static List<Line> FirstSideOuterVerticalMachiningLines()
+		public static List<Line> firstSideFacingProfile()
 		{
 			List<Line> firstSideOuterVerticalMachiningLines = new List<Line>();
 
@@ -524,7 +502,7 @@ namespace DXF.Actions
 			return firstSideOuterVerticalMachiningLines;
 		}
 
-		public static List<Line> SecondSideOuterVerticalMachiningLines()
+		public static List<Line> SecondSideFacingProfile()
 		{
 			List<Line> secondSideOuterVerticalMachiningLines = new List<Line>();
 

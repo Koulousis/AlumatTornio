@@ -56,11 +56,11 @@ namespace DXF
 		#region File Elements Setup
 		private void fileDxfMenuItem_Click(object sender, EventArgs e)
 		{
-			//Initial or re-initial  global parameters
+			//Initial global parameters on every new file opening
 			Initial.GlobalParameters();
 
 			//Create file dialog
-			OpenFileDialog selectDxfDialog = new OpenFileDialog()
+			OpenFileDialog fileDialog = new OpenFileDialog()
 			{
 				Title = @"Select file",
 				InitialDirectory = Settings.Default["DxfFolderPath"].ToString(),
@@ -68,18 +68,14 @@ namespace DXF
 				Filter = @"DXF Files (*.dxf)|*.dxf"
 			};
 
-			//Read the selected file
-			if (selectDxfDialog.ShowDialog() == DialogResult.Cancel) return;
-			string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectDxfDialog.FileName);
-			if (fileNameWithoutExtension.Length > 16)
-			{
-				fileNameWithoutExtension = fileNameWithoutExtension.Substring(0, 14);
-				fileNameWithoutExtension += "...";
-			}
-			List<string> dxfText = File.ReadAllLines(selectDxfDialog.FileName).ToList();
+			//Trigger the file dialog and read the selected file
+			if (fileDialog.ShowDialog() == DialogResult.Cancel) return;
+			string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileDialog.FileName);
+			if (fileNameWithoutExtension.Length > 16) { fileNameWithoutExtension = fileNameWithoutExtension.Substring(0, 14) + "..."; }
+			List<string> file = File.ReadAllLines(fileDialog.FileName).ToList();
 
 			//Validate the selected file
-			bool fileNotHaveEntities = !dxfText.Contains("ENTITIES");
+			bool fileNotHaveEntities = !file.Contains("ENTITIES");
 			if (fileNotHaveEntities)
 			{
 				MessageBox.Show("The selected DXF file does not contains elements");
@@ -87,51 +83,59 @@ namespace DXF
 			}
 
 			//Remove file part above entities section
-			int indexOfFirstLine = 0;
-			int elementsAmountBeforeEntities = dxfText.IndexOf("ENTITIES");
-			dxfText.RemoveRange(indexOfFirstLine, elementsAmountBeforeEntities);
+			const int indexOfFirstLine = 0;
+			int linesCountAboveEntities = file.IndexOf("ENTITIES");
+			file.RemoveRange(indexOfFirstLine, linesCountAboveEntities);
 
 			//Remove file part below entities section
-			int indexOfFirstLineAfterEntities = dxfText.IndexOf("ENDSEC") + 1;
-			int elementsAmountAfterEntities = dxfText.LastIndexOf("EOF") - dxfText.IndexOf("ENDSEC");
-			dxfText.RemoveRange(indexOfFirstLineAfterEntities, elementsAmountAfterEntities);
+			int indexOfFirstLineAfterEntities = file.IndexOf("ENDSEC") + 1;
+			int linesCountBelowEntities = file.LastIndexOf("EOF") - file.IndexOf("ENDSEC");
+			file.RemoveRange(indexOfFirstLineAfterEntities, linesCountBelowEntities);
 
-			//Get elements from the entities section of the file
-			List<Line> allLines = Get.LinesFromDxf(dxfText);
-			List<Arc> allArcs = Get.ArcsFromDxf(dxfText);
+			//Get all line and arc elements from the entities section of the file
+			List<Line> allLines = Get.LinesFromFile(file);
+			List<Arc> allArcs = Get.ArcsFromFile(file);
 
 			//Check for gap from origin point X0,Y0
-			float gapX = Get.GapX(allLines);
-			float gapY = Get.GapY(allLines);
-			if (gapX != 0 || gapY != 0)
+			float gapFromX = Get.GapFromX(allLines);
+			float gapFromY = Get.GapFromY(allLines);
+			bool elementsHasGap = gapFromX != 0 || gapFromY != 0;
+			if (elementsHasGap)
 			{
-				Edit.MoveElementsToOrigin(allLines, allArcs, gapX, gapY);
+				Edit.MoveElementsToOrigin(allLines, allArcs, gapFromX, gapFromY);
+				//To inform the user to double check the dimensions
 				Parameter.ElementsHasGap = true;
 			}
+
+			//Round up decimals of elements coordinate values
 			Edit.DecimalsCorrection(allLines, allArcs);
 
-			//Create lines and arcs with coordinates as designed
-			List<Line> dieLinesAsDesigned = Get.DieLinesAsDesigned(allLines);
-			List<Arc> dieArcsAsDesigned = Get.DieArcsAsDesigned(allArcs);
-			Edit.AddIndexesAndCounterClockwiseElements(dieLinesAsDesigned, dieArcsAsDesigned);
+			//Create lists of lines and arcs with their elements placement as designed
+			List<Line> linesAsDesigned = Get.LinesAsDesigned(allLines);
+			List<Arc> arcsAsDesigned = Get.ArcsAsDesigned(allArcs);
 
-			//Create lines and arcs with coordinates as flipped from design
-			List<Line> dieLinesFlipped = Get.DieLinesFlipped(dieLinesAsDesigned);
-			List<Arc> dieArcsFlipped = Get.DieArcsFlipped(dieArcsAsDesigned);
-			Edit.FlipElements(dieLinesFlipped, dieArcsFlipped);
+			//Set index on each element with counter clockwise order
+			Add.Indexes(linesAsDesigned, arcsAsDesigned);
 
-			//Calculate die dimensions
-			float dieDiameter = dieLinesAsDesigned.Max(line => line.EndY);
-			dieDiameter = Math.Abs(dieDiameter) * 2;
-			float dieWidth = dieLinesAsDesigned.Min(line => line.EndX);
-			dieWidth = Math.Abs(dieWidth);
+			//Clone lines and arcs from as designed placement and flip them
+			List<Line> linesFlipped = linesAsDesigned.Select(line => line.Clone()).ToList();
+			List<Arc> arcsFlipped = arcsAsDesigned.Select(arc => arc.Clone()).ToList();
+			Edit.FlipElements(linesFlipped, arcsFlipped);
+
+			//Set placement for lines and arcs
+			Add.Placement(linesAsDesigned, arcsAsDesigned, "AsDesigned");
+			Add.Placement(linesFlipped, arcsFlipped, "Flipped");
+
+			//Calculate dimensions
+			float diameter = Math.Abs(linesAsDesigned.Max(line => line.EndY)) * 2;
+			float width = Math.Abs(linesAsDesigned.Min(line => line.EndX));
 
 			//Set information to user interface
 			fileName.Text = fileNameWithoutExtension;
 			dieDiameterLabel.Text = string.Empty;
-			dieDiameterLabel.Text = $"Diameter : {dieDiameter}";
+			dieDiameterLabel.Text = $"Diameter : {diameter}";
 			dieWidthLabel.Text = string.Empty;
-			dieWidthLabel.Text = $"Width : {dieWidth}";
+			dieWidthLabel.Text = $"Width : {width}";
 
 			//Set UI to select first machining side
 			tabPanel.Enabled = true;
@@ -150,21 +154,15 @@ namespace DXF
 			drawSecondSideButton.Checked = false;
 			exportProgressBar.Value = 0;
 
-			//Set placement for lines and arcs
-			foreach (Line line in dieLinesAsDesigned) { line.Placement = "AsDesigned"; }
-			foreach (Arc arc in dieArcsAsDesigned) { arc.Placement = "AsDesigned"; }
-			foreach (Line line in dieLinesFlipped) { line.Placement = "Flipped"; }
-			foreach (Arc arc in dieArcsFlipped) { arc.Placement = "Flipped"; }
-
 			//Set global parameters
 			Parameter.DxfFileName = fileNameWithoutExtension;
-			Parameter.DieLinesAsDesigned = dieLinesAsDesigned.OrderBy(line => line.Index).ToList();
-			Parameter.DieArcsAsDesigned = dieArcsAsDesigned.OrderBy(arc => arc.Index).ToList();
-			Parameter.DieLinesFlipped = dieLinesFlipped.OrderBy(line => line.Index).Reverse().ToList();
-			Parameter.DieArcsFlipped = dieArcsFlipped.OrderBy(arc => arc.Index).Reverse().ToList();
-			Parameter.DieDiameter = dieDiameter;
-			Parameter.DieRadius = dieDiameter / 2;
-			Parameter.DieWidth = dieWidth;
+			Parameter.LinesAsDesigned = linesAsDesigned.OrderBy(line => line.Index).ToList();
+			Parameter.ArcsAsDesigned = arcsAsDesigned.OrderBy(arc => arc.Index).ToList();
+			Parameter.LinesFlipped = linesFlipped.OrderBy(line => line.Index).Reverse().ToList();
+			Parameter.ArcsFlipped = arcsFlipped.OrderBy(arc => arc.Index).Reverse().ToList();
+			Parameter.Diameter = diameter;
+			Parameter.DieRadius = diameter / 2;
+			Parameter.DieWidth = width;
 
 			//Draw
 			visualizationPanel.Refresh();
@@ -174,29 +172,33 @@ namespace DXF
 		#region Validate Dimensions
 		private void validateDimensionsButton_Click(object sender, EventArgs e)
 		{
+			//Inform the user amount elements movement to origin X0:Y0
 			if (Parameter.ElementsHasGap)
 			{
 				MessageBox.Show("Double check the dimensions because\nthe elements have been moved to be on X0:Y0");
 			}
 
+			//Enable UI to continue the procedure
 			validateDimensionsGroup.Enabled = false;
 			firstSideSelectorGroup.Enabled = true;
-
 		}
 		#endregion
 
-		#region Machining Setup
+		#region Profiles Setup
 		private void asDesignedButton_CheckedChanged(object sender, EventArgs e)
 		{
 			if (asDesignedButton.Checked)
 			{
-				Parameter.FirstSideLines = Parameter.DieLinesAsDesigned;
-				Parameter.FirstSideArcs = Parameter.DieArcsAsDesigned;
-				Parameter.SecondSideLines = Parameter.DieLinesFlipped;
-				Parameter.SecondSideArcs = Parameter.DieArcsFlipped;
+				//First side
+				Parameter.FirstSideLines = Parameter.LinesAsDesigned;
+				Parameter.FirstSideArcs = Parameter.ArcsAsDesigned;
+
+				//Second side
+				Parameter.SecondSideLines = Parameter.LinesFlipped;
+				Parameter.SecondSideArcs = Parameter.ArcsFlipped;
 			}
 
-			//Draw die
+			//Draw
 			visualizationPanel.Refresh();
 		}
 
@@ -204,26 +206,33 @@ namespace DXF
 		{
 			if (flippedButton.Checked)
 			{
-				Parameter.FirstSideLines = Parameter.DieLinesFlipped;
-				Parameter.FirstSideArcs = Parameter.DieArcsFlipped;
-				Parameter.SecondSideLines = Parameter.DieLinesAsDesigned;
-				Parameter.SecondSideArcs = Parameter.DieArcsAsDesigned;
+				//First side
+				Parameter.FirstSideLines = Parameter.LinesFlipped;
+				Parameter.FirstSideArcs = Parameter.ArcsFlipped;
+
+				//Second side
+				Parameter.SecondSideLines = Parameter.LinesAsDesigned;
+				Parameter.SecondSideArcs = Parameter.ArcsAsDesigned;
 			}
 
-			//Draw die
+			//Draw
 			visualizationPanel.Refresh();
 		}
 
-		private void setFirstSideSelectionButton_Click(object sender, EventArgs e)
+		private void setSidesButton_Click(object sender, EventArgs e)
 		{
-			//Set stock values
-			float stockDiameterValue = Parameter.DieDiameter;
-			stockDiameterValue += 1 - Parameter.DieDiameter % 1;
+			//
+			//Minimum stock values
+			//
+			//Diameter stock round up to first decimal plus 2mm
+			float stockDiameterValue = Parameter.Diameter;
+			stockDiameterValue += 1 - Parameter.Diameter % 1;
 			stockDiameterValue += 2;
 			stockDiameterInput.Minimum = Convert.ToDecimal(stockDiameterValue);
 			stockDiameterInput.Maximum = stockDiameterInput.Minimum + 10;
 			stockDiameterInput.Value = stockDiameterInput.Minimum;
 
+			//Width stock round up to first decimal plus 2mm
 			float stockWidthValue = Parameter.DieWidth;
 			stockWidthValue += 1 - Parameter.DieWidth % 1;
 			stockWidthValue += 2;
@@ -232,56 +241,66 @@ namespace DXF
 			stockWidthInput.Value = stockWidthInput.Minimum;
 
 			//
-			//Horizontal profile
+			//First side horizontal profile
 			//
-			List<Line> firstSideOuterHorizontalMachiningLines = Get.OuterHorizontalMachiningLines(Parameter.FirstSideLines);
-			List<Arc> firstSideOuterHorizontalMachiningArcs = Get.OuterHorizontalMachiningArcs(firstSideOuterHorizontalMachiningLines, Parameter.FirstSideArcs);
+			List<Line> firstSideHorizontalProfileLines = Get.HorizontalProfileLines(Parameter.FirstSideLines);
+			List<Arc> firstSideHorizontalProfileArcs = Get.HorizontalProfileArcs(firstSideHorizontalProfileLines, Parameter.FirstSideArcs);
 
 			//Insert lines from stock start position until profile start and from profile end to stock end position for first side
-			List<Line> firstSideStockMachiningLines = Get.FirstSideStockMachiningLines(firstSideOuterHorizontalMachiningLines, firstSideOuterHorizontalMachiningArcs);
-			firstSideOuterHorizontalMachiningLines.Add(firstSideStockMachiningLines[2]);
-			firstSideOuterHorizontalMachiningLines.Insert(0,firstSideStockMachiningLines[1]);
-			firstSideOuterHorizontalMachiningLines.Insert(0, firstSideStockMachiningLines[0]);
+			List<Line> firstSideHorizontalProfileStockLines = Get.FirstSideHorizontalProfileStockLines(firstSideHorizontalProfileLines, firstSideHorizontalProfileArcs);
+			firstSideHorizontalProfileLines.Add(firstSideHorizontalProfileStockLines[2]);
+			firstSideHorizontalProfileLines.Insert(0,firstSideHorizontalProfileStockLines[1]);
+			firstSideHorizontalProfileLines.Insert(0, firstSideHorizontalProfileStockLines[0]);
 
-			//Second side outer horizontal machining profile
-			List<Line> secondSideOuterHorizontalMachiningLines = Get.OuterHorizontalMachiningLines(Parameter.SecondSideLines);
-			List<Arc> secondSideOuterHorizontalMachiningArcs = Get.OuterHorizontalMachiningArcs(secondSideOuterHorizontalMachiningLines, Parameter.SecondSideArcs);
+			//
+			//Second side outer horizontal profile
+			//
+			List<Line> secondSideHorizontalProfileLines = Get.HorizontalProfileLines(Parameter.SecondSideLines);
+			List<Arc> secondSideHorizontalProfileArcs = Get.HorizontalProfileArcs(secondSideHorizontalProfileLines, Parameter.SecondSideArcs);
 
 			//Insert lines from stock start position until profile start and from profile end to stock end position for second side
-			List<Line> secondSideStockMachiningLines = Get.SecondSideStockMachiningLines(secondSideOuterHorizontalMachiningLines, secondSideOuterHorizontalMachiningArcs);
-			secondSideOuterHorizontalMachiningLines.Add(secondSideStockMachiningLines[2]);
-			secondSideOuterHorizontalMachiningLines.Insert(0, secondSideStockMachiningLines[1]);
-			secondSideOuterHorizontalMachiningLines.Insert(0, secondSideStockMachiningLines[0]);
+			List<Line> secondSideHorizontalProfileStockLines = Get.SecondSideHorizontalProfileStockLines(secondSideHorizontalProfileLines, secondSideHorizontalProfileArcs);
+			secondSideHorizontalProfileLines.Add(secondSideHorizontalProfileStockLines[2]);
+			secondSideHorizontalProfileLines.Insert(0, secondSideHorizontalProfileStockLines[1]);
+			secondSideHorizontalProfileLines.Insert(0, secondSideHorizontalProfileStockLines[0]);
 
 			//
-			//Facing profile
+			//First side facing profile
 			//
-			List<Line> firstSideOuterVerticalMachiningLines = Get.FirstSideOuterVerticalMachiningLines();
-			List<Line> secondSideOuterVerticalMachiningLines = Get.SecondSideOuterVerticalMachiningLines();
+			List<Line> firstSideFacingProfile = Get.firstSideFacingProfile();
 
 			//
-			//Cava profile
+			//Second side facing profile
+			//
+			List<Line> secondSideFacingProfile = Get.SecondSideFacingProfile();
+
+			//
+			//First side cava profile
 			//
 			List<Line> firstSideCavaLines = Get.CavaLines(Parameter.FirstSideLines);
 			List<Arc> firstSideCavaArcs = Get.CavaArcs(Parameter.FirstSideLines, Parameter.FirstSideArcs);
+
+			//
+			//Second side cava profile
+			//
 			List<Line> secondSideCavaLines = Get.CavaLines(Parameter.SecondSideLines);
 			List<Arc> secondSideCavaArcs = Get.CavaArcs(Parameter.SecondSideLines, Parameter.SecondSideArcs);
 
 			//Set Global Parameters
-			Parameter.FirstSideOuterHorizontalMachiningLines = firstSideOuterHorizontalMachiningLines;
-			Parameter.FirstSideOuterHorizontalMachiningArcs = firstSideOuterHorizontalMachiningArcs;
-			Parameter.FirstSideOuterVerticalMachiningLines = firstSideOuterVerticalMachiningLines;
+			Parameter.FirstSideHorizontalProfileLines = firstSideHorizontalProfileLines;
+			Parameter.FirstSideHorizontalProfileArcs = firstSideHorizontalProfileArcs;
+			Parameter.FirstSideFacingProfile = firstSideFacingProfile;
 
-			Parameter.SecondSideOuterHorizontalMachiningLines = secondSideOuterHorizontalMachiningLines;
-			Parameter.SecondSideOuterHorizontalMachiningArcs = secondSideOuterHorizontalMachiningArcs;
-			Parameter.SecondSideOuterVerticalMachiningLines = secondSideOuterVerticalMachiningLines;
+			Parameter.SecondSideHorizontalProfileLines = secondSideHorizontalProfileLines;
+			Parameter.SecondSideHorizontalProfileArcs = secondSideHorizontalProfileArcs;
+			Parameter.SecondSideFacingProfile = secondSideFacingProfile;
 
 			Parameter.FirstSideCavaLines = firstSideCavaLines;
 			Parameter.FirstSideCavaArcs = firstSideCavaArcs;
 			Parameter.SecondSideCavaLines = secondSideCavaLines;
 			Parameter.SecondSideCavaArcs = secondSideCavaArcs;
 
-			//Change UI after first machining side selected
+			//Change UI after sides selected
 			drawFirstSideButton.Checked = true;
 			firstSideSelectorGroup.Enabled = false;
 			cavaSelectorGroup.Enabled = true;
@@ -294,62 +313,68 @@ namespace DXF
 			visualizationPanel.Refresh();
 
 		}
+		#endregion
 
+		#region Stock Manipulation
 		private void stockDiameterInput_ValueChanged(object sender, EventArgs e)
 		{
-			Parameter.StockFromDiameter = (float)stockDiameterInput.Value - Parameter.DieDiameter;
+			//Set global parameters
+			Parameter.StockFromDiameter = (float)stockDiameterInput.Value - Parameter.Diameter;
 			Parameter.StockFromRadius = Parameter.StockFromDiameter / 2;
 
-			//Update outer horizontal machining stock to profile lines
-			if (Parameter.FirstSideOuterHorizontalMachiningLines.Count != 0)
+			//Update horizontal profile lines
+			if (Parameter.FirstSideHorizontalProfileLines.Count != 0)
 			{
-				Parameter.FirstSideOuterHorizontalMachiningLines[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
-				Parameter.FirstSideOuterHorizontalMachiningLines[Parameter.FirstSideOuterHorizontalMachiningLines.Count - 1].EndY = Parameter.FirstSideOuterHorizontalMachiningLines[Parameter.FirstSideOuterHorizontalMachiningLines.Count - 1].StartY + Parameter.StockFromRadius;
+				Parameter.FirstSideHorizontalProfileLines[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
+				Parameter.FirstSideHorizontalProfileLines[Parameter.FirstSideHorizontalProfileLines.Count - 1].EndY = Parameter.FirstSideHorizontalProfileLines[Parameter.FirstSideHorizontalProfileLines.Count - 1].StartY + Parameter.StockFromRadius;
 			}
-			if (Parameter.SecondSideOuterHorizontalMachiningLines.Count != 0)
+			if (Parameter.SecondSideHorizontalProfileLines.Count != 0)
 			{
-				Parameter.SecondSideOuterHorizontalMachiningLines[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
-				Parameter.SecondSideOuterHorizontalMachiningLines[Parameter.SecondSideOuterHorizontalMachiningLines.Count - 1].EndY = Parameter.SecondSideOuterHorizontalMachiningLines[Parameter.SecondSideOuterHorizontalMachiningLines.Count - 1].StartY + Parameter.StockFromRadius;
-			}
-
-			//Update outer vertical machining lines
-			if (Parameter.FirstSideOuterVerticalMachiningLines.Count != 0)
-			{
-				Parameter.FirstSideOuterVerticalMachiningLines[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
-				Parameter.FirstSideOuterVerticalMachiningLines[0].EndY = Parameter.DieRadius + Parameter.StockFromRadius;
-				Parameter.FirstSideOuterVerticalMachiningLines[1].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
-			}
-			if (Parameter.SecondSideOuterVerticalMachiningLines.Count != 0)
-			{
-				Parameter.SecondSideOuterVerticalMachiningLines[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
-				Parameter.SecondSideOuterVerticalMachiningLines[0].EndY = Parameter.DieRadius + Parameter.StockFromRadius;
-				Parameter.SecondSideOuterVerticalMachiningLines[1].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
+				Parameter.SecondSideHorizontalProfileLines[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
+				Parameter.SecondSideHorizontalProfileLines[Parameter.SecondSideHorizontalProfileLines.Count - 1].EndY = Parameter.SecondSideHorizontalProfileLines[Parameter.SecondSideHorizontalProfileLines.Count - 1].StartY + Parameter.StockFromRadius;
 			}
 
+			//Update facing profile lines
+			if (Parameter.FirstSideFacingProfile.Count != 0)
+			{
+				Parameter.FirstSideFacingProfile[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
+				Parameter.FirstSideFacingProfile[0].EndY = Parameter.DieRadius + Parameter.StockFromRadius;
+				Parameter.FirstSideFacingProfile[1].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
+			}
+			if (Parameter.SecondSideFacingProfile.Count != 0)
+			{
+				Parameter.SecondSideFacingProfile[0].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
+				Parameter.SecondSideFacingProfile[0].EndY = Parameter.DieRadius + Parameter.StockFromRadius;
+				Parameter.SecondSideFacingProfile[1].StartY = Parameter.DieRadius + Parameter.StockFromRadius;
+			}
+
+			//Draw
 			visualizationPanel.Refresh();
 		}
 
 		private void stockWidthInput_ValueChanged(object sender, EventArgs e)
 		{
+			//Set global parameters
 			Parameter.StockFromWidthSecondSide = 1;
 			Parameter.StockFromWidthFirstSide = (float)stockWidthInput.Value - Parameter.DieWidth - Parameter.StockFromWidthSecondSide;
 			Parameter.StockFromWidthFirstSide = Conversion.StringToThreeDigitFloat(Parameter.StockFromWidthFirstSide.ToString());
 
-			//Update outer horizontal machining stock to profile lines
-			if (Parameter.FirstSideOuterHorizontalMachiningLines.Count != 0)
+			//Update horizontal profile lines
+			if (Parameter.FirstSideHorizontalProfileLines.Count != 0)
 			{
-				Parameter.FirstSideOuterHorizontalMachiningLines[0].StartX = Parameter.StockFromWidthFirstSide;
-				Parameter.FirstSideOuterHorizontalMachiningLines[0].EndX = Parameter.StockFromWidthFirstSide;
-				Parameter.FirstSideOuterHorizontalMachiningLines[1].StartX = Parameter.StockFromWidthFirstSide;
+				Parameter.FirstSideHorizontalProfileLines[0].StartX = Parameter.StockFromWidthFirstSide;
+				Parameter.FirstSideHorizontalProfileLines[0].EndX = Parameter.StockFromWidthFirstSide;
+				Parameter.FirstSideHorizontalProfileLines[1].StartX = Parameter.StockFromWidthFirstSide;
 			}
 
-			//Update outer vertical machining lines
-			if (Parameter.FirstSideOuterVerticalMachiningLines.Count != 0)
+			//Update facing profile lines
+			if (Parameter.FirstSideFacingProfile.Count != 0)
 			{
-				Parameter.FirstSideOuterVerticalMachiningLines[0].StartX = Parameter.StockFromWidthFirstSide;
-				Parameter.FirstSideOuterVerticalMachiningLines[2].EndX = Parameter.StockFromWidthFirstSide;
+				Parameter.FirstSideFacingProfile[0].StartX = Parameter.StockFromWidthFirstSide;
+				Parameter.FirstSideFacingProfile[2].EndX = Parameter.StockFromWidthFirstSide;
 			}
 
+			//Draw
 			visualizationPanel.Refresh();
 		}
 		#endregion
@@ -375,34 +400,59 @@ namespace DXF
 			float cavaLength = Calculation.ElementsLength(Parameter.FirstSideCavaLines, Parameter.FirstSideCavaArcs);
 			if (cavaFirstSideButton.Checked)
 			{
-				Parameter.FirstSideOuterHorizontalMachiningLines.Last().StartX -= cavaLength;
-				Parameter.FirstSideOuterHorizontalMachiningLines.Last().EndX -= cavaLength;
-				Parameter.FirstSideOuterHorizontalMachiningLines[Parameter.FirstSideOuterHorizontalMachiningLines.Count - 2].EndX = Parameter.FirstSideOuterHorizontalMachiningLines.Last().StartX;
+				Parameter.FirstSideHorizontalProfileLines.Last().StartX -= cavaLength;
+				Parameter.FirstSideHorizontalProfileLines.Last().EndX -= cavaLength;
+				Parameter.FirstSideHorizontalProfileLines[Parameter.FirstSideHorizontalProfileLines.Count - 2].EndX = Parameter.FirstSideHorizontalProfileLines.Last().StartX;
 			}
 			else if (cavaSecondSideButton.Checked)
 			{
-				Parameter.FirstSideOuterHorizontalMachiningLines.Last().StartX += cavaLength;
-				Parameter.FirstSideOuterHorizontalMachiningLines.Last().EndX += cavaLength;
-				Parameter.FirstSideOuterHorizontalMachiningLines[Parameter.FirstSideOuterHorizontalMachiningLines.Count - 2].EndX = Parameter.FirstSideOuterHorizontalMachiningLines.Last().StartX;
+				Parameter.FirstSideHorizontalProfileLines.Last().StartX += cavaLength;
+				Parameter.FirstSideHorizontalProfileLines.Last().EndX += cavaLength;
+				Parameter.FirstSideHorizontalProfileLines[Parameter.FirstSideHorizontalProfileLines.Count - 2].EndX = Parameter.FirstSideHorizontalProfileLines.Last().StartX;
 			}
 			visualizationPanel.Refresh();
 		}
 
 		private void cavaSecondSideButton_CheckedChanged(object sender, EventArgs e)
 		{
-			float cavaLength = Calculation.ElementsLength(Parameter.FirstSideCavaLines, Parameter.FirstSideCavaArcs);
+			float cavaLength = Calculation.ElementsLength(Parameter.SecondSideCavaLines, Parameter.SecondSideCavaArcs);
 			if (cavaSecondSideButton.Checked)
 			{
-				Parameter.SecondSideOuterHorizontalMachiningLines.Last().StartX -= cavaLength;
-				Parameter.SecondSideOuterHorizontalMachiningLines.Last().EndX -= cavaLength;
-				Parameter.SecondSideOuterHorizontalMachiningLines[Parameter.SecondSideOuterHorizontalMachiningLines.Count - 2].EndX = Parameter.SecondSideOuterHorizontalMachiningLines.Last().StartX;
+				Parameter.SecondSideHorizontalProfileLines.Last().StartX -= cavaLength;
+				Parameter.SecondSideHorizontalProfileLines.Last().EndX -= cavaLength;
+				Parameter.SecondSideHorizontalProfileLines[Parameter.SecondSideHorizontalProfileLines.Count - 2].EndX = Parameter.SecondSideHorizontalProfileLines.Last().StartX;
 			}
 			else if (cavaFirstSideButton.Checked)
 			{
-				Parameter.SecondSideOuterHorizontalMachiningLines.Last().StartX += cavaLength;
-				Parameter.SecondSideOuterHorizontalMachiningLines.Last().EndX += cavaLength;
-				Parameter.SecondSideOuterHorizontalMachiningLines[Parameter.SecondSideOuterHorizontalMachiningLines.Count - 2].EndX = Parameter.SecondSideOuterHorizontalMachiningLines.Last().StartX;
+				Parameter.SecondSideHorizontalProfileLines.Last().StartX += cavaLength;
+				Parameter.SecondSideHorizontalProfileLines.Last().EndX += cavaLength;
+				Parameter.SecondSideHorizontalProfileLines[Parameter.SecondSideHorizontalProfileLines.Count - 2].EndX = Parameter.SecondSideHorizontalProfileLines.Last().StartX;
 			}
+			visualizationPanel.Refresh();
+		}
+
+		private void manualCavaButton_CheckedChanged(object sender, EventArgs e)
+		{
+			float cavaLengthFirstSide = Calculation.ElementsLength(Parameter.FirstSideCavaLines, Parameter.FirstSideCavaArcs);
+			float cavaLengthSecondSide = Calculation.ElementsLength(Parameter.SecondSideCavaLines, Parameter.SecondSideCavaArcs);
+			if (manualCavaButton.Checked)
+			{
+				if (cavaFirstSideButton.Checked)
+				{
+					cavaFirstSideButton.Checked = false;
+					Parameter.FirstSideHorizontalProfileLines.Last().StartX += cavaLengthFirstSide;
+					Parameter.FirstSideHorizontalProfileLines.Last().EndX += cavaLengthFirstSide;
+					Parameter.FirstSideHorizontalProfileLines[Parameter.FirstSideHorizontalProfileLines.Count - 2].EndX = Parameter.FirstSideHorizontalProfileLines.Last().StartX;
+				}
+				else if (cavaSecondSideButton.Checked)
+				{
+					cavaSecondSideButton.Checked = false;
+					Parameter.SecondSideHorizontalProfileLines.Last().StartX += cavaLengthSecondSide;
+					Parameter.SecondSideHorizontalProfileLines.Last().EndX += cavaLengthSecondSide;
+					Parameter.SecondSideHorizontalProfileLines[Parameter.SecondSideHorizontalProfileLines.Count - 2].EndX = Parameter.SecondSideHorizontalProfileLines.Last().StartX;
+				}
+			}
+
 			visualizationPanel.Refresh();
 		}
 
@@ -458,16 +508,16 @@ namespace DXF
 					Draw.Stock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthFirstSide, Parameter.StockFromWidthSecondSide);
 					Draw.Chock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthSecondSide, (float)chockSizeInput.Value);
 					Draw.Die(visualizationPanelGraphics, Parameter.FirstSideLines, Parameter.FirstSideArcs);
-					Draw.OuterHorizontalMachiningProfile(visualizationPanelGraphics, Parameter.FirstSideOuterHorizontalMachiningLines, Parameter.FirstSideOuterHorizontalMachiningArcs);
-					Draw.OuterVerticalMachiningProfile(visualizationPanelGraphics, Parameter.FirstSideOuterVerticalMachiningLines);
+					Draw.OuterHorizontalMachiningProfile(visualizationPanelGraphics, Parameter.FirstSideHorizontalProfileLines, Parameter.FirstSideHorizontalProfileArcs);
+					Draw.OuterVerticalMachiningProfile(visualizationPanelGraphics, Parameter.FirstSideFacingProfile);
 				}
 				else if (drawSecondSideButton.Checked)
 				{
 					Draw.Stock(visualizationPanelGraphics, Parameter.StockFromRadius, Parameter.StockFromWidthSecondSide, Parameter.StockFromWidthFirstSide);
 					Draw.Chock(visualizationPanelGraphics, Parameter.StockFromRadius, 0, (float)chockSizeInput.Value);
 					Draw.Die(visualizationPanelGraphics, Parameter.SecondSideLines, Parameter.SecondSideArcs);
-					Draw.OuterHorizontalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideOuterHorizontalMachiningLines, Parameter.SecondSideOuterHorizontalMachiningArcs);
-					Draw.OuterVerticalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideOuterVerticalMachiningLines);
+					Draw.OuterHorizontalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideHorizontalProfileLines, Parameter.SecondSideHorizontalProfileArcs);
+					Draw.OuterVerticalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideFacingProfile);
 				}
 			}
 			
@@ -529,8 +579,8 @@ namespace DXF
 			G71 g71 = new G71("30", "40",g71DepthOfCutInput.Value, g71RetractInput.Value, g71XAllowanceInput.Value, g71ZAllowanceInput.Value, g71FeedRateInput.Value);
 
 			//Get first side outer horizontal and outer vertical profile points
-			List<ProfilePoint> firstSideOuterHorizontalProfilePoints = Get.ProfilePoints(Parameter.FirstSideOuterHorizontalMachiningLines, Parameter.FirstSideOuterHorizontalMachiningArcs);
-			List<ProfilePoint> firstSideOuterVerticalProfilePoints = Get.ProfilePoints(Parameter.FirstSideOuterVerticalMachiningLines, Parameter.FirstSideOuterVerticalMachiningArcs);
+			List<ProfilePoint> firstSideOuterHorizontalProfilePoints = Get.ProfilePoints(Parameter.FirstSideHorizontalProfileLines, Parameter.FirstSideHorizontalProfileArcs);
+			List<ProfilePoint> firstSideOuterVerticalProfilePoints = Get.ProfilePoints(Parameter.FirstSideFacingProfile, Parameter.FirstSideOuterVerticalMachiningArcs);
 
 			//Create g code for first side
 			List<string> gCodeFirstSide = new List<string>();
@@ -540,8 +590,8 @@ namespace DXF
 			gCodeFirstSide.AddRange(CodeBlock.LatheEnd());
 
 			//Get second side outer horizontal and outer vertical profile points
-			List<ProfilePoint> secondSideOuterHorizontalProfilePoints = Get.ProfilePoints(Parameter.SecondSideOuterHorizontalMachiningLines, Parameter.SecondSideOuterHorizontalMachiningArcs);
-			List<ProfilePoint> secondSideOuterVerticalProfilePoints = Get.ProfilePoints(Parameter.SecondSideOuterVerticalMachiningLines, Parameter.SecondSideOuterVerticalMachiningArcs);
+			List<ProfilePoint> secondSideOuterHorizontalProfilePoints = Get.ProfilePoints(Parameter.SecondSideHorizontalProfileLines, Parameter.SecondSideHorizontalProfileArcs);
+			List<ProfilePoint> secondSideOuterVerticalProfilePoints = Get.ProfilePoints(Parameter.SecondSideFacingProfile, Parameter.SecondSideOuterVerticalMachiningArcs);
 			
 			//Create g code for second side
 			List<string> gCodeSecondSide = new List<string>();
@@ -716,6 +766,5 @@ namespace DXF
 		}
 		#endregion
 
-		
 	}
 }

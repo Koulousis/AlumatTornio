@@ -15,13 +15,13 @@ namespace DXF.Actions
 			#region Setted on file selection
 			Parameter.DxfFileName = string.Empty;
 
-			Parameter.DieLinesAsDesigned = new List<Line>();
-			Parameter.DieArcsAsDesigned = new List<Arc>();
+			Parameter.LinesAsDesigned = new List<Line>();
+			Parameter.ArcsAsDesigned = new List<Arc>();
 
-			Parameter.DieLinesFlipped = new List<Line>();
-			Parameter.DieArcsFlipped = new List<Arc>();
+			Parameter.LinesFlipped = new List<Line>();
+			Parameter.ArcsFlipped = new List<Arc>();
 
-			Parameter.DieDiameter = 0f;
+			Parameter.Diameter = 0f;
 			Parameter.DieRadius = 0f;
 			Parameter.DieWidth = 0f;
 			#endregion
@@ -37,16 +37,16 @@ namespace DXF.Actions
 			Parameter.StockFromWidthSecondSide = 0f;
 			Parameter.StockFromWidthFirstSide = 0f;
 
-			Parameter.FirstSideOuterHorizontalMachiningLines = new List<Line>();
-			Parameter.FirstSideOuterHorizontalMachiningArcs = new List<Arc>();
-			Parameter.FirstSideOuterVerticalMachiningLines = new List<Line>();
+			Parameter.FirstSideHorizontalProfileLines = new List<Line>();
+			Parameter.FirstSideHorizontalProfileArcs = new List<Arc>();
+			Parameter.FirstSideFacingProfile = new List<Line>();
 			Parameter.FirstSideOuterVerticalMachiningArcs = new List<Arc>();
 			Parameter.FirstSideCavaLines = new List<Line>();
 			Parameter.FirstSideArcs = new List<Arc>();
 
-			Parameter.SecondSideOuterHorizontalMachiningLines = new List<Line>();
-			Parameter.SecondSideOuterHorizontalMachiningArcs = new List<Arc>();
-			Parameter.SecondSideOuterVerticalMachiningLines = new List<Line>();
+			Parameter.SecondSideHorizontalProfileLines = new List<Line>();
+			Parameter.SecondSideHorizontalProfileArcs = new List<Arc>();
+			Parameter.SecondSideFacingProfile = new List<Line>();
 			Parameter.SecondSideOuterVerticalMachiningArcs = new List<Arc>();
 			Parameter.SecondSideCavaLines = new List<Line>();
 			Parameter.SecondSideCavaArcs = new List<Arc>();

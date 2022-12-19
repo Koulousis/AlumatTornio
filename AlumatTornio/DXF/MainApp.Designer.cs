@@ -91,15 +91,21 @@ namespace DXF
 			this.dieDiameterLabel = new System.Windows.Forms.Label();
 			this.dieWidthLabel = new System.Windows.Forms.Label();
 			this.cavaSelectorGroup = new System.Windows.Forms.GroupBox();
+			this.setCavaSelectorGroupSecondSideLabel = new System.Windows.Forms.Label();
+			this.setCavaSelectorFirstSideLabel = new System.Windows.Forms.Label();
 			this.manualCavaSelectorGroup = new System.Windows.Forms.GroupBox();
-			this.button2 = new System.Windows.Forms.Button();
-			this.button1 = new System.Windows.Forms.Button();
+			this.decreaseSecondSideButton = new System.Windows.Forms.Button();
+			this.increaseSecondSideButton = new System.Windows.Forms.Button();
+			this.decreaseFirstSideButton = new System.Windows.Forms.Button();
+			this.increaseFirstSideButton = new System.Windows.Forms.Button();
 			this.autoCavaSelectorGroup = new System.Windows.Forms.GroupBox();
+			this.cavaSecondSideButton = new System.Windows.Forms.RadioButton();
+			this.cavaFirstSideButton = new System.Windows.Forms.RadioButton();
 			this.manualCavaButton = new System.Windows.Forms.RadioButton();
 			this.autoCavaButton = new System.Windows.Forms.RadioButton();
 			this.visualizationPanel = new System.Windows.Forms.PictureBox();
 			this.firstSideSelectorGroup = new System.Windows.Forms.GroupBox();
-			this.setFirstSideSelectionButton = new System.Windows.Forms.Button();
+			this.setSidesButton = new System.Windows.Forms.Button();
 			this.firstSideSelectorLabel = new System.Windows.Forms.Label();
 			this.flippedButton = new System.Windows.Forms.RadioButton();
 			this.asDesignedButton = new System.Windows.Forms.RadioButton();
@@ -108,8 +114,6 @@ namespace DXF
 			this.label1 = new System.Windows.Forms.Label();
 			this.chockSizeInput = new System.Windows.Forms.NumericUpDown();
 			this.chockSizeLabel = new System.Windows.Forms.Label();
-			this.cavaFirstSideButton = new System.Windows.Forms.RadioButton();
-			this.cavaSecondSideButton = new System.Windows.Forms.RadioButton();
 			this.mainAppMenu.SuspendLayout();
 			this.viewSideSelectorGroup.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
@@ -163,7 +167,7 @@ namespace DXF
 			this.mainAppMenu.Location = new System.Drawing.Point(0, 0);
 			this.mainAppMenu.Name = "mainAppMenu";
 			this.mainAppMenu.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
-			this.mainAppMenu.Size = new System.Drawing.Size(790, 24);
+			this.mainAppMenu.Size = new System.Drawing.Size(788, 24);
 			this.mainAppMenu.TabIndex = 2;
 			this.mainAppMenu.Text = "menuStrip1";
 			// 
@@ -308,7 +312,7 @@ namespace DXF
 			this.copyrightsBanner.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.copyrightsBanner.Location = new System.Drawing.Point(0, 560);
 			this.copyrightsBanner.Name = "copyrightsBanner";
-			this.copyrightsBanner.Size = new System.Drawing.Size(790, 95);
+			this.copyrightsBanner.Size = new System.Drawing.Size(788, 95);
 			this.copyrightsBanner.TabIndex = 4;
 			// 
 			// copyrights
@@ -317,7 +321,7 @@ namespace DXF
 			this.copyrights.BackColor = System.Drawing.SystemColors.WindowFrame;
 			this.copyrights.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.copyrights.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.copyrights.Location = new System.Drawing.Point(314, 79);
+			this.copyrights.Location = new System.Drawing.Point(313, 79);
 			this.copyrights.Name = "copyrights";
 			this.copyrights.Size = new System.Drawing.Size(226, 13);
 			this.copyrights.TabIndex = 1;
@@ -331,7 +335,7 @@ namespace DXF
 			this.banner.Image = ((System.Drawing.Image)(resources.GetObject("banner.Image")));
 			this.banner.Location = new System.Drawing.Point(0, 0);
 			this.banner.Name = "banner";
-			this.banner.Size = new System.Drawing.Size(790, 74);
+			this.banner.Size = new System.Drawing.Size(788, 74);
 			this.banner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.banner.TabIndex = 0;
 			this.banner.TabStop = false;
@@ -936,7 +940,7 @@ namespace DXF
 			this.tabPanel.Location = new System.Drawing.Point(0, 24);
 			this.tabPanel.Name = "tabPanel";
 			this.tabPanel.SelectedIndex = 0;
-			this.tabPanel.Size = new System.Drawing.Size(790, 536);
+			this.tabPanel.Size = new System.Drawing.Size(788, 536);
 			this.tabPanel.TabIndex = 16;
 			// 
 			// tabSetup
@@ -957,7 +961,7 @@ namespace DXF
 			this.tabSetup.Location = new System.Drawing.Point(4, 22);
 			this.tabSetup.Name = "tabSetup";
 			this.tabSetup.Padding = new System.Windows.Forms.Padding(3);
-			this.tabSetup.Size = new System.Drawing.Size(782, 510);
+			this.tabSetup.Size = new System.Drawing.Size(780, 510);
 			this.tabSetup.TabIndex = 0;
 			this.tabSetup.Text = "Machining Setup";
 			// 
@@ -1021,6 +1025,8 @@ namespace DXF
 			// 
 			// cavaSelectorGroup
 			// 
+			this.cavaSelectorGroup.Controls.Add(this.setCavaSelectorGroupSecondSideLabel);
+			this.cavaSelectorGroup.Controls.Add(this.setCavaSelectorFirstSideLabel);
 			this.cavaSelectorGroup.Controls.Add(this.manualCavaSelectorGroup);
 			this.cavaSelectorGroup.Controls.Add(this.autoCavaSelectorGroup);
 			this.cavaSelectorGroup.Controls.Add(this.manualCavaButton);
@@ -1036,47 +1042,121 @@ namespace DXF
 			this.cavaSelectorGroup.TabStop = false;
 			this.cavaSelectorGroup.Text = "Set cava";
 			// 
+			// setCavaSelectorGroupSecondSideLabel
+			// 
+			this.setCavaSelectorGroupSecondSideLabel.AutoSize = true;
+			this.setCavaSelectorGroupSecondSideLabel.ForeColor = System.Drawing.Color.Black;
+			this.setCavaSelectorGroupSecondSideLabel.Location = new System.Drawing.Point(4, 72);
+			this.setCavaSelectorGroupSecondSideLabel.Name = "setCavaSelectorGroupSecondSideLabel";
+			this.setCavaSelectorGroupSecondSideLabel.Size = new System.Drawing.Size(84, 16);
+			this.setCavaSelectorGroupSecondSideLabel.TabIndex = 28;
+			this.setCavaSelectorGroupSecondSideLabel.Text = "Second side";
+			// 
+			// setCavaSelectorFirstSideLabel
+			// 
+			this.setCavaSelectorFirstSideLabel.AutoSize = true;
+			this.setCavaSelectorFirstSideLabel.ForeColor = System.Drawing.Color.Black;
+			this.setCavaSelectorFirstSideLabel.Location = new System.Drawing.Point(26, 46);
+			this.setCavaSelectorFirstSideLabel.Name = "setCavaSelectorFirstSideLabel";
+			this.setCavaSelectorFirstSideLabel.Size = new System.Drawing.Size(62, 16);
+			this.setCavaSelectorFirstSideLabel.TabIndex = 22;
+			this.setCavaSelectorFirstSideLabel.Text = "First side";
+			// 
 			// manualCavaSelectorGroup
 			// 
-			this.manualCavaSelectorGroup.Controls.Add(this.button2);
-			this.manualCavaSelectorGroup.Controls.Add(this.button1);
-			this.manualCavaSelectorGroup.Location = new System.Drawing.Point(148, 36);
+			this.manualCavaSelectorGroup.Controls.Add(this.decreaseSecondSideButton);
+			this.manualCavaSelectorGroup.Controls.Add(this.increaseSecondSideButton);
+			this.manualCavaSelectorGroup.Controls.Add(this.decreaseFirstSideButton);
+			this.manualCavaSelectorGroup.Controls.Add(this.increaseFirstSideButton);
+			this.manualCavaSelectorGroup.Location = new System.Drawing.Point(138, 36);
 			this.manualCavaSelectorGroup.Name = "manualCavaSelectorGroup";
-			this.manualCavaSelectorGroup.Size = new System.Drawing.Size(95, 55);
+			this.manualCavaSelectorGroup.Size = new System.Drawing.Size(111, 55);
 			this.manualCavaSelectorGroup.TabIndex = 27;
 			this.manualCavaSelectorGroup.TabStop = false;
 			// 
-			// button2
+			// decreaseSecondSideButton
 			// 
-			this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-			this.button2.ForeColor = System.Drawing.Color.Black;
-			this.button2.Location = new System.Drawing.Point(52, 15);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(30, 30);
-			this.button2.TabIndex = 1;
-			this.button2.Text = "-";
-			this.button2.UseVisualStyleBackColor = true;
+			this.decreaseSecondSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.decreaseSecondSideButton.ForeColor = System.Drawing.Color.Black;
+			this.decreaseSecondSideButton.Location = new System.Drawing.Point(65, 32);
+			this.decreaseSecondSideButton.Name = "decreaseSecondSideButton";
+			this.decreaseSecondSideButton.Size = new System.Drawing.Size(40, 20);
+			this.decreaseSecondSideButton.TabIndex = 3;
+			this.decreaseSecondSideButton.Text = "-";
+			this.decreaseSecondSideButton.UseVisualStyleBackColor = true;
 			// 
-			// button1
+			// increaseSecondSideButton
 			// 
-			this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.ForeColor = System.Drawing.Color.Black;
-			this.button1.Location = new System.Drawing.Point(11, 15);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(30, 30);
-			this.button1.TabIndex = 0;
-			this.button1.Text = "+";
-			this.button1.UseVisualStyleBackColor = true;
+			this.increaseSecondSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.increaseSecondSideButton.ForeColor = System.Drawing.Color.Black;
+			this.increaseSecondSideButton.Location = new System.Drawing.Point(10, 32);
+			this.increaseSecondSideButton.Name = "increaseSecondSideButton";
+			this.increaseSecondSideButton.Size = new System.Drawing.Size(40, 20);
+			this.increaseSecondSideButton.TabIndex = 2;
+			this.increaseSecondSideButton.Text = "+";
+			this.increaseSecondSideButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			this.increaseSecondSideButton.UseVisualStyleBackColor = true;
+			// 
+			// decreaseFirstSideButton
+			// 
+			this.decreaseFirstSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.decreaseFirstSideButton.ForeColor = System.Drawing.Color.Black;
+			this.decreaseFirstSideButton.Location = new System.Drawing.Point(65, 10);
+			this.decreaseFirstSideButton.Name = "decreaseFirstSideButton";
+			this.decreaseFirstSideButton.Size = new System.Drawing.Size(40, 20);
+			this.decreaseFirstSideButton.TabIndex = 1;
+			this.decreaseFirstSideButton.Text = "-";
+			this.decreaseFirstSideButton.UseVisualStyleBackColor = true;
+			// 
+			// increaseFirstSideButton
+			// 
+			this.increaseFirstSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.increaseFirstSideButton.ForeColor = System.Drawing.Color.Black;
+			this.increaseFirstSideButton.Location = new System.Drawing.Point(10, 10);
+			this.increaseFirstSideButton.Name = "increaseFirstSideButton";
+			this.increaseFirstSideButton.Size = new System.Drawing.Size(40, 20);
+			this.increaseFirstSideButton.TabIndex = 0;
+			this.increaseFirstSideButton.Text = "+";
+			this.increaseFirstSideButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			this.increaseFirstSideButton.UseVisualStyleBackColor = true;
 			// 
 			// autoCavaSelectorGroup
 			// 
 			this.autoCavaSelectorGroup.Controls.Add(this.cavaSecondSideButton);
 			this.autoCavaSelectorGroup.Controls.Add(this.cavaFirstSideButton);
-			this.autoCavaSelectorGroup.Location = new System.Drawing.Point(12, 36);
+			this.autoCavaSelectorGroup.Location = new System.Drawing.Point(88, 36);
 			this.autoCavaSelectorGroup.Name = "autoCavaSelectorGroup";
-			this.autoCavaSelectorGroup.Size = new System.Drawing.Size(129, 55);
+			this.autoCavaSelectorGroup.Size = new System.Drawing.Size(44, 55);
 			this.autoCavaSelectorGroup.TabIndex = 26;
 			this.autoCavaSelectorGroup.TabStop = false;
+			// 
+			// cavaSecondSideButton
+			// 
+			this.cavaSecondSideButton.Appearance = System.Windows.Forms.Appearance.Button;
+			this.cavaSecondSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaSecondSideButton.ForeColor = System.Drawing.Color.Black;
+			this.cavaSecondSideButton.Location = new System.Drawing.Point(7, 32);
+			this.cavaSecondSideButton.Name = "cavaSecondSideButton";
+			this.cavaSecondSideButton.Size = new System.Drawing.Size(31, 20);
+			this.cavaSecondSideButton.TabIndex = 1;
+			this.cavaSecondSideButton.TabStop = true;
+			this.cavaSecondSideButton.Text = "Set";
+			this.cavaSecondSideButton.UseVisualStyleBackColor = true;
+			this.cavaSecondSideButton.CheckedChanged += new System.EventHandler(this.cavaSecondSideButton_CheckedChanged);
+			// 
+			// cavaFirstSideButton
+			// 
+			this.cavaFirstSideButton.Appearance = System.Windows.Forms.Appearance.Button;
+			this.cavaFirstSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaFirstSideButton.ForeColor = System.Drawing.Color.Black;
+			this.cavaFirstSideButton.Location = new System.Drawing.Point(7, 10);
+			this.cavaFirstSideButton.Name = "cavaFirstSideButton";
+			this.cavaFirstSideButton.Size = new System.Drawing.Size(31, 20);
+			this.cavaFirstSideButton.TabIndex = 0;
+			this.cavaFirstSideButton.TabStop = true;
+			this.cavaFirstSideButton.Text = "Set";
+			this.cavaFirstSideButton.UseVisualStyleBackColor = true;
+			this.cavaFirstSideButton.CheckedChanged += new System.EventHandler(this.cavaFirstSideButton_CheckedChanged);
 			// 
 			// manualCavaButton
 			// 
@@ -1089,13 +1169,14 @@ namespace DXF
 			this.manualCavaButton.TabStop = true;
 			this.manualCavaButton.Text = "Manual";
 			this.manualCavaButton.UseVisualStyleBackColor = true;
+			this.manualCavaButton.CheckedChanged += new System.EventHandler(this.manualCavaButton_CheckedChanged);
 			// 
 			// autoCavaButton
 			// 
 			this.autoCavaButton.AutoSize = true;
 			this.autoCavaButton.Checked = true;
 			this.autoCavaButton.ForeColor = System.Drawing.Color.Black;
-			this.autoCavaButton.Location = new System.Drawing.Point(12, 17);
+			this.autoCavaButton.Location = new System.Drawing.Point(33, 17);
 			this.autoCavaButton.Name = "autoCavaButton";
 			this.autoCavaButton.Size = new System.Drawing.Size(85, 20);
 			this.autoCavaButton.TabIndex = 24;
@@ -1119,7 +1200,7 @@ namespace DXF
 			// 
 			// firstSideSelectorGroup
 			// 
-			this.firstSideSelectorGroup.Controls.Add(this.setFirstSideSelectionButton);
+			this.firstSideSelectorGroup.Controls.Add(this.setSidesButton);
 			this.firstSideSelectorGroup.Controls.Add(this.firstSideSelectorLabel);
 			this.firstSideSelectorGroup.Controls.Add(this.flippedButton);
 			this.firstSideSelectorGroup.Controls.Add(this.asDesignedButton);
@@ -1132,16 +1213,16 @@ namespace DXF
 			this.firstSideSelectorGroup.TabStop = false;
 			this.firstSideSelectorGroup.Text = "Set first machining side";
 			// 
-			// setFirstSideSelectionButton
+			// setSidesButton
 			// 
-			this.setFirstSideSelectionButton.ForeColor = System.Drawing.Color.Black;
-			this.setFirstSideSelectionButton.Location = new System.Drawing.Point(192, 46);
-			this.setFirstSideSelectionButton.Name = "setFirstSideSelectionButton";
-			this.setFirstSideSelectionButton.Size = new System.Drawing.Size(57, 23);
-			this.setFirstSideSelectionButton.TabIndex = 20;
-			this.setFirstSideSelectionButton.Text = "Set";
-			this.setFirstSideSelectionButton.UseVisualStyleBackColor = true;
-			this.setFirstSideSelectionButton.Click += new System.EventHandler(this.setFirstSideSelectionButton_Click);
+			this.setSidesButton.ForeColor = System.Drawing.Color.Black;
+			this.setSidesButton.Location = new System.Drawing.Point(192, 46);
+			this.setSidesButton.Name = "setSidesButton";
+			this.setSidesButton.Size = new System.Drawing.Size(57, 23);
+			this.setSidesButton.TabIndex = 20;
+			this.setSidesButton.Text = "Set";
+			this.setSidesButton.UseVisualStyleBackColor = true;
+			this.setSidesButton.Click += new System.EventHandler(this.setSidesButton_Click);
 			// 
 			// firstSideSelectorLabel
 			// 
@@ -1186,7 +1267,7 @@ namespace DXF
 			this.tabSettings.Location = new System.Drawing.Point(4, 22);
 			this.tabSettings.Name = "tabSettings";
 			this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-			this.tabSettings.Size = new System.Drawing.Size(782, 510);
+			this.tabSettings.Size = new System.Drawing.Size(780, 510);
 			this.tabSettings.TabIndex = 1;
 			this.tabSettings.Text = "Machining Settings";
 			// 
@@ -1227,6 +1308,7 @@ namespace DXF
 			this.chockSizeInput.Name = "chockSizeInput";
 			this.chockSizeInput.Size = new System.Drawing.Size(60, 26);
 			this.chockSizeInput.TabIndex = 17;
+			this.chockSizeInput.ValueChanged += new System.EventHandler(this.chockSizeInput_ValueChanged);
 			// 
 			// chockSizeLabel
 			// 
@@ -1238,38 +1320,12 @@ namespace DXF
 			this.chockSizeLabel.TabIndex = 22;
 			this.chockSizeLabel.Text = "Set chock length value";
 			// 
-			// cavaFirstSideButton
-			// 
-			this.cavaFirstSideButton.AutoSize = true;
-			this.cavaFirstSideButton.ForeColor = System.Drawing.Color.Black;
-			this.cavaFirstSideButton.Location = new System.Drawing.Point(7, 11);
-			this.cavaFirstSideButton.Name = "cavaFirstSideButton";
-			this.cavaFirstSideButton.Size = new System.Drawing.Size(95, 20);
-			this.cavaFirstSideButton.TabIndex = 0;
-			this.cavaFirstSideButton.TabStop = true;
-			this.cavaFirstSideButton.Text = "On first side";
-			this.cavaFirstSideButton.UseVisualStyleBackColor = true;
-			this.cavaFirstSideButton.CheckedChanged += new System.EventHandler(this.cavaFirstSideButton_CheckedChanged);
-			// 
-			// cavaSecondSideButton
-			// 
-			this.cavaSecondSideButton.AutoSize = true;
-			this.cavaSecondSideButton.ForeColor = System.Drawing.Color.Black;
-			this.cavaSecondSideButton.Location = new System.Drawing.Point(7, 31);
-			this.cavaSecondSideButton.Name = "cavaSecondSideButton";
-			this.cavaSecondSideButton.Size = new System.Drawing.Size(120, 20);
-			this.cavaSecondSideButton.TabIndex = 1;
-			this.cavaSecondSideButton.TabStop = true;
-			this.cavaSecondSideButton.Text = "On second side";
-			this.cavaSecondSideButton.UseVisualStyleBackColor = true;
-			this.cavaSecondSideButton.CheckedChanged += new System.EventHandler(this.cavaSecondSideButton_CheckedChanged);
-			// 
 			// MainApp
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.WindowFrame;
-			this.ClientSize = new System.Drawing.Size(790, 655);
+			this.ClientSize = new System.Drawing.Size(788, 655);
 			this.Controls.Add(this.tabPanel);
 			this.Controls.Add(this.copyrightsBanner);
 			this.Controls.Add(this.mainAppMenu);
@@ -1314,7 +1370,6 @@ namespace DXF
 			this.cavaSelectorGroup.PerformLayout();
 			this.manualCavaSelectorGroup.ResumeLayout(false);
 			this.autoCavaSelectorGroup.ResumeLayout(false);
-			this.autoCavaSelectorGroup.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.visualizationPanel)).EndInit();
 			this.firstSideSelectorGroup.ResumeLayout(false);
 			this.firstSideSelectorGroup.PerformLayout();
@@ -1389,7 +1444,7 @@ namespace DXF
 		private System.Windows.Forms.Label firstSideSelectorLabel;
 		private System.Windows.Forms.RadioButton flippedButton;
 		private System.Windows.Forms.RadioButton asDesignedButton;
-		private System.Windows.Forms.Button setFirstSideSelectionButton;
+		private System.Windows.Forms.Button setSidesButton;
 		private System.Windows.Forms.Label viewSideSelectorLabel;
 		private System.Windows.Forms.GroupBox cavaSelectorGroup;
 		private System.Windows.Forms.Label secondSideStockLabel;
@@ -1401,12 +1456,16 @@ namespace DXF
 		private System.Windows.Forms.NumericUpDown chockSizeInput;
 		private System.Windows.Forms.Label chockSizeLabel;
 		private System.Windows.Forms.GroupBox manualCavaSelectorGroup;
-		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.GroupBox autoCavaSelectorGroup;
 		private System.Windows.Forms.RadioButton manualCavaButton;
 		private System.Windows.Forms.RadioButton autoCavaButton;
 		private System.Windows.Forms.RadioButton cavaSecondSideButton;
 		private System.Windows.Forms.RadioButton cavaFirstSideButton;
+		private System.Windows.Forms.Label setCavaSelectorGroupSecondSideLabel;
+		private System.Windows.Forms.Label setCavaSelectorFirstSideLabel;
+		private System.Windows.Forms.Button decreaseSecondSideButton;
+		private System.Windows.Forms.Button increaseSecondSideButton;
+		private System.Windows.Forms.Button decreaseFirstSideButton;
+		private System.Windows.Forms.Button increaseFirstSideButton;
 	}
 }

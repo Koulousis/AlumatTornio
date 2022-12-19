@@ -52,12 +52,10 @@ namespace DXF.Lathe
 			gCode.Add("(START POSITION)");
 			gCode.Add($"G0 Z{startPosition.Z}");
 			gCode.Add($"G0 X{startPosition.X}");
-			gCode.Add("");
 			gCode.Add("(G72 PARAMETERS)");
 			gCode.Add($"G72 W{g72.DepthOfCut} R{g72.Retract}");
 			gCode.Add($"G72 P{g72.ProfileStart} Q{g72.ProfileEnd} U{g72.AllowanceX} W{g72.AllowanceZ} F{g72.FeedRate}");
-			gCode.Add("");
-			gCode.Add("PROFILE");
+			gCode.Add("(PROFILE)");
 			gCode.Add($"N{g72.ProfileStart} G0 G41 X{profileStart.X} Z{profileStart.Z}");
 
 			foreach (ProfilePoint profilePoint in profilePoints)
@@ -102,11 +100,9 @@ namespace DXF.Lathe
 			gCode.Add("(START POSITION)");
 			gCode.Add($"G0 Z{startPosition.Z}");
 			gCode.Add($"G0 X{startPosition.X}");
-			gCode.Add("");
 			gCode.Add("(G71 PARAMETERS)");
 			gCode.Add($"G71 U{g71.DepthOfCut} R{g71.Retract}");
 			gCode.Add($"G71 P{g71.ProfileStart} Q{g71.ProfileEnd} U{g71.AllowanceX} W{g71.AllowanceZ} F{g71.FeedRate}");
-			gCode.Add("");
 			gCode.Add("(PROFILE)");
 			gCode.Add($"N{g71.ProfileStart} G0 G42 X{profileStart.X} Z{profileStart.Z}");
 

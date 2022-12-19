@@ -13,13 +13,13 @@ namespace DXF.Elements
 		#region Setted on file selection
 		public static string DxfFileName { get; set; }
 
-		public static List<Line> DieLinesAsDesigned { get; set; }
-		public static List<Arc> DieArcsAsDesigned { get; set; }
+		public static List<Line> LinesAsDesigned { get; set; }
+		public static List<Arc> ArcsAsDesigned { get; set; }
 
-		public static List<Line> DieLinesFlipped { get; set; }
-		public static List<Arc> DieArcsFlipped { get; set; }
+		public static List<Line> LinesFlipped { get; set; }
+		public static List<Arc> ArcsFlipped { get; set; }
 		
-		public static float DieDiameter { get; set; }
+		public static float Diameter { get; set; }
 		public static float DieRadius { get; set; }
 		public static float DieWidth { get; set; }
 		#endregion
@@ -35,16 +35,16 @@ namespace DXF.Elements
 		public static float StockFromWidthSecondSide { get; set; }
 		public static float StockFromWidthFirstSide { get; set; }
 
-		public static List<Line> FirstSideOuterHorizontalMachiningLines { get; set; }
-		public static List<Arc> FirstSideOuterHorizontalMachiningArcs { get; set; }
-		public static List<Line> FirstSideOuterVerticalMachiningLines { get; set; }
+		public static List<Line> FirstSideHorizontalProfileLines { get; set; }
+		public static List<Arc> FirstSideHorizontalProfileArcs { get; set; }
+		public static List<Line> FirstSideFacingProfile { get; set; }
 		public static List<Arc> FirstSideOuterVerticalMachiningArcs { get; set; }
 		public static List<Line> FirstSideCavaLines { get; set; }
 		public static List<Arc> FirstSideCavaArcs { get; set; }
 
-		public static List<Line> SecondSideOuterHorizontalMachiningLines { get; set; }
-		public static List<Arc> SecondSideOuterHorizontalMachiningArcs { get; set; }
-		public static List<Line> SecondSideOuterVerticalMachiningLines { get; set; }
+		public static List<Line> SecondSideHorizontalProfileLines { get; set; }
+		public static List<Arc> SecondSideHorizontalProfileArcs { get; set; }
+		public static List<Line> SecondSideFacingProfile { get; set; }
 		public static List<Arc> SecondSideOuterVerticalMachiningArcs { get; set; }
 		public static List<Line> SecondSideCavaLines { get; set; }
 		public static List<Arc> SecondSideCavaArcs { get; set; }
