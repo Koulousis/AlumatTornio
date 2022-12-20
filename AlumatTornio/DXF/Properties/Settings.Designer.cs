@@ -178,5 +178,29 @@ namespace DXF.Properties {
                 this["ChockSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal SpindleSpeedLimit {
+            get {
+                return ((decimal)(this["SpindleSpeedLimit"]));
+            }
+            set {
+                this["SpindleSpeedLimit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal ConstantSurfaceSpeed {
+            get {
+                return ((decimal)(this["ConstantSurfaceSpeed"]));
+            }
+            set {
+                this["ConstantSurfaceSpeed"] = value;
+            }
+        }
     }
 }

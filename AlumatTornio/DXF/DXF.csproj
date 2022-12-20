@@ -59,6 +59,7 @@
     <Compile Include="Lathe\GCode.cs" />
     <Compile Include="Actions\Edit.cs" />
     <Compile Include="Actions\Get.cs" />
+    <Compile Include="Lathe\SpindleSpeed.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

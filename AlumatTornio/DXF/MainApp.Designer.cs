@@ -114,6 +114,11 @@ namespace DXF
 			this.label1 = new System.Windows.Forms.Label();
 			this.chockSizeInput = new System.Windows.Forms.NumericUpDown();
 			this.chockSizeLabel = new System.Windows.Forms.Label();
+			this.spindleSpeedGroup = new System.Windows.Forms.GroupBox();
+			this.spindleSpeedLimitInput = new System.Windows.Forms.NumericUpDown();
+			this.speedLimitLabel = new System.Windows.Forms.Label();
+			this.constantSurfaceSpeedInput = new System.Windows.Forms.NumericUpDown();
+			this.constantSurfaceSpeedLabel = new System.Windows.Forms.Label();
 			this.mainAppMenu.SuspendLayout();
 			this.viewSideSelectorGroup.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
@@ -144,6 +149,9 @@ namespace DXF
 			this.tabSettings.SuspendLayout();
 			this.chockSizeGroup.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.chockSizeInput)).BeginInit();
+			this.spindleSpeedGroup.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.spindleSpeedLimitInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.constantSurfaceSpeedInput)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// coordinatesLabel
@@ -1264,6 +1272,7 @@ namespace DXF
 			// tabSettings
 			// 
 			this.tabSettings.BackColor = System.Drawing.SystemColors.WindowFrame;
+			this.tabSettings.Controls.Add(this.spindleSpeedGroup);
 			this.tabSettings.Controls.Add(this.chockSizeGroup);
 			this.tabSettings.Controls.Add(this.g71Settings);
 			this.tabSettings.Controls.Add(this.g72Settings);
@@ -1281,7 +1290,7 @@ namespace DXF
 			this.chockSizeGroup.Controls.Add(this.chockSizeLabel);
 			this.chockSizeGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
 			this.chockSizeGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.chockSizeGroup.Location = new System.Drawing.Point(346, 6);
+			this.chockSizeGroup.Location = new System.Drawing.Point(8, 330);
 			this.chockSizeGroup.Name = "chockSizeGroup";
 			this.chockSizeGroup.Size = new System.Drawing.Size(150, 174);
 			this.chockSizeGroup.TabIndex = 23;
@@ -1322,6 +1331,93 @@ namespace DXF
 			this.chockSizeLabel.Size = new System.Drawing.Size(142, 16);
 			this.chockSizeLabel.TabIndex = 22;
 			this.chockSizeLabel.Text = "Set chock length value";
+			// 
+			// spindleSpeedGroup
+			// 
+			this.spindleSpeedGroup.Controls.Add(this.constantSurfaceSpeedInput);
+			this.spindleSpeedGroup.Controls.Add(this.constantSurfaceSpeedLabel);
+			this.spindleSpeedGroup.Controls.Add(this.spindleSpeedLimitInput);
+			this.spindleSpeedGroup.Controls.Add(this.speedLimitLabel);
+			this.spindleSpeedGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+			this.spindleSpeedGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.spindleSpeedGroup.Location = new System.Drawing.Point(365, 7);
+			this.spindleSpeedGroup.Name = "spindleSpeedGroup";
+			this.spindleSpeedGroup.Size = new System.Drawing.Size(331, 173);
+			this.spindleSpeedGroup.TabIndex = 24;
+			this.spindleSpeedGroup.TabStop = false;
+			this.spindleSpeedGroup.Text = "Spindle speed";
+			// 
+			// spindleSpeedLimitInput
+			// 
+			this.spindleSpeedLimitInput.DecimalPlaces = 1;
+			this.spindleSpeedLimitInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.spindleSpeedLimitInput.Location = new System.Drawing.Point(180, 19);
+			this.spindleSpeedLimitInput.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+			this.spindleSpeedLimitInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.spindleSpeedLimitInput.Name = "spindleSpeedLimitInput";
+			this.spindleSpeedLimitInput.Size = new System.Drawing.Size(71, 26);
+			this.spindleSpeedLimitInput.TabIndex = 7;
+			this.spindleSpeedLimitInput.Value = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+			this.spindleSpeedLimitInput.ValueChanged += new System.EventHandler(this.spindleSpeedLimitInput_ValueChanged);
+			// 
+			// speedLimitLabel
+			// 
+			this.speedLimitLabel.AutoSize = true;
+			this.speedLimitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.speedLimitLabel.ForeColor = System.Drawing.Color.Black;
+			this.speedLimitLabel.Location = new System.Drawing.Point(42, 24);
+			this.speedLimitLabel.Name = "speedLimitLabel";
+			this.speedLimitLabel.Size = new System.Drawing.Size(128, 16);
+			this.speedLimitLabel.TabIndex = 6;
+			this.speedLimitLabel.Text = "Spindle speed limit :";
+			// 
+			// constantSurfaceSpeedInput
+			// 
+			this.constantSurfaceSpeedInput.DecimalPlaces = 1;
+			this.constantSurfaceSpeedInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.constantSurfaceSpeedInput.Location = new System.Drawing.Point(180, 54);
+			this.constantSurfaceSpeedInput.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+			this.constantSurfaceSpeedInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.constantSurfaceSpeedInput.Name = "constantSurfaceSpeedInput";
+			this.constantSurfaceSpeedInput.Size = new System.Drawing.Size(71, 26);
+			this.constantSurfaceSpeedInput.TabIndex = 9;
+			this.constantSurfaceSpeedInput.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+			this.constantSurfaceSpeedInput.ValueChanged += new System.EventHandler(this.constantSurfaceSpeedInput_ValueChanged);
+			// 
+			// constantSurfaceSpeedLabel
+			// 
+			this.constantSurfaceSpeedLabel.AutoSize = true;
+			this.constantSurfaceSpeedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.constantSurfaceSpeedLabel.ForeColor = System.Drawing.Color.Black;
+			this.constantSurfaceSpeedLabel.Location = new System.Drawing.Point(19, 59);
+			this.constantSurfaceSpeedLabel.Name = "constantSurfaceSpeedLabel";
+			this.constantSurfaceSpeedLabel.Size = new System.Drawing.Size(155, 16);
+			this.constantSurfaceSpeedLabel.TabIndex = 8;
+			this.constantSurfaceSpeedLabel.Text = "Constant surface speed :";
 			// 
 			// MainApp
 			// 
@@ -1380,6 +1476,10 @@ namespace DXF
 			this.chockSizeGroup.ResumeLayout(false);
 			this.chockSizeGroup.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.chockSizeInput)).EndInit();
+			this.spindleSpeedGroup.ResumeLayout(false);
+			this.spindleSpeedGroup.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.spindleSpeedLimitInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.constantSurfaceSpeedInput)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1470,5 +1570,10 @@ namespace DXF
 		private System.Windows.Forms.Button increaseSecondSideButton;
 		private System.Windows.Forms.Button decreaseFirstSideButton;
 		private System.Windows.Forms.Button increaseFirstSideButton;
+		private System.Windows.Forms.GroupBox spindleSpeedGroup;
+		private System.Windows.Forms.NumericUpDown constantSurfaceSpeedInput;
+		private System.Windows.Forms.Label constantSurfaceSpeedLabel;
+		private System.Windows.Forms.NumericUpDown spindleSpeedLimitInput;
+		private System.Windows.Forms.Label speedLimitLabel;
 	}
 }

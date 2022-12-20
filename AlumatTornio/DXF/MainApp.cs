@@ -34,19 +34,23 @@ namespace DXF
 			//Disable UI
 			tabPanel.Enabled = false;
 
-			//Fill inputs with saved G71 Settings
+			//Fill G71 Settings inputs with saved values
 			g71DepthOfCutInput.Value = Convert.ToDecimal(Settings.Default["G71DepthOfCut"]);
 			g71RetractInput.Value = Convert.ToDecimal(Settings.Default["G71Retract"]);
 			g71XAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G71XAllowance"]);
 			g71ZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G71ZAllowance"]);
 			g71FeedRateInput.Value = Convert.ToDecimal(Settings.Default["G71FeedRate"]);
 
-			//Fill inputs with saved G72 Settings
+			//Fill G72 Settings inputs with saved values
 			g72DepthOfCutInput.Value = Convert.ToDecimal(Settings.Default["G72DepthOfCut"]);
 			g72RetractInput.Value = Convert.ToDecimal(Settings.Default["G72Retract"]);
 			g72XAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G72XAllowance"]);
 			g72ZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G72ZAllowance"]);
 			g72FeedRateInput.Value = Convert.ToDecimal(Settings.Default["G72FeedRate"]);
+
+			//Fill spindle speed inputs with save values
+			spindleSpeedLimitInput.Value = Convert.ToDecimal(Settings.Default["SpindleSpeedLimit"]);
+			constantSurfaceSpeedInput.Value = Convert.ToDecimal(Settings.Default["ConstantSurfaceSpeed"]);
 
 			//Fill chock size input with saved value
 			chockSizeInput.Value = Convert.ToDecimal(Settings.Default["ChockSize"]);
@@ -645,6 +649,7 @@ namespace DXF
 			for (int i = 0; i < 100; i++) { for (int j = 0; j < 10000; j++) { } exportProgressBar.Value++; }
 
 			//Set G71 and G72 Attributes
+			SpindleSpeed spindleSpeed = new SpindleSpeed(spindleSpeedLimitInput.Value, constantSurfaceSpeedInput.Value);
 			G72 g72 = new G72("10", "20", g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
 			G71 g71 = new G71("30", "40",g71DepthOfCutInput.Value, g71RetractInput.Value, g71XAllowanceInput.Value, g71ZAllowanceInput.Value, g71FeedRateInput.Value);
 
@@ -654,7 +659,7 @@ namespace DXF
 
 			//Create g code for first side
 			List<string> gCodeFirstSide = new List<string>();
-			gCodeFirstSide.AddRange(CodeBlock.LatheInitialization());
+			gCodeFirstSide.AddRange(CodeBlock.LatheInitialization(spindleSpeed));
 			gCodeFirstSide.AddRange(CodeBlock.OuterVerticalProfile(g72, firstSideOuterVerticalProfilePoints));
 			gCodeFirstSide.AddRange(CodeBlock.OuterHorizontalProfile(g71, firstSideOuterHorizontalProfilePoints));
 			gCodeFirstSide.AddRange(CodeBlock.LatheEnd());
@@ -665,7 +670,7 @@ namespace DXF
 			
 			//Create g code for second side
 			List<string> gCodeSecondSide = new List<string>();
-			gCodeSecondSide.AddRange(CodeBlock.LatheInitialization());
+			gCodeSecondSide.AddRange(CodeBlock.LatheInitialization(spindleSpeed));
 			gCodeSecondSide.AddRange(CodeBlock.OuterVerticalProfile(g72, secondSideOuterHorizontalProfilePoints));
 			gCodeSecondSide.AddRange(CodeBlock.OuterHorizontalProfile(g71, secondSideOuterVerticalProfilePoints));
 			gCodeSecondSide.AddRange(CodeBlock.LatheEnd());
@@ -826,6 +831,20 @@ namespace DXF
 
 		#endregion
 
+		#region Spindle Speed Save
+		private void spindleSpeedLimitInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["SpindleSpeedLimit"] = spindleSpeedLimitInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void constantSurfaceSpeedInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["ConstantSurfaceSpeed"] = constantSurfaceSpeedInput.Value;
+			Settings.Default.Save();
+		}
+		#endregion
+
 		#region Chock Size Save
 		private void chockSizeInput_ValueChanged(object sender, EventArgs e)
 		{
@@ -834,6 +853,9 @@ namespace DXF
 			visualizationPanel.Refresh();
 		}
 		#endregion
+
 		
+
+
 	}
 }
