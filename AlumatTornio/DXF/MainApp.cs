@@ -48,9 +48,12 @@ namespace DXF
 			g72ZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G72ZAllowance"]);
 			g72FeedRateInput.Value = Convert.ToDecimal(Settings.Default["G72FeedRate"]);
 
-			//Fill spindle speed inputs with save values
+			//Fill spindle speed inputs with saved values
 			spindleSpeedLimitInput.Value = Convert.ToDecimal(Settings.Default["SpindleSpeedLimit"]);
 			constantSurfaceSpeedInput.Value = Convert.ToDecimal(Settings.Default["ConstantSurfaceSpeed"]);
+
+			//Fill workplane origin parameter with saved value
+			workplaneOriginParameterInput.Text = Convert.ToString(Settings.Default["WorkplaneOriginParameter"]);
 
 			//Fill chock size input with saved value
 			chockSizeInput.Value = Convert.ToDecimal(Settings.Default["ChockSize"]);
@@ -151,7 +154,6 @@ namespace DXF
 			manualCavaSelectorGroup.Enabled = false;
 			autoCavaButton.Checked = true;
 			viewSideSelectorGroup.Enabled = false;
-			chockSizeGroup.Enabled = false;
 			stockValuesSelectorGroup.Enabled = false;
 			generateCode.Enabled = false;
 			drawFirstSideButton.Checked = false;
@@ -310,7 +312,6 @@ namespace DXF
 			cavaSelectorGroup.Enabled = true;
 			viewSideSelectorGroup.Enabled = true;
 			stockValuesSelectorGroup.Enabled = true;
-			chockSizeGroup.Enabled = true;
 			generateCode.Enabled = true;
 
 			//Draw
@@ -490,7 +491,7 @@ namespace DXF
 		{
 			if (Parameter.FirstSideHorizontalProfileLastLine.EndX == Parameter.FirstSideHorizontalProfileLines.Last().EndX)
 			{
-				MessageBox.Show("You can't move the profile below the initial point");
+				MessageBox.Show("You can move until initial profile point");
 			}
 			else
 			{
@@ -517,7 +518,7 @@ namespace DXF
 		{
 			if (Parameter.SecondSideHorizontalProfileLastLine.EndX == Parameter.SecondSideHorizontalProfileLines.Last().EndX)
 			{
-				MessageBox.Show("You can't move the profile below the initial point");
+				MessageBox.Show("You can move until initial profile point");
 			}
 			else
 			{
@@ -649,7 +650,11 @@ namespace DXF
 			for (int i = 0; i < 100; i++) { for (int j = 0; j < 10000; j++) { } exportProgressBar.Value++; }
 
 			//Set G71 and G72 Attributes
+			string workplaneOriginParameter = workplaneOriginParameterInput.Text;
+			float firstSideWorkplaneValue = Parameter.DieWidth + Parameter.StockFromWidthSecondSide;
+			float secondSideWorkplaneValue = Parameter.DieWidth;
 			SpindleSpeed spindleSpeed = new SpindleSpeed(spindleSpeedLimitInput.Value, constantSurfaceSpeedInput.Value);
+			
 			G72 g72 = new G72("10", "20", g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
 			G71 g71 = new G71("30", "40",g71DepthOfCutInput.Value, g71RetractInput.Value, g71XAllowanceInput.Value, g71ZAllowanceInput.Value, g71FeedRateInput.Value);
 
@@ -659,7 +664,7 @@ namespace DXF
 
 			//Create g code for first side
 			List<string> gCodeFirstSide = new List<string>();
-			gCodeFirstSide.AddRange(CodeBlock.LatheInitialization(spindleSpeed));
+			gCodeFirstSide.AddRange(CodeBlock.LatheInitialization(workplaneOriginParameter, firstSideWorkplaneValue, spindleSpeed));
 			gCodeFirstSide.AddRange(CodeBlock.OuterVerticalProfile(g72, firstSideOuterVerticalProfilePoints));
 			gCodeFirstSide.AddRange(CodeBlock.OuterHorizontalProfile(g71, firstSideOuterHorizontalProfilePoints));
 			gCodeFirstSide.AddRange(CodeBlock.LatheEnd());
@@ -670,7 +675,7 @@ namespace DXF
 			
 			//Create g code for second side
 			List<string> gCodeSecondSide = new List<string>();
-			gCodeSecondSide.AddRange(CodeBlock.LatheInitialization(spindleSpeed));
+			gCodeSecondSide.AddRange(CodeBlock.LatheInitialization(workplaneOriginParameter, secondSideWorkplaneValue, spindleSpeed));
 			gCodeSecondSide.AddRange(CodeBlock.OuterVerticalProfile(g72, secondSideOuterHorizontalProfilePoints));
 			gCodeSecondSide.AddRange(CodeBlock.OuterHorizontalProfile(g71, secondSideOuterVerticalProfilePoints));
 			gCodeSecondSide.AddRange(CodeBlock.LatheEnd());
@@ -845,6 +850,14 @@ namespace DXF
 		}
 		#endregion
 
+		#region Workplane Origin Parameter Save
+		private void workplaneOriginParameterInput_TextChanged(object sender, EventArgs e)
+		{
+			Settings.Default["WorkplaneOriginParameter"] = workplaneOriginParameterInput.Text;
+			Settings.Default.Save();
+		}
+		#endregion
+
 		#region Chock Size Save
 		private void chockSizeInput_ValueChanged(object sender, EventArgs e)
 		{
@@ -852,10 +865,12 @@ namespace DXF
 			Settings.Default.Save();
 			visualizationPanel.Refresh();
 		}
+
+
+
 		#endregion
 
 		
-
 
 	}
 }

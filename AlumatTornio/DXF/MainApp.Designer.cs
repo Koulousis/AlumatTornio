@@ -119,6 +119,9 @@ namespace DXF
 			this.speedLimitLabel = new System.Windows.Forms.Label();
 			this.constantSurfaceSpeedInput = new System.Windows.Forms.NumericUpDown();
 			this.constantSurfaceSpeedLabel = new System.Windows.Forms.Label();
+			this.workplaneOriginGroup = new System.Windows.Forms.GroupBox();
+			this.workplaneOriginLabel = new System.Windows.Forms.Label();
+			this.workplaneOriginParameterInput = new System.Windows.Forms.TextBox();
 			this.mainAppMenu.SuspendLayout();
 			this.viewSideSelectorGroup.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
@@ -152,6 +155,7 @@ namespace DXF
 			this.spindleSpeedGroup.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.spindleSpeedLimitInput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.constantSurfaceSpeedInput)).BeginInit();
+			this.workplaneOriginGroup.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// coordinatesLabel
@@ -887,14 +891,14 @@ namespace DXF
             0,
             0,
             65536});
-			this.stockWidthInput.Location = new System.Drawing.Point(130, 46);
+			this.stockWidthInput.Location = new System.Drawing.Point(121, 46);
 			this.stockWidthInput.Maximum = new decimal(new int[] {
             7,
             0,
             0,
             0});
 			this.stockWidthInput.Name = "stockWidthInput";
-			this.stockWidthInput.Size = new System.Drawing.Size(81, 26);
+			this.stockWidthInput.Size = new System.Drawing.Size(67, 26);
 			this.stockWidthInput.TabIndex = 15;
 			this.stockWidthInput.ValueChanged += new System.EventHandler(this.stockWidthInput_ValueChanged);
 			// 
@@ -903,7 +907,7 @@ namespace DXF
 			this.stockWidthLabel.AutoSize = true;
 			this.stockWidthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.stockWidthLabel.ForeColor = System.Drawing.Color.Black;
-			this.stockWidthLabel.Location = new System.Drawing.Point(6, 51);
+			this.stockWidthLabel.Location = new System.Drawing.Point(27, 51);
 			this.stockWidthLabel.Name = "stockWidthLabel";
 			this.stockWidthLabel.Size = new System.Drawing.Size(82, 16);
 			this.stockWidthLabel.TabIndex = 14;
@@ -918,14 +922,14 @@ namespace DXF
             0,
             0,
             65536});
-			this.stockDiameterInput.Location = new System.Drawing.Point(130, 18);
+			this.stockDiameterInput.Location = new System.Drawing.Point(121, 18);
 			this.stockDiameterInput.Maximum = new decimal(new int[] {
             7,
             0,
             0,
             0});
 			this.stockDiameterInput.Name = "stockDiameterInput";
-			this.stockDiameterInput.Size = new System.Drawing.Size(81, 26);
+			this.stockDiameterInput.Size = new System.Drawing.Size(67, 26);
 			this.stockDiameterInput.TabIndex = 10;
 			this.stockDiameterInput.ValueChanged += new System.EventHandler(this.stockDiameterInput_ValueChanged);
 			// 
@@ -1272,6 +1276,7 @@ namespace DXF
 			// tabSettings
 			// 
 			this.tabSettings.BackColor = System.Drawing.SystemColors.WindowFrame;
+			this.tabSettings.Controls.Add(this.workplaneOriginGroup);
 			this.tabSettings.Controls.Add(this.spindleSpeedGroup);
 			this.tabSettings.Controls.Add(this.chockSizeGroup);
 			this.tabSettings.Controls.Add(this.g71Settings);
@@ -1290,9 +1295,9 @@ namespace DXF
 			this.chockSizeGroup.Controls.Add(this.chockSizeLabel);
 			this.chockSizeGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
 			this.chockSizeGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.chockSizeGroup.Location = new System.Drawing.Point(8, 330);
+			this.chockSizeGroup.Location = new System.Drawing.Point(622, 7);
 			this.chockSizeGroup.Name = "chockSizeGroup";
-			this.chockSizeGroup.Size = new System.Drawing.Size(150, 174);
+			this.chockSizeGroup.Size = new System.Drawing.Size(150, 90);
 			this.chockSizeGroup.TabIndex = 23;
 			this.chockSizeGroup.TabStop = false;
 			this.chockSizeGroup.Text = "Chock size";
@@ -1302,7 +1307,7 @@ namespace DXF
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
 			this.label1.ForeColor = System.Drawing.Color.Black;
-			this.label1.Location = new System.Drawing.Point(6, 45);
+			this.label1.Location = new System.Drawing.Point(6, 59);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(78, 16);
 			this.label1.TabIndex = 23;
@@ -1311,7 +1316,7 @@ namespace DXF
 			// chockSizeInput
 			// 
 			this.chockSizeInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.chockSizeInput.Location = new System.Drawing.Point(84, 40);
+			this.chockSizeInput.Location = new System.Drawing.Point(84, 54);
 			this.chockSizeInput.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -1326,7 +1331,7 @@ namespace DXF
 			// 
 			this.chockSizeLabel.AutoSize = true;
 			this.chockSizeLabel.ForeColor = System.Drawing.Color.Black;
-			this.chockSizeLabel.Location = new System.Drawing.Point(6, 18);
+			this.chockSizeLabel.Location = new System.Drawing.Point(6, 24);
 			this.chockSizeLabel.Name = "chockSizeLabel";
 			this.chockSizeLabel.Size = new System.Drawing.Size(142, 16);
 			this.chockSizeLabel.TabIndex = 22;
@@ -1340,9 +1345,9 @@ namespace DXF
 			this.spindleSpeedGroup.Controls.Add(this.speedLimitLabel);
 			this.spindleSpeedGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
 			this.spindleSpeedGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.spindleSpeedGroup.Location = new System.Drawing.Point(365, 7);
+			this.spindleSpeedGroup.Location = new System.Drawing.Point(352, 7);
 			this.spindleSpeedGroup.Name = "spindleSpeedGroup";
-			this.spindleSpeedGroup.Size = new System.Drawing.Size(331, 173);
+			this.spindleSpeedGroup.Size = new System.Drawing.Size(261, 90);
 			this.spindleSpeedGroup.TabIndex = 24;
 			this.spindleSpeedGroup.TabStop = false;
 			this.spindleSpeedGroup.Text = "Spindle speed";
@@ -1419,6 +1424,40 @@ namespace DXF
 			this.constantSurfaceSpeedLabel.TabIndex = 8;
 			this.constantSurfaceSpeedLabel.Text = "Constant surface speed :";
 			// 
+			// workplaneOriginGroup
+			// 
+			this.workplaneOriginGroup.Controls.Add(this.workplaneOriginParameterInput);
+			this.workplaneOriginGroup.Controls.Add(this.workplaneOriginLabel);
+			this.workplaneOriginGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+			this.workplaneOriginGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.workplaneOriginGroup.Location = new System.Drawing.Point(352, 103);
+			this.workplaneOriginGroup.Name = "workplaneOriginGroup";
+			this.workplaneOriginGroup.Size = new System.Drawing.Size(420, 77);
+			this.workplaneOriginGroup.TabIndex = 25;
+			this.workplaneOriginGroup.TabStop = false;
+			this.workplaneOriginGroup.Text = "Workplane origin";
+			// 
+			// workplaneOriginLabel
+			// 
+			this.workplaneOriginLabel.AutoSize = true;
+			this.workplaneOriginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.workplaneOriginLabel.ForeColor = System.Drawing.Color.Black;
+			this.workplaneOriginLabel.Location = new System.Drawing.Point(19, 34);
+			this.workplaneOriginLabel.Name = "workplaneOriginLabel";
+			this.workplaneOriginLabel.Size = new System.Drawing.Size(247, 16);
+			this.workplaneOriginLabel.TabIndex = 6;
+			this.workplaneOriginLabel.Text = "Workplane origin parameter (ex: #5222) :";
+			// 
+			// workplaneOriginParameterInput
+			// 
+			this.workplaneOriginParameterInput.Location = new System.Drawing.Point(272, 31);
+			this.workplaneOriginParameterInput.MaxLength = 18;
+			this.workplaneOriginParameterInput.Name = "workplaneOriginParameterInput";
+			this.workplaneOriginParameterInput.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.workplaneOriginParameterInput.Size = new System.Drawing.Size(131, 22);
+			this.workplaneOriginParameterInput.TabIndex = 7;
+			this.workplaneOriginParameterInput.TextChanged += new System.EventHandler(this.workplaneOriginParameterInput_TextChanged);
+			// 
 			// MainApp
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1480,6 +1519,8 @@ namespace DXF
 			this.spindleSpeedGroup.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.spindleSpeedLimitInput)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.constantSurfaceSpeedInput)).EndInit();
+			this.workplaneOriginGroup.ResumeLayout(false);
+			this.workplaneOriginGroup.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1575,5 +1616,8 @@ namespace DXF
 		private System.Windows.Forms.Label constantSurfaceSpeedLabel;
 		private System.Windows.Forms.NumericUpDown spindleSpeedLimitInput;
 		private System.Windows.Forms.Label speedLimitLabel;
+		private System.Windows.Forms.GroupBox workplaneOriginGroup;
+		private System.Windows.Forms.TextBox workplaneOriginParameterInput;
+		private System.Windows.Forms.Label workplaneOriginLabel;
 	}
 }

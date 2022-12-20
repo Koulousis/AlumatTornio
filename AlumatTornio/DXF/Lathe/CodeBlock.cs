@@ -9,7 +9,7 @@ namespace DXF.Lathe
 {
 	public class CodeBlock
 	{
-		public static List<string> LatheInitialization(SpindleSpeed spindleSpeed)
+		public static List<string> LatheInitialization(string workplaneOriginParameter, float workplaneOriginValue, SpindleSpeed spindleSpeed)
 		{
 			//Fill G Code
 			List<string> latheInitialization = new List<string>
@@ -26,6 +26,7 @@ namespace DXF.Lathe
 				"G28U0",
 				"G0",
 				"G28W0",
+				$"{workplaneOriginParameter} = {workplaneOriginValue}",
 				$"G50 S{spindleSpeed.SpindleSpeedLimit}",
 				$"G96 S{spindleSpeed.ConstantSurfaceSpeed} M4",
 				"T2W202",

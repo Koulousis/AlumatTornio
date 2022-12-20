@@ -202,5 +202,17 @@ namespace DXF.Properties {
                 this["ConstantSurfaceSpeed"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string WorkplaneOriginParameter {
+            get {
+                return ((string)(this["WorkplaneOriginParameter"]));
+            }
+            set {
+                this["WorkplaneOriginParameter"] = value;
+            }
+        }
     }
 }
