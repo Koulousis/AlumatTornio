@@ -868,9 +868,13 @@ namespace DXF
 
 
 
+
+
 		#endregion
 
-		
+		private void chockSizeInput_ValueChanged_1(object sender, EventArgs e)
+		{
 
+		}
 	}
 }
