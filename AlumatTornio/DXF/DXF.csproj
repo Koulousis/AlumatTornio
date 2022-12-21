@@ -7,7 +7,7 @@
     <ProjectGuid>{1DE9EAF4-A510-47EC-B552-EB5208CE8611}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>DXF</RootNamespace>
-    <AssemblyName>DXF</AssemblyName>
+    <AssemblyName>Alumat Tornio</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -35,6 +35,9 @@
   <PropertyGroup>
     <StartupObject>
     </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\AlumatLogo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -104,6 +107,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Resources\AlumatLogo.ico" />
     <Content Include="Resources\g71-roughing-cycle.jpg" />
     <Content Include="Resources\g72-facing-cycle.jpg" />
   </ItemGroup>
