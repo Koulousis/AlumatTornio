@@ -123,43 +123,43 @@ namespace DXF
 			this.mainAppMenu.SuspendLayout();
 			this.viewSideSelectorGroup.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.banner)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.banner)).BeginInit();
 			this.g71Settings.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.g71FeedRateInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71ZAllowanceInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71XAllowanceInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71RetractInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71DepthOfCutInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.g71FeedRateInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.g71ZAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.g71XAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.g71RetractInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.g71DepthOfCutInput)).BeginInit();
 			this.g72Settings.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.g72FeedRateInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72ZAllowanceInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72XAllowanceInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72RetractInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72DepthOfCutInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.g72FeedRateInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.g72ZAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.g72XAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.g72RetractInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.g72DepthOfCutInput)).BeginInit();
 			this.stockValuesSelectorGroup.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.stockWidthInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.stockDiameterInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.stockWidthInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.stockDiameterInput)).BeginInit();
 			this.tabPanel.SuspendLayout();
 			this.tabSetup.SuspendLayout();
 			this.chockSizeGroup.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.chockSizeInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.chockSizeInput)).BeginInit();
 			this.validateDimensionsGroup.SuspendLayout();
 			this.cavaSelectorGroup.SuspendLayout();
 			this.manualCavaSelectorGroup.SuspendLayout();
 			this.autoCavaSelectorGroup.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.visualizationPanel)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.visualizationPanel)).BeginInit();
 			this.firstSideSelectorGroup.SuspendLayout();
 			this.tabSettings.SuspendLayout();
 			this.workplaneOriginGroup.SuspendLayout();
 			this.spindleSpeedGroup.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.constantSurfaceSpeedInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.spindleSpeedLimitInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.constantSurfaceSpeedInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize) (this.spindleSpeedLimitInput)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// coordinatesLabel
 			// 
 			this.coordinatesLabel.AutoSize = true;
-			this.coordinatesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.coordinatesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.coordinatesLabel.Location = new System.Drawing.Point(312, 415);
 			this.coordinatesLabel.Name = "coordinatesLabel";
 			this.coordinatesLabel.Size = new System.Drawing.Size(152, 20);
@@ -168,12 +168,10 @@ namespace DXF
 			// 
 			// mainAppMenu
 			// 
-			this.mainAppMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.mainAppMenu.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
+			this.mainAppMenu.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
 			this.mainAppMenu.ImageScalingSize = new System.Drawing.Size(32, 32);
-			this.mainAppMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileMenuItem,
-            this.settingsToolStripMenuItem,
-            this.infoToolStripMenuItem});
+			this.mainAppMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.fileMenuItem, this.settingsToolStripMenuItem, this.infoToolStripMenuItem});
 			this.mainAppMenu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
 			this.mainAppMenu.Location = new System.Drawing.Point(0, 0);
 			this.mainAppMenu.Name = "mainAppMenu";
@@ -184,9 +182,7 @@ namespace DXF
 			// 
 			// fileMenuItem
 			// 
-			this.fileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileDxfMenuItem,
-            this.tornituraToolStripMenuItem});
+			this.fileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.fileDxfMenuItem, this.tornituraToolStripMenuItem});
 			this.fileMenuItem.Name = "fileMenuItem";
 			this.fileMenuItem.Size = new System.Drawing.Size(37, 19);
 			this.fileMenuItem.Text = "File";
@@ -206,11 +202,7 @@ namespace DXF
 			// 
 			// settingsToolStripMenuItem
 			// 
-			this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.changeDXFFolderToolStripMenuItem,
-            this.changeExportFolderToolStripMenuItem,
-            this.openDXFFolderToolStripMenuItem,
-            this.openExportFolderToolStripMenuItem});
+			this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.changeDXFFolderToolStripMenuItem, this.changeExportFolderToolStripMenuItem, this.openDXFFolderToolStripMenuItem, this.openExportFolderToolStripMenuItem});
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
 			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 19);
 			this.settingsToolStripMenuItem.Text = "Options";
@@ -245,9 +237,7 @@ namespace DXF
 			// 
 			// infoToolStripMenuItem
 			// 
-			this.infoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.g71RoughingCycleToolStripMenuItem,
-            this.g72FacingCycleToolStripMenuItem});
+			this.infoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.g71RoughingCycleToolStripMenuItem, this.g72FacingCycleToolStripMenuItem});
 			this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
 			this.infoToolStripMenuItem.Size = new System.Drawing.Size(40, 19);
 			this.infoToolStripMenuItem.Text = "Info";
@@ -271,8 +261,8 @@ namespace DXF
 			this.viewSideSelectorGroup.Controls.Add(this.viewSideSelectorLabel);
 			this.viewSideSelectorGroup.Controls.Add(this.drawSecondSideButton);
 			this.viewSideSelectorGroup.Controls.Add(this.drawFirstSideButton);
-			this.viewSideSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.viewSideSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.viewSideSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.viewSideSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
 			this.viewSideSelectorGroup.Location = new System.Drawing.Point(520, 384);
 			this.viewSideSelectorGroup.Margin = new System.Windows.Forms.Padding(2);
 			this.viewSideSelectorGroup.Name = "viewSideSelectorGroup";
@@ -331,7 +321,7 @@ namespace DXF
 			this.copyrights.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
 			this.copyrights.BackColor = System.Drawing.SystemColors.WindowFrame;
 			this.copyrights.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.copyrights.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.copyrights.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
 			this.copyrights.Location = new System.Drawing.Point(313, 79);
 			this.copyrights.Name = "copyrights";
 			this.copyrights.Size = new System.Drawing.Size(226, 13);
@@ -343,7 +333,7 @@ namespace DXF
 			this.banner.BackColor = System.Drawing.SystemColors.Window;
 			this.banner.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.banner.Dock = System.Windows.Forms.DockStyle.Top;
-			this.banner.Image = ((System.Drawing.Image)(resources.GetObject("banner.Image")));
+			this.banner.Image = ((System.Drawing.Image) (resources.GetObject("banner.Image")));
 			this.banner.Location = new System.Drawing.Point(0, 0);
 			this.banner.Name = "banner";
 			this.banner.Size = new System.Drawing.Size(789, 74);
@@ -353,11 +343,11 @@ namespace DXF
 			// 
 			// generateCode
 			// 
-			this.generateCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.generateCode.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
-			this.generateCode.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
+			this.generateCode.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
+			this.generateCode.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (150)))), ((int) (((byte) (0)))));
+			this.generateCode.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (150)))), ((int) (((byte) (0)))));
 			this.generateCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.generateCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.generateCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.generateCode.Location = new System.Drawing.Point(312, 474);
 			this.generateCode.Name = "generateCode";
 			this.generateCode.Size = new System.Drawing.Size(199, 29);
@@ -385,8 +375,8 @@ namespace DXF
 			this.g71Settings.Controls.Add(this.g71AllowanceXLabel);
 			this.g71Settings.Controls.Add(this.g71RetractLabel);
 			this.g71Settings.Controls.Add(this.g71DepthOfCutLabel);
-			this.g71Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.g71Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.g71Settings.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
 			this.g71Settings.Location = new System.Drawing.Point(8, 6);
 			this.g71Settings.Name = "g71Settings";
 			this.g71Settings.Size = new System.Drawing.Size(163, 174);
@@ -397,157 +387,75 @@ namespace DXF
 			// g71FeedRateInput
 			// 
 			this.g71FeedRateInput.DecimalPlaces = 2;
-			this.g71FeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71FeedRateInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71FeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.g71FeedRateInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
 			this.g71FeedRateInput.Location = new System.Drawing.Point(100, 140);
-			this.g71FeedRateInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.g71FeedRateInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71FeedRateInput.Maximum = new decimal(new int[] {5, 0, 0, 0});
+			this.g71FeedRateInput.Minimum = new decimal(new int[] {1, 0, 0, 131072});
 			this.g71FeedRateInput.Name = "g71FeedRateInput";
 			this.g71FeedRateInput.Size = new System.Drawing.Size(53, 26);
 			this.g71FeedRateInput.TabIndex = 9;
-			this.g71FeedRateInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71FeedRateInput.Value = new decimal(new int[] {1, 0, 0, 65536});
 			this.g71FeedRateInput.ValueChanged += new System.EventHandler(this.g71FeedRateInput_ValueChanged);
 			// 
 			// g71ZAllowanceInput
 			// 
 			this.g71ZAllowanceInput.DecimalPlaces = 2;
-			this.g71ZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71ZAllowanceInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71ZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.g71ZAllowanceInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
 			this.g71ZAllowanceInput.Location = new System.Drawing.Point(100, 110);
-			this.g71ZAllowanceInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.g71ZAllowanceInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71ZAllowanceInput.Maximum = new decimal(new int[] {5, 0, 0, 0});
 			this.g71ZAllowanceInput.Name = "g71ZAllowanceInput";
 			this.g71ZAllowanceInput.Size = new System.Drawing.Size(53, 26);
 			this.g71ZAllowanceInput.TabIndex = 8;
-			this.g71ZAllowanceInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71ZAllowanceInput.Value = new decimal(new int[] {1, 0, 0, 65536});
 			this.g71ZAllowanceInput.ValueChanged += new System.EventHandler(this.g71ZAllowanceInput_ValueChanged);
 			// 
 			// g71XAllowanceInput
 			// 
 			this.g71XAllowanceInput.DecimalPlaces = 2;
-			this.g71XAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71XAllowanceInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71XAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.g71XAllowanceInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
 			this.g71XAllowanceInput.Location = new System.Drawing.Point(100, 80);
-			this.g71XAllowanceInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.g71XAllowanceInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71XAllowanceInput.Maximum = new decimal(new int[] {5, 0, 0, 0});
 			this.g71XAllowanceInput.Name = "g71XAllowanceInput";
 			this.g71XAllowanceInput.Size = new System.Drawing.Size(53, 26);
 			this.g71XAllowanceInput.TabIndex = 7;
-			this.g71XAllowanceInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71XAllowanceInput.Value = new decimal(new int[] {1, 0, 0, 65536});
 			this.g71XAllowanceInput.ValueChanged += new System.EventHandler(this.g71XAllowanceInput_ValueChanged);
 			// 
 			// g71RetractInput
 			// 
 			this.g71RetractInput.DecimalPlaces = 2;
-			this.g71RetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71RetractInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71RetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.g71RetractInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
 			this.g71RetractInput.Location = new System.Drawing.Point(100, 50);
-			this.g71RetractInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.g71RetractInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71RetractInput.Maximum = new decimal(new int[] {5, 0, 0, 0});
+			this.g71RetractInput.Minimum = new decimal(new int[] {1, 0, 0, 131072});
 			this.g71RetractInput.Name = "g71RetractInput";
 			this.g71RetractInput.Size = new System.Drawing.Size(53, 26);
 			this.g71RetractInput.TabIndex = 6;
-			this.g71RetractInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71RetractInput.Value = new decimal(new int[] {1, 0, 0, 65536});
 			this.g71RetractInput.ValueChanged += new System.EventHandler(this.g71RetractInput_ValueChanged);
 			// 
 			// g71DepthOfCutInput
 			// 
 			this.g71DepthOfCutInput.DecimalPlaces = 2;
-			this.g71DepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71DepthOfCutInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71DepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.g71DepthOfCutInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
 			this.g71DepthOfCutInput.Location = new System.Drawing.Point(100, 20);
-			this.g71DepthOfCutInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.g71DepthOfCutInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71DepthOfCutInput.Maximum = new decimal(new int[] {5, 0, 0, 0});
+			this.g71DepthOfCutInput.Minimum = new decimal(new int[] {1, 0, 0, 131072});
 			this.g71DepthOfCutInput.Name = "g71DepthOfCutInput";
 			this.g71DepthOfCutInput.Size = new System.Drawing.Size(53, 26);
 			this.g71DepthOfCutInput.TabIndex = 5;
-			this.g71DepthOfCutInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g71DepthOfCutInput.Value = new decimal(new int[] {1, 0, 0, 65536});
 			this.g71DepthOfCutInput.ValueChanged += new System.EventHandler(this.g71DepthOfCutInput_ValueChanged);
 			// 
 			// g71FeedRateLabel
 			// 
 			this.g71FeedRateLabel.AutoSize = true;
-			this.g71FeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71FeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.g71FeedRateLabel.ForeColor = System.Drawing.Color.Black;
 			this.g71FeedRateLabel.Location = new System.Drawing.Point(25, 145);
 			this.g71FeedRateLabel.Name = "g71FeedRateLabel";
@@ -558,7 +466,7 @@ namespace DXF
 			// g71AllowanceZLabel
 			// 
 			this.g71AllowanceZLabel.AutoSize = true;
-			this.g71AllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71AllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.g71AllowanceZLabel.ForeColor = System.Drawing.Color.Black;
 			this.g71AllowanceZLabel.Location = new System.Drawing.Point(10, 115);
 			this.g71AllowanceZLabel.Name = "g71AllowanceZLabel";
@@ -569,7 +477,7 @@ namespace DXF
 			// g71AllowanceXLabel
 			// 
 			this.g71AllowanceXLabel.AutoSize = true;
-			this.g71AllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71AllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.g71AllowanceXLabel.ForeColor = System.Drawing.Color.Black;
 			this.g71AllowanceXLabel.Location = new System.Drawing.Point(10, 85);
 			this.g71AllowanceXLabel.Name = "g71AllowanceXLabel";
@@ -580,7 +488,7 @@ namespace DXF
 			// g71RetractLabel
 			// 
 			this.g71RetractLabel.AutoSize = true;
-			this.g71RetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71RetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.g71RetractLabel.ForeColor = System.Drawing.Color.Black;
 			this.g71RetractLabel.Location = new System.Drawing.Point(4, 55);
 			this.g71RetractLabel.Name = "g71RetractLabel";
@@ -591,7 +499,7 @@ namespace DXF
 			// g71DepthOfCutLabel
 			// 
 			this.g71DepthOfCutLabel.AutoSize = true;
-			this.g71DepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g71DepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.g71DepthOfCutLabel.ForeColor = System.Drawing.Color.Black;
 			this.g71DepthOfCutLabel.Location = new System.Drawing.Point(13, 25);
 			this.g71DepthOfCutLabel.Name = "g71DepthOfCutLabel";
@@ -611,8 +519,8 @@ namespace DXF
 			this.g72Settings.Controls.Add(this.g72AllowanceXLabel);
 			this.g72Settings.Controls.Add(this.g72RetractLabel);
 			this.g72Settings.Controls.Add(this.g72DepthOfCutLabel);
-			this.g72Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.g72Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.g72Settings.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
 			this.g72Settings.Location = new System.Drawing.Point(177, 6);
 			this.g72Settings.Name = "g72Settings";
 			this.g72Settings.Size = new System.Drawing.Size(163, 174);
@@ -623,157 +531,75 @@ namespace DXF
 			// g72FeedRateInput
 			// 
 			this.g72FeedRateInput.DecimalPlaces = 2;
-			this.g72FeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72FeedRateInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72FeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.g72FeedRateInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
 			this.g72FeedRateInput.Location = new System.Drawing.Point(100, 140);
-			this.g72FeedRateInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.g72FeedRateInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72FeedRateInput.Maximum = new decimal(new int[] {5, 0, 0, 0});
+			this.g72FeedRateInput.Minimum = new decimal(new int[] {1, 0, 0, 131072});
 			this.g72FeedRateInput.Name = "g72FeedRateInput";
 			this.g72FeedRateInput.Size = new System.Drawing.Size(53, 26);
 			this.g72FeedRateInput.TabIndex = 9;
-			this.g72FeedRateInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72FeedRateInput.Value = new decimal(new int[] {1, 0, 0, 65536});
 			this.g72FeedRateInput.ValueChanged += new System.EventHandler(this.g72FeedRateInput_ValueChanged);
 			// 
 			// g72ZAllowanceInput
 			// 
 			this.g72ZAllowanceInput.DecimalPlaces = 2;
-			this.g72ZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72ZAllowanceInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72ZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.g72ZAllowanceInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
 			this.g72ZAllowanceInput.Location = new System.Drawing.Point(100, 110);
-			this.g72ZAllowanceInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.g72ZAllowanceInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72ZAllowanceInput.Maximum = new decimal(new int[] {5, 0, 0, 0});
 			this.g72ZAllowanceInput.Name = "g72ZAllowanceInput";
 			this.g72ZAllowanceInput.Size = new System.Drawing.Size(53, 26);
 			this.g72ZAllowanceInput.TabIndex = 8;
-			this.g72ZAllowanceInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72ZAllowanceInput.Value = new decimal(new int[] {1, 0, 0, 65536});
 			this.g72ZAllowanceInput.ValueChanged += new System.EventHandler(this.g72ZAllowanceInput_ValueChanged);
 			// 
 			// g72XAllowanceInput
 			// 
 			this.g72XAllowanceInput.DecimalPlaces = 2;
-			this.g72XAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72XAllowanceInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72XAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.g72XAllowanceInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
 			this.g72XAllowanceInput.Location = new System.Drawing.Point(100, 80);
-			this.g72XAllowanceInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.g72XAllowanceInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72XAllowanceInput.Maximum = new decimal(new int[] {5, 0, 0, 0});
 			this.g72XAllowanceInput.Name = "g72XAllowanceInput";
 			this.g72XAllowanceInput.Size = new System.Drawing.Size(53, 26);
 			this.g72XAllowanceInput.TabIndex = 7;
-			this.g72XAllowanceInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72XAllowanceInput.Value = new decimal(new int[] {1, 0, 0, 65536});
 			this.g72XAllowanceInput.ValueChanged += new System.EventHandler(this.g72XAllowanceInput_ValueChanged);
 			// 
 			// g72RetractInput
 			// 
 			this.g72RetractInput.DecimalPlaces = 2;
-			this.g72RetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72RetractInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72RetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.g72RetractInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
 			this.g72RetractInput.Location = new System.Drawing.Point(100, 50);
-			this.g72RetractInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.g72RetractInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72RetractInput.Maximum = new decimal(new int[] {5, 0, 0, 0});
+			this.g72RetractInput.Minimum = new decimal(new int[] {1, 0, 0, 131072});
 			this.g72RetractInput.Name = "g72RetractInput";
 			this.g72RetractInput.Size = new System.Drawing.Size(53, 26);
 			this.g72RetractInput.TabIndex = 6;
-			this.g72RetractInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72RetractInput.Value = new decimal(new int[] {1, 0, 0, 65536});
 			this.g72RetractInput.ValueChanged += new System.EventHandler(this.g72RetractInput_ValueChanged);
 			// 
 			// g72DepthOfCutInput
 			// 
 			this.g72DepthOfCutInput.DecimalPlaces = 2;
-			this.g72DepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72DepthOfCutInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72DepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.g72DepthOfCutInput.Increment = new decimal(new int[] {1, 0, 0, 65536});
 			this.g72DepthOfCutInput.Location = new System.Drawing.Point(100, 20);
-			this.g72DepthOfCutInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.g72DepthOfCutInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72DepthOfCutInput.Maximum = new decimal(new int[] {5, 0, 0, 0});
+			this.g72DepthOfCutInput.Minimum = new decimal(new int[] {1, 0, 0, 131072});
 			this.g72DepthOfCutInput.Name = "g72DepthOfCutInput";
 			this.g72DepthOfCutInput.Size = new System.Drawing.Size(53, 26);
 			this.g72DepthOfCutInput.TabIndex = 5;
-			this.g72DepthOfCutInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+			this.g72DepthOfCutInput.Value = new decimal(new int[] {1, 0, 0, 65536});
 			this.g72DepthOfCutInput.ValueChanged += new System.EventHandler(this.g72DepthOfCutInput_ValueChanged);
 			// 
 			// g72FeedRateLabel
 			// 
 			this.g72FeedRateLabel.AutoSize = true;
-			this.g72FeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72FeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.g72FeedRateLabel.ForeColor = System.Drawing.Color.Black;
 			this.g72FeedRateLabel.Location = new System.Drawing.Point(25, 145);
 			this.g72FeedRateLabel.Name = "g72FeedRateLabel";
@@ -784,7 +610,7 @@ namespace DXF
 			// g72AllowanceZLabel
 			// 
 			this.g72AllowanceZLabel.AutoSize = true;
-			this.g72AllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72AllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.g72AllowanceZLabel.ForeColor = System.Drawing.Color.Black;
 			this.g72AllowanceZLabel.Location = new System.Drawing.Point(10, 115);
 			this.g72AllowanceZLabel.Name = "g72AllowanceZLabel";
@@ -795,7 +621,7 @@ namespace DXF
 			// g72AllowanceXLabel
 			// 
 			this.g72AllowanceXLabel.AutoSize = true;
-			this.g72AllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72AllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.g72AllowanceXLabel.ForeColor = System.Drawing.Color.Black;
 			this.g72AllowanceXLabel.Location = new System.Drawing.Point(10, 85);
 			this.g72AllowanceXLabel.Name = "g72AllowanceXLabel";
@@ -806,7 +632,7 @@ namespace DXF
 			// g72RetractLabel
 			// 
 			this.g72RetractLabel.AutoSize = true;
-			this.g72RetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72RetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.g72RetractLabel.ForeColor = System.Drawing.Color.Black;
 			this.g72RetractLabel.Location = new System.Drawing.Point(6, 55);
 			this.g72RetractLabel.Name = "g72RetractLabel";
@@ -817,7 +643,7 @@ namespace DXF
 			// g72DepthOfCutLabel
 			// 
 			this.g72DepthOfCutLabel.AutoSize = true;
-			this.g72DepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.g72DepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.g72DepthOfCutLabel.ForeColor = System.Drawing.Color.Black;
 			this.g72DepthOfCutLabel.Location = new System.Drawing.Point(13, 25);
 			this.g72DepthOfCutLabel.Name = "g72DepthOfCutLabel";
@@ -827,7 +653,7 @@ namespace DXF
 			// 
 			// gCodeTextBox
 			// 
-			this.gCodeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+			this.gCodeTextBox.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (24)))), ((int) (((byte) (24)))), ((int) (((byte) (24)))));
 			this.gCodeTextBox.ForeColor = System.Drawing.Color.WhiteSmoke;
 			this.gCodeTextBox.Location = new System.Drawing.Point(313, 3);
 			this.gCodeTextBox.Name = "gCodeTextBox";
@@ -840,8 +666,8 @@ namespace DXF
 			// 
 			this.fileName.AutoSize = true;
 			this.fileName.BackColor = System.Drawing.SystemColors.WindowFrame;
-			this.fileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.fileName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.fileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.fileName.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
 			this.fileName.Location = new System.Drawing.Point(346, 435);
 			this.fileName.Name = "fileName";
 			this.fileName.Size = new System.Drawing.Size(98, 20);
@@ -851,7 +677,7 @@ namespace DXF
 			// fileNameLabel
 			// 
 			this.fileNameLabel.AutoSize = true;
-			this.fileNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.fileNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.fileNameLabel.Location = new System.Drawing.Point(312, 435);
 			this.fileNameLabel.Name = "fileNameLabel";
 			this.fileNameLabel.Size = new System.Drawing.Size(38, 20);
@@ -864,8 +690,8 @@ namespace DXF
 			this.stockValuesSelectorGroup.Controls.Add(this.stockWidthLabel);
 			this.stockValuesSelectorGroup.Controls.Add(this.stockDiameterInput);
 			this.stockValuesSelectorGroup.Controls.Add(this.stockDiameterLabel);
-			this.stockValuesSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.stockValuesSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.stockValuesSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.stockValuesSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
 			this.stockValuesSelectorGroup.Location = new System.Drawing.Point(520, 176);
 			this.stockValuesSelectorGroup.Name = "stockValuesSelectorGroup";
 			this.stockValuesSelectorGroup.Size = new System.Drawing.Size(141, 80);
@@ -876,18 +702,10 @@ namespace DXF
 			// stockWidthInput
 			// 
 			this.stockWidthInput.DecimalPlaces = 1;
-			this.stockWidthInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.stockWidthInput.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
+			this.stockWidthInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.stockWidthInput.Increment = new decimal(new int[] {5, 0, 0, 65536});
 			this.stockWidthInput.Location = new System.Drawing.Point(72, 46);
-			this.stockWidthInput.Maximum = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
+			this.stockWidthInput.Maximum = new decimal(new int[] {7, 0, 0, 0});
 			this.stockWidthInput.Name = "stockWidthInput";
 			this.stockWidthInput.Size = new System.Drawing.Size(60, 26);
 			this.stockWidthInput.TabIndex = 15;
@@ -896,7 +714,7 @@ namespace DXF
 			// stockWidthLabel
 			// 
 			this.stockWidthLabel.AutoSize = true;
-			this.stockWidthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.stockWidthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.stockWidthLabel.ForeColor = System.Drawing.Color.Black;
 			this.stockWidthLabel.Location = new System.Drawing.Point(22, 51);
 			this.stockWidthLabel.Name = "stockWidthLabel";
@@ -907,18 +725,10 @@ namespace DXF
 			// stockDiameterInput
 			// 
 			this.stockDiameterInput.DecimalPlaces = 1;
-			this.stockDiameterInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.stockDiameterInput.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
+			this.stockDiameterInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.stockDiameterInput.Increment = new decimal(new int[] {5, 0, 0, 65536});
 			this.stockDiameterInput.Location = new System.Drawing.Point(72, 18);
-			this.stockDiameterInput.Maximum = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
+			this.stockDiameterInput.Maximum = new decimal(new int[] {7, 0, 0, 0});
 			this.stockDiameterInput.Name = "stockDiameterInput";
 			this.stockDiameterInput.Size = new System.Drawing.Size(60, 26);
 			this.stockDiameterInput.TabIndex = 10;
@@ -927,7 +737,7 @@ namespace DXF
 			// stockDiameterLabel
 			// 
 			this.stockDiameterLabel.AutoSize = true;
-			this.stockDiameterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.stockDiameterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.stockDiameterLabel.ForeColor = System.Drawing.Color.Black;
 			this.stockDiameterLabel.Location = new System.Drawing.Point(1, 23);
 			this.stockDiameterLabel.Name = "stockDiameterLabel";
@@ -974,7 +784,7 @@ namespace DXF
 			this.chockSizeGroup.Controls.Add(this.label1);
 			this.chockSizeGroup.Controls.Add(this.chockSizeInput);
 			this.chockSizeGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-			this.chockSizeGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.chockSizeGroup.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
 			this.chockSizeGroup.Location = new System.Drawing.Point(667, 176);
 			this.chockSizeGroup.Name = "chockSizeGroup";
 			this.chockSizeGroup.Size = new System.Drawing.Size(108, 80);
@@ -995,13 +805,9 @@ namespace DXF
 			// 
 			// chockSizeInput
 			// 
-			this.chockSizeInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.chockSizeInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.chockSizeInput.Location = new System.Drawing.Point(55, 30);
-			this.chockSizeInput.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
+			this.chockSizeInput.Maximum = new decimal(new int[] {999, 0, 0, 0});
 			this.chockSizeInput.Name = "chockSizeInput";
 			this.chockSizeInput.Size = new System.Drawing.Size(47, 26);
 			this.chockSizeInput.TabIndex = 17;
@@ -1014,7 +820,7 @@ namespace DXF
 			this.validateDimensionsGroup.Controls.Add(this.dieDiameterLabel);
 			this.validateDimensionsGroup.Controls.Add(this.dieWidthLabel);
 			this.validateDimensionsGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-			this.validateDimensionsGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.validateDimensionsGroup.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
 			this.validateDimensionsGroup.Location = new System.Drawing.Point(520, 6);
 			this.validateDimensionsGroup.Name = "validateDimensionsGroup";
 			this.validateDimensionsGroup.Size = new System.Drawing.Size(255, 80);
@@ -1034,9 +840,9 @@ namespace DXF
 			// 
 			// validateDimensionsButton
 			// 
-			this.validateDimensionsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.validateDimensionsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
-			this.validateDimensionsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
+			this.validateDimensionsButton.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
+			this.validateDimensionsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (150)))), ((int) (((byte) (0)))));
+			this.validateDimensionsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (150)))), ((int) (((byte) (0)))));
 			this.validateDimensionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.validateDimensionsButton.ForeColor = System.Drawing.Color.Black;
 			this.validateDimensionsButton.Location = new System.Drawing.Point(199, 43);
@@ -1050,7 +856,7 @@ namespace DXF
 			// dieDiameterLabel
 			// 
 			this.dieDiameterLabel.AutoSize = true;
-			this.dieDiameterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.dieDiameterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.dieDiameterLabel.ForeColor = System.Drawing.Color.Black;
 			this.dieDiameterLabel.Location = new System.Drawing.Point(9, 38);
 			this.dieDiameterLabel.Name = "dieDiameterLabel";
@@ -1061,7 +867,7 @@ namespace DXF
 			// dieWidthLabel
 			// 
 			this.dieWidthLabel.AutoSize = true;
-			this.dieWidthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.dieWidthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.dieWidthLabel.ForeColor = System.Drawing.Color.Black;
 			this.dieWidthLabel.Location = new System.Drawing.Point(33, 54);
 			this.dieWidthLabel.Name = "dieWidthLabel";
@@ -1077,8 +883,8 @@ namespace DXF
 			this.cavaSelectorGroup.Controls.Add(this.autoCavaSelectorGroup);
 			this.cavaSelectorGroup.Controls.Add(this.manualCavaButton);
 			this.cavaSelectorGroup.Controls.Add(this.autoCavaButton);
-			this.cavaSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cavaSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.cavaSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.cavaSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
 			this.cavaSelectorGroup.Location = new System.Drawing.Point(520, 261);
 			this.cavaSelectorGroup.Margin = new System.Windows.Forms.Padding(2);
 			this.cavaSelectorGroup.Name = "cavaSelectorGroup";
@@ -1127,7 +933,7 @@ namespace DXF
 			this.decreaseSecondSideButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.OrangeRed;
 			this.decreaseSecondSideButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.OrangeRed;
 			this.decreaseSecondSideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.decreaseSecondSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.decreaseSecondSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.decreaseSecondSideButton.ForeColor = System.Drawing.Color.Black;
 			this.decreaseSecondSideButton.Location = new System.Drawing.Point(52, 45);
 			this.decreaseSecondSideButton.Name = "decreaseSecondSideButton";
@@ -1143,7 +949,7 @@ namespace DXF
 			this.increaseSecondSideButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
 			this.increaseSecondSideButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
 			this.increaseSecondSideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.increaseSecondSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.increaseSecondSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.increaseSecondSideButton.ForeColor = System.Drawing.Color.Black;
 			this.increaseSecondSideButton.Location = new System.Drawing.Point(9, 45);
 			this.increaseSecondSideButton.Name = "increaseSecondSideButton";
@@ -1159,7 +965,7 @@ namespace DXF
 			this.decreaseFirstSideButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.OrangeRed;
 			this.decreaseFirstSideButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.OrangeRed;
 			this.decreaseFirstSideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.decreaseFirstSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.decreaseFirstSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.decreaseFirstSideButton.ForeColor = System.Drawing.Color.Black;
 			this.decreaseFirstSideButton.Location = new System.Drawing.Point(52, 15);
 			this.decreaseFirstSideButton.Name = "decreaseFirstSideButton";
@@ -1175,7 +981,7 @@ namespace DXF
 			this.increaseFirstSideButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
 			this.increaseFirstSideButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
 			this.increaseFirstSideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.increaseFirstSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.increaseFirstSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.increaseFirstSideButton.ForeColor = System.Drawing.Color.Black;
 			this.increaseFirstSideButton.Location = new System.Drawing.Point(9, 15);
 			this.increaseFirstSideButton.Name = "increaseFirstSideButton";
@@ -1198,10 +1004,10 @@ namespace DXF
 			// cavaSecondSideButton
 			// 
 			this.cavaSecondSideButton.Appearance = System.Windows.Forms.Appearance.Button;
-			this.cavaSecondSideButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.cavaSecondSideButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
-			this.cavaSecondSideButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
-			this.cavaSecondSideButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
+			this.cavaSecondSideButton.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
+			this.cavaSecondSideButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (150)))), ((int) (((byte) (0)))));
+			this.cavaSecondSideButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (150)))), ((int) (((byte) (0)))));
+			this.cavaSecondSideButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (150)))), ((int) (((byte) (0)))));
 			this.cavaSecondSideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.cavaSecondSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
 			this.cavaSecondSideButton.ForeColor = System.Drawing.Color.Black;
@@ -1218,10 +1024,10 @@ namespace DXF
 			// cavaFirstSideButton
 			// 
 			this.cavaFirstSideButton.Appearance = System.Windows.Forms.Appearance.Button;
-			this.cavaFirstSideButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.cavaFirstSideButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
-			this.cavaFirstSideButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
-			this.cavaFirstSideButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
+			this.cavaFirstSideButton.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
+			this.cavaFirstSideButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (150)))), ((int) (((byte) (0)))));
+			this.cavaFirstSideButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (150)))), ((int) (((byte) (0)))));
+			this.cavaFirstSideButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (150)))), ((int) (((byte) (0)))));
 			this.cavaFirstSideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.cavaFirstSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
 			this.cavaFirstSideButton.ForeColor = System.Drawing.Color.Black;
@@ -1263,7 +1069,7 @@ namespace DXF
 			// 
 			// visualizationPanel
 			// 
-			this.visualizationPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+			this.visualizationPanel.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (24)))), ((int) (((byte) (24)))), ((int) (((byte) (24)))));
 			this.visualizationPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.visualizationPanel.Cursor = System.Windows.Forms.Cursors.Cross;
 			this.visualizationPanel.Location = new System.Drawing.Point(6, 3);
@@ -1280,8 +1086,8 @@ namespace DXF
 			this.firstSideSelectorGroup.Controls.Add(this.firstSideSelectorLabel);
 			this.firstSideSelectorGroup.Controls.Add(this.flippedButton);
 			this.firstSideSelectorGroup.Controls.Add(this.asDesignedButton);
-			this.firstSideSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.firstSideSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.firstSideSelectorGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+			this.firstSideSelectorGroup.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
 			this.firstSideSelectorGroup.Location = new System.Drawing.Point(520, 90);
 			this.firstSideSelectorGroup.Name = "firstSideSelectorGroup";
 			this.firstSideSelectorGroup.Size = new System.Drawing.Size(255, 80);
@@ -1291,9 +1097,9 @@ namespace DXF
 			// 
 			// setSidesButton
 			// 
-			this.setSidesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.setSidesButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
-			this.setSidesButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
+			this.setSidesButton.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
+			this.setSidesButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (150)))), ((int) (((byte) (0)))));
+			this.setSidesButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (150)))), ((int) (((byte) (0)))));
 			this.setSidesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.setSidesButton.ForeColor = System.Drawing.Color.Black;
 			this.setSidesButton.Location = new System.Drawing.Point(199, 45);
@@ -1357,7 +1163,7 @@ namespace DXF
 			this.workplaneOriginGroup.Controls.Add(this.workplaneOriginParameterInput);
 			this.workplaneOriginGroup.Controls.Add(this.workplaneOriginLabel);
 			this.workplaneOriginGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-			this.workplaneOriginGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.workplaneOriginGroup.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
 			this.workplaneOriginGroup.Location = new System.Drawing.Point(352, 103);
 			this.workplaneOriginGroup.Name = "workplaneOriginGroup";
 			this.workplaneOriginGroup.Size = new System.Drawing.Size(420, 77);
@@ -1378,7 +1184,7 @@ namespace DXF
 			// workplaneOriginLabel
 			// 
 			this.workplaneOriginLabel.AutoSize = true;
-			this.workplaneOriginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.workplaneOriginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.workplaneOriginLabel.ForeColor = System.Drawing.Color.Black;
 			this.workplaneOriginLabel.Location = new System.Drawing.Point(19, 34);
 			this.workplaneOriginLabel.Name = "workplaneOriginLabel";
@@ -1393,7 +1199,7 @@ namespace DXF
 			this.spindleSpeedGroup.Controls.Add(this.spindleSpeedLimitInput);
 			this.spindleSpeedGroup.Controls.Add(this.speedLimitLabel);
 			this.spindleSpeedGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-			this.spindleSpeedGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.spindleSpeedGroup.ForeColor = System.Drawing.Color.FromArgb(((int) (((byte) (255)))), ((int) (((byte) (204)))), ((int) (((byte) (0)))));
 			this.spindleSpeedGroup.Location = new System.Drawing.Point(352, 7);
 			this.spindleSpeedGroup.Name = "spindleSpeedGroup";
 			this.spindleSpeedGroup.Size = new System.Drawing.Size(261, 90);
@@ -1404,32 +1210,20 @@ namespace DXF
 			// constantSurfaceSpeedInput
 			// 
 			this.constantSurfaceSpeedInput.DecimalPlaces = 1;
-			this.constantSurfaceSpeedInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.constantSurfaceSpeedInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.constantSurfaceSpeedInput.Location = new System.Drawing.Point(180, 54);
-			this.constantSurfaceSpeedInput.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-			this.constantSurfaceSpeedInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.constantSurfaceSpeedInput.Maximum = new decimal(new int[] {9999, 0, 0, 0});
+			this.constantSurfaceSpeedInput.Minimum = new decimal(new int[] {1, 0, 0, 0});
 			this.constantSurfaceSpeedInput.Name = "constantSurfaceSpeedInput";
 			this.constantSurfaceSpeedInput.Size = new System.Drawing.Size(71, 26);
 			this.constantSurfaceSpeedInput.TabIndex = 9;
-			this.constantSurfaceSpeedInput.Value = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
+			this.constantSurfaceSpeedInput.Value = new decimal(new int[] {200, 0, 0, 0});
 			this.constantSurfaceSpeedInput.ValueChanged += new System.EventHandler(this.constantSurfaceSpeedInput_ValueChanged);
 			// 
 			// constantSurfaceSpeedLabel
 			// 
 			this.constantSurfaceSpeedLabel.AutoSize = true;
-			this.constantSurfaceSpeedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.constantSurfaceSpeedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.constantSurfaceSpeedLabel.ForeColor = System.Drawing.Color.Black;
 			this.constantSurfaceSpeedLabel.Location = new System.Drawing.Point(19, 59);
 			this.constantSurfaceSpeedLabel.Name = "constantSurfaceSpeedLabel";
@@ -1440,32 +1234,20 @@ namespace DXF
 			// spindleSpeedLimitInput
 			// 
 			this.spindleSpeedLimitInput.DecimalPlaces = 1;
-			this.spindleSpeedLimitInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.spindleSpeedLimitInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.spindleSpeedLimitInput.Location = new System.Drawing.Point(180, 19);
-			this.spindleSpeedLimitInput.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-			this.spindleSpeedLimitInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.spindleSpeedLimitInput.Maximum = new decimal(new int[] {9999, 0, 0, 0});
+			this.spindleSpeedLimitInput.Minimum = new decimal(new int[] {1, 0, 0, 0});
 			this.spindleSpeedLimitInput.Name = "spindleSpeedLimitInput";
 			this.spindleSpeedLimitInput.Size = new System.Drawing.Size(71, 26);
 			this.spindleSpeedLimitInput.TabIndex = 7;
-			this.spindleSpeedLimitInput.Value = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
+			this.spindleSpeedLimitInput.Value = new decimal(new int[] {2000, 0, 0, 0});
 			this.spindleSpeedLimitInput.ValueChanged += new System.EventHandler(this.spindleSpeedLimitInput_ValueChanged);
 			// 
 			// speedLimitLabel
 			// 
 			this.speedLimitLabel.AutoSize = true;
-			this.speedLimitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.speedLimitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
 			this.speedLimitLabel.ForeColor = System.Drawing.Color.Black;
 			this.speedLimitLabel.Location = new System.Drawing.Point(42, 24);
 			this.speedLimitLabel.Name = "speedLimitLabel";
@@ -1483,7 +1265,7 @@ namespace DXF
 			this.Controls.Add(this.copyrightsBanner);
 			this.Controls.Add(this.mainAppMenu);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.mainAppMenu;
 			this.MaximizeBox = false;
 			this.Name = "MainApp";
@@ -1495,38 +1277,38 @@ namespace DXF
 			this.viewSideSelectorGroup.PerformLayout();
 			this.copyrightsBanner.ResumeLayout(false);
 			this.copyrightsBanner.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.banner)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.banner)).EndInit();
 			this.g71Settings.ResumeLayout(false);
 			this.g71Settings.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.g71FeedRateInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71ZAllowanceInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71XAllowanceInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71RetractInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71DepthOfCutInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.g71FeedRateInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.g71ZAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.g71XAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.g71RetractInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.g71DepthOfCutInput)).EndInit();
 			this.g72Settings.ResumeLayout(false);
 			this.g72Settings.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.g72FeedRateInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72ZAllowanceInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72XAllowanceInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72RetractInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72DepthOfCutInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.g72FeedRateInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.g72ZAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.g72XAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.g72RetractInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.g72DepthOfCutInput)).EndInit();
 			this.stockValuesSelectorGroup.ResumeLayout(false);
 			this.stockValuesSelectorGroup.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.stockWidthInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.stockDiameterInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.stockWidthInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.stockDiameterInput)).EndInit();
 			this.tabPanel.ResumeLayout(false);
 			this.tabSetup.ResumeLayout(false);
 			this.tabSetup.PerformLayout();
 			this.chockSizeGroup.ResumeLayout(false);
 			this.chockSizeGroup.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.chockSizeInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.chockSizeInput)).EndInit();
 			this.validateDimensionsGroup.ResumeLayout(false);
 			this.validateDimensionsGroup.PerformLayout();
 			this.cavaSelectorGroup.ResumeLayout(false);
 			this.cavaSelectorGroup.PerformLayout();
 			this.manualCavaSelectorGroup.ResumeLayout(false);
 			this.autoCavaSelectorGroup.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.visualizationPanel)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.visualizationPanel)).EndInit();
 			this.firstSideSelectorGroup.ResumeLayout(false);
 			this.firstSideSelectorGroup.PerformLayout();
 			this.tabSettings.ResumeLayout(false);
@@ -1534,11 +1316,10 @@ namespace DXF
 			this.workplaneOriginGroup.PerformLayout();
 			this.spindleSpeedGroup.ResumeLayout(false);
 			this.spindleSpeedGroup.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.constantSurfaceSpeedInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.spindleSpeedLimitInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.constantSurfaceSpeedInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize) (this.spindleSpeedLimitInput)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
-
 		}
 
 		#endregion
