@@ -27,4 +27,3 @@ C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\
 C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\bin\Debug\Alumat Tornio.pdb
 C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\Alumat Tornio.exe
 C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\Alumat Tornio.pdb
-C:\Users\aris_\OneDrive\Documents\Alumat Projects\AlumatTornio\AlumatTornio\DXF\obj\Debug\DXF.csproj.SuggestedBindingRedirects.cache

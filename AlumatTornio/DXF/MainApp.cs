@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -146,6 +147,7 @@ namespace DXF
 
 			//Set UI to select first machining side
 			tabPanel.Enabled = true;
+			gCodeTextBox.Lines = Array.Empty<string>();
 			validateDimensionsGroup.Enabled = true;
 			firstSideSelectorGroup.Enabled = false;
 			asDesignedButton.Checked = false;
@@ -153,6 +155,8 @@ namespace DXF
 			cavaSelectorGroup.Enabled = false;
 			manualCavaSelectorGroup.Enabled = false;
 			autoCavaButton.Checked = true;
+			cavaFirstSideButton.Checked = false;
+			cavaSecondSideButton.Checked = false;
 			viewSideSelectorGroup.Enabled = false;
 			stockValuesSelectorGroup.Enabled = false;
 			generateCode.Enabled = false;
@@ -388,6 +392,7 @@ namespace DXF
 
 		private void autoCavaButton_CheckedChanged(object sender, EventArgs e)
 		{
+			if (Parameter.FirstSideHorizontalProfileLines.Count == 0 || Parameter.SecondSideHorizontalProfileLines.Count == 0) return;
 			if (autoCavaButton.Checked)
 			{
 				autoCavaSelectorGroup.Enabled = true;
@@ -679,7 +684,19 @@ namespace DXF
 			gCodeSecondSide.AddRange(CodeBlock.OuterVerticalProfile(g72, secondSideOuterHorizontalProfilePoints));
 			gCodeSecondSide.AddRange(CodeBlock.OuterHorizontalProfile(g71, secondSideOuterVerticalProfilePoints));
 			gCodeSecondSide.AddRange(CodeBlock.LatheEnd());
-
+			
+			//Export
+			if (string.IsNullOrEmpty(Settings.Default["ExportFolderPath"].ToString()))
+			{
+				MessageBox.Show(@"There is no export folder selected");
+			}
+			else
+			{
+				string exportFile = $@"{Settings.Default["ExportFolderPath"]}\{Parameter.FileName}";
+				File.WriteAllLines($"{exportFile}_FIRST.txt", gCodeFirstSide);
+				File.WriteAllLines($"{exportFile}_SECOND.txt", gCodeSecondSide);
+			}
+			
 			//Fill rich text box
 			gCodeTextBox.Lines = drawFirstSideButton.Checked ? gCodeFirstSide.ToArray() : gCodeSecondSide.ToArray();
 
@@ -871,10 +888,5 @@ namespace DXF
 
 
 		#endregion
-
-		private void chockSizeInput_ValueChanged_1(object sender, EventArgs e)
-		{
-
-		}
 	}
 }
