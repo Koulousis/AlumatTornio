@@ -45,7 +45,7 @@ namespace DXF.Lathe
 			ProfilePoint profileStart = profilePoints[1];
 			ProfilePoint profileEnd = profilePoints[profilePoints.Count - 1];
 			profilePoints.RemoveAt(0);
-			profilePoints.RemoveAt(1);
+			profilePoints.RemoveAt(0);
 			profilePoints.RemoveAt(profilePoints.Count - 1);
 
 			//Set g code
@@ -93,7 +93,7 @@ namespace DXF.Lathe
 			ProfilePoint profileStart = profilePoints[1];
 			ProfilePoint profileEnd = profilePoints[profilePoints.Count - 1];
 			profilePoints.RemoveAt(0);
-			profilePoints.RemoveAt(1);
+			profilePoints.RemoveAt(0);
 			profilePoints.RemoveAt(profilePoints.Count - 1);
 
 			//Set g code

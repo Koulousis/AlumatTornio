@@ -125,6 +125,15 @@ namespace DXF
 			//Set index on each element with counter clockwise order
 			Add.Indexes(linesAsDesigned, arcsAsDesigned);
 
+			//Check if every element has an index
+			Line notIndexedLine = linesAsDesigned.Find(line => line.Index == 0);
+			Arc notIndexedArc = arcsAsDesigned.Find(arc => arc.Index == 0);
+			if (notIndexedLine != null || notIndexedArc != null)
+			{
+				MessageBox.Show("The profile from the DXF file is open!\nCheck the cad file for gap between elements!");
+				Application.Restart();
+			}
+
 			//Clone lines and arcs from as designed placement and flip them
 			List<Line> linesFlipped = linesAsDesigned.Select(line => line.Clone()).ToList();
 			List<Arc> arcsFlipped = arcsAsDesigned.Select(arc => arc.Clone()).ToList();
@@ -155,6 +164,7 @@ namespace DXF
 			cavaSelectorGroup.Enabled = false;
 			manualCavaSelectorGroup.Enabled = false;
 			autoCavaButton.Checked = true;
+			autoCavaSelectorGroup.Enabled = true;
 			cavaFirstSideButton.Checked = false;
 			cavaSecondSideButton.Checked = false;
 			viewSideSelectorGroup.Enabled = false;
@@ -239,7 +249,7 @@ namespace DXF
 			stockDiameterValue += 1 - Parameter.Diameter % 1;
 			stockDiameterValue += 2;
 			stockDiameterInput.Minimum = Convert.ToDecimal(stockDiameterValue);
-			stockDiameterInput.Maximum = stockDiameterInput.Minimum + 10;
+			stockDiameterInput.Maximum = stockDiameterInput.Minimum + 20;
 			stockDiameterInput.Value = stockDiameterInput.Minimum;
 
 			//Width stock round up to first decimal plus 2mm
@@ -247,7 +257,7 @@ namespace DXF
 			stockWidthValue += 1 - Parameter.DieWidth % 1;
 			stockWidthValue += 2;
 			stockWidthInput.Minimum = Convert.ToDecimal(stockWidthValue);
-			stockWidthInput.Maximum = stockWidthInput.Minimum + 10;
+			stockWidthInput.Maximum = stockWidthInput.Minimum + 20;
 			stockWidthInput.Value = stockWidthInput.Minimum;
 
 			//
@@ -681,8 +691,8 @@ namespace DXF
 			//Create g code for second side
 			List<string> gCodeSecondSide = new List<string>();
 			gCodeSecondSide.AddRange(CodeBlock.LatheInitialization(workplaneOriginParameter, secondSideWorkplaneValue, spindleSpeed));
-			gCodeSecondSide.AddRange(CodeBlock.OuterVerticalProfile(g72, secondSideOuterHorizontalProfilePoints));
-			gCodeSecondSide.AddRange(CodeBlock.OuterHorizontalProfile(g71, secondSideOuterVerticalProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.OuterVerticalProfile(g72, secondSideOuterVerticalProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.OuterHorizontalProfile(g71, secondSideOuterHorizontalProfilePoints));
 			gCodeSecondSide.AddRange(CodeBlock.LatheEnd());
 			
 			//Export
@@ -888,5 +898,6 @@ namespace DXF
 
 
 		#endregion
+
 	}
 }
