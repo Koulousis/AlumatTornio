@@ -59,7 +59,6 @@
     <Compile Include="Lathe\CodeBlock.cs" />
     <Compile Include="Lathe\G72.cs" />
     <Compile Include="Lathe\G71.cs" />
-    <Compile Include="Lathe\GCode.cs" />
     <Compile Include="Actions\Edit.cs" />
     <Compile Include="Actions\Get.cs" />
     <Compile Include="Lathe\SpindleSpeed.cs" />

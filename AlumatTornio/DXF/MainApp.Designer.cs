@@ -34,7 +34,6 @@ namespace DXF
 			this.mainAppMenu = new System.Windows.Forms.MenuStrip();
 			this.fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fileDxfMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.tornituraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.changeDXFFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.changeExportFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -186,8 +185,7 @@ namespace DXF
 			// fileMenuItem
 			// 
 			this.fileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileDxfMenuItem,
-            this.tornituraToolStripMenuItem});
+            this.fileDxfMenuItem});
 			this.fileMenuItem.Name = "fileMenuItem";
 			this.fileMenuItem.Size = new System.Drawing.Size(37, 19);
 			this.fileMenuItem.Text = "File";
@@ -195,15 +193,9 @@ namespace DXF
 			// fileDxfMenuItem
 			// 
 			this.fileDxfMenuItem.Name = "fileDxfMenuItem";
-			this.fileDxfMenuItem.Size = new System.Drawing.Size(121, 22);
+			this.fileDxfMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.fileDxfMenuItem.Text = "DXF";
 			this.fileDxfMenuItem.Click += new System.EventHandler(this.fileDxfMenuItem_Click);
-			// 
-			// tornituraToolStripMenuItem
-			// 
-			this.tornituraToolStripMenuItem.Name = "tornituraToolStripMenuItem";
-			this.tornituraToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
-			this.tornituraToolStripMenuItem.Text = "Tornitura";
 			// 
 			// settingsToolStripMenuItem
 			// 
@@ -1531,7 +1523,6 @@ namespace DXF
 		private System.Windows.Forms.PictureBox banner;
 		private System.Windows.Forms.TextBox copyrights;
 		private System.Windows.Forms.ToolStripMenuItem fileDxfMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem tornituraToolStripMenuItem;
 		private System.Windows.Forms.Button generateCode;
 		private System.Windows.Forms.ProgressBar exportProgressBar;
 		private System.Windows.Forms.GroupBox g71Settings;

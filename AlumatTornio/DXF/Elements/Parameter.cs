@@ -49,27 +49,7 @@ namespace DXF.Elements
 		public static List<Line> SecondSideCavaLines { get; set; }
 		public static List<Arc> SecondSideCavaArcs { get; set; }
 		#endregion
-
-
-		public static List<Line> G71LinesRightSide { get; set; }
-		public static List<Arc> G71ArcsRightSide { get; set; }
-
-		public static List<Line> G71LinesLeftSide { get; set; }
-		public static List<Arc> G71ArcsLeftSide { get; set; }
-
-		public static List<Line> CavaLines { get; set; }
-		public static List<Arc> CavaArcs { get; set; }
-
-		public static string Red = "1";
-		public static string Yellow = "2";
-		public static string Green = "3";
-		public static string Cyan = "4";
-		public static string Blue = "5";
-		public static string Magenta = "6";
-		public static string White = "7";
-		public static string ByBlock = "0";
-		public static string ByLayer = "256";
-
+		
 		#region Validate dimensions
 		public static bool ElementsHasGap { get; set; }
 		#endregion
@@ -92,6 +72,18 @@ namespace DXF.Elements
 		public static float ScaleFactor = 1f;
 		public static bool ComesFromFileLoad = false;
 
+		#endregion
+
+		#region DXF Color Tags
+		public static string Red = "1";
+		public static string Yellow = "2";
+		public static string Green = "3";
+		public static string Cyan = "4";
+		public static string Blue = "5";
+		public static string Magenta = "6";
+		public static string White = "7";
+		public static string ByBlock = "0";
+		public static string ByLayer = "256";
 		#endregion
 	}
 }

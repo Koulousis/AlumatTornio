@@ -479,7 +479,7 @@ namespace DXF.Actions
 			return secondSideStockMachiningLines;
 		}
 
-		public static List<Line> firstSideFacingProfile()
+		public static List<Line> FirstSideFacingProfile()
 		{
 			List<Line> firstSideOuterVerticalMachiningLines = new List<Line>();
 

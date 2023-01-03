@@ -287,7 +287,7 @@ namespace DXF
 			//
 			//First side facing profile
 			//
-			List<Line> firstSideFacingProfile = Get.firstSideFacingProfile();
+			List<Line> firstSideFacingProfile = Get.FirstSideFacingProfile();
 
 			//
 			//Second side facing profile
@@ -661,7 +661,6 @@ namespace DXF
 
 			//Update Progress Bar
 			exportProgressBar.Value = 0;
-			GCode.FirstSide.Clear();
 			for (int i = 0; i < 100; i++) { for (int j = 0; j < 10000; j++) { } exportProgressBar.Value++; }
 
 			//Set G71 and G72 Attributes

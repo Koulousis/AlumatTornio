@@ -50,19 +50,7 @@ namespace DXF.Tools
 			}
 			return sweepAngle;
 		}
-
-		public static int TransformWidth(int width)
-		{
-			int transformWidth = width - (width / 6);
-			return transformWidth;
-		}
-
-		public static int TransformHeight(int height)
-		{
-			int transformHeight = height - (height / 10);
-			return transformHeight;
-		}
-
+		
 		public static float ElementsLength(List<Line> lines, List<Arc> arcs)
 		{
 			float length = 0;
