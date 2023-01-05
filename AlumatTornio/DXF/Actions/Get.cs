@@ -644,12 +644,19 @@ namespace DXF.Actions
 			//If the profile not starts from zero then there is a collarino, get those lines
 			if (lines.First().StartX < 0 && lines.First().EndX < 0 && lines.First().StartX == lines.First().EndX)
 			{
+				Line axisLine = lines.First().Clone();
+				(axisLine.StartX, axisLine.StartY, axisLine.EndX, axisLine.EndY) = (0, 0, axisLine.StartX, axisLine.StartY);
+				axisLine.Index = axisLine.Placement == "AsDesigned" ? axisLine.Index - 1 : axisLine.Index + 1;
+				collarinoLines.Add(axisLine);
+
 				int i = 0;
 				while (lines[i].StartX != 0)
 				{
 					collarinoLines.Add(lines[i].Clone());
 					i++;
 				}
+
+
 			}
 
 			return collarinoLines;

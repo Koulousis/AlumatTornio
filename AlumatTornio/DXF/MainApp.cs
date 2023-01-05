@@ -692,6 +692,7 @@ namespace DXF
 			//Get first side outer horizontal and outer vertical profile points
 			List<ProfilePoint> firstSideOuterHorizontalProfilePoints = Get.ProfilePoints(Parameter.FirstSideHorizontalProfileLines, Parameter.FirstSideHorizontalProfileArcs);
 			List<ProfilePoint> firstSideOuterVerticalProfilePoints = Get.ProfilePoints(Parameter.FirstSideFacingProfile, Parameter.FirstSideOuterVerticalMachiningArcs);
+			List<ProfilePoint> firstSideFemaleCollarinoProfilePoints = Get.ProfilePoints(Parameter.FirstSideCollarinoLines, Parameter.FirstSideCollarinoArcs);
 
 			//Create g code for first side
 			List<string> gCodeFirstSide = new List<string>();
