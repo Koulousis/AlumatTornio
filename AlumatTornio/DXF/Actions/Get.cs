@@ -635,6 +635,55 @@ namespace DXF.Actions
 
 			return cavaArcs;
 		}
-		
+
+		public static List<Line> CollarinoLines(List<Line> lines)
+		{
+			//Create collarino lines list
+			List<Line> collarinoLines = new List<Line>();
+
+			//If the profile not starts from zero then there is a collarino, get those lines
+			if (lines.First().StartX < 0 && lines.First().EndX < 0 && lines.First().StartX == lines.First().EndX)
+			{
+				int i = 0;
+				while (lines[i].StartX != 0)
+				{
+					collarinoLines.Add(lines[i].Clone());
+					i++;
+				}
+			}
+
+			return collarinoLines;
+		}
+
+		public static List<Arc> CollarinoArcs(List<Line> lines, List<Arc> arcs)
+		{
+			//Create collarino arcs list
+			List<Arc> collarinoArcs = new List<Arc>();
+
+			if (lines != null)
+			{
+				int lastIndex = lines.First().Placement == "AsDesigned" ? lines.Last().Index + 1 : lines.Last().Index - 1;
+
+				int i = 0;
+				if (lines.First().Placement == "AsDesigned")
+				{
+					while (arcs[i].Index <= lastIndex)
+					{
+						collarinoArcs.Add(arcs[i].Clone());
+						i++;
+					}
+				}
+				else if (lines.First().Placement == "Flipped")
+				{
+					while (arcs[i].Index >= lastIndex)
+					{
+						collarinoArcs.Add(arcs[i].Clone());
+						i++;
+					}
+				}
+			}
+
+			return collarinoArcs;
+		}
 	}
 }

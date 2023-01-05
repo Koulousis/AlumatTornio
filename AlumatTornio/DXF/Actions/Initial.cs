@@ -50,6 +50,11 @@ namespace DXF.Actions
 			Parameter.SecondSideOuterVerticalMachiningArcs = new List<Arc>();
 			Parameter.SecondSideCavaLines = new List<Line>();
 			Parameter.SecondSideCavaArcs = new List<Arc>();
+
+			Parameter.FirstSideCollarinoLines = new List<Line>();
+			Parameter.FirstSideCollarinoArcs = new List<Arc>();
+			Parameter.SecondSideCollarinoLines = new List<Line>();
+			Parameter.SecondSideCollarinoArcs = new List<Arc>();
 			#endregion
 
 			#region Validate dimensions

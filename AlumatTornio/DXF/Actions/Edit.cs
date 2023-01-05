@@ -73,7 +73,7 @@ namespace DXF.Actions
 					arc.EndAngle = 180 - arc.EndAngle;
 				}
 
-				if (arc.StartAngle > 180 && arc.EndAngle > 180)
+				if (arc.StartAngle >= 180 && arc.EndAngle >= 180)
 				{
 					(arc.StartAngle, arc.EndAngle) = (arc.EndAngle, arc.StartAngle);
 					arc.StartAngle = 540 - arc.StartAngle;

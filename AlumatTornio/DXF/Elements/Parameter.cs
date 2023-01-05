@@ -48,8 +48,13 @@ namespace DXF.Elements
 		public static List<Arc> SecondSideOuterVerticalMachiningArcs { get; set; }
 		public static List<Line> SecondSideCavaLines { get; set; }
 		public static List<Arc> SecondSideCavaArcs { get; set; }
+
+		public static List<Line> FirstSideCollarinoLines { get; set; }
+		public static List<Arc> FirstSideCollarinoArcs { get; set; }
+		public static List<Line> SecondSideCollarinoLines { get; set; }
+		public static List<Arc> SecondSideCollarinoArcs { get; set; }
 		#endregion
-		
+
 		#region Validate dimensions
 		public static bool ElementsHasGap { get; set; }
 		#endregion
@@ -65,7 +70,6 @@ namespace DXF.Elements
 		public static List<string> GCodeSecondSide { get; set; }
 		public static Line FirstSideHorizontalProfileLastLine { get; set; }
 		public static Line SecondSideHorizontalProfileLastLine { get; set; }
-
 		#endregion
 
 		#region For Settings

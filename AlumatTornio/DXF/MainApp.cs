@@ -306,6 +306,18 @@ namespace DXF
 			List<Line> secondSideCavaLines = Get.CavaLines(Parameter.SecondSideLines);
 			List<Arc> secondSideCavaArcs = Get.CavaArcs(Parameter.SecondSideLines, Parameter.SecondSideArcs);
 
+			//
+			//First side female collarino profile
+			//
+			List<Line> firstSideCollarinoLines = Get.CollarinoLines(Parameter.FirstSideLines);
+			List<Arc> firstSideCollarinoArcs = Get.CollarinoArcs(firstSideCollarinoLines, Parameter.FirstSideArcs);
+
+			//
+			//Second side female collarino profile
+			//
+			List<Line> secondSideCollarinoLines = Get.CollarinoLines(Parameter.SecondSideLines);
+			List<Arc> secondSideCollarinoArcs = Get.CollarinoArcs(secondSideCollarinoLines, Parameter.SecondSideArcs);
+
 			//Set Global Parameters
 			Parameter.FirstSideHorizontalProfileLines = firstSideHorizontalProfileLines;
 			Parameter.FirstSideHorizontalProfileArcs = firstSideHorizontalProfileArcs;
@@ -319,6 +331,11 @@ namespace DXF
 			Parameter.FirstSideCavaArcs = firstSideCavaArcs;
 			Parameter.SecondSideCavaLines = secondSideCavaLines;
 			Parameter.SecondSideCavaArcs = secondSideCavaArcs;
+
+			Parameter.FirstSideCollarinoLines = firstSideCollarinoLines;
+			Parameter.FirstSideCollarinoArcs = firstSideCollarinoArcs;
+			Parameter.SecondSideCollarinoLines = secondSideCollarinoLines;
+			Parameter.SecondSideCollarinoArcs = secondSideCollarinoArcs;
 			
 			//Change UI after sides selected
 			drawFirstSideButton.Checked = true;
