@@ -527,15 +527,17 @@ namespace DXF.Actions
 
 		public static List<ProfilePoint> ProfilePoints(List<Line> lines, List<Arc> arcs)
 		{
+			//Profiles points list
+			List<ProfilePoint> profilePoints = new List<ProfilePoint>();
+
+			if (lines.Count == 0 || lines == null) return profilePoints;
+			
 			//Set index list to loop through profile
 			List<int> indexes = new List<int>();
 			foreach (Line line in lines) { indexes.Add(line.Index); }
 			foreach (Arc arc in arcs) { indexes.Add(arc.Index); }
 			indexes.Sort();
 			if (lines.First().Placement == "Flipped") { indexes.Reverse(); }
-
-			//Profiles points list
-			List<ProfilePoint> profilePoints = new List<ProfilePoint>();
 
 			foreach (int index in indexes)
 			{
@@ -644,11 +646,13 @@ namespace DXF.Actions
 			//If the profile not starts from zero then there is a collarino, get those lines
 			if (lines.First().StartX < 0 && lines.First().EndX < 0 && lines.First().StartX == lines.First().EndX)
 			{
+				//Create extend line from collarino start to X0,Y0
 				Line axisLine = lines.First().Clone();
 				(axisLine.StartX, axisLine.StartY, axisLine.EndX, axisLine.EndY) = (0, 0, axisLine.StartX, axisLine.StartY);
 				axisLine.Index = axisLine.Placement == "AsDesigned" ? axisLine.Index - 1 : axisLine.Index + 1;
 				collarinoLines.Add(axisLine);
 
+				//Get the lines that create the collarino
 				int i = 0;
 				while (lines[i].StartX != 0)
 				{
@@ -656,7 +660,10 @@ namespace DXF.Actions
 					i++;
 				}
 
-
+				//Give an offset to collarino, with the value of tool diameter
+				collarinoLines[0].StartY = 16;
+				collarinoLines[0].EndY = 16;
+				collarinoLines[1].StartY = 16;
 			}
 
 			return collarinoLines;
@@ -667,7 +674,7 @@ namespace DXF.Actions
 			//Create collarino arcs list
 			List<Arc> collarinoArcs = new List<Arc>();
 
-			if (lines != null)
+			if (lines.Count != 0)
 			{
 				int lastIndex = lines.First().Placement == "AsDesigned" ? lines.Last().Index + 1 : lines.Last().Index - 1;
 

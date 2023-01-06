@@ -204,5 +204,50 @@ namespace DXF.Actions
 			visualizationPanelGraphics.FillPath(outerHorizontalMachiningBrush, outerVerticalMachiningPath);
 			visualizationPanelGraphics.DrawPath(profilePen, outerVerticalMachiningPath);
 		}
+
+
+		public static void FemaleCollarino(Graphics visualizationPanelGraphics, List<Line> collarinoLines, List<Arc> collarinoArcs)
+		{
+			//Instantiate a specific Pen
+			Pen collarinoPen = new Pen(Color.Aquamarine);
+			collarinoPen.Alignment = PenAlignment.Center;
+			collarinoPen.ScaleTransform(0, 0);
+
+			//Indexes
+			if (collarinoLines == null || collarinoLines.Count == 0) return;
+			List<int> indexes = new List<int>();
+			indexes.AddRange(collarinoLines.Select(line => line.Index).ToList());
+			indexes.AddRange(collarinoArcs.Select(arc => arc.Index).ToList());
+
+			if (collarinoLines.First().Index < collarinoLines.Last().Index)
+			{ indexes.Sort(); }
+			else
+			{ indexes.Sort(); indexes.Reverse(); }
+
+			//Draw profile lines and arcs
+			GraphicsPath collarinoPath = new GraphicsPath();
+			Brush collarinoBrush = new HatchBrush(HatchStyle.NarrowVertical, Color.Aquamarine, Color.FromArgb(0, 0, 0, 0));
+			foreach (int index in indexes)
+			{
+				foreach (Line line in collarinoLines)
+				{
+					if (line.Index == index)
+					{
+						collarinoPath.AddLine(line.StartX, line.StartY, line.EndX, line.EndY);
+					}
+				}
+
+				foreach (Arc arc in collarinoArcs)
+				{
+					if (arc.Index == index)
+					{
+						collarinoPath.AddArc(arc.RectangularCornerX, arc.RectangularCornerY, arc.Width, arc.Height, arc.EndAngle, -arc.SweepAngle);
+					}
+				}
+			}
+
+			visualizationPanelGraphics.FillPath(collarinoBrush, collarinoPath);
+			visualizationPanelGraphics.DrawPath(collarinoPen, collarinoPath);
+		}
 	}
 }

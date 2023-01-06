@@ -39,6 +39,7 @@ namespace DXF.Lathe
 		public static List<string> OuterVerticalProfile(G72 g72, List<ProfilePoint> profilePoints)
 		{
 			List<string> gCode = new List<string>();
+			if (profilePoints.Count == 0 || profilePoints == null) return gCode;
 
 			//Get specific profile points to add extra attributes
 			ProfilePoint startPosition = profilePoints[0];
@@ -74,7 +75,7 @@ namespace DXF.Lathe
 					gCode.Add($"G3 X{profilePoint.X} Z{profilePoint.Z} R{profilePoint.R}");
 				}
 			}
-
+			
 			gCode.Add($"N{g72.ProfileEnd} G1 G40 X{profileEnd.X} Z{profileEnd.Z}");
 			gCode.Add("");
 			gCode.Add("(-----VERTICAL FINISHING-----)");
@@ -151,5 +152,61 @@ namespace DXF.Lathe
 			return latheEnd;
 		}
 
+		public static List<string> FemaleCollarinoProfile(G72 g72, List<ProfilePoint> profilePoints)
+		{
+			List<string> gCode = new List<string>();
+			if (profilePoints.Count == 0 || profilePoints == null) return gCode;
+
+			//Get specific profile points to add extra attributes
+			ProfilePoint startPosition = profilePoints[0];
+			ProfilePoint profileStart = profilePoints[1];
+			ProfilePoint profileEnd = profilePoints[profilePoints.Count - 1];
+			profilePoints.RemoveAt(0);
+			profilePoints.RemoveAt(0);
+			profilePoints.RemoveAt(profilePoints.Count - 1);
+
+			//Set g code
+			gCode.Add("(-----COLLARINO FACING-----)");
+			gCode.Add("(START POSITION)");
+			gCode.Add($"G0 X{startPosition.X}");
+			gCode.Add($"G1 Z{startPosition.Z}");
+			gCode.Add("(G72 PARAMETERS)");
+			gCode.Add($"G72 W{g72.DepthOfCut} R{g72.Retract}");
+			gCode.Add($"G72 P{g72.ProfileStart} Q{g72.ProfileEnd} U{g72.AllowanceX} W{g72.AllowanceZ} F{g72.FeedRate}");
+			gCode.Add("(PROFILE)");
+			gCode.Add($"N{g72.ProfileStart} G1 G41 X{profileStart.X} Z{profileStart.Z}");
+
+			foreach (ProfilePoint profilePoint in profilePoints)
+			{
+				if (profilePoint.R == 0)
+				{
+					gCode.Add($"G1 X{profilePoint.X} Z{profilePoint.Z}");
+				}
+				else if (profilePoint.Clockwise)
+				{
+					gCode.Add($"G2 X{profilePoint.X} Z{profilePoint.Z} R{profilePoint.R}");
+				}
+				else if (profilePoint.CounterClockwise)
+				{
+					gCode.Add($"G3 X{profilePoint.X} Z{profilePoint.Z} R{profilePoint.R}");
+				}
+			}
+
+			if (profileEnd.R == 0)
+			{
+				gCode.Add($"N{g72.ProfileEnd} G1 G40 X{profileEnd.X} Z{profileEnd.Z}");
+			}
+			else
+			{
+				gCode.Add($"N{g72.ProfileEnd} G3 G40 X{profileEnd.X} Z{profileEnd.Z} R{profileEnd.R}");
+			}
+
+			gCode.Add("");
+			gCode.Add("(-----COLLARINO FINISHING-----)");
+			gCode.Add($"G70 P{g72.ProfileStart} Q{g72.ProfileEnd}");
+			gCode.Add("");
+
+			return gCode;
+		}
 	}
 }

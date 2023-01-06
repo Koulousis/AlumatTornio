@@ -617,6 +617,7 @@ namespace DXF
 					Draw.Die(visualizationPanelGraphics, Parameter.FirstSideLines, Parameter.FirstSideArcs);
 					Draw.OuterHorizontalMachiningProfile(visualizationPanelGraphics, Parameter.FirstSideHorizontalProfileLines, Parameter.FirstSideHorizontalProfileArcs);
 					Draw.OuterVerticalMachiningProfile(visualizationPanelGraphics, Parameter.FirstSideFacingProfile);
+					Draw.FemaleCollarino(visualizationPanelGraphics, Parameter.FirstSideCollarinoLines,Parameter.FirstSideCollarinoArcs);
 				}
 				else if (drawSecondSideButton.Checked)
 				{
@@ -625,6 +626,7 @@ namespace DXF
 					Draw.Die(visualizationPanelGraphics, Parameter.SecondSideLines, Parameter.SecondSideArcs);
 					Draw.OuterHorizontalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideHorizontalProfileLines, Parameter.SecondSideHorizontalProfileArcs);
 					Draw.OuterVerticalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideFacingProfile);
+					Draw.FemaleCollarino(visualizationPanelGraphics, Parameter.SecondSideCollarinoLines, Parameter.SecondSideCollarinoArcs);
 				}
 			}
 			
@@ -686,8 +688,9 @@ namespace DXF
 			float secondSideWorkplaneValue = Parameter.DieWidth;
 			SpindleSpeed spindleSpeed = new SpindleSpeed(spindleSpeedLimitInput.Value, constantSurfaceSpeedInput.Value);
 			
-			G72 g72 = new G72("10", "20", g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
-			G71 g71 = new G71("30", "40",g71DepthOfCutInput.Value, g71RetractInput.Value, g71XAllowanceInput.Value, g71ZAllowanceInput.Value, g71FeedRateInput.Value);
+			G72 g72VerticalFacing = new G72("10", "20", g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
+			G71 g71HorizontalRoughing = new G71("30", "40",g71DepthOfCutInput.Value, g71RetractInput.Value, g71XAllowanceInput.Value, g71ZAllowanceInput.Value, g71FeedRateInput.Value);
+			G72 g72CollarinoFacing = new G72("50", "60", g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
 
 			//Get first side outer horizontal and outer vertical profile points
 			List<ProfilePoint> firstSideOuterHorizontalProfilePoints = Get.ProfilePoints(Parameter.FirstSideHorizontalProfileLines, Parameter.FirstSideHorizontalProfileArcs);
@@ -697,19 +700,22 @@ namespace DXF
 			//Create g code for first side
 			List<string> gCodeFirstSide = new List<string>();
 			gCodeFirstSide.AddRange(CodeBlock.LatheInitialization(workplaneOriginParameter, firstSideWorkplaneValue, spindleSpeed));
-			gCodeFirstSide.AddRange(CodeBlock.OuterVerticalProfile(g72, firstSideOuterVerticalProfilePoints));
-			gCodeFirstSide.AddRange(CodeBlock.OuterHorizontalProfile(g71, firstSideOuterHorizontalProfilePoints));
+			gCodeFirstSide.AddRange(CodeBlock.OuterVerticalProfile(g72VerticalFacing, firstSideOuterVerticalProfilePoints));
+			gCodeFirstSide.AddRange(CodeBlock.OuterHorizontalProfile(g71HorizontalRoughing, firstSideOuterHorizontalProfilePoints));
+			gCodeFirstSide.AddRange(CodeBlock.FemaleCollarinoProfile(g72CollarinoFacing, firstSideFemaleCollarinoProfilePoints));
 			gCodeFirstSide.AddRange(CodeBlock.LatheEnd());
 
 			//Get second side outer horizontal and outer vertical profile points
 			List<ProfilePoint> secondSideOuterHorizontalProfilePoints = Get.ProfilePoints(Parameter.SecondSideHorizontalProfileLines, Parameter.SecondSideHorizontalProfileArcs);
 			List<ProfilePoint> secondSideOuterVerticalProfilePoints = Get.ProfilePoints(Parameter.SecondSideFacingProfile, Parameter.SecondSideOuterVerticalMachiningArcs);
-			
+			List<ProfilePoint> secondtSideFemaleCollarinoProfilePoints = Get.ProfilePoints(Parameter.SecondSideCollarinoLines, Parameter.SecondSideCollarinoArcs);
+
 			//Create g code for second side
 			List<string> gCodeSecondSide = new List<string>();
 			gCodeSecondSide.AddRange(CodeBlock.LatheInitialization(workplaneOriginParameter, secondSideWorkplaneValue, spindleSpeed));
-			gCodeSecondSide.AddRange(CodeBlock.OuterVerticalProfile(g72, secondSideOuterVerticalProfilePoints));
-			gCodeSecondSide.AddRange(CodeBlock.OuterHorizontalProfile(g71, secondSideOuterHorizontalProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.OuterVerticalProfile(g72VerticalFacing, secondSideOuterVerticalProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.OuterHorizontalProfile(g71HorizontalRoughing, secondSideOuterHorizontalProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.FemaleCollarinoProfile(g72CollarinoFacing, secondtSideFemaleCollarinoProfilePoints));
 			gCodeSecondSide.AddRange(CodeBlock.LatheEnd());
 			
 			//Export
