@@ -204,8 +204,7 @@ namespace DXF.Actions
 			visualizationPanelGraphics.FillPath(outerHorizontalMachiningBrush, outerVerticalMachiningPath);
 			visualizationPanelGraphics.DrawPath(profilePen, outerVerticalMachiningPath);
 		}
-
-
+		
 		public static void FemaleCollarino(Graphics visualizationPanelGraphics, List<Line> collarinoLines, List<Arc> collarinoArcs)
 		{
 			//Instantiate a specific Pen
