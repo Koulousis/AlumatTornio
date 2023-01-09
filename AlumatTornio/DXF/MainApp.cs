@@ -705,6 +705,14 @@ namespace DXF
 			gCodeFirstSide.AddRange(CodeBlock.FemaleCollarinoProfile(g72CollarinoFacing, firstSideFemaleCollarinoProfilePoints));
 			gCodeFirstSide.AddRange(CodeBlock.LatheEnd());
 
+			for (int i = 0; i < gCodeFirstSide.Count; i++)
+			{
+				if (gCodeFirstSide[i].Contains(','))
+				{
+					gCodeFirstSide[i] = gCodeFirstSide[i].Replace(',', '.');
+				}
+			}
+
 			//Get second side outer horizontal and outer vertical profile points
 			List<ProfilePoint> secondSideOuterHorizontalProfilePoints = Get.ProfilePoints(Parameter.SecondSideHorizontalProfileLines, Parameter.SecondSideHorizontalProfileArcs);
 			List<ProfilePoint> secondSideOuterVerticalProfilePoints = Get.ProfilePoints(Parameter.SecondSideFacingProfile, Parameter.SecondSideOuterVerticalMachiningArcs);
@@ -717,7 +725,15 @@ namespace DXF
 			gCodeSecondSide.AddRange(CodeBlock.OuterHorizontalProfile(g71HorizontalRoughing, secondSideOuterHorizontalProfilePoints));
 			gCodeSecondSide.AddRange(CodeBlock.FemaleCollarinoProfile(g72CollarinoFacing, secondtSideFemaleCollarinoProfilePoints));
 			gCodeSecondSide.AddRange(CodeBlock.LatheEnd());
-			
+
+			for (int i = 0; i < gCodeSecondSide.Count; i++)
+			{
+				if (gCodeSecondSide[i].Contains(','))
+				{
+					gCodeSecondSide[i] = gCodeSecondSide[i].Replace(',', '.');
+				}
+			}
+
 			//Export
 			if (string.IsNullOrEmpty(Settings.Default["ExportFolderPath"].ToString()))
 			{
