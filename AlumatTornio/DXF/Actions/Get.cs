@@ -591,10 +591,20 @@ namespace DXF.Actions
 						lineOnCava = true;
 						cavaLines.Add(line.Clone());
 					}
-					else if(lineOnCava)
+					else if (cavaLines.Count != 0)
 					{
-						break;
-					}	
+						if (Parameter.DieRadius - cavaLines.Min(cavaLine => cavaLine.StartY) > 5)
+						{
+							cavaLines.Clear();
+							lineOnCava = false;
+							lineOnDiameter = line.EndY == Parameter.DieRadius;
+						}
+						else if (lineOnCava)
+						{
+							break;
+						}
+					}
+						
 				}
 			}
 
@@ -606,33 +616,19 @@ namespace DXF.Actions
 			//Create cava lines list
 			List<Arc> cavaArcs = new List<Arc>();
 
-			//Remove lines until the line is on diameter
-			bool lineOnDiameter = false;
-			bool lineOnCava = false;
-			foreach (Line line in lines)
+			//Get the arcs which can be before and after cava in index
+			int firstIndex = lines.Min(line => line.Index) - 1;
+			Arc arcFirst = arcs.Find(arc => arc.Index == firstIndex);
+			if (arcFirst != null)
 			{
-				if (!lineOnDiameter)
-				{
-					lineOnDiameter = line.EndY == Parameter.DieRadius;
-				}
-				else if (lineOnDiameter)
-				{
-					if (line.StartY < Parameter.DieRadius || line.EndY < Parameter.DieRadius)
-					{
-						lineOnCava = true;
-						foreach (Arc arc in arcs)
-						{
-							if ((arc.EndX == line.StartX && arc.EndY == line.StartY) || (arc.StartX == line.EndX && arc.StartY == line.EndY))
-							{
-								cavaArcs.Add(arc.Clone());
-							}
-						}
-					}
-					else if (lineOnCava)
-					{
-						break;
-					}
-				}
+				cavaArcs.Add(arcFirst.Clone());
+			}
+
+			int lastIndex = lines.Max(line => line.Index) + 1;
+			Arc arcLast = arcs.Find(arc => arc.Index == lastIndex);
+			if (arcLast != null)
+			{
+				cavaArcs.Add(arcLast.Clone());
 			}
 
 			return cavaArcs;

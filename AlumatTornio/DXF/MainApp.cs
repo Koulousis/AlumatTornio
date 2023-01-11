@@ -298,13 +298,13 @@ namespace DXF
 			//First side cava profile
 			//
 			List<Line> firstSideCavaLines = Get.CavaLines(Parameter.FirstSideLines);
-			List<Arc> firstSideCavaArcs = Get.CavaArcs(Parameter.FirstSideLines, Parameter.FirstSideArcs);
+			List<Arc> firstSideCavaArcs = Get.CavaArcs(firstSideCavaLines, Parameter.FirstSideArcs);
 
 			//
 			//Second side cava profile
 			//
 			List<Line> secondSideCavaLines = Get.CavaLines(Parameter.SecondSideLines);
-			List<Arc> secondSideCavaArcs = Get.CavaArcs(Parameter.SecondSideLines, Parameter.SecondSideArcs);
+			List<Arc> secondSideCavaArcs = Get.CavaArcs(secondSideCavaLines, Parameter.SecondSideArcs);
 
 			//
 			//First side female collarino profile
