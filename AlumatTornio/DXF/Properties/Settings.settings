@@ -8,34 +8,34 @@
     <Setting Name="ExportFolderPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="G71DepthOfCut" Type="System.Decimal" Scope="User">
+    <Setting Name="DiametricalDepthOfCut" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
-    <Setting Name="G71Retract" Type="System.Decimal" Scope="User">
+    <Setting Name="DiametricalRetract" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
-    <Setting Name="G71XAllowance" Type="System.Decimal" Scope="User">
+    <Setting Name="DiametricalXAllowance" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
-    <Setting Name="G71ZAllowance" Type="System.Decimal" Scope="User">
+    <Setting Name="DiametricalZAllowance" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
-    <Setting Name="G71FeedRate" Type="System.Decimal" Scope="User">
+    <Setting Name="DiametricalFeedRate" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
-    <Setting Name="G72DepthOfCut" Type="System.Decimal" Scope="User">
+    <Setting Name="FacingDepthOfCut" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
-    <Setting Name="G72Retract" Type="System.Decimal" Scope="User">
+    <Setting Name="FacingRetract" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
-    <Setting Name="G72XAllowance" Type="System.Decimal" Scope="User">
+    <Setting Name="FacingXAllowance" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
-    <Setting Name="G72ZAllowance" Type="System.Decimal" Scope="User">
+    <Setting Name="FacingZAllowance" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
-    <Setting Name="G72FeedRate" Type="System.Decimal" Scope="User">
+    <Setting Name="FacingFeedRate" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
     <Setting Name="ChockSize" Type="System.Decimal" Scope="User">
@@ -49,6 +49,36 @@
     </Setting>
     <Setting Name="WorkplaneOriginParameter" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CollarinoDepthOfCut" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="CollarinoRetract" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="CollarinoXAllowance" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="CollarinoZAllowance" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="CollarinoFeedRate" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="CavaDepthOfCut" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="CavaRetract" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="CavaXAllowance" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="CavaZAllowance" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="CavaFeedRate" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

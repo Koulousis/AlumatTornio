@@ -51,28 +51,28 @@ namespace DXF
 			this.banner = new System.Windows.Forms.PictureBox();
 			this.generateCode = new System.Windows.Forms.Button();
 			this.exportProgressBar = new System.Windows.Forms.ProgressBar();
-			this.g71Settings = new System.Windows.Forms.GroupBox();
-			this.g71FeedRateInput = new System.Windows.Forms.NumericUpDown();
-			this.g71ZAllowanceInput = new System.Windows.Forms.NumericUpDown();
-			this.g71XAllowanceInput = new System.Windows.Forms.NumericUpDown();
-			this.g71RetractInput = new System.Windows.Forms.NumericUpDown();
-			this.g71DepthOfCutInput = new System.Windows.Forms.NumericUpDown();
-			this.g71FeedRateLabel = new System.Windows.Forms.Label();
-			this.g71AllowanceZLabel = new System.Windows.Forms.Label();
-			this.g71AllowanceXLabel = new System.Windows.Forms.Label();
-			this.g71RetractLabel = new System.Windows.Forms.Label();
-			this.g71DepthOfCutLabel = new System.Windows.Forms.Label();
-			this.g72Settings = new System.Windows.Forms.GroupBox();
-			this.g72FeedRateInput = new System.Windows.Forms.NumericUpDown();
-			this.g72ZAllowanceInput = new System.Windows.Forms.NumericUpDown();
-			this.g72XAllowanceInput = new System.Windows.Forms.NumericUpDown();
-			this.g72RetractInput = new System.Windows.Forms.NumericUpDown();
-			this.g72DepthOfCutInput = new System.Windows.Forms.NumericUpDown();
-			this.g72FeedRateLabel = new System.Windows.Forms.Label();
-			this.g72AllowanceZLabel = new System.Windows.Forms.Label();
-			this.g72AllowanceXLabel = new System.Windows.Forms.Label();
-			this.g72RetractLabel = new System.Windows.Forms.Label();
-			this.g72DepthOfCutLabel = new System.Windows.Forms.Label();
+			this.diametricalCycleGroup = new System.Windows.Forms.GroupBox();
+			this.diametricalFeedRateInput = new System.Windows.Forms.NumericUpDown();
+			this.diametricalZAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.diametricalXAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.diametricalRetractInput = new System.Windows.Forms.NumericUpDown();
+			this.diametricalDepthOfCutInput = new System.Windows.Forms.NumericUpDown();
+			this.diametricalFeedRateLabel = new System.Windows.Forms.Label();
+			this.diametricalAllowanceZLabel = new System.Windows.Forms.Label();
+			this.diametricalAllowanceXLabel = new System.Windows.Forms.Label();
+			this.diametricalRetractLabel = new System.Windows.Forms.Label();
+			this.diametricalDepthOfCutLabel = new System.Windows.Forms.Label();
+			this.facingCycleGroup = new System.Windows.Forms.GroupBox();
+			this.facingFeedRateInput = new System.Windows.Forms.NumericUpDown();
+			this.facingZAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.facingXAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.facingRetractInput = new System.Windows.Forms.NumericUpDown();
+			this.facingDepthOfCutInput = new System.Windows.Forms.NumericUpDown();
+			this.facingFeedRateLabel = new System.Windows.Forms.Label();
+			this.facingAllowanceZLabel = new System.Windows.Forms.Label();
+			this.facingAllowanceXLabel = new System.Windows.Forms.Label();
+			this.facingRetractLabel = new System.Windows.Forms.Label();
+			this.facingDepthOfCutLabel = new System.Windows.Forms.Label();
 			this.gCodeTextBox = new System.Windows.Forms.RichTextBox();
 			this.fileName = new System.Windows.Forms.Label();
 			this.fileNameLabel = new System.Windows.Forms.Label();
@@ -119,22 +119,44 @@ namespace DXF
 			this.constantSurfaceSpeedLabel = new System.Windows.Forms.Label();
 			this.spindleSpeedLimitInput = new System.Windows.Forms.NumericUpDown();
 			this.speedLimitLabel = new System.Windows.Forms.Label();
+			this.collarinoCycleGroup = new System.Windows.Forms.GroupBox();
+			this.collarinoFeedRateInput = new System.Windows.Forms.NumericUpDown();
+			this.collarinoZAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.collarinoXAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.collarinoRetractInput = new System.Windows.Forms.NumericUpDown();
+			this.collarinoDepthOfCutInput = new System.Windows.Forms.NumericUpDown();
+			this.collarinoFeedRateLabel = new System.Windows.Forms.Label();
+			this.collarinoAllowanceZLabel = new System.Windows.Forms.Label();
+			this.collarinoAllowanceXLabel = new System.Windows.Forms.Label();
+			this.collarinoRetractLabel = new System.Windows.Forms.Label();
+			this.collarinoDepthOfCutLabel = new System.Windows.Forms.Label();
+			this.cavaCycleGroup = new System.Windows.Forms.GroupBox();
+			this.cavaFeedRateInput = new System.Windows.Forms.NumericUpDown();
+			this.cavaZAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.cavaXAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.cavaRetractInput = new System.Windows.Forms.NumericUpDown();
+			this.cavaDepthOfCutInput = new System.Windows.Forms.NumericUpDown();
+			this.cavaFeedRateLabel = new System.Windows.Forms.Label();
+			this.cavaAllowanceZLabel = new System.Windows.Forms.Label();
+			this.cavaAllowanceXLabel = new System.Windows.Forms.Label();
+			this.cavaRetractLabel = new System.Windows.Forms.Label();
+			this.cavaDepthOfCutLabel = new System.Windows.Forms.Label();
 			this.mainAppMenu.SuspendLayout();
 			this.viewSideSelectorGroup.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.banner)).BeginInit();
-			this.g71Settings.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.g71FeedRateInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71ZAllowanceInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71XAllowanceInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71RetractInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71DepthOfCutInput)).BeginInit();
-			this.g72Settings.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.g72FeedRateInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72ZAllowanceInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72XAllowanceInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72RetractInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72DepthOfCutInput)).BeginInit();
+			this.diametricalCycleGroup.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.diametricalFeedRateInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.diametricalZAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.diametricalXAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.diametricalRetractInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.diametricalDepthOfCutInput)).BeginInit();
+			this.facingCycleGroup.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.facingFeedRateInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.facingZAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.facingXAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.facingRetractInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.facingDepthOfCutInput)).BeginInit();
 			this.stockValuesSelectorGroup.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.stockWidthInput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.stockDiameterInput)).BeginInit();
@@ -153,6 +175,18 @@ namespace DXF
 			this.spindleSpeedGroup.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.constantSurfaceSpeedInput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.spindleSpeedLimitInput)).BeginInit();
+			this.collarinoCycleGroup.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoFeedRateInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoZAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoXAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoRetractInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoDepthOfCutInput)).BeginInit();
+			this.cavaCycleGroup.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.cavaFeedRateInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.cavaZAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.cavaXAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.cavaRetractInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.cavaDepthOfCutInput)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// coordinatesLabel
@@ -193,7 +227,7 @@ namespace DXF
 			// fileDxfMenuItem
 			// 
 			this.fileDxfMenuItem.Name = "fileDxfMenuItem";
-			this.fileDxfMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.fileDxfMenuItem.Size = new System.Drawing.Size(95, 22);
 			this.fileDxfMenuItem.Text = "DXF";
 			this.fileDxfMenuItem.Click += new System.EventHandler(this.fileDxfMenuItem_Click);
 			// 
@@ -366,437 +400,437 @@ namespace DXF
 			this.exportProgressBar.Size = new System.Drawing.Size(255, 29);
 			this.exportProgressBar.TabIndex = 6;
 			// 
-			// g71Settings
+			// diametricalCycleGroup
 			// 
-			this.g71Settings.Controls.Add(this.g71FeedRateInput);
-			this.g71Settings.Controls.Add(this.g71ZAllowanceInput);
-			this.g71Settings.Controls.Add(this.g71XAllowanceInput);
-			this.g71Settings.Controls.Add(this.g71RetractInput);
-			this.g71Settings.Controls.Add(this.g71DepthOfCutInput);
-			this.g71Settings.Controls.Add(this.g71FeedRateLabel);
-			this.g71Settings.Controls.Add(this.g71AllowanceZLabel);
-			this.g71Settings.Controls.Add(this.g71AllowanceXLabel);
-			this.g71Settings.Controls.Add(this.g71RetractLabel);
-			this.g71Settings.Controls.Add(this.g71DepthOfCutLabel);
-			this.g71Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.g71Settings.Location = new System.Drawing.Point(8, 6);
-			this.g71Settings.Name = "g71Settings";
-			this.g71Settings.Size = new System.Drawing.Size(163, 174);
-			this.g71Settings.TabIndex = 7;
-			this.g71Settings.TabStop = false;
-			this.g71Settings.Text = "G71 Roughing Cycle";
+			this.diametricalCycleGroup.Controls.Add(this.diametricalFeedRateInput);
+			this.diametricalCycleGroup.Controls.Add(this.diametricalZAllowanceInput);
+			this.diametricalCycleGroup.Controls.Add(this.diametricalXAllowanceInput);
+			this.diametricalCycleGroup.Controls.Add(this.diametricalRetractInput);
+			this.diametricalCycleGroup.Controls.Add(this.diametricalDepthOfCutInput);
+			this.diametricalCycleGroup.Controls.Add(this.diametricalFeedRateLabel);
+			this.diametricalCycleGroup.Controls.Add(this.diametricalAllowanceZLabel);
+			this.diametricalCycleGroup.Controls.Add(this.diametricalAllowanceXLabel);
+			this.diametricalCycleGroup.Controls.Add(this.diametricalRetractLabel);
+			this.diametricalCycleGroup.Controls.Add(this.diametricalDepthOfCutLabel);
+			this.diametricalCycleGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.diametricalCycleGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.diametricalCycleGroup.Location = new System.Drawing.Point(8, 6);
+			this.diametricalCycleGroup.Name = "diametricalCycleGroup";
+			this.diametricalCycleGroup.Size = new System.Drawing.Size(163, 174);
+			this.diametricalCycleGroup.TabIndex = 7;
+			this.diametricalCycleGroup.TabStop = false;
+			this.diametricalCycleGroup.Text = "Diametrical Cycle";
 			// 
-			// g71FeedRateInput
+			// diametricalFeedRateInput
 			// 
-			this.g71FeedRateInput.DecimalPlaces = 2;
-			this.g71FeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71FeedRateInput.Increment = new decimal(new int[] {
+			this.diametricalFeedRateInput.DecimalPlaces = 2;
+			this.diametricalFeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.diametricalFeedRateInput.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g71FeedRateInput.Location = new System.Drawing.Point(100, 140);
-			this.g71FeedRateInput.Maximum = new decimal(new int[] {
+			this.diametricalFeedRateInput.Location = new System.Drawing.Point(100, 140);
+			this.diametricalFeedRateInput.Maximum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-			this.g71FeedRateInput.Minimum = new decimal(new int[] {
+			this.diametricalFeedRateInput.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-			this.g71FeedRateInput.Name = "g71FeedRateInput";
-			this.g71FeedRateInput.Size = new System.Drawing.Size(53, 26);
-			this.g71FeedRateInput.TabIndex = 9;
-			this.g71FeedRateInput.Value = new decimal(new int[] {
+			this.diametricalFeedRateInput.Name = "diametricalFeedRateInput";
+			this.diametricalFeedRateInput.Size = new System.Drawing.Size(53, 26);
+			this.diametricalFeedRateInput.TabIndex = 9;
+			this.diametricalFeedRateInput.Value = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g71FeedRateInput.ValueChanged += new System.EventHandler(this.g71FeedRateInput_ValueChanged);
+			this.diametricalFeedRateInput.ValueChanged += new System.EventHandler(this.diametricalFeedRateInput_ValueChanged);
 			// 
-			// g71ZAllowanceInput
+			// diametricalZAllowanceInput
 			// 
-			this.g71ZAllowanceInput.DecimalPlaces = 2;
-			this.g71ZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71ZAllowanceInput.Increment = new decimal(new int[] {
+			this.diametricalZAllowanceInput.DecimalPlaces = 2;
+			this.diametricalZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.diametricalZAllowanceInput.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g71ZAllowanceInput.Location = new System.Drawing.Point(100, 110);
-			this.g71ZAllowanceInput.Maximum = new decimal(new int[] {
+			this.diametricalZAllowanceInput.Location = new System.Drawing.Point(100, 110);
+			this.diametricalZAllowanceInput.Maximum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-			this.g71ZAllowanceInput.Name = "g71ZAllowanceInput";
-			this.g71ZAllowanceInput.Size = new System.Drawing.Size(53, 26);
-			this.g71ZAllowanceInput.TabIndex = 8;
-			this.g71ZAllowanceInput.Value = new decimal(new int[] {
+			this.diametricalZAllowanceInput.Name = "diametricalZAllowanceInput";
+			this.diametricalZAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.diametricalZAllowanceInput.TabIndex = 8;
+			this.diametricalZAllowanceInput.Value = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g71ZAllowanceInput.ValueChanged += new System.EventHandler(this.g71ZAllowanceInput_ValueChanged);
+			this.diametricalZAllowanceInput.ValueChanged += new System.EventHandler(this.diametricalZAllowanceInput_ValueChanged);
 			// 
-			// g71XAllowanceInput
+			// diametricalXAllowanceInput
 			// 
-			this.g71XAllowanceInput.DecimalPlaces = 2;
-			this.g71XAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71XAllowanceInput.Increment = new decimal(new int[] {
+			this.diametricalXAllowanceInput.DecimalPlaces = 2;
+			this.diametricalXAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.diametricalXAllowanceInput.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g71XAllowanceInput.Location = new System.Drawing.Point(100, 80);
-			this.g71XAllowanceInput.Maximum = new decimal(new int[] {
+			this.diametricalXAllowanceInput.Location = new System.Drawing.Point(100, 80);
+			this.diametricalXAllowanceInput.Maximum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-			this.g71XAllowanceInput.Name = "g71XAllowanceInput";
-			this.g71XAllowanceInput.Size = new System.Drawing.Size(53, 26);
-			this.g71XAllowanceInput.TabIndex = 7;
-			this.g71XAllowanceInput.Value = new decimal(new int[] {
+			this.diametricalXAllowanceInput.Name = "diametricalXAllowanceInput";
+			this.diametricalXAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.diametricalXAllowanceInput.TabIndex = 7;
+			this.diametricalXAllowanceInput.Value = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g71XAllowanceInput.ValueChanged += new System.EventHandler(this.g71XAllowanceInput_ValueChanged);
+			this.diametricalXAllowanceInput.ValueChanged += new System.EventHandler(this.diametricalXAllowanceInput_ValueChanged);
 			// 
-			// g71RetractInput
+			// diametricalRetractInput
 			// 
-			this.g71RetractInput.DecimalPlaces = 2;
-			this.g71RetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71RetractInput.Increment = new decimal(new int[] {
+			this.diametricalRetractInput.DecimalPlaces = 2;
+			this.diametricalRetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.diametricalRetractInput.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g71RetractInput.Location = new System.Drawing.Point(100, 50);
-			this.g71RetractInput.Maximum = new decimal(new int[] {
+			this.diametricalRetractInput.Location = new System.Drawing.Point(100, 50);
+			this.diametricalRetractInput.Maximum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-			this.g71RetractInput.Minimum = new decimal(new int[] {
+			this.diametricalRetractInput.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-			this.g71RetractInput.Name = "g71RetractInput";
-			this.g71RetractInput.Size = new System.Drawing.Size(53, 26);
-			this.g71RetractInput.TabIndex = 6;
-			this.g71RetractInput.Value = new decimal(new int[] {
+			this.diametricalRetractInput.Name = "diametricalRetractInput";
+			this.diametricalRetractInput.Size = new System.Drawing.Size(53, 26);
+			this.diametricalRetractInput.TabIndex = 6;
+			this.diametricalRetractInput.Value = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g71RetractInput.ValueChanged += new System.EventHandler(this.g71RetractInput_ValueChanged);
+			this.diametricalRetractInput.ValueChanged += new System.EventHandler(this.diametricalRetractInput_ValueChanged);
 			// 
-			// g71DepthOfCutInput
+			// diametricalDepthOfCutInput
 			// 
-			this.g71DepthOfCutInput.DecimalPlaces = 2;
-			this.g71DepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71DepthOfCutInput.Increment = new decimal(new int[] {
+			this.diametricalDepthOfCutInput.DecimalPlaces = 2;
+			this.diametricalDepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.diametricalDepthOfCutInput.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g71DepthOfCutInput.Location = new System.Drawing.Point(100, 20);
-			this.g71DepthOfCutInput.Maximum = new decimal(new int[] {
+			this.diametricalDepthOfCutInput.Location = new System.Drawing.Point(100, 20);
+			this.diametricalDepthOfCutInput.Maximum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-			this.g71DepthOfCutInput.Minimum = new decimal(new int[] {
+			this.diametricalDepthOfCutInput.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-			this.g71DepthOfCutInput.Name = "g71DepthOfCutInput";
-			this.g71DepthOfCutInput.Size = new System.Drawing.Size(53, 26);
-			this.g71DepthOfCutInput.TabIndex = 5;
-			this.g71DepthOfCutInput.Value = new decimal(new int[] {
+			this.diametricalDepthOfCutInput.Name = "diametricalDepthOfCutInput";
+			this.diametricalDepthOfCutInput.Size = new System.Drawing.Size(53, 26);
+			this.diametricalDepthOfCutInput.TabIndex = 5;
+			this.diametricalDepthOfCutInput.Value = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g71DepthOfCutInput.ValueChanged += new System.EventHandler(this.g71DepthOfCutInput_ValueChanged);
+			this.diametricalDepthOfCutInput.ValueChanged += new System.EventHandler(this.diametricalDepthOfCutInput_ValueChanged);
 			// 
-			// g71FeedRateLabel
+			// diametricalFeedRateLabel
 			// 
-			this.g71FeedRateLabel.AutoSize = true;
-			this.g71FeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71FeedRateLabel.ForeColor = System.Drawing.Color.Black;
-			this.g71FeedRateLabel.Location = new System.Drawing.Point(25, 145);
-			this.g71FeedRateLabel.Name = "g71FeedRateLabel";
-			this.g71FeedRateLabel.Size = new System.Drawing.Size(69, 16);
-			this.g71FeedRateLabel.TabIndex = 4;
-			this.g71FeedRateLabel.Text = "Feed rate:";
+			this.diametricalFeedRateLabel.AutoSize = true;
+			this.diametricalFeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.diametricalFeedRateLabel.ForeColor = System.Drawing.Color.Black;
+			this.diametricalFeedRateLabel.Location = new System.Drawing.Point(25, 145);
+			this.diametricalFeedRateLabel.Name = "diametricalFeedRateLabel";
+			this.diametricalFeedRateLabel.Size = new System.Drawing.Size(69, 16);
+			this.diametricalFeedRateLabel.TabIndex = 4;
+			this.diametricalFeedRateLabel.Text = "Feed rate:";
 			// 
-			// g71AllowanceZLabel
+			// diametricalAllowanceZLabel
 			// 
-			this.g71AllowanceZLabel.AutoSize = true;
-			this.g71AllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71AllowanceZLabel.ForeColor = System.Drawing.Color.Black;
-			this.g71AllowanceZLabel.Location = new System.Drawing.Point(10, 115);
-			this.g71AllowanceZLabel.Name = "g71AllowanceZLabel";
-			this.g71AllowanceZLabel.Size = new System.Drawing.Size(84, 16);
-			this.g71AllowanceZLabel.TabIndex = 3;
-			this.g71AllowanceZLabel.Text = "Z Allowance:";
+			this.diametricalAllowanceZLabel.AutoSize = true;
+			this.diametricalAllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.diametricalAllowanceZLabel.ForeColor = System.Drawing.Color.Black;
+			this.diametricalAllowanceZLabel.Location = new System.Drawing.Point(10, 115);
+			this.diametricalAllowanceZLabel.Name = "diametricalAllowanceZLabel";
+			this.diametricalAllowanceZLabel.Size = new System.Drawing.Size(84, 16);
+			this.diametricalAllowanceZLabel.TabIndex = 3;
+			this.diametricalAllowanceZLabel.Text = "Z Allowance:";
 			// 
-			// g71AllowanceXLabel
+			// diametricalAllowanceXLabel
 			// 
-			this.g71AllowanceXLabel.AutoSize = true;
-			this.g71AllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71AllowanceXLabel.ForeColor = System.Drawing.Color.Black;
-			this.g71AllowanceXLabel.Location = new System.Drawing.Point(10, 85);
-			this.g71AllowanceXLabel.Name = "g71AllowanceXLabel";
-			this.g71AllowanceXLabel.Size = new System.Drawing.Size(84, 16);
-			this.g71AllowanceXLabel.TabIndex = 2;
-			this.g71AllowanceXLabel.Text = "X Allowance:";
+			this.diametricalAllowanceXLabel.AutoSize = true;
+			this.diametricalAllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.diametricalAllowanceXLabel.ForeColor = System.Drawing.Color.Black;
+			this.diametricalAllowanceXLabel.Location = new System.Drawing.Point(10, 85);
+			this.diametricalAllowanceXLabel.Name = "diametricalAllowanceXLabel";
+			this.diametricalAllowanceXLabel.Size = new System.Drawing.Size(84, 16);
+			this.diametricalAllowanceXLabel.TabIndex = 2;
+			this.diametricalAllowanceXLabel.Text = "X Allowance:";
 			// 
-			// g71RetractLabel
+			// diametricalRetractLabel
 			// 
-			this.g71RetractLabel.AutoSize = true;
-			this.g71RetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71RetractLabel.ForeColor = System.Drawing.Color.Black;
-			this.g71RetractLabel.Location = new System.Drawing.Point(4, 55);
-			this.g71RetractLabel.Name = "g71RetractLabel";
-			this.g71RetractLabel.Size = new System.Drawing.Size(90, 16);
-			this.g71RetractLabel.TabIndex = 1;
-			this.g71RetractLabel.Text = "Retract value:";
+			this.diametricalRetractLabel.AutoSize = true;
+			this.diametricalRetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.diametricalRetractLabel.ForeColor = System.Drawing.Color.Black;
+			this.diametricalRetractLabel.Location = new System.Drawing.Point(4, 55);
+			this.diametricalRetractLabel.Name = "diametricalRetractLabel";
+			this.diametricalRetractLabel.Size = new System.Drawing.Size(90, 16);
+			this.diametricalRetractLabel.TabIndex = 1;
+			this.diametricalRetractLabel.Text = "Retract value:";
 			// 
-			// g71DepthOfCutLabel
+			// diametricalDepthOfCutLabel
 			// 
-			this.g71DepthOfCutLabel.AutoSize = true;
-			this.g71DepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g71DepthOfCutLabel.ForeColor = System.Drawing.Color.Black;
-			this.g71DepthOfCutLabel.Location = new System.Drawing.Point(13, 25);
-			this.g71DepthOfCutLabel.Name = "g71DepthOfCutLabel";
-			this.g71DepthOfCutLabel.Size = new System.Drawing.Size(81, 16);
-			this.g71DepthOfCutLabel.TabIndex = 0;
-			this.g71DepthOfCutLabel.Text = "Depth of cut:";
+			this.diametricalDepthOfCutLabel.AutoSize = true;
+			this.diametricalDepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.diametricalDepthOfCutLabel.ForeColor = System.Drawing.Color.Black;
+			this.diametricalDepthOfCutLabel.Location = new System.Drawing.Point(13, 25);
+			this.diametricalDepthOfCutLabel.Name = "diametricalDepthOfCutLabel";
+			this.diametricalDepthOfCutLabel.Size = new System.Drawing.Size(81, 16);
+			this.diametricalDepthOfCutLabel.TabIndex = 0;
+			this.diametricalDepthOfCutLabel.Text = "Depth of cut:";
 			// 
-			// g72Settings
+			// facingCycleGroup
 			// 
-			this.g72Settings.Controls.Add(this.g72FeedRateInput);
-			this.g72Settings.Controls.Add(this.g72ZAllowanceInput);
-			this.g72Settings.Controls.Add(this.g72XAllowanceInput);
-			this.g72Settings.Controls.Add(this.g72RetractInput);
-			this.g72Settings.Controls.Add(this.g72DepthOfCutInput);
-			this.g72Settings.Controls.Add(this.g72FeedRateLabel);
-			this.g72Settings.Controls.Add(this.g72AllowanceZLabel);
-			this.g72Settings.Controls.Add(this.g72AllowanceXLabel);
-			this.g72Settings.Controls.Add(this.g72RetractLabel);
-			this.g72Settings.Controls.Add(this.g72DepthOfCutLabel);
-			this.g72Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.g72Settings.Location = new System.Drawing.Point(177, 6);
-			this.g72Settings.Name = "g72Settings";
-			this.g72Settings.Size = new System.Drawing.Size(163, 174);
-			this.g72Settings.TabIndex = 10;
-			this.g72Settings.TabStop = false;
-			this.g72Settings.Text = "G72 Facing Cycle";
+			this.facingCycleGroup.Controls.Add(this.facingFeedRateInput);
+			this.facingCycleGroup.Controls.Add(this.facingZAllowanceInput);
+			this.facingCycleGroup.Controls.Add(this.facingXAllowanceInput);
+			this.facingCycleGroup.Controls.Add(this.facingRetractInput);
+			this.facingCycleGroup.Controls.Add(this.facingDepthOfCutInput);
+			this.facingCycleGroup.Controls.Add(this.facingFeedRateLabel);
+			this.facingCycleGroup.Controls.Add(this.facingAllowanceZLabel);
+			this.facingCycleGroup.Controls.Add(this.facingAllowanceXLabel);
+			this.facingCycleGroup.Controls.Add(this.facingRetractLabel);
+			this.facingCycleGroup.Controls.Add(this.facingDepthOfCutLabel);
+			this.facingCycleGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.facingCycleGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.facingCycleGroup.Location = new System.Drawing.Point(205, 6);
+			this.facingCycleGroup.Name = "facingCycleGroup";
+			this.facingCycleGroup.Size = new System.Drawing.Size(163, 174);
+			this.facingCycleGroup.TabIndex = 10;
+			this.facingCycleGroup.TabStop = false;
+			this.facingCycleGroup.Text = "Facing Cycle";
 			// 
-			// g72FeedRateInput
+			// facingFeedRateInput
 			// 
-			this.g72FeedRateInput.DecimalPlaces = 2;
-			this.g72FeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72FeedRateInput.Increment = new decimal(new int[] {
+			this.facingFeedRateInput.DecimalPlaces = 2;
+			this.facingFeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.facingFeedRateInput.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g72FeedRateInput.Location = new System.Drawing.Point(100, 140);
-			this.g72FeedRateInput.Maximum = new decimal(new int[] {
+			this.facingFeedRateInput.Location = new System.Drawing.Point(100, 140);
+			this.facingFeedRateInput.Maximum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-			this.g72FeedRateInput.Minimum = new decimal(new int[] {
+			this.facingFeedRateInput.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-			this.g72FeedRateInput.Name = "g72FeedRateInput";
-			this.g72FeedRateInput.Size = new System.Drawing.Size(53, 26);
-			this.g72FeedRateInput.TabIndex = 9;
-			this.g72FeedRateInput.Value = new decimal(new int[] {
+			this.facingFeedRateInput.Name = "facingFeedRateInput";
+			this.facingFeedRateInput.Size = new System.Drawing.Size(53, 26);
+			this.facingFeedRateInput.TabIndex = 9;
+			this.facingFeedRateInput.Value = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g72FeedRateInput.ValueChanged += new System.EventHandler(this.g72FeedRateInput_ValueChanged);
+			this.facingFeedRateInput.ValueChanged += new System.EventHandler(this.facingFeedRateInput_ValueChanged);
 			// 
-			// g72ZAllowanceInput
+			// facingZAllowanceInput
 			// 
-			this.g72ZAllowanceInput.DecimalPlaces = 2;
-			this.g72ZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72ZAllowanceInput.Increment = new decimal(new int[] {
+			this.facingZAllowanceInput.DecimalPlaces = 2;
+			this.facingZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.facingZAllowanceInput.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g72ZAllowanceInput.Location = new System.Drawing.Point(100, 110);
-			this.g72ZAllowanceInput.Maximum = new decimal(new int[] {
+			this.facingZAllowanceInput.Location = new System.Drawing.Point(100, 110);
+			this.facingZAllowanceInput.Maximum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-			this.g72ZAllowanceInput.Name = "g72ZAllowanceInput";
-			this.g72ZAllowanceInput.Size = new System.Drawing.Size(53, 26);
-			this.g72ZAllowanceInput.TabIndex = 8;
-			this.g72ZAllowanceInput.Value = new decimal(new int[] {
+			this.facingZAllowanceInput.Name = "facingZAllowanceInput";
+			this.facingZAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.facingZAllowanceInput.TabIndex = 8;
+			this.facingZAllowanceInput.Value = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g72ZAllowanceInput.ValueChanged += new System.EventHandler(this.g72ZAllowanceInput_ValueChanged);
+			this.facingZAllowanceInput.ValueChanged += new System.EventHandler(this.facingZAllowanceInput_ValueChanged);
 			// 
-			// g72XAllowanceInput
+			// facingXAllowanceInput
 			// 
-			this.g72XAllowanceInput.DecimalPlaces = 2;
-			this.g72XAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72XAllowanceInput.Increment = new decimal(new int[] {
+			this.facingXAllowanceInput.DecimalPlaces = 2;
+			this.facingXAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.facingXAllowanceInput.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g72XAllowanceInput.Location = new System.Drawing.Point(100, 80);
-			this.g72XAllowanceInput.Maximum = new decimal(new int[] {
+			this.facingXAllowanceInput.Location = new System.Drawing.Point(100, 80);
+			this.facingXAllowanceInput.Maximum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-			this.g72XAllowanceInput.Name = "g72XAllowanceInput";
-			this.g72XAllowanceInput.Size = new System.Drawing.Size(53, 26);
-			this.g72XAllowanceInput.TabIndex = 7;
-			this.g72XAllowanceInput.Value = new decimal(new int[] {
+			this.facingXAllowanceInput.Name = "facingXAllowanceInput";
+			this.facingXAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.facingXAllowanceInput.TabIndex = 7;
+			this.facingXAllowanceInput.Value = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g72XAllowanceInput.ValueChanged += new System.EventHandler(this.g72XAllowanceInput_ValueChanged);
+			this.facingXAllowanceInput.ValueChanged += new System.EventHandler(this.facingXAllowanceInput_ValueChanged);
 			// 
-			// g72RetractInput
+			// facingRetractInput
 			// 
-			this.g72RetractInput.DecimalPlaces = 2;
-			this.g72RetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72RetractInput.Increment = new decimal(new int[] {
+			this.facingRetractInput.DecimalPlaces = 2;
+			this.facingRetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.facingRetractInput.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g72RetractInput.Location = new System.Drawing.Point(100, 50);
-			this.g72RetractInput.Maximum = new decimal(new int[] {
+			this.facingRetractInput.Location = new System.Drawing.Point(100, 50);
+			this.facingRetractInput.Maximum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-			this.g72RetractInput.Minimum = new decimal(new int[] {
+			this.facingRetractInput.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-			this.g72RetractInput.Name = "g72RetractInput";
-			this.g72RetractInput.Size = new System.Drawing.Size(53, 26);
-			this.g72RetractInput.TabIndex = 6;
-			this.g72RetractInput.Value = new decimal(new int[] {
+			this.facingRetractInput.Name = "facingRetractInput";
+			this.facingRetractInput.Size = new System.Drawing.Size(53, 26);
+			this.facingRetractInput.TabIndex = 6;
+			this.facingRetractInput.Value = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g72RetractInput.ValueChanged += new System.EventHandler(this.g72RetractInput_ValueChanged);
+			this.facingRetractInput.ValueChanged += new System.EventHandler(this.facingRetractInput_ValueChanged);
 			// 
-			// g72DepthOfCutInput
+			// facingDepthOfCutInput
 			// 
-			this.g72DepthOfCutInput.DecimalPlaces = 2;
-			this.g72DepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72DepthOfCutInput.Increment = new decimal(new int[] {
+			this.facingDepthOfCutInput.DecimalPlaces = 2;
+			this.facingDepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.facingDepthOfCutInput.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g72DepthOfCutInput.Location = new System.Drawing.Point(100, 20);
-			this.g72DepthOfCutInput.Maximum = new decimal(new int[] {
+			this.facingDepthOfCutInput.Location = new System.Drawing.Point(100, 20);
+			this.facingDepthOfCutInput.Maximum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-			this.g72DepthOfCutInput.Minimum = new decimal(new int[] {
+			this.facingDepthOfCutInput.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-			this.g72DepthOfCutInput.Name = "g72DepthOfCutInput";
-			this.g72DepthOfCutInput.Size = new System.Drawing.Size(53, 26);
-			this.g72DepthOfCutInput.TabIndex = 5;
-			this.g72DepthOfCutInput.Value = new decimal(new int[] {
+			this.facingDepthOfCutInput.Name = "facingDepthOfCutInput";
+			this.facingDepthOfCutInput.Size = new System.Drawing.Size(53, 26);
+			this.facingDepthOfCutInput.TabIndex = 5;
+			this.facingDepthOfCutInput.Value = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-			this.g72DepthOfCutInput.ValueChanged += new System.EventHandler(this.g72DepthOfCutInput_ValueChanged);
+			this.facingDepthOfCutInput.ValueChanged += new System.EventHandler(this.facingDepthOfCutInput_ValueChanged);
 			// 
-			// g72FeedRateLabel
+			// facingFeedRateLabel
 			// 
-			this.g72FeedRateLabel.AutoSize = true;
-			this.g72FeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72FeedRateLabel.ForeColor = System.Drawing.Color.Black;
-			this.g72FeedRateLabel.Location = new System.Drawing.Point(25, 145);
-			this.g72FeedRateLabel.Name = "g72FeedRateLabel";
-			this.g72FeedRateLabel.Size = new System.Drawing.Size(69, 16);
-			this.g72FeedRateLabel.TabIndex = 4;
-			this.g72FeedRateLabel.Text = "Feed rate:";
+			this.facingFeedRateLabel.AutoSize = true;
+			this.facingFeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.facingFeedRateLabel.ForeColor = System.Drawing.Color.Black;
+			this.facingFeedRateLabel.Location = new System.Drawing.Point(25, 145);
+			this.facingFeedRateLabel.Name = "facingFeedRateLabel";
+			this.facingFeedRateLabel.Size = new System.Drawing.Size(69, 16);
+			this.facingFeedRateLabel.TabIndex = 4;
+			this.facingFeedRateLabel.Text = "Feed rate:";
 			// 
-			// g72AllowanceZLabel
+			// facingAllowanceZLabel
 			// 
-			this.g72AllowanceZLabel.AutoSize = true;
-			this.g72AllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72AllowanceZLabel.ForeColor = System.Drawing.Color.Black;
-			this.g72AllowanceZLabel.Location = new System.Drawing.Point(10, 115);
-			this.g72AllowanceZLabel.Name = "g72AllowanceZLabel";
-			this.g72AllowanceZLabel.Size = new System.Drawing.Size(84, 16);
-			this.g72AllowanceZLabel.TabIndex = 3;
-			this.g72AllowanceZLabel.Text = "Z Allowance:";
+			this.facingAllowanceZLabel.AutoSize = true;
+			this.facingAllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.facingAllowanceZLabel.ForeColor = System.Drawing.Color.Black;
+			this.facingAllowanceZLabel.Location = new System.Drawing.Point(10, 115);
+			this.facingAllowanceZLabel.Name = "facingAllowanceZLabel";
+			this.facingAllowanceZLabel.Size = new System.Drawing.Size(84, 16);
+			this.facingAllowanceZLabel.TabIndex = 3;
+			this.facingAllowanceZLabel.Text = "Z Allowance:";
 			// 
-			// g72AllowanceXLabel
+			// facingAllowanceXLabel
 			// 
-			this.g72AllowanceXLabel.AutoSize = true;
-			this.g72AllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72AllowanceXLabel.ForeColor = System.Drawing.Color.Black;
-			this.g72AllowanceXLabel.Location = new System.Drawing.Point(10, 85);
-			this.g72AllowanceXLabel.Name = "g72AllowanceXLabel";
-			this.g72AllowanceXLabel.Size = new System.Drawing.Size(84, 16);
-			this.g72AllowanceXLabel.TabIndex = 2;
-			this.g72AllowanceXLabel.Text = "X Allowance:";
+			this.facingAllowanceXLabel.AutoSize = true;
+			this.facingAllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.facingAllowanceXLabel.ForeColor = System.Drawing.Color.Black;
+			this.facingAllowanceXLabel.Location = new System.Drawing.Point(10, 85);
+			this.facingAllowanceXLabel.Name = "facingAllowanceXLabel";
+			this.facingAllowanceXLabel.Size = new System.Drawing.Size(84, 16);
+			this.facingAllowanceXLabel.TabIndex = 2;
+			this.facingAllowanceXLabel.Text = "X Allowance:";
 			// 
-			// g72RetractLabel
+			// facingRetractLabel
 			// 
-			this.g72RetractLabel.AutoSize = true;
-			this.g72RetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72RetractLabel.ForeColor = System.Drawing.Color.Black;
-			this.g72RetractLabel.Location = new System.Drawing.Point(6, 55);
-			this.g72RetractLabel.Name = "g72RetractLabel";
-			this.g72RetractLabel.Size = new System.Drawing.Size(90, 16);
-			this.g72RetractLabel.TabIndex = 1;
-			this.g72RetractLabel.Text = "Retract value:";
+			this.facingRetractLabel.AutoSize = true;
+			this.facingRetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.facingRetractLabel.ForeColor = System.Drawing.Color.Black;
+			this.facingRetractLabel.Location = new System.Drawing.Point(6, 55);
+			this.facingRetractLabel.Name = "facingRetractLabel";
+			this.facingRetractLabel.Size = new System.Drawing.Size(90, 16);
+			this.facingRetractLabel.TabIndex = 1;
+			this.facingRetractLabel.Text = "Retract value:";
 			// 
-			// g72DepthOfCutLabel
+			// facingDepthOfCutLabel
 			// 
-			this.g72DepthOfCutLabel.AutoSize = true;
-			this.g72DepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.g72DepthOfCutLabel.ForeColor = System.Drawing.Color.Black;
-			this.g72DepthOfCutLabel.Location = new System.Drawing.Point(13, 25);
-			this.g72DepthOfCutLabel.Name = "g72DepthOfCutLabel";
-			this.g72DepthOfCutLabel.Size = new System.Drawing.Size(81, 16);
-			this.g72DepthOfCutLabel.TabIndex = 0;
-			this.g72DepthOfCutLabel.Text = "Depth of cut:";
+			this.facingDepthOfCutLabel.AutoSize = true;
+			this.facingDepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.facingDepthOfCutLabel.ForeColor = System.Drawing.Color.Black;
+			this.facingDepthOfCutLabel.Location = new System.Drawing.Point(13, 25);
+			this.facingDepthOfCutLabel.Name = "facingDepthOfCutLabel";
+			this.facingDepthOfCutLabel.Size = new System.Drawing.Size(81, 16);
+			this.facingDepthOfCutLabel.TabIndex = 0;
+			this.facingDepthOfCutLabel.Text = "Depth of cut:";
 			// 
 			// gCodeTextBox
 			// 
@@ -1314,10 +1348,12 @@ namespace DXF
 			// tabSettings
 			// 
 			this.tabSettings.BackColor = System.Drawing.SystemColors.WindowFrame;
+			this.tabSettings.Controls.Add(this.cavaCycleGroup);
+			this.tabSettings.Controls.Add(this.collarinoCycleGroup);
 			this.tabSettings.Controls.Add(this.workplaneOriginGroup);
 			this.tabSettings.Controls.Add(this.spindleSpeedGroup);
-			this.tabSettings.Controls.Add(this.g71Settings);
-			this.tabSettings.Controls.Add(this.g72Settings);
+			this.tabSettings.Controls.Add(this.diametricalCycleGroup);
+			this.tabSettings.Controls.Add(this.facingCycleGroup);
 			this.tabSettings.Location = new System.Drawing.Point(4, 22);
 			this.tabSettings.Name = "tabSettings";
 			this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
@@ -1331,16 +1367,16 @@ namespace DXF
 			this.workplaneOriginGroup.Controls.Add(this.workplaneOriginLabel);
 			this.workplaneOriginGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
 			this.workplaneOriginGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.workplaneOriginGroup.Location = new System.Drawing.Point(352, 103);
+			this.workplaneOriginGroup.Location = new System.Drawing.Point(277, 188);
 			this.workplaneOriginGroup.Name = "workplaneOriginGroup";
-			this.workplaneOriginGroup.Size = new System.Drawing.Size(420, 77);
+			this.workplaneOriginGroup.Size = new System.Drawing.Size(492, 90);
 			this.workplaneOriginGroup.TabIndex = 25;
 			this.workplaneOriginGroup.TabStop = false;
 			this.workplaneOriginGroup.Text = "Workplane origin";
 			// 
 			// workplaneOriginParameterInput
 			// 
-			this.workplaneOriginParameterInput.Location = new System.Drawing.Point(272, 31);
+			this.workplaneOriginParameterInput.Location = new System.Drawing.Point(335, 37);
 			this.workplaneOriginParameterInput.MaxLength = 18;
 			this.workplaneOriginParameterInput.Name = "workplaneOriginParameterInput";
 			this.workplaneOriginParameterInput.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -1353,11 +1389,11 @@ namespace DXF
 			this.workplaneOriginLabel.AutoSize = true;
 			this.workplaneOriginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.workplaneOriginLabel.ForeColor = System.Drawing.Color.Black;
-			this.workplaneOriginLabel.Location = new System.Drawing.Point(19, 34);
+			this.workplaneOriginLabel.Location = new System.Drawing.Point(19, 40);
 			this.workplaneOriginLabel.Name = "workplaneOriginLabel";
-			this.workplaneOriginLabel.Size = new System.Drawing.Size(247, 16);
+			this.workplaneOriginLabel.Size = new System.Drawing.Size(312, 16);
 			this.workplaneOriginLabel.TabIndex = 6;
-			this.workplaneOriginLabel.Text = "Workplane origin parameter (ex: #5222) :";
+			this.workplaneOriginLabel.Text = "Workplane origin parameter of machine(ex: #5222) :";
 			// 
 			// spindleSpeedGroup
 			// 
@@ -1367,7 +1403,7 @@ namespace DXF
 			this.spindleSpeedGroup.Controls.Add(this.speedLimitLabel);
 			this.spindleSpeedGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
 			this.spindleSpeedGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.spindleSpeedGroup.Location = new System.Drawing.Point(352, 7);
+			this.spindleSpeedGroup.Location = new System.Drawing.Point(8, 188);
 			this.spindleSpeedGroup.Name = "spindleSpeedGroup";
 			this.spindleSpeedGroup.Size = new System.Drawing.Size(261, 90);
 			this.spindleSpeedGroup.TabIndex = 24;
@@ -1446,6 +1482,438 @@ namespace DXF
 			this.speedLimitLabel.TabIndex = 6;
 			this.speedLimitLabel.Text = "Spindle speed limit :";
 			// 
+			// collarinoCycleGroup
+			// 
+			this.collarinoCycleGroup.Controls.Add(this.collarinoFeedRateInput);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoZAllowanceInput);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoXAllowanceInput);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoRetractInput);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoDepthOfCutInput);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoFeedRateLabel);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoAllowanceZLabel);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoAllowanceXLabel);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoRetractLabel);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoDepthOfCutLabel);
+			this.collarinoCycleGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoCycleGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.collarinoCycleGroup.Location = new System.Drawing.Point(405, 6);
+			this.collarinoCycleGroup.Name = "collarinoCycleGroup";
+			this.collarinoCycleGroup.Size = new System.Drawing.Size(163, 174);
+			this.collarinoCycleGroup.TabIndex = 11;
+			this.collarinoCycleGroup.TabStop = false;
+			this.collarinoCycleGroup.Text = "Collarino Cycle";
+			// 
+			// collarinoFeedRateInput
+			// 
+			this.collarinoFeedRateInput.DecimalPlaces = 2;
+			this.collarinoFeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoFeedRateInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoFeedRateInput.Location = new System.Drawing.Point(100, 140);
+			this.collarinoFeedRateInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.collarinoFeedRateInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.collarinoFeedRateInput.Name = "collarinoFeedRateInput";
+			this.collarinoFeedRateInput.Size = new System.Drawing.Size(53, 26);
+			this.collarinoFeedRateInput.TabIndex = 9;
+			this.collarinoFeedRateInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoFeedRateInput.ValueChanged += new System.EventHandler(this.collarinoFeedRateInput_ValueChanged);
+			// 
+			// collarinoZAllowanceInput
+			// 
+			this.collarinoZAllowanceInput.DecimalPlaces = 2;
+			this.collarinoZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoZAllowanceInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoZAllowanceInput.Location = new System.Drawing.Point(100, 110);
+			this.collarinoZAllowanceInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.collarinoZAllowanceInput.Name = "collarinoZAllowanceInput";
+			this.collarinoZAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.collarinoZAllowanceInput.TabIndex = 8;
+			this.collarinoZAllowanceInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoZAllowanceInput.ValueChanged += new System.EventHandler(this.collarinoZAllowanceInput_ValueChanged);
+			// 
+			// collarinoXAllowanceInput
+			// 
+			this.collarinoXAllowanceInput.DecimalPlaces = 2;
+			this.collarinoXAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoXAllowanceInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoXAllowanceInput.Location = new System.Drawing.Point(100, 80);
+			this.collarinoXAllowanceInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.collarinoXAllowanceInput.Name = "collarinoXAllowanceInput";
+			this.collarinoXAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.collarinoXAllowanceInput.TabIndex = 7;
+			this.collarinoXAllowanceInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoXAllowanceInput.ValueChanged += new System.EventHandler(this.collarinoXAllowanceInput_ValueChanged);
+			// 
+			// collarinoRetractInput
+			// 
+			this.collarinoRetractInput.DecimalPlaces = 2;
+			this.collarinoRetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoRetractInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoRetractInput.Location = new System.Drawing.Point(100, 50);
+			this.collarinoRetractInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.collarinoRetractInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.collarinoRetractInput.Name = "collarinoRetractInput";
+			this.collarinoRetractInput.Size = new System.Drawing.Size(53, 26);
+			this.collarinoRetractInput.TabIndex = 6;
+			this.collarinoRetractInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoRetractInput.ValueChanged += new System.EventHandler(this.collarinoRetractInput_ValueChanged);
+			// 
+			// collarinoDepthOfCutInput
+			// 
+			this.collarinoDepthOfCutInput.DecimalPlaces = 2;
+			this.collarinoDepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoDepthOfCutInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoDepthOfCutInput.Location = new System.Drawing.Point(100, 20);
+			this.collarinoDepthOfCutInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.collarinoDepthOfCutInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.collarinoDepthOfCutInput.Name = "collarinoDepthOfCutInput";
+			this.collarinoDepthOfCutInput.Size = new System.Drawing.Size(53, 26);
+			this.collarinoDepthOfCutInput.TabIndex = 5;
+			this.collarinoDepthOfCutInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoDepthOfCutInput.ValueChanged += new System.EventHandler(this.collarinoDepthOfCutInput_ValueChanged);
+			// 
+			// collarinoFeedRateLabel
+			// 
+			this.collarinoFeedRateLabel.AutoSize = true;
+			this.collarinoFeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoFeedRateLabel.ForeColor = System.Drawing.Color.Black;
+			this.collarinoFeedRateLabel.Location = new System.Drawing.Point(25, 145);
+			this.collarinoFeedRateLabel.Name = "collarinoFeedRateLabel";
+			this.collarinoFeedRateLabel.Size = new System.Drawing.Size(69, 16);
+			this.collarinoFeedRateLabel.TabIndex = 4;
+			this.collarinoFeedRateLabel.Text = "Feed rate:";
+			// 
+			// collarinoAllowanceZLabel
+			// 
+			this.collarinoAllowanceZLabel.AutoSize = true;
+			this.collarinoAllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoAllowanceZLabel.ForeColor = System.Drawing.Color.Black;
+			this.collarinoAllowanceZLabel.Location = new System.Drawing.Point(10, 115);
+			this.collarinoAllowanceZLabel.Name = "collarinoAllowanceZLabel";
+			this.collarinoAllowanceZLabel.Size = new System.Drawing.Size(84, 16);
+			this.collarinoAllowanceZLabel.TabIndex = 3;
+			this.collarinoAllowanceZLabel.Text = "Z Allowance:";
+			// 
+			// collarinoAllowanceXLabel
+			// 
+			this.collarinoAllowanceXLabel.AutoSize = true;
+			this.collarinoAllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoAllowanceXLabel.ForeColor = System.Drawing.Color.Black;
+			this.collarinoAllowanceXLabel.Location = new System.Drawing.Point(10, 85);
+			this.collarinoAllowanceXLabel.Name = "collarinoAllowanceXLabel";
+			this.collarinoAllowanceXLabel.Size = new System.Drawing.Size(84, 16);
+			this.collarinoAllowanceXLabel.TabIndex = 2;
+			this.collarinoAllowanceXLabel.Text = "X Allowance:";
+			// 
+			// collarinoRetractLabel
+			// 
+			this.collarinoRetractLabel.AutoSize = true;
+			this.collarinoRetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoRetractLabel.ForeColor = System.Drawing.Color.Black;
+			this.collarinoRetractLabel.Location = new System.Drawing.Point(6, 55);
+			this.collarinoRetractLabel.Name = "collarinoRetractLabel";
+			this.collarinoRetractLabel.Size = new System.Drawing.Size(90, 16);
+			this.collarinoRetractLabel.TabIndex = 1;
+			this.collarinoRetractLabel.Text = "Retract value:";
+			// 
+			// collarinoDepthOfCutLabel
+			// 
+			this.collarinoDepthOfCutLabel.AutoSize = true;
+			this.collarinoDepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoDepthOfCutLabel.ForeColor = System.Drawing.Color.Black;
+			this.collarinoDepthOfCutLabel.Location = new System.Drawing.Point(13, 25);
+			this.collarinoDepthOfCutLabel.Name = "collarinoDepthOfCutLabel";
+			this.collarinoDepthOfCutLabel.Size = new System.Drawing.Size(81, 16);
+			this.collarinoDepthOfCutLabel.TabIndex = 0;
+			this.collarinoDepthOfCutLabel.Text = "Depth of cut:";
+			// 
+			// cavaCycleGroup
+			// 
+			this.cavaCycleGroup.Controls.Add(this.cavaFeedRateInput);
+			this.cavaCycleGroup.Controls.Add(this.cavaZAllowanceInput);
+			this.cavaCycleGroup.Controls.Add(this.cavaXAllowanceInput);
+			this.cavaCycleGroup.Controls.Add(this.cavaRetractInput);
+			this.cavaCycleGroup.Controls.Add(this.cavaDepthOfCutInput);
+			this.cavaCycleGroup.Controls.Add(this.cavaFeedRateLabel);
+			this.cavaCycleGroup.Controls.Add(this.cavaAllowanceZLabel);
+			this.cavaCycleGroup.Controls.Add(this.cavaAllowanceXLabel);
+			this.cavaCycleGroup.Controls.Add(this.cavaRetractLabel);
+			this.cavaCycleGroup.Controls.Add(this.cavaDepthOfCutLabel);
+			this.cavaCycleGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaCycleGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.cavaCycleGroup.Location = new System.Drawing.Point(606, 6);
+			this.cavaCycleGroup.Name = "cavaCycleGroup";
+			this.cavaCycleGroup.Size = new System.Drawing.Size(163, 174);
+			this.cavaCycleGroup.TabIndex = 12;
+			this.cavaCycleGroup.TabStop = false;
+			this.cavaCycleGroup.Text = "Cava Cycle";
+			// 
+			// cavaFeedRateInput
+			// 
+			this.cavaFeedRateInput.DecimalPlaces = 2;
+			this.cavaFeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaFeedRateInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.cavaFeedRateInput.Location = new System.Drawing.Point(100, 140);
+			this.cavaFeedRateInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.cavaFeedRateInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.cavaFeedRateInput.Name = "cavaFeedRateInput";
+			this.cavaFeedRateInput.Size = new System.Drawing.Size(53, 26);
+			this.cavaFeedRateInput.TabIndex = 9;
+			this.cavaFeedRateInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.cavaFeedRateInput.ValueChanged += new System.EventHandler(this.cavaFeedRateInput_ValueChanged);
+			// 
+			// cavaZAllowanceInput
+			// 
+			this.cavaZAllowanceInput.DecimalPlaces = 2;
+			this.cavaZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaZAllowanceInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.cavaZAllowanceInput.Location = new System.Drawing.Point(100, 110);
+			this.cavaZAllowanceInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.cavaZAllowanceInput.Name = "cavaZAllowanceInput";
+			this.cavaZAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.cavaZAllowanceInput.TabIndex = 8;
+			this.cavaZAllowanceInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.cavaZAllowanceInput.ValueChanged += new System.EventHandler(this.cavaZAllowanceInput_ValueChanged);
+			// 
+			// cavaXAllowanceInput
+			// 
+			this.cavaXAllowanceInput.DecimalPlaces = 2;
+			this.cavaXAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaXAllowanceInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.cavaXAllowanceInput.Location = new System.Drawing.Point(100, 80);
+			this.cavaXAllowanceInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.cavaXAllowanceInput.Name = "cavaXAllowanceInput";
+			this.cavaXAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.cavaXAllowanceInput.TabIndex = 7;
+			this.cavaXAllowanceInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.cavaXAllowanceInput.ValueChanged += new System.EventHandler(this.cavaXAllowanceInput_ValueChanged);
+			// 
+			// cavaRetractInput
+			// 
+			this.cavaRetractInput.DecimalPlaces = 2;
+			this.cavaRetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaRetractInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.cavaRetractInput.Location = new System.Drawing.Point(100, 50);
+			this.cavaRetractInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.cavaRetractInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.cavaRetractInput.Name = "cavaRetractInput";
+			this.cavaRetractInput.Size = new System.Drawing.Size(53, 26);
+			this.cavaRetractInput.TabIndex = 6;
+			this.cavaRetractInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.cavaRetractInput.ValueChanged += new System.EventHandler(this.cavaRetractInput_ValueChanged);
+			// 
+			// cavaDepthOfCutInput
+			// 
+			this.cavaDepthOfCutInput.DecimalPlaces = 2;
+			this.cavaDepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaDepthOfCutInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.cavaDepthOfCutInput.Location = new System.Drawing.Point(100, 20);
+			this.cavaDepthOfCutInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.cavaDepthOfCutInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.cavaDepthOfCutInput.Name = "cavaDepthOfCutInput";
+			this.cavaDepthOfCutInput.Size = new System.Drawing.Size(53, 26);
+			this.cavaDepthOfCutInput.TabIndex = 5;
+			this.cavaDepthOfCutInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.cavaDepthOfCutInput.ValueChanged += new System.EventHandler(this.cavaDepthOfCutInput_ValueChanged);
+			// 
+			// cavaFeedRateLabel
+			// 
+			this.cavaFeedRateLabel.AutoSize = true;
+			this.cavaFeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaFeedRateLabel.ForeColor = System.Drawing.Color.Black;
+			this.cavaFeedRateLabel.Location = new System.Drawing.Point(25, 145);
+			this.cavaFeedRateLabel.Name = "cavaFeedRateLabel";
+			this.cavaFeedRateLabel.Size = new System.Drawing.Size(69, 16);
+			this.cavaFeedRateLabel.TabIndex = 4;
+			this.cavaFeedRateLabel.Text = "Feed rate:";
+			// 
+			// cavaAllowanceZLabel
+			// 
+			this.cavaAllowanceZLabel.AutoSize = true;
+			this.cavaAllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaAllowanceZLabel.ForeColor = System.Drawing.Color.Black;
+			this.cavaAllowanceZLabel.Location = new System.Drawing.Point(10, 115);
+			this.cavaAllowanceZLabel.Name = "cavaAllowanceZLabel";
+			this.cavaAllowanceZLabel.Size = new System.Drawing.Size(84, 16);
+			this.cavaAllowanceZLabel.TabIndex = 3;
+			this.cavaAllowanceZLabel.Text = "Z Allowance:";
+			// 
+			// cavaAllowanceXLabel
+			// 
+			this.cavaAllowanceXLabel.AutoSize = true;
+			this.cavaAllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaAllowanceXLabel.ForeColor = System.Drawing.Color.Black;
+			this.cavaAllowanceXLabel.Location = new System.Drawing.Point(10, 85);
+			this.cavaAllowanceXLabel.Name = "cavaAllowanceXLabel";
+			this.cavaAllowanceXLabel.Size = new System.Drawing.Size(84, 16);
+			this.cavaAllowanceXLabel.TabIndex = 2;
+			this.cavaAllowanceXLabel.Text = "X Allowance:";
+			// 
+			// cavaRetractLabel
+			// 
+			this.cavaRetractLabel.AutoSize = true;
+			this.cavaRetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaRetractLabel.ForeColor = System.Drawing.Color.Black;
+			this.cavaRetractLabel.Location = new System.Drawing.Point(6, 55);
+			this.cavaRetractLabel.Name = "cavaRetractLabel";
+			this.cavaRetractLabel.Size = new System.Drawing.Size(90, 16);
+			this.cavaRetractLabel.TabIndex = 1;
+			this.cavaRetractLabel.Text = "Retract value:";
+			// 
+			// cavaDepthOfCutLabel
+			// 
+			this.cavaDepthOfCutLabel.AutoSize = true;
+			this.cavaDepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cavaDepthOfCutLabel.ForeColor = System.Drawing.Color.Black;
+			this.cavaDepthOfCutLabel.Location = new System.Drawing.Point(13, 25);
+			this.cavaDepthOfCutLabel.Name = "cavaDepthOfCutLabel";
+			this.cavaDepthOfCutLabel.Size = new System.Drawing.Size(81, 16);
+			this.cavaDepthOfCutLabel.TabIndex = 0;
+			this.cavaDepthOfCutLabel.Text = "Depth of cut:";
+			// 
 			// MainApp
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1469,20 +1937,20 @@ namespace DXF
 			this.copyrightsBanner.ResumeLayout(false);
 			this.copyrightsBanner.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.banner)).EndInit();
-			this.g71Settings.ResumeLayout(false);
-			this.g71Settings.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.g71FeedRateInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71ZAllowanceInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71XAllowanceInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71RetractInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g71DepthOfCutInput)).EndInit();
-			this.g72Settings.ResumeLayout(false);
-			this.g72Settings.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.g72FeedRateInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72ZAllowanceInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72XAllowanceInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72RetractInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.g72DepthOfCutInput)).EndInit();
+			this.diametricalCycleGroup.ResumeLayout(false);
+			this.diametricalCycleGroup.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.diametricalFeedRateInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.diametricalZAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.diametricalXAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.diametricalRetractInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.diametricalDepthOfCutInput)).EndInit();
+			this.facingCycleGroup.ResumeLayout(false);
+			this.facingCycleGroup.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.facingFeedRateInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.facingZAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.facingXAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.facingRetractInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.facingDepthOfCutInput)).EndInit();
 			this.stockValuesSelectorGroup.ResumeLayout(false);
 			this.stockValuesSelectorGroup.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.stockWidthInput)).EndInit();
@@ -1509,6 +1977,20 @@ namespace DXF
 			this.spindleSpeedGroup.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.constantSurfaceSpeedInput)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.spindleSpeedLimitInput)).EndInit();
+			this.collarinoCycleGroup.ResumeLayout(false);
+			this.collarinoCycleGroup.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoFeedRateInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoZAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoXAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoRetractInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoDepthOfCutInput)).EndInit();
+			this.cavaCycleGroup.ResumeLayout(false);
+			this.cavaCycleGroup.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.cavaFeedRateInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.cavaZAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.cavaXAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.cavaRetractInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.cavaDepthOfCutInput)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1525,31 +2007,31 @@ namespace DXF
 		private System.Windows.Forms.ToolStripMenuItem fileDxfMenuItem;
 		private System.Windows.Forms.Button generateCode;
 		private System.Windows.Forms.ProgressBar exportProgressBar;
-		private System.Windows.Forms.GroupBox g71Settings;
-		private System.Windows.Forms.Label g71FeedRateLabel;
-		private System.Windows.Forms.Label g71AllowanceZLabel;
-		private System.Windows.Forms.Label g71AllowanceXLabel;
-		private System.Windows.Forms.Label g71RetractLabel;
-		private System.Windows.Forms.Label g71DepthOfCutLabel;
-		private System.Windows.Forms.NumericUpDown g71FeedRateInput;
-		private System.Windows.Forms.NumericUpDown g71ZAllowanceInput;
-		private System.Windows.Forms.NumericUpDown g71XAllowanceInput;
-		private System.Windows.Forms.NumericUpDown g71RetractInput;
-		private System.Windows.Forms.NumericUpDown g71DepthOfCutInput;
+		private System.Windows.Forms.GroupBox diametricalCycleGroup;
+		private System.Windows.Forms.Label diametricalFeedRateLabel;
+		private System.Windows.Forms.Label diametricalAllowanceZLabel;
+		private System.Windows.Forms.Label diametricalAllowanceXLabel;
+		private System.Windows.Forms.Label diametricalRetractLabel;
+		private System.Windows.Forms.Label diametricalDepthOfCutLabel;
+		private System.Windows.Forms.NumericUpDown diametricalFeedRateInput;
+		private System.Windows.Forms.NumericUpDown diametricalZAllowanceInput;
+		private System.Windows.Forms.NumericUpDown diametricalXAllowanceInput;
+		private System.Windows.Forms.NumericUpDown diametricalRetractInput;
+		private System.Windows.Forms.NumericUpDown diametricalDepthOfCutInput;
 		private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem changeDXFFolderToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem changeExportFolderToolStripMenuItem;
-		private System.Windows.Forms.GroupBox g72Settings;
-		private System.Windows.Forms.NumericUpDown g72FeedRateInput;
-		private System.Windows.Forms.NumericUpDown g72ZAllowanceInput;
-		private System.Windows.Forms.NumericUpDown g72XAllowanceInput;
-		private System.Windows.Forms.NumericUpDown g72RetractInput;
-		private System.Windows.Forms.NumericUpDown g72DepthOfCutInput;
-		private System.Windows.Forms.Label g72FeedRateLabel;
-		private System.Windows.Forms.Label g72AllowanceZLabel;
-		private System.Windows.Forms.Label g72AllowanceXLabel;
-		private System.Windows.Forms.Label g72RetractLabel;
-		private System.Windows.Forms.Label g72DepthOfCutLabel;
+		private System.Windows.Forms.GroupBox facingCycleGroup;
+		private System.Windows.Forms.NumericUpDown facingFeedRateInput;
+		private System.Windows.Forms.NumericUpDown facingZAllowanceInput;
+		private System.Windows.Forms.NumericUpDown facingXAllowanceInput;
+		private System.Windows.Forms.NumericUpDown facingRetractInput;
+		private System.Windows.Forms.NumericUpDown facingDepthOfCutInput;
+		private System.Windows.Forms.Label facingFeedRateLabel;
+		private System.Windows.Forms.Label facingAllowanceZLabel;
+		private System.Windows.Forms.Label facingAllowanceXLabel;
+		private System.Windows.Forms.Label facingRetractLabel;
+		private System.Windows.Forms.Label facingDepthOfCutLabel;
 		private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem g71RoughingCycleToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem g72FacingCycleToolStripMenuItem;
@@ -1604,5 +2086,27 @@ namespace DXF
 		private System.Windows.Forms.GroupBox chockSizeGroup;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.NumericUpDown chockSizeInput;
+		private System.Windows.Forms.GroupBox cavaCycleGroup;
+		private System.Windows.Forms.NumericUpDown cavaFeedRateInput;
+		private System.Windows.Forms.NumericUpDown cavaZAllowanceInput;
+		private System.Windows.Forms.NumericUpDown cavaXAllowanceInput;
+		private System.Windows.Forms.NumericUpDown cavaRetractInput;
+		private System.Windows.Forms.NumericUpDown cavaDepthOfCutInput;
+		private System.Windows.Forms.Label cavaFeedRateLabel;
+		private System.Windows.Forms.Label cavaAllowanceZLabel;
+		private System.Windows.Forms.Label cavaAllowanceXLabel;
+		private System.Windows.Forms.Label cavaRetractLabel;
+		private System.Windows.Forms.Label cavaDepthOfCutLabel;
+		private System.Windows.Forms.GroupBox collarinoCycleGroup;
+		private System.Windows.Forms.NumericUpDown collarinoFeedRateInput;
+		private System.Windows.Forms.NumericUpDown collarinoZAllowanceInput;
+		private System.Windows.Forms.NumericUpDown collarinoXAllowanceInput;
+		private System.Windows.Forms.NumericUpDown collarinoRetractInput;
+		private System.Windows.Forms.NumericUpDown collarinoDepthOfCutInput;
+		private System.Windows.Forms.Label collarinoFeedRateLabel;
+		private System.Windows.Forms.Label collarinoAllowanceZLabel;
+		private System.Windows.Forms.Label collarinoAllowanceXLabel;
+		private System.Windows.Forms.Label collarinoRetractLabel;
+		private System.Windows.Forms.Label collarinoDepthOfCutLabel;
 	}
 }

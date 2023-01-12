@@ -35,19 +35,33 @@ namespace DXF
 			//Disable UI
 			tabPanel.Enabled = false;
 
-			//Fill G71 Settings inputs with saved values
-			g71DepthOfCutInput.Value = Convert.ToDecimal(Settings.Default["G71DepthOfCut"]);
-			g71RetractInput.Value = Convert.ToDecimal(Settings.Default["G71Retract"]);
-			g71XAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G71XAllowance"]);
-			g71ZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G71ZAllowance"]);
-			g71FeedRateInput.Value = Convert.ToDecimal(Settings.Default["G71FeedRate"]);
+			//Fill diametrical cycle inputs with saved values
+			diametricalDepthOfCutInput.Value = Convert.ToDecimal(Settings.Default["DiametricalDepthOfCut"]);
+			diametricalRetractInput.Value = Convert.ToDecimal(Settings.Default["DiametricalRetract"]);
+			diametricalXAllowanceInput.Value = Convert.ToDecimal(Settings.Default["DiametricalXAllowance"]);
+			diametricalZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["DiametricalZAllowance"]);
+			diametricalFeedRateInput.Value = Convert.ToDecimal(Settings.Default["DiametricalFeedRate"]);
 
-			//Fill G72 Settings inputs with saved values
-			g72DepthOfCutInput.Value = Convert.ToDecimal(Settings.Default["G72DepthOfCut"]);
-			g72RetractInput.Value = Convert.ToDecimal(Settings.Default["G72Retract"]);
-			g72XAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G72XAllowance"]);
-			g72ZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["G72ZAllowance"]);
-			g72FeedRateInput.Value = Convert.ToDecimal(Settings.Default["G72FeedRate"]);
+			//Fill facing cycle inputs with saved values
+			facingDepthOfCutInput.Value = Convert.ToDecimal(Settings.Default["FacingDepthOfCut"]);
+			facingRetractInput.Value = Convert.ToDecimal(Settings.Default["FacingRetract"]);
+			facingXAllowanceInput.Value = Convert.ToDecimal(Settings.Default["FacingXAllowance"]);
+			facingZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["FacingZAllowance"]);
+			facingFeedRateInput.Value = Convert.ToDecimal(Settings.Default["FacingFeedRate"]);
+
+			//Fill collarino cycle inputs with saved values
+			collarinoDepthOfCutInput.Value = Convert.ToDecimal(Settings.Default["CollarinoDepthOfCut"]);
+			collarinoRetractInput.Value = Convert.ToDecimal(Settings.Default["CollarinoRetract"]);
+			collarinoXAllowanceInput.Value = Convert.ToDecimal(Settings.Default["CollarinoXAllowance"]);
+			collarinoZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["CollarinoZAllowance"]);
+			collarinoFeedRateInput.Value = Convert.ToDecimal(Settings.Default["CollarinoFeedRate"]);
+
+			//Fill cava cycle inputs with saved values
+			cavaDepthOfCutInput.Value = Convert.ToDecimal(Settings.Default["CavaDepthOfCut"]);
+			cavaRetractInput.Value = Convert.ToDecimal(Settings.Default["CavaRetract"]);
+			cavaXAllowanceInput.Value = Convert.ToDecimal(Settings.Default["CavaXAllowance"]);
+			cavaZAllowanceInput.Value = Convert.ToDecimal(Settings.Default["CavaZAllowance"]);
+			cavaFeedRateInput.Value = Convert.ToDecimal(Settings.Default["CavaFeedRate"]);
 
 			//Fill spindle speed inputs with saved values
 			spindleSpeedLimitInput.Value = Convert.ToDecimal(Settings.Default["SpindleSpeedLimit"]);
@@ -688,9 +702,9 @@ namespace DXF
 			float secondSideWorkplaneValue = Parameter.DieWidth;
 			SpindleSpeed spindleSpeed = new SpindleSpeed(spindleSpeedLimitInput.Value, constantSurfaceSpeedInput.Value);
 			
-			G72 g72VerticalFacing = new G72("10", "20", g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
-			G71 g71HorizontalRoughing = new G71("30", "40",g71DepthOfCutInput.Value, g71RetractInput.Value, g71XAllowanceInput.Value, g71ZAllowanceInput.Value, g71FeedRateInput.Value);
-			G72 g72CollarinoFacing = new G72("50", "60", g72DepthOfCutInput.Value, g72RetractInput.Value, g72XAllowanceInput.Value, g72ZAllowanceInput.Value, g72FeedRateInput.Value);
+			G72 facingCycle = new G72("10", "20", facingDepthOfCutInput.Value, facingRetractInput.Value, facingXAllowanceInput.Value, facingZAllowanceInput.Value, facingFeedRateInput.Value);
+			G71 diametricalCycle = new G71("30", "40",diametricalDepthOfCutInput.Value, diametricalRetractInput.Value, diametricalXAllowanceInput.Value, diametricalZAllowanceInput.Value, diametricalFeedRateInput.Value);
+			G72 collarinoCycle = new G72("50", "60", collarinoDepthOfCutInput.Value, collarinoRetractInput.Value, collarinoXAllowanceInput.Value, collarinoZAllowanceInput.Value, collarinoFeedRateInput.Value);
 
 			//Get first side outer horizontal and outer vertical profile points
 			List<ProfilePoint> firstSideOuterHorizontalProfilePoints = Get.ProfilePoints(Parameter.FirstSideHorizontalProfileLines, Parameter.FirstSideHorizontalProfileArcs);
@@ -700,9 +714,9 @@ namespace DXF
 			//Create g code for first side
 			List<string> gCodeFirstSide = new List<string>();
 			gCodeFirstSide.AddRange(CodeBlock.LatheInitialization(workplaneOriginParameter, firstSideWorkplaneValue, spindleSpeed));
-			gCodeFirstSide.AddRange(CodeBlock.OuterVerticalProfile(g72VerticalFacing, firstSideOuterVerticalProfilePoints));
-			gCodeFirstSide.AddRange(CodeBlock.OuterHorizontalProfile(g71HorizontalRoughing, firstSideOuterHorizontalProfilePoints));
-			gCodeFirstSide.AddRange(CodeBlock.FemaleCollarinoProfile(g72CollarinoFacing, firstSideFemaleCollarinoProfilePoints));
+			gCodeFirstSide.AddRange(CodeBlock.OuterVerticalProfile(facingCycle, firstSideOuterVerticalProfilePoints));
+			gCodeFirstSide.AddRange(CodeBlock.OuterHorizontalProfile(diametricalCycle, firstSideOuterHorizontalProfilePoints));
+			gCodeFirstSide.AddRange(CodeBlock.FemaleCollarinoProfile(collarinoCycle, firstSideFemaleCollarinoProfilePoints));
 			gCodeFirstSide.AddRange(CodeBlock.LatheEnd());
 
 			for (int i = 0; i < gCodeFirstSide.Count; i++)
@@ -721,9 +735,9 @@ namespace DXF
 			//Create g code for second side
 			List<string> gCodeSecondSide = new List<string>();
 			gCodeSecondSide.AddRange(CodeBlock.LatheInitialization(workplaneOriginParameter, secondSideWorkplaneValue, spindleSpeed));
-			gCodeSecondSide.AddRange(CodeBlock.OuterVerticalProfile(g72VerticalFacing, secondSideOuterVerticalProfilePoints));
-			gCodeSecondSide.AddRange(CodeBlock.OuterHorizontalProfile(g71HorizontalRoughing, secondSideOuterHorizontalProfilePoints));
-			gCodeSecondSide.AddRange(CodeBlock.FemaleCollarinoProfile(g72CollarinoFacing, secondtSideFemaleCollarinoProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.OuterVerticalProfile(facingCycle, secondSideOuterVerticalProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.OuterHorizontalProfile(diametricalCycle, secondSideOuterHorizontalProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.FemaleCollarinoProfile(collarinoCycle, secondtSideFemaleCollarinoProfilePoints));
 			gCodeSecondSide.AddRange(CodeBlock.LatheEnd());
 
 			for (int i = 0; i < gCodeSecondSide.Count; i++)
@@ -834,75 +848,135 @@ namespace DXF
 		}
 		#endregion
 		
-		#region G71 Cycle Values Save
-		private void g71DepthOfCutInput_ValueChanged(object sender, EventArgs e)
+		#region Diametrical Cycle Values Save
+		private void diametricalDepthOfCutInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G71DepthOfCut"] = g71DepthOfCutInput.Value;
+			Settings.Default["DiametricalDepthOfCut"] = diametricalDepthOfCutInput.Value;
 			Settings.Default.Save();
 		}
 
-		private void g71RetractInput_ValueChanged(object sender, EventArgs e)
+		private void diametricalRetractInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G71Retract"] = g71RetractInput.Value;
+			Settings.Default["DiametricalRetract"] = diametricalRetractInput.Value;
 			Settings.Default.Save();
 		}
 
-		private void g71XAllowanceInput_ValueChanged(object sender, EventArgs e)
+		private void diametricalXAllowanceInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G71XAllowance"] = g71XAllowanceInput.Value;
+			Settings.Default["DiametricalXAllowance"] = diametricalXAllowanceInput.Value;
 			Settings.Default.Save();
 		}
 
-		private void g71ZAllowanceInput_ValueChanged(object sender, EventArgs e)
+		private void diametricalZAllowanceInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G71ZAllowance"] = g71ZAllowanceInput.Value;
+			Settings.Default["DiametricalZAllowance"] = diametricalZAllowanceInput.Value;
 			Settings.Default.Save();
 		}
 
-		private void g71FeedRateInput_ValueChanged(object sender, EventArgs e)
+		private void diametricalFeedRateInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G71FeedRate"] = g71FeedRateInput.Value;
+			Settings.Default["DiametricalFeedRate"] = diametricalFeedRateInput.Value;
 			Settings.Default.Save();
 		}
 		#endregion
 
-		#region G72 Cycle Values Save
-		private void g72DepthOfCutInput_ValueChanged(object sender, EventArgs e)
+		#region Facing Cycle Values Save
+		private void facingDepthOfCutInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G72DepthOfCut"] = g72DepthOfCutInput.Value;
+			Settings.Default["FacingDepthOfCut"] = facingDepthOfCutInput.Value;
 			Settings.Default.Save();
 		}
 
-		private void g72RetractInput_ValueChanged(object sender, EventArgs e)
+		private void facingRetractInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G72Retract"] = g72RetractInput.Value;
+			Settings.Default["FacingRetract"] = facingRetractInput.Value;
 			Settings.Default.Save();
 		}
 
-		private void g72XAllowanceInput_ValueChanged(object sender, EventArgs e)
+		private void facingXAllowanceInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G72XAllowance"] = g72XAllowanceInput.Value;
+			Settings.Default["FacingXAllowance"] = facingXAllowanceInput.Value;
 			Settings.Default.Save();
 		}
 
-		private void g72ZAllowanceInput_ValueChanged(object sender, EventArgs e)
+		private void facingZAllowanceInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G72ZAllowance"] = g72ZAllowanceInput.Value;
+			Settings.Default["FacingZAllowance"] = facingZAllowanceInput.Value;
 			Settings.Default.Save();
 		}
 
-		private void g72FeedRateInput_ValueChanged(object sender, EventArgs e)
+		private void facingFeedRateInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["G72FeedRate"] = g72FeedRateInput.Value;
+			Settings.Default["FacingFeedRate"] = facingFeedRateInput.Value;
 			Settings.Default.Save();
 		}
-
-
-
-
 		#endregion
 
-		#region Spindle Speed Save
+		#region Collarino Cycle Values Save
+		private void collarinoDepthOfCutInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CollarinoDepthOfCut"] = collarinoDepthOfCutInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void collarinoRetractInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CollarinoRetract"] = collarinoRetractInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void collarinoXAllowanceInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CollarinoXAllowance"] = collarinoXAllowanceInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void collarinoZAllowanceInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CollarinoZAllowance"] = collarinoZAllowanceInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void collarinoFeedRateInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CollarinoFeedRate"] = facingFeedRateInput.Value;
+			Settings.Default.Save();
+		}
+		#endregion
+
+		#region Cava Cycle Values Save
+		private void cavaDepthOfCutInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CavaDepthOfCut"] = cavaDepthOfCutInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void cavaRetractInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CavaRetract"] = cavaRetractInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void cavaXAllowanceInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CavaXAllowance"] = cavaXAllowanceInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void cavaZAllowanceInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CavaZAllowance"] = collarinoZAllowanceInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void cavaFeedRateInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CavaFeedRate"] = facingFeedRateInput.Value;
+			Settings.Default.Save();
+		}
+		#endregion
+
+		#region Spindle Speed Values Save
 		private void spindleSpeedLimitInput_ValueChanged(object sender, EventArgs e)
 		{
 			Settings.Default["SpindleSpeedLimit"] = spindleSpeedLimitInput.Value;
@@ -924,7 +998,7 @@ namespace DXF
 		}
 		#endregion
 
-		#region Chock Size Save
+		#region Chock Size Value Save
 		private void chockSizeInput_ValueChanged(object sender, EventArgs e)
 		{
 			Settings.Default["ChockSize"] = chockSizeInput.Value;
@@ -936,7 +1010,9 @@ namespace DXF
 
 
 
+
 		#endregion
 
+		
 	}
 }

@@ -50,120 +50,120 @@ namespace DXF.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
-        public decimal G71DepthOfCut {
+        public decimal DiametricalDepthOfCut {
             get {
-                return ((decimal)(this["G71DepthOfCut"]));
+                return ((decimal)(this["DiametricalDepthOfCut"]));
             }
             set {
-                this["G71DepthOfCut"] = value;
+                this["DiametricalDepthOfCut"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
-        public decimal G71Retract {
+        public decimal DiametricalRetract {
             get {
-                return ((decimal)(this["G71Retract"]));
+                return ((decimal)(this["DiametricalRetract"]));
             }
             set {
-                this["G71Retract"] = value;
+                this["DiametricalRetract"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
-        public decimal G71XAllowance {
+        public decimal DiametricalXAllowance {
             get {
-                return ((decimal)(this["G71XAllowance"]));
+                return ((decimal)(this["DiametricalXAllowance"]));
             }
             set {
-                this["G71XAllowance"] = value;
+                this["DiametricalXAllowance"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
-        public decimal G71ZAllowance {
+        public decimal DiametricalZAllowance {
             get {
-                return ((decimal)(this["G71ZAllowance"]));
+                return ((decimal)(this["DiametricalZAllowance"]));
             }
             set {
-                this["G71ZAllowance"] = value;
+                this["DiametricalZAllowance"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
-        public decimal G71FeedRate {
+        public decimal DiametricalFeedRate {
             get {
-                return ((decimal)(this["G71FeedRate"]));
+                return ((decimal)(this["DiametricalFeedRate"]));
             }
             set {
-                this["G71FeedRate"] = value;
+                this["DiametricalFeedRate"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
-        public decimal G72DepthOfCut {
+        public decimal FacingDepthOfCut {
             get {
-                return ((decimal)(this["G72DepthOfCut"]));
+                return ((decimal)(this["FacingDepthOfCut"]));
             }
             set {
-                this["G72DepthOfCut"] = value;
+                this["FacingDepthOfCut"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
-        public decimal G72Retract {
+        public decimal FacingRetract {
             get {
-                return ((decimal)(this["G72Retract"]));
+                return ((decimal)(this["FacingRetract"]));
             }
             set {
-                this["G72Retract"] = value;
+                this["FacingRetract"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
-        public decimal G72XAllowance {
+        public decimal FacingXAllowance {
             get {
-                return ((decimal)(this["G72XAllowance"]));
+                return ((decimal)(this["FacingXAllowance"]));
             }
             set {
-                this["G72XAllowance"] = value;
+                this["FacingXAllowance"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
-        public decimal G72ZAllowance {
+        public decimal FacingZAllowance {
             get {
-                return ((decimal)(this["G72ZAllowance"]));
+                return ((decimal)(this["FacingZAllowance"]));
             }
             set {
-                this["G72ZAllowance"] = value;
+                this["FacingZAllowance"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
-        public decimal G72FeedRate {
+        public decimal FacingFeedRate {
             get {
-                return ((decimal)(this["G72FeedRate"]));
+                return ((decimal)(this["FacingFeedRate"]));
             }
             set {
-                this["G72FeedRate"] = value;
+                this["FacingFeedRate"] = value;
             }
         }
         
@@ -212,6 +212,126 @@ namespace DXF.Properties {
             }
             set {
                 this["WorkplaneOriginParameter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal CollarinoDepthOfCut {
+            get {
+                return ((decimal)(this["CollarinoDepthOfCut"]));
+            }
+            set {
+                this["CollarinoDepthOfCut"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal CollarinoRetract {
+            get {
+                return ((decimal)(this["CollarinoRetract"]));
+            }
+            set {
+                this["CollarinoRetract"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal CollarinoXAllowance {
+            get {
+                return ((decimal)(this["CollarinoXAllowance"]));
+            }
+            set {
+                this["CollarinoXAllowance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal CollarinoZAllowance {
+            get {
+                return ((decimal)(this["CollarinoZAllowance"]));
+            }
+            set {
+                this["CollarinoZAllowance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal CollarinoFeedRate {
+            get {
+                return ((decimal)(this["CollarinoFeedRate"]));
+            }
+            set {
+                this["CollarinoFeedRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal CavaDepthOfCut {
+            get {
+                return ((decimal)(this["CavaDepthOfCut"]));
+            }
+            set {
+                this["CavaDepthOfCut"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal CavaRetract {
+            get {
+                return ((decimal)(this["CavaRetract"]));
+            }
+            set {
+                this["CavaRetract"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal CavaXAllowance {
+            get {
+                return ((decimal)(this["CavaXAllowance"]));
+            }
+            set {
+                this["CavaXAllowance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal CavaZAllowance {
+            get {
+                return ((decimal)(this["CavaZAllowance"]));
+            }
+            set {
+                this["CavaZAllowance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal CavaFeedRate {
+            get {
+                return ((decimal)(this["CavaFeedRate"]));
+            }
+            set {
+                this["CavaFeedRate"] = value;
             }
         }
     }
