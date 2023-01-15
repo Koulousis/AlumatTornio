@@ -69,5 +69,30 @@ namespace DXF.Tools
 
 			return length;
 		}
+
+		public static float CavaLengthFromProfile(List<Line> cavaLines, List<Arc> cavaArcs, Line lastLine)
+		{
+			float length = 0;
+			float cavaEndX = 0;
+			float linesEndX = 0;
+			float arcsEndX = 0;
+
+			//Cava end position
+			linesEndX = cavaLines.Min(x => x.EndX);
+			arcsEndX = cavaArcs.Min(x => x.EndX);
+
+			if (linesEndX < arcsEndX)
+			{
+				cavaEndX = linesEndX;
+			}
+			else
+			{
+				cavaEndX = arcsEndX;
+			}
+
+			length = Math.Abs(cavaEndX) - Math.Abs(lastLine.EndX);
+
+			return length;
+		}
 	}
 }

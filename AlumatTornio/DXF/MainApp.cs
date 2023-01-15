@@ -179,8 +179,10 @@ namespace DXF
 			manualCavaSelectorGroup.Enabled = false;
 			autoCavaButton.Checked = true;
 			autoCavaSelectorGroup.Enabled = true;
-			cavaFirstSideButton.Checked = false;
-			cavaSecondSideButton.Checked = false;
+			cavaFirstSideAuto.Checked = false;
+			cavaSecondSideAuto.Checked = false;
+			cavaFirstSideManual.Checked = false;
+			cavaSecondSideManual.Checked = false;
 			viewSideSelectorGroup.Enabled = false;
 			stockValuesSelectorGroup.Enabled = false;
 			generateCode.Enabled = false;
@@ -351,6 +353,9 @@ namespace DXF
 			Parameter.SecondSideCollarinoLines = secondSideCollarinoLines;
 			Parameter.SecondSideCollarinoArcs = secondSideCollarinoArcs;
 			
+			Parameter.FirstSideHorizontalProfileLastLine = Parameter.FirstSideHorizontalProfileLines.Last().Clone();
+			Parameter.SecondSideHorizontalProfileLastLine = Parameter.SecondSideHorizontalProfileLines.Last().Clone();
+
 			//Change UI after sides selected
 			drawFirstSideButton.Checked = true;
 			firstSideSelectorGroup.Enabled = false;
@@ -433,6 +438,9 @@ namespace DXF
 
 		private void autoCavaButton_CheckedChanged(object sender, EventArgs e)
 		{
+			cavaFirstSideManual.Checked = false;
+			cavaSecondSideManual.Checked = false;
+
 			if (Parameter.FirstSideHorizontalProfileLines.Count == 0 || Parameter.SecondSideHorizontalProfileLines.Count == 0) return;
 			if (autoCavaButton.Checked)
 			{
@@ -457,14 +465,19 @@ namespace DXF
 
 		private void cavaFirstSideButton_CheckedChanged(object sender, EventArgs e)
 		{
-			float cavaLength = Calculation.ElementsLength(Parameter.FirstSideCavaLines, Parameter.FirstSideCavaArcs);
-			if (cavaFirstSideButton.Checked)
+			float cavaLength = 0;
+			if (Parameter.FirstSideCavaLines.Count != 0)
+			{
+				cavaLength = Calculation.CavaLengthFromProfile(Parameter.FirstSideCavaLines, Parameter.FirstSideCavaArcs, Parameter.FirstSideHorizontalProfileLastLine);
+			}
+
+			if (cavaFirstSideAuto.Checked)
 			{
 				Parameter.FirstSideHorizontalProfileLines.Last().StartX -= cavaLength;
 				Parameter.FirstSideHorizontalProfileLines.Last().EndX -= cavaLength;
 				Parameter.FirstSideHorizontalProfileLines[Parameter.FirstSideHorizontalProfileLines.Count - 2].EndX = Parameter.FirstSideHorizontalProfileLines.Last().StartX;
 			}
-			else if (cavaSecondSideButton.Checked)
+			else if (cavaSecondSideAuto.Checked)
 			{
 				Parameter.FirstSideHorizontalProfileLines.Last().StartX += cavaLength;
 				Parameter.FirstSideHorizontalProfileLines.Last().EndX += cavaLength;
@@ -475,14 +488,18 @@ namespace DXF
 
 		private void cavaSecondSideButton_CheckedChanged(object sender, EventArgs e)
 		{
-			float cavaLength = Calculation.ElementsLength(Parameter.SecondSideCavaLines, Parameter.SecondSideCavaArcs);
-			if (cavaSecondSideButton.Checked)
+			float cavaLength = 0;
+			if (Parameter.SecondSideCavaLines.Count != 0)
+			{
+				cavaLength = Calculation.CavaLengthFromProfile(Parameter.SecondSideCavaLines, Parameter.SecondSideCavaArcs, Parameter.SecondSideHorizontalProfileLastLine);
+			}
+			if (cavaSecondSideAuto.Checked)
 			{
 				Parameter.SecondSideHorizontalProfileLines.Last().StartX -= cavaLength;
 				Parameter.SecondSideHorizontalProfileLines.Last().EndX -= cavaLength;
 				Parameter.SecondSideHorizontalProfileLines[Parameter.SecondSideHorizontalProfileLines.Count - 2].EndX = Parameter.SecondSideHorizontalProfileLines.Last().StartX;
 			}
-			else if (cavaFirstSideButton.Checked)
+			else if (cavaFirstSideAuto.Checked)
 			{
 				Parameter.SecondSideHorizontalProfileLines.Last().StartX += cavaLength;
 				Parameter.SecondSideHorizontalProfileLines.Last().EndX += cavaLength;
@@ -493,21 +510,23 @@ namespace DXF
 
 		private void manualCavaButton_CheckedChanged(object sender, EventArgs e)
 		{
-			float cavaLengthFirstSide = Calculation.ElementsLength(Parameter.FirstSideCavaLines, Parameter.FirstSideCavaArcs);
-			float cavaLengthSecondSide = Calculation.ElementsLength(Parameter.SecondSideCavaLines, Parameter.SecondSideCavaArcs);
+			if (Parameter.FirstSideCavaLines.Count == 0) return;
+
+			float cavaLengthFirstSide = Calculation.CavaLengthFromProfile(Parameter.FirstSideCavaLines, Parameter.FirstSideCavaArcs, Parameter.FirstSideHorizontalProfileLastLine);
+			float cavaLengthSecondSide = Calculation.CavaLengthFromProfile(Parameter.SecondSideCavaLines, Parameter.SecondSideCavaArcs, Parameter.SecondSideHorizontalProfileLastLine);
 			if (manualCavaButton.Checked)
 			{
 				//Set the horizontal profile back to initial
-				if (cavaFirstSideButton.Checked)
+				if (cavaFirstSideAuto.Checked)
 				{
-					cavaFirstSideButton.Checked = false;
+					cavaFirstSideAuto.Checked = false;
 					Parameter.FirstSideHorizontalProfileLines.Last().StartX += cavaLengthFirstSide;
 					Parameter.FirstSideHorizontalProfileLines.Last().EndX += cavaLengthFirstSide;
 					Parameter.FirstSideHorizontalProfileLines[Parameter.FirstSideHorizontalProfileLines.Count - 2].EndX = Parameter.FirstSideHorizontalProfileLines.Last().StartX;
 				}
-				else if (cavaSecondSideButton.Checked)
+				else if (cavaSecondSideAuto.Checked)
 				{
-					cavaSecondSideButton.Checked = false;
+					cavaSecondSideAuto.Checked = false;
 					Parameter.SecondSideHorizontalProfileLines.Last().StartX += cavaLengthSecondSide;
 					Parameter.SecondSideHorizontalProfileLines.Last().EndX += cavaLengthSecondSide;
 					Parameter.SecondSideHorizontalProfileLines[Parameter.SecondSideHorizontalProfileLines.Count - 2].EndX = Parameter.SecondSideHorizontalProfileLines.Last().StartX;
@@ -632,6 +651,7 @@ namespace DXF
 					Draw.OuterHorizontalMachiningProfile(visualizationPanelGraphics, Parameter.FirstSideHorizontalProfileLines, Parameter.FirstSideHorizontalProfileArcs);
 					Draw.OuterVerticalMachiningProfile(visualizationPanelGraphics, Parameter.FirstSideFacingProfile);
 					Draw.FemaleCollarino(visualizationPanelGraphics, Parameter.FirstSideCollarinoLines,Parameter.FirstSideCollarinoArcs);
+					Draw.Cava(visualizationPanelGraphics, Parameter.FirstSideCavaLines, Parameter.FirstSideCavaArcs, cavaFirstSideAuto.Checked, cavaFirstSideManual.Checked);
 				}
 				else if (drawSecondSideButton.Checked)
 				{
@@ -641,6 +661,7 @@ namespace DXF
 					Draw.OuterHorizontalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideHorizontalProfileLines, Parameter.SecondSideHorizontalProfileArcs);
 					Draw.OuterVerticalMachiningProfile(visualizationPanelGraphics, Parameter.SecondSideFacingProfile);
 					Draw.FemaleCollarino(visualizationPanelGraphics, Parameter.SecondSideCollarinoLines, Parameter.SecondSideCollarinoArcs);
+					Draw.Cava(visualizationPanelGraphics, Parameter.SecondSideCavaLines, Parameter.SecondSideCavaArcs, cavaSecondSideAuto.Checked, cavaSecondSideManual.Checked);
 				}
 			}
 			
@@ -659,6 +680,16 @@ namespace DXF
 				gCodeTextBox.Lines = Parameter.GCodeSecondSide.ToArray();
 			}
 			
+			visualizationPanel.Refresh();
+		}
+
+		private void cavaFirstSideManual_CheckedChanged(object sender, EventArgs e)
+		{
+			visualizationPanel.Refresh();
+		}
+
+		private void cavaSecondSideManual_CheckedChanged(object sender, EventArgs e)
+		{
 			visualizationPanel.Refresh();
 		}
 
@@ -696,27 +727,31 @@ namespace DXF
 			exportProgressBar.Value = 0;
 			for (int i = 0; i < 100; i++) { for (int j = 0; j < 10000; j++) { } exportProgressBar.Value++; }
 
-			//Set G71 and G72 Attributes
+			//Set general Attributes
 			string workplaneOriginParameter = workplaneOriginParameterInput.Text;
 			float firstSideWorkplaneValue = Parameter.DieWidth + Parameter.StockFromWidthSecondSide;
 			float secondSideWorkplaneValue = Parameter.DieWidth;
 			SpindleSpeed spindleSpeed = new SpindleSpeed(spindleSpeedLimitInput.Value, constantSurfaceSpeedInput.Value);
-			
+
+			//Set G71 and G72 Attributes
 			G72 facingCycle = new G72("10", "20", facingDepthOfCutInput.Value, facingRetractInput.Value, facingXAllowanceInput.Value, facingZAllowanceInput.Value, facingFeedRateInput.Value);
 			G71 diametricalCycle = new G71("30", "40",diametricalDepthOfCutInput.Value, diametricalRetractInput.Value, diametricalXAllowanceInput.Value, diametricalZAllowanceInput.Value, diametricalFeedRateInput.Value);
 			G72 collarinoCycle = new G72("50", "60", collarinoDepthOfCutInput.Value, collarinoRetractInput.Value, collarinoXAllowanceInput.Value, collarinoZAllowanceInput.Value, collarinoFeedRateInput.Value);
+			G71 cavaCycle = new G71("70", "80", cavaDepthOfCutInput.Value, cavaRetractInput.Value, cavaXAllowanceInput.Value, cavaZAllowanceInput.Value, cavaFeedRateInput.Value);
 
-			//Get first side outer horizontal and outer vertical profile points
+			//Get first side profiles points
 			List<ProfilePoint> firstSideOuterHorizontalProfilePoints = Get.ProfilePoints(Parameter.FirstSideHorizontalProfileLines, Parameter.FirstSideHorizontalProfileArcs);
 			List<ProfilePoint> firstSideOuterVerticalProfilePoints = Get.ProfilePoints(Parameter.FirstSideFacingProfile, Parameter.FirstSideOuterVerticalMachiningArcs);
 			List<ProfilePoint> firstSideFemaleCollarinoProfilePoints = Get.ProfilePoints(Parameter.FirstSideCollarinoLines, Parameter.FirstSideCollarinoArcs);
+			List<ProfilePoint> firstSideCavaProfilePoints = Get.ProfilePoints(Parameter.FirstSideCavaLines, Parameter.FirstSideCavaArcs);
 
 			//Create g code for first side
 			List<string> gCodeFirstSide = new List<string>();
 			gCodeFirstSide.AddRange(CodeBlock.LatheInitialization(workplaneOriginParameter, firstSideWorkplaneValue, spindleSpeed));
-			gCodeFirstSide.AddRange(CodeBlock.OuterVerticalProfile(facingCycle, firstSideOuterVerticalProfilePoints));
-			gCodeFirstSide.AddRange(CodeBlock.OuterHorizontalProfile(diametricalCycle, firstSideOuterHorizontalProfilePoints));
-			gCodeFirstSide.AddRange(CodeBlock.FemaleCollarinoProfile(collarinoCycle, firstSideFemaleCollarinoProfilePoints));
+			gCodeFirstSide.AddRange(CodeBlock.FacingProfile(facingCycle, firstSideOuterVerticalProfilePoints));
+			gCodeFirstSide.AddRange(CodeBlock.DiametricalProfile(diametricalCycle, firstSideOuterHorizontalProfilePoints));
+			gCodeFirstSide.AddRange(CodeBlock.CollarinoProfile(collarinoCycle, firstSideFemaleCollarinoProfilePoints));
+			gCodeFirstSide.AddRange(CodeBlock.CavaProfile(cavaCycle, firstSideCavaProfilePoints, cavaFirstSideAuto.Checked, cavaFirstSideManual.Checked));
 			gCodeFirstSide.AddRange(CodeBlock.LatheEnd());
 
 			for (int i = 0; i < gCodeFirstSide.Count; i++)
@@ -727,19 +762,22 @@ namespace DXF
 				}
 			}
 
-			//Get second side outer horizontal and outer vertical profile points
+			//Get second side profiles points
 			List<ProfilePoint> secondSideOuterHorizontalProfilePoints = Get.ProfilePoints(Parameter.SecondSideHorizontalProfileLines, Parameter.SecondSideHorizontalProfileArcs);
 			List<ProfilePoint> secondSideOuterVerticalProfilePoints = Get.ProfilePoints(Parameter.SecondSideFacingProfile, Parameter.SecondSideOuterVerticalMachiningArcs);
 			List<ProfilePoint> secondtSideFemaleCollarinoProfilePoints = Get.ProfilePoints(Parameter.SecondSideCollarinoLines, Parameter.SecondSideCollarinoArcs);
+			List<ProfilePoint> secondSideCavaProfilePoints = Get.ProfilePoints(Parameter.SecondSideCavaLines, Parameter.SecondSideCavaArcs);
 
 			//Create g code for second side
 			List<string> gCodeSecondSide = new List<string>();
 			gCodeSecondSide.AddRange(CodeBlock.LatheInitialization(workplaneOriginParameter, secondSideWorkplaneValue, spindleSpeed));
-			gCodeSecondSide.AddRange(CodeBlock.OuterVerticalProfile(facingCycle, secondSideOuterVerticalProfilePoints));
-			gCodeSecondSide.AddRange(CodeBlock.OuterHorizontalProfile(diametricalCycle, secondSideOuterHorizontalProfilePoints));
-			gCodeSecondSide.AddRange(CodeBlock.FemaleCollarinoProfile(collarinoCycle, secondtSideFemaleCollarinoProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.FacingProfile(facingCycle, secondSideOuterVerticalProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.DiametricalProfile(diametricalCycle, secondSideOuterHorizontalProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.CollarinoProfile(collarinoCycle, secondtSideFemaleCollarinoProfilePoints));
+			gCodeSecondSide.AddRange(CodeBlock.CavaProfile(cavaCycle, secondSideCavaProfilePoints, cavaSecondSideAuto.Checked, cavaSecondSideManual.Checked));
 			gCodeSecondSide.AddRange(CodeBlock.LatheEnd());
 
+			//Set dot on values in case of comma
 			for (int i = 0; i < gCodeSecondSide.Count; i++)
 			{
 				if (gCodeSecondSide[i].Contains(','))
@@ -1011,8 +1049,8 @@ namespace DXF
 
 
 
-		#endregion
 
+		#endregion
 		
 	}
 }

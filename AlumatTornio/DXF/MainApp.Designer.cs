@@ -100,8 +100,8 @@ namespace DXF
 			this.decreaseFirstSideButton = new System.Windows.Forms.Button();
 			this.increaseFirstSideButton = new System.Windows.Forms.Button();
 			this.autoCavaSelectorGroup = new System.Windows.Forms.GroupBox();
-			this.cavaSecondSideButton = new System.Windows.Forms.RadioButton();
-			this.cavaFirstSideButton = new System.Windows.Forms.RadioButton();
+			this.cavaSecondSideAuto = new System.Windows.Forms.RadioButton();
+			this.cavaFirstSideAuto = new System.Windows.Forms.RadioButton();
 			this.manualCavaButton = new System.Windows.Forms.RadioButton();
 			this.autoCavaButton = new System.Windows.Forms.RadioButton();
 			this.visualizationPanel = new System.Windows.Forms.PictureBox();
@@ -111,25 +111,6 @@ namespace DXF
 			this.flippedButton = new System.Windows.Forms.RadioButton();
 			this.asDesignedButton = new System.Windows.Forms.RadioButton();
 			this.tabSettings = new System.Windows.Forms.TabPage();
-			this.workplaneOriginGroup = new System.Windows.Forms.GroupBox();
-			this.workplaneOriginParameterInput = new System.Windows.Forms.TextBox();
-			this.workplaneOriginLabel = new System.Windows.Forms.Label();
-			this.spindleSpeedGroup = new System.Windows.Forms.GroupBox();
-			this.constantSurfaceSpeedInput = new System.Windows.Forms.NumericUpDown();
-			this.constantSurfaceSpeedLabel = new System.Windows.Forms.Label();
-			this.spindleSpeedLimitInput = new System.Windows.Forms.NumericUpDown();
-			this.speedLimitLabel = new System.Windows.Forms.Label();
-			this.collarinoCycleGroup = new System.Windows.Forms.GroupBox();
-			this.collarinoFeedRateInput = new System.Windows.Forms.NumericUpDown();
-			this.collarinoZAllowanceInput = new System.Windows.Forms.NumericUpDown();
-			this.collarinoXAllowanceInput = new System.Windows.Forms.NumericUpDown();
-			this.collarinoRetractInput = new System.Windows.Forms.NumericUpDown();
-			this.collarinoDepthOfCutInput = new System.Windows.Forms.NumericUpDown();
-			this.collarinoFeedRateLabel = new System.Windows.Forms.Label();
-			this.collarinoAllowanceZLabel = new System.Windows.Forms.Label();
-			this.collarinoAllowanceXLabel = new System.Windows.Forms.Label();
-			this.collarinoRetractLabel = new System.Windows.Forms.Label();
-			this.collarinoDepthOfCutLabel = new System.Windows.Forms.Label();
 			this.cavaCycleGroup = new System.Windows.Forms.GroupBox();
 			this.cavaFeedRateInput = new System.Windows.Forms.NumericUpDown();
 			this.cavaZAllowanceInput = new System.Windows.Forms.NumericUpDown();
@@ -141,6 +122,27 @@ namespace DXF
 			this.cavaAllowanceXLabel = new System.Windows.Forms.Label();
 			this.cavaRetractLabel = new System.Windows.Forms.Label();
 			this.cavaDepthOfCutLabel = new System.Windows.Forms.Label();
+			this.collarinoCycleGroup = new System.Windows.Forms.GroupBox();
+			this.collarinoFeedRateInput = new System.Windows.Forms.NumericUpDown();
+			this.collarinoZAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.collarinoXAllowanceInput = new System.Windows.Forms.NumericUpDown();
+			this.collarinoRetractInput = new System.Windows.Forms.NumericUpDown();
+			this.collarinoDepthOfCutInput = new System.Windows.Forms.NumericUpDown();
+			this.collarinoFeedRateLabel = new System.Windows.Forms.Label();
+			this.collarinoAllowanceZLabel = new System.Windows.Forms.Label();
+			this.collarinoAllowanceXLabel = new System.Windows.Forms.Label();
+			this.collarinoRetractLabel = new System.Windows.Forms.Label();
+			this.collarinoDepthOfCutLabel = new System.Windows.Forms.Label();
+			this.workplaneOriginGroup = new System.Windows.Forms.GroupBox();
+			this.workplaneOriginParameterInput = new System.Windows.Forms.TextBox();
+			this.workplaneOriginLabel = new System.Windows.Forms.Label();
+			this.spindleSpeedGroup = new System.Windows.Forms.GroupBox();
+			this.constantSurfaceSpeedInput = new System.Windows.Forms.NumericUpDown();
+			this.constantSurfaceSpeedLabel = new System.Windows.Forms.Label();
+			this.spindleSpeedLimitInput = new System.Windows.Forms.NumericUpDown();
+			this.speedLimitLabel = new System.Windows.Forms.Label();
+			this.cavaFirstSideManual = new System.Windows.Forms.CheckBox();
+			this.cavaSecondSideManual = new System.Windows.Forms.CheckBox();
 			this.mainAppMenu.SuspendLayout();
 			this.viewSideSelectorGroup.SuspendLayout();
 			this.copyrightsBanner.SuspendLayout();
@@ -171,22 +173,22 @@ namespace DXF
 			((System.ComponentModel.ISupportInitialize)(this.visualizationPanel)).BeginInit();
 			this.firstSideSelectorGroup.SuspendLayout();
 			this.tabSettings.SuspendLayout();
-			this.workplaneOriginGroup.SuspendLayout();
-			this.spindleSpeedGroup.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.constantSurfaceSpeedInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.spindleSpeedLimitInput)).BeginInit();
-			this.collarinoCycleGroup.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.collarinoFeedRateInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.collarinoZAllowanceInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.collarinoXAllowanceInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.collarinoRetractInput)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.collarinoDepthOfCutInput)).BeginInit();
 			this.cavaCycleGroup.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.cavaFeedRateInput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.cavaZAllowanceInput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.cavaXAllowanceInput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.cavaRetractInput)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.cavaDepthOfCutInput)).BeginInit();
+			this.collarinoCycleGroup.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoFeedRateInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoZAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoXAllowanceInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoRetractInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoDepthOfCutInput)).BeginInit();
+			this.workplaneOriginGroup.SuspendLayout();
+			this.spindleSpeedGroup.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.constantSurfaceSpeedInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.spindleSpeedLimitInput)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// coordinatesLabel
@@ -1093,7 +1095,7 @@ namespace DXF
 			this.cavaSelectorGroup.Size = new System.Drawing.Size(255, 119);
 			this.cavaSelectorGroup.TabIndex = 20;
 			this.cavaSelectorGroup.TabStop = false;
-			this.cavaSelectorGroup.Text = "Set cava";
+			this.cavaSelectorGroup.Text = "Set cava overlap";
 			// 
 			// setCavaSelectorGroupSecondSideLabel
 			// 
@@ -1117,6 +1119,8 @@ namespace DXF
 			// 
 			// manualCavaSelectorGroup
 			// 
+			this.manualCavaSelectorGroup.Controls.Add(this.cavaSecondSideManual);
+			this.manualCavaSelectorGroup.Controls.Add(this.cavaFirstSideManual);
 			this.manualCavaSelectorGroup.Controls.Add(this.decreaseSecondSideButton);
 			this.manualCavaSelectorGroup.Controls.Add(this.increaseSecondSideButton);
 			this.manualCavaSelectorGroup.Controls.Add(this.decreaseFirstSideButton);
@@ -1136,7 +1140,7 @@ namespace DXF
 			this.decreaseSecondSideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.decreaseSecondSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.decreaseSecondSideButton.ForeColor = System.Drawing.Color.Black;
-			this.decreaseSecondSideButton.Location = new System.Drawing.Point(52, 45);
+			this.decreaseSecondSideButton.Location = new System.Drawing.Point(40, 45);
 			this.decreaseSecondSideButton.Name = "decreaseSecondSideButton";
 			this.decreaseSecondSideButton.Size = new System.Drawing.Size(26, 26);
 			this.decreaseSecondSideButton.TabIndex = 3;
@@ -1168,7 +1172,7 @@ namespace DXF
 			this.decreaseFirstSideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.decreaseFirstSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.decreaseFirstSideButton.ForeColor = System.Drawing.Color.Black;
-			this.decreaseFirstSideButton.Location = new System.Drawing.Point(52, 15);
+			this.decreaseFirstSideButton.Location = new System.Drawing.Point(40, 15);
 			this.decreaseFirstSideButton.Name = "decreaseFirstSideButton";
 			this.decreaseFirstSideButton.Size = new System.Drawing.Size(26, 26);
 			this.decreaseFirstSideButton.TabIndex = 1;
@@ -1194,53 +1198,53 @@ namespace DXF
 			// 
 			// autoCavaSelectorGroup
 			// 
-			this.autoCavaSelectorGroup.Controls.Add(this.cavaSecondSideButton);
-			this.autoCavaSelectorGroup.Controls.Add(this.cavaFirstSideButton);
+			this.autoCavaSelectorGroup.Controls.Add(this.cavaSecondSideAuto);
+			this.autoCavaSelectorGroup.Controls.Add(this.cavaFirstSideAuto);
 			this.autoCavaSelectorGroup.Location = new System.Drawing.Point(88, 36);
 			this.autoCavaSelectorGroup.Name = "autoCavaSelectorGroup";
 			this.autoCavaSelectorGroup.Size = new System.Drawing.Size(60, 78);
 			this.autoCavaSelectorGroup.TabIndex = 26;
 			this.autoCavaSelectorGroup.TabStop = false;
 			// 
-			// cavaSecondSideButton
+			// cavaSecondSideAuto
 			// 
-			this.cavaSecondSideButton.Appearance = System.Windows.Forms.Appearance.Button;
-			this.cavaSecondSideButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.cavaSecondSideButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
-			this.cavaSecondSideButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
-			this.cavaSecondSideButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
-			this.cavaSecondSideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.cavaSecondSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-			this.cavaSecondSideButton.ForeColor = System.Drawing.Color.Black;
-			this.cavaSecondSideButton.Location = new System.Drawing.Point(7, 45);
-			this.cavaSecondSideButton.Name = "cavaSecondSideButton";
-			this.cavaSecondSideButton.Size = new System.Drawing.Size(46, 26);
-			this.cavaSecondSideButton.TabIndex = 1;
-			this.cavaSecondSideButton.TabStop = true;
-			this.cavaSecondSideButton.Text = "Set";
-			this.cavaSecondSideButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.cavaSecondSideButton.UseVisualStyleBackColor = false;
-			this.cavaSecondSideButton.CheckedChanged += new System.EventHandler(this.cavaSecondSideButton_CheckedChanged);
+			this.cavaSecondSideAuto.Appearance = System.Windows.Forms.Appearance.Button;
+			this.cavaSecondSideAuto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.cavaSecondSideAuto.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
+			this.cavaSecondSideAuto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
+			this.cavaSecondSideAuto.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
+			this.cavaSecondSideAuto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.cavaSecondSideAuto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+			this.cavaSecondSideAuto.ForeColor = System.Drawing.Color.Black;
+			this.cavaSecondSideAuto.Location = new System.Drawing.Point(7, 45);
+			this.cavaSecondSideAuto.Name = "cavaSecondSideAuto";
+			this.cavaSecondSideAuto.Size = new System.Drawing.Size(46, 26);
+			this.cavaSecondSideAuto.TabIndex = 1;
+			this.cavaSecondSideAuto.TabStop = true;
+			this.cavaSecondSideAuto.Text = "Set";
+			this.cavaSecondSideAuto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.cavaSecondSideAuto.UseVisualStyleBackColor = false;
+			this.cavaSecondSideAuto.CheckedChanged += new System.EventHandler(this.cavaSecondSideButton_CheckedChanged);
 			// 
-			// cavaFirstSideButton
+			// cavaFirstSideAuto
 			// 
-			this.cavaFirstSideButton.Appearance = System.Windows.Forms.Appearance.Button;
-			this.cavaFirstSideButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.cavaFirstSideButton.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
-			this.cavaFirstSideButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
-			this.cavaFirstSideButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
-			this.cavaFirstSideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.cavaFirstSideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-			this.cavaFirstSideButton.ForeColor = System.Drawing.Color.Black;
-			this.cavaFirstSideButton.Location = new System.Drawing.Point(7, 15);
-			this.cavaFirstSideButton.Name = "cavaFirstSideButton";
-			this.cavaFirstSideButton.Size = new System.Drawing.Size(46, 26);
-			this.cavaFirstSideButton.TabIndex = 0;
-			this.cavaFirstSideButton.TabStop = true;
-			this.cavaFirstSideButton.Text = "Set";
-			this.cavaFirstSideButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.cavaFirstSideButton.UseVisualStyleBackColor = false;
-			this.cavaFirstSideButton.CheckedChanged += new System.EventHandler(this.cavaFirstSideButton_CheckedChanged);
+			this.cavaFirstSideAuto.Appearance = System.Windows.Forms.Appearance.Button;
+			this.cavaFirstSideAuto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.cavaFirstSideAuto.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
+			this.cavaFirstSideAuto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
+			this.cavaFirstSideAuto.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(0)))));
+			this.cavaFirstSideAuto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.cavaFirstSideAuto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+			this.cavaFirstSideAuto.ForeColor = System.Drawing.Color.Black;
+			this.cavaFirstSideAuto.Location = new System.Drawing.Point(7, 15);
+			this.cavaFirstSideAuto.Name = "cavaFirstSideAuto";
+			this.cavaFirstSideAuto.Size = new System.Drawing.Size(46, 26);
+			this.cavaFirstSideAuto.TabIndex = 0;
+			this.cavaFirstSideAuto.TabStop = true;
+			this.cavaFirstSideAuto.Text = "Set";
+			this.cavaFirstSideAuto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.cavaFirstSideAuto.UseVisualStyleBackColor = false;
+			this.cavaFirstSideAuto.CheckedChanged += new System.EventHandler(this.cavaFirstSideButton_CheckedChanged);
 			// 
 			// manualCavaButton
 			// 
@@ -1360,343 +1364,6 @@ namespace DXF
 			this.tabSettings.Size = new System.Drawing.Size(781, 513);
 			this.tabSettings.TabIndex = 1;
 			this.tabSettings.Text = "Machining Settings";
-			// 
-			// workplaneOriginGroup
-			// 
-			this.workplaneOriginGroup.Controls.Add(this.workplaneOriginParameterInput);
-			this.workplaneOriginGroup.Controls.Add(this.workplaneOriginLabel);
-			this.workplaneOriginGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-			this.workplaneOriginGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.workplaneOriginGroup.Location = new System.Drawing.Point(277, 188);
-			this.workplaneOriginGroup.Name = "workplaneOriginGroup";
-			this.workplaneOriginGroup.Size = new System.Drawing.Size(492, 90);
-			this.workplaneOriginGroup.TabIndex = 25;
-			this.workplaneOriginGroup.TabStop = false;
-			this.workplaneOriginGroup.Text = "Workplane origin";
-			// 
-			// workplaneOriginParameterInput
-			// 
-			this.workplaneOriginParameterInput.Location = new System.Drawing.Point(335, 37);
-			this.workplaneOriginParameterInput.MaxLength = 18;
-			this.workplaneOriginParameterInput.Name = "workplaneOriginParameterInput";
-			this.workplaneOriginParameterInput.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.workplaneOriginParameterInput.Size = new System.Drawing.Size(131, 22);
-			this.workplaneOriginParameterInput.TabIndex = 7;
-			this.workplaneOriginParameterInput.TextChanged += new System.EventHandler(this.workplaneOriginParameterInput_TextChanged);
-			// 
-			// workplaneOriginLabel
-			// 
-			this.workplaneOriginLabel.AutoSize = true;
-			this.workplaneOriginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.workplaneOriginLabel.ForeColor = System.Drawing.Color.Black;
-			this.workplaneOriginLabel.Location = new System.Drawing.Point(19, 40);
-			this.workplaneOriginLabel.Name = "workplaneOriginLabel";
-			this.workplaneOriginLabel.Size = new System.Drawing.Size(312, 16);
-			this.workplaneOriginLabel.TabIndex = 6;
-			this.workplaneOriginLabel.Text = "Workplane origin parameter of machine(ex: #5222) :";
-			// 
-			// spindleSpeedGroup
-			// 
-			this.spindleSpeedGroup.Controls.Add(this.constantSurfaceSpeedInput);
-			this.spindleSpeedGroup.Controls.Add(this.constantSurfaceSpeedLabel);
-			this.spindleSpeedGroup.Controls.Add(this.spindleSpeedLimitInput);
-			this.spindleSpeedGroup.Controls.Add(this.speedLimitLabel);
-			this.spindleSpeedGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-			this.spindleSpeedGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.spindleSpeedGroup.Location = new System.Drawing.Point(8, 188);
-			this.spindleSpeedGroup.Name = "spindleSpeedGroup";
-			this.spindleSpeedGroup.Size = new System.Drawing.Size(261, 90);
-			this.spindleSpeedGroup.TabIndex = 24;
-			this.spindleSpeedGroup.TabStop = false;
-			this.spindleSpeedGroup.Text = "Spindle speed";
-			// 
-			// constantSurfaceSpeedInput
-			// 
-			this.constantSurfaceSpeedInput.DecimalPlaces = 1;
-			this.constantSurfaceSpeedInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.constantSurfaceSpeedInput.Location = new System.Drawing.Point(180, 54);
-			this.constantSurfaceSpeedInput.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-			this.constantSurfaceSpeedInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.constantSurfaceSpeedInput.Name = "constantSurfaceSpeedInput";
-			this.constantSurfaceSpeedInput.Size = new System.Drawing.Size(71, 26);
-			this.constantSurfaceSpeedInput.TabIndex = 9;
-			this.constantSurfaceSpeedInput.Value = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-			this.constantSurfaceSpeedInput.ValueChanged += new System.EventHandler(this.constantSurfaceSpeedInput_ValueChanged);
-			// 
-			// constantSurfaceSpeedLabel
-			// 
-			this.constantSurfaceSpeedLabel.AutoSize = true;
-			this.constantSurfaceSpeedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.constantSurfaceSpeedLabel.ForeColor = System.Drawing.Color.Black;
-			this.constantSurfaceSpeedLabel.Location = new System.Drawing.Point(19, 59);
-			this.constantSurfaceSpeedLabel.Name = "constantSurfaceSpeedLabel";
-			this.constantSurfaceSpeedLabel.Size = new System.Drawing.Size(155, 16);
-			this.constantSurfaceSpeedLabel.TabIndex = 8;
-			this.constantSurfaceSpeedLabel.Text = "Constant surface speed :";
-			// 
-			// spindleSpeedLimitInput
-			// 
-			this.spindleSpeedLimitInput.DecimalPlaces = 1;
-			this.spindleSpeedLimitInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.spindleSpeedLimitInput.Location = new System.Drawing.Point(180, 19);
-			this.spindleSpeedLimitInput.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-			this.spindleSpeedLimitInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.spindleSpeedLimitInput.Name = "spindleSpeedLimitInput";
-			this.spindleSpeedLimitInput.Size = new System.Drawing.Size(71, 26);
-			this.spindleSpeedLimitInput.TabIndex = 7;
-			this.spindleSpeedLimitInput.Value = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
-			this.spindleSpeedLimitInput.ValueChanged += new System.EventHandler(this.spindleSpeedLimitInput_ValueChanged);
-			// 
-			// speedLimitLabel
-			// 
-			this.speedLimitLabel.AutoSize = true;
-			this.speedLimitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.speedLimitLabel.ForeColor = System.Drawing.Color.Black;
-			this.speedLimitLabel.Location = new System.Drawing.Point(42, 24);
-			this.speedLimitLabel.Name = "speedLimitLabel";
-			this.speedLimitLabel.Size = new System.Drawing.Size(128, 16);
-			this.speedLimitLabel.TabIndex = 6;
-			this.speedLimitLabel.Text = "Spindle speed limit :";
-			// 
-			// collarinoCycleGroup
-			// 
-			this.collarinoCycleGroup.Controls.Add(this.collarinoFeedRateInput);
-			this.collarinoCycleGroup.Controls.Add(this.collarinoZAllowanceInput);
-			this.collarinoCycleGroup.Controls.Add(this.collarinoXAllowanceInput);
-			this.collarinoCycleGroup.Controls.Add(this.collarinoRetractInput);
-			this.collarinoCycleGroup.Controls.Add(this.collarinoDepthOfCutInput);
-			this.collarinoCycleGroup.Controls.Add(this.collarinoFeedRateLabel);
-			this.collarinoCycleGroup.Controls.Add(this.collarinoAllowanceZLabel);
-			this.collarinoCycleGroup.Controls.Add(this.collarinoAllowanceXLabel);
-			this.collarinoCycleGroup.Controls.Add(this.collarinoRetractLabel);
-			this.collarinoCycleGroup.Controls.Add(this.collarinoDepthOfCutLabel);
-			this.collarinoCycleGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.collarinoCycleGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
-			this.collarinoCycleGroup.Location = new System.Drawing.Point(405, 6);
-			this.collarinoCycleGroup.Name = "collarinoCycleGroup";
-			this.collarinoCycleGroup.Size = new System.Drawing.Size(163, 174);
-			this.collarinoCycleGroup.TabIndex = 11;
-			this.collarinoCycleGroup.TabStop = false;
-			this.collarinoCycleGroup.Text = "Collarino Cycle";
-			// 
-			// collarinoFeedRateInput
-			// 
-			this.collarinoFeedRateInput.DecimalPlaces = 2;
-			this.collarinoFeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.collarinoFeedRateInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.collarinoFeedRateInput.Location = new System.Drawing.Point(100, 140);
-			this.collarinoFeedRateInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.collarinoFeedRateInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-			this.collarinoFeedRateInput.Name = "collarinoFeedRateInput";
-			this.collarinoFeedRateInput.Size = new System.Drawing.Size(53, 26);
-			this.collarinoFeedRateInput.TabIndex = 9;
-			this.collarinoFeedRateInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.collarinoFeedRateInput.ValueChanged += new System.EventHandler(this.collarinoFeedRateInput_ValueChanged);
-			// 
-			// collarinoZAllowanceInput
-			// 
-			this.collarinoZAllowanceInput.DecimalPlaces = 2;
-			this.collarinoZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.collarinoZAllowanceInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.collarinoZAllowanceInput.Location = new System.Drawing.Point(100, 110);
-			this.collarinoZAllowanceInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.collarinoZAllowanceInput.Name = "collarinoZAllowanceInput";
-			this.collarinoZAllowanceInput.Size = new System.Drawing.Size(53, 26);
-			this.collarinoZAllowanceInput.TabIndex = 8;
-			this.collarinoZAllowanceInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.collarinoZAllowanceInput.ValueChanged += new System.EventHandler(this.collarinoZAllowanceInput_ValueChanged);
-			// 
-			// collarinoXAllowanceInput
-			// 
-			this.collarinoXAllowanceInput.DecimalPlaces = 2;
-			this.collarinoXAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.collarinoXAllowanceInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.collarinoXAllowanceInput.Location = new System.Drawing.Point(100, 80);
-			this.collarinoXAllowanceInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.collarinoXAllowanceInput.Name = "collarinoXAllowanceInput";
-			this.collarinoXAllowanceInput.Size = new System.Drawing.Size(53, 26);
-			this.collarinoXAllowanceInput.TabIndex = 7;
-			this.collarinoXAllowanceInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.collarinoXAllowanceInput.ValueChanged += new System.EventHandler(this.collarinoXAllowanceInput_ValueChanged);
-			// 
-			// collarinoRetractInput
-			// 
-			this.collarinoRetractInput.DecimalPlaces = 2;
-			this.collarinoRetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.collarinoRetractInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.collarinoRetractInput.Location = new System.Drawing.Point(100, 50);
-			this.collarinoRetractInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.collarinoRetractInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-			this.collarinoRetractInput.Name = "collarinoRetractInput";
-			this.collarinoRetractInput.Size = new System.Drawing.Size(53, 26);
-			this.collarinoRetractInput.TabIndex = 6;
-			this.collarinoRetractInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.collarinoRetractInput.ValueChanged += new System.EventHandler(this.collarinoRetractInput_ValueChanged);
-			// 
-			// collarinoDepthOfCutInput
-			// 
-			this.collarinoDepthOfCutInput.DecimalPlaces = 2;
-			this.collarinoDepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.collarinoDepthOfCutInput.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.collarinoDepthOfCutInput.Location = new System.Drawing.Point(100, 20);
-			this.collarinoDepthOfCutInput.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.collarinoDepthOfCutInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-			this.collarinoDepthOfCutInput.Name = "collarinoDepthOfCutInput";
-			this.collarinoDepthOfCutInput.Size = new System.Drawing.Size(53, 26);
-			this.collarinoDepthOfCutInput.TabIndex = 5;
-			this.collarinoDepthOfCutInput.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.collarinoDepthOfCutInput.ValueChanged += new System.EventHandler(this.collarinoDepthOfCutInput_ValueChanged);
-			// 
-			// collarinoFeedRateLabel
-			// 
-			this.collarinoFeedRateLabel.AutoSize = true;
-			this.collarinoFeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.collarinoFeedRateLabel.ForeColor = System.Drawing.Color.Black;
-			this.collarinoFeedRateLabel.Location = new System.Drawing.Point(25, 145);
-			this.collarinoFeedRateLabel.Name = "collarinoFeedRateLabel";
-			this.collarinoFeedRateLabel.Size = new System.Drawing.Size(69, 16);
-			this.collarinoFeedRateLabel.TabIndex = 4;
-			this.collarinoFeedRateLabel.Text = "Feed rate:";
-			// 
-			// collarinoAllowanceZLabel
-			// 
-			this.collarinoAllowanceZLabel.AutoSize = true;
-			this.collarinoAllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.collarinoAllowanceZLabel.ForeColor = System.Drawing.Color.Black;
-			this.collarinoAllowanceZLabel.Location = new System.Drawing.Point(10, 115);
-			this.collarinoAllowanceZLabel.Name = "collarinoAllowanceZLabel";
-			this.collarinoAllowanceZLabel.Size = new System.Drawing.Size(84, 16);
-			this.collarinoAllowanceZLabel.TabIndex = 3;
-			this.collarinoAllowanceZLabel.Text = "Z Allowance:";
-			// 
-			// collarinoAllowanceXLabel
-			// 
-			this.collarinoAllowanceXLabel.AutoSize = true;
-			this.collarinoAllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.collarinoAllowanceXLabel.ForeColor = System.Drawing.Color.Black;
-			this.collarinoAllowanceXLabel.Location = new System.Drawing.Point(10, 85);
-			this.collarinoAllowanceXLabel.Name = "collarinoAllowanceXLabel";
-			this.collarinoAllowanceXLabel.Size = new System.Drawing.Size(84, 16);
-			this.collarinoAllowanceXLabel.TabIndex = 2;
-			this.collarinoAllowanceXLabel.Text = "X Allowance:";
-			// 
-			// collarinoRetractLabel
-			// 
-			this.collarinoRetractLabel.AutoSize = true;
-			this.collarinoRetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.collarinoRetractLabel.ForeColor = System.Drawing.Color.Black;
-			this.collarinoRetractLabel.Location = new System.Drawing.Point(6, 55);
-			this.collarinoRetractLabel.Name = "collarinoRetractLabel";
-			this.collarinoRetractLabel.Size = new System.Drawing.Size(90, 16);
-			this.collarinoRetractLabel.TabIndex = 1;
-			this.collarinoRetractLabel.Text = "Retract value:";
-			// 
-			// collarinoDepthOfCutLabel
-			// 
-			this.collarinoDepthOfCutLabel.AutoSize = true;
-			this.collarinoDepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.collarinoDepthOfCutLabel.ForeColor = System.Drawing.Color.Black;
-			this.collarinoDepthOfCutLabel.Location = new System.Drawing.Point(13, 25);
-			this.collarinoDepthOfCutLabel.Name = "collarinoDepthOfCutLabel";
-			this.collarinoDepthOfCutLabel.Size = new System.Drawing.Size(81, 16);
-			this.collarinoDepthOfCutLabel.TabIndex = 0;
-			this.collarinoDepthOfCutLabel.Text = "Depth of cut:";
 			// 
 			// cavaCycleGroup
 			// 
@@ -1914,6 +1581,363 @@ namespace DXF
 			this.cavaDepthOfCutLabel.TabIndex = 0;
 			this.cavaDepthOfCutLabel.Text = "Depth of cut:";
 			// 
+			// collarinoCycleGroup
+			// 
+			this.collarinoCycleGroup.Controls.Add(this.collarinoFeedRateInput);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoZAllowanceInput);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoXAllowanceInput);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoRetractInput);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoDepthOfCutInput);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoFeedRateLabel);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoAllowanceZLabel);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoAllowanceXLabel);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoRetractLabel);
+			this.collarinoCycleGroup.Controls.Add(this.collarinoDepthOfCutLabel);
+			this.collarinoCycleGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoCycleGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.collarinoCycleGroup.Location = new System.Drawing.Point(405, 6);
+			this.collarinoCycleGroup.Name = "collarinoCycleGroup";
+			this.collarinoCycleGroup.Size = new System.Drawing.Size(163, 174);
+			this.collarinoCycleGroup.TabIndex = 11;
+			this.collarinoCycleGroup.TabStop = false;
+			this.collarinoCycleGroup.Text = "Collarino Cycle";
+			// 
+			// collarinoFeedRateInput
+			// 
+			this.collarinoFeedRateInput.DecimalPlaces = 2;
+			this.collarinoFeedRateInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoFeedRateInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoFeedRateInput.Location = new System.Drawing.Point(100, 140);
+			this.collarinoFeedRateInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.collarinoFeedRateInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.collarinoFeedRateInput.Name = "collarinoFeedRateInput";
+			this.collarinoFeedRateInput.Size = new System.Drawing.Size(53, 26);
+			this.collarinoFeedRateInput.TabIndex = 9;
+			this.collarinoFeedRateInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoFeedRateInput.ValueChanged += new System.EventHandler(this.collarinoFeedRateInput_ValueChanged);
+			// 
+			// collarinoZAllowanceInput
+			// 
+			this.collarinoZAllowanceInput.DecimalPlaces = 2;
+			this.collarinoZAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoZAllowanceInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoZAllowanceInput.Location = new System.Drawing.Point(100, 110);
+			this.collarinoZAllowanceInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.collarinoZAllowanceInput.Name = "collarinoZAllowanceInput";
+			this.collarinoZAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.collarinoZAllowanceInput.TabIndex = 8;
+			this.collarinoZAllowanceInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoZAllowanceInput.ValueChanged += new System.EventHandler(this.collarinoZAllowanceInput_ValueChanged);
+			// 
+			// collarinoXAllowanceInput
+			// 
+			this.collarinoXAllowanceInput.DecimalPlaces = 2;
+			this.collarinoXAllowanceInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoXAllowanceInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoXAllowanceInput.Location = new System.Drawing.Point(100, 80);
+			this.collarinoXAllowanceInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.collarinoXAllowanceInput.Name = "collarinoXAllowanceInput";
+			this.collarinoXAllowanceInput.Size = new System.Drawing.Size(53, 26);
+			this.collarinoXAllowanceInput.TabIndex = 7;
+			this.collarinoXAllowanceInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoXAllowanceInput.ValueChanged += new System.EventHandler(this.collarinoXAllowanceInput_ValueChanged);
+			// 
+			// collarinoRetractInput
+			// 
+			this.collarinoRetractInput.DecimalPlaces = 2;
+			this.collarinoRetractInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoRetractInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoRetractInput.Location = new System.Drawing.Point(100, 50);
+			this.collarinoRetractInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.collarinoRetractInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.collarinoRetractInput.Name = "collarinoRetractInput";
+			this.collarinoRetractInput.Size = new System.Drawing.Size(53, 26);
+			this.collarinoRetractInput.TabIndex = 6;
+			this.collarinoRetractInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoRetractInput.ValueChanged += new System.EventHandler(this.collarinoRetractInput_ValueChanged);
+			// 
+			// collarinoDepthOfCutInput
+			// 
+			this.collarinoDepthOfCutInput.DecimalPlaces = 2;
+			this.collarinoDepthOfCutInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoDepthOfCutInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoDepthOfCutInput.Location = new System.Drawing.Point(100, 20);
+			this.collarinoDepthOfCutInput.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+			this.collarinoDepthOfCutInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.collarinoDepthOfCutInput.Name = "collarinoDepthOfCutInput";
+			this.collarinoDepthOfCutInput.Size = new System.Drawing.Size(53, 26);
+			this.collarinoDepthOfCutInput.TabIndex = 5;
+			this.collarinoDepthOfCutInput.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			this.collarinoDepthOfCutInput.ValueChanged += new System.EventHandler(this.collarinoDepthOfCutInput_ValueChanged);
+			// 
+			// collarinoFeedRateLabel
+			// 
+			this.collarinoFeedRateLabel.AutoSize = true;
+			this.collarinoFeedRateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoFeedRateLabel.ForeColor = System.Drawing.Color.Black;
+			this.collarinoFeedRateLabel.Location = new System.Drawing.Point(25, 145);
+			this.collarinoFeedRateLabel.Name = "collarinoFeedRateLabel";
+			this.collarinoFeedRateLabel.Size = new System.Drawing.Size(69, 16);
+			this.collarinoFeedRateLabel.TabIndex = 4;
+			this.collarinoFeedRateLabel.Text = "Feed rate:";
+			// 
+			// collarinoAllowanceZLabel
+			// 
+			this.collarinoAllowanceZLabel.AutoSize = true;
+			this.collarinoAllowanceZLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoAllowanceZLabel.ForeColor = System.Drawing.Color.Black;
+			this.collarinoAllowanceZLabel.Location = new System.Drawing.Point(10, 115);
+			this.collarinoAllowanceZLabel.Name = "collarinoAllowanceZLabel";
+			this.collarinoAllowanceZLabel.Size = new System.Drawing.Size(84, 16);
+			this.collarinoAllowanceZLabel.TabIndex = 3;
+			this.collarinoAllowanceZLabel.Text = "Z Allowance:";
+			// 
+			// collarinoAllowanceXLabel
+			// 
+			this.collarinoAllowanceXLabel.AutoSize = true;
+			this.collarinoAllowanceXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoAllowanceXLabel.ForeColor = System.Drawing.Color.Black;
+			this.collarinoAllowanceXLabel.Location = new System.Drawing.Point(10, 85);
+			this.collarinoAllowanceXLabel.Name = "collarinoAllowanceXLabel";
+			this.collarinoAllowanceXLabel.Size = new System.Drawing.Size(84, 16);
+			this.collarinoAllowanceXLabel.TabIndex = 2;
+			this.collarinoAllowanceXLabel.Text = "X Allowance:";
+			// 
+			// collarinoRetractLabel
+			// 
+			this.collarinoRetractLabel.AutoSize = true;
+			this.collarinoRetractLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoRetractLabel.ForeColor = System.Drawing.Color.Black;
+			this.collarinoRetractLabel.Location = new System.Drawing.Point(6, 55);
+			this.collarinoRetractLabel.Name = "collarinoRetractLabel";
+			this.collarinoRetractLabel.Size = new System.Drawing.Size(90, 16);
+			this.collarinoRetractLabel.TabIndex = 1;
+			this.collarinoRetractLabel.Text = "Retract value:";
+			// 
+			// collarinoDepthOfCutLabel
+			// 
+			this.collarinoDepthOfCutLabel.AutoSize = true;
+			this.collarinoDepthOfCutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.collarinoDepthOfCutLabel.ForeColor = System.Drawing.Color.Black;
+			this.collarinoDepthOfCutLabel.Location = new System.Drawing.Point(13, 25);
+			this.collarinoDepthOfCutLabel.Name = "collarinoDepthOfCutLabel";
+			this.collarinoDepthOfCutLabel.Size = new System.Drawing.Size(81, 16);
+			this.collarinoDepthOfCutLabel.TabIndex = 0;
+			this.collarinoDepthOfCutLabel.Text = "Depth of cut:";
+			// 
+			// workplaneOriginGroup
+			// 
+			this.workplaneOriginGroup.Controls.Add(this.workplaneOriginParameterInput);
+			this.workplaneOriginGroup.Controls.Add(this.workplaneOriginLabel);
+			this.workplaneOriginGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+			this.workplaneOriginGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.workplaneOriginGroup.Location = new System.Drawing.Point(277, 188);
+			this.workplaneOriginGroup.Name = "workplaneOriginGroup";
+			this.workplaneOriginGroup.Size = new System.Drawing.Size(492, 90);
+			this.workplaneOriginGroup.TabIndex = 25;
+			this.workplaneOriginGroup.TabStop = false;
+			this.workplaneOriginGroup.Text = "Workplane origin";
+			// 
+			// workplaneOriginParameterInput
+			// 
+			this.workplaneOriginParameterInput.Location = new System.Drawing.Point(335, 37);
+			this.workplaneOriginParameterInput.MaxLength = 18;
+			this.workplaneOriginParameterInput.Name = "workplaneOriginParameterInput";
+			this.workplaneOriginParameterInput.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.workplaneOriginParameterInput.Size = new System.Drawing.Size(131, 22);
+			this.workplaneOriginParameterInput.TabIndex = 7;
+			this.workplaneOriginParameterInput.TextChanged += new System.EventHandler(this.workplaneOriginParameterInput_TextChanged);
+			// 
+			// workplaneOriginLabel
+			// 
+			this.workplaneOriginLabel.AutoSize = true;
+			this.workplaneOriginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.workplaneOriginLabel.ForeColor = System.Drawing.Color.Black;
+			this.workplaneOriginLabel.Location = new System.Drawing.Point(19, 40);
+			this.workplaneOriginLabel.Name = "workplaneOriginLabel";
+			this.workplaneOriginLabel.Size = new System.Drawing.Size(312, 16);
+			this.workplaneOriginLabel.TabIndex = 6;
+			this.workplaneOriginLabel.Text = "Workplane origin parameter of machine(ex: #5222) :";
+			// 
+			// spindleSpeedGroup
+			// 
+			this.spindleSpeedGroup.Controls.Add(this.constantSurfaceSpeedInput);
+			this.spindleSpeedGroup.Controls.Add(this.constantSurfaceSpeedLabel);
+			this.spindleSpeedGroup.Controls.Add(this.spindleSpeedLimitInput);
+			this.spindleSpeedGroup.Controls.Add(this.speedLimitLabel);
+			this.spindleSpeedGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+			this.spindleSpeedGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+			this.spindleSpeedGroup.Location = new System.Drawing.Point(8, 188);
+			this.spindleSpeedGroup.Name = "spindleSpeedGroup";
+			this.spindleSpeedGroup.Size = new System.Drawing.Size(261, 90);
+			this.spindleSpeedGroup.TabIndex = 24;
+			this.spindleSpeedGroup.TabStop = false;
+			this.spindleSpeedGroup.Text = "Spindle speed";
+			// 
+			// constantSurfaceSpeedInput
+			// 
+			this.constantSurfaceSpeedInput.DecimalPlaces = 1;
+			this.constantSurfaceSpeedInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.constantSurfaceSpeedInput.Location = new System.Drawing.Point(180, 54);
+			this.constantSurfaceSpeedInput.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+			this.constantSurfaceSpeedInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.constantSurfaceSpeedInput.Name = "constantSurfaceSpeedInput";
+			this.constantSurfaceSpeedInput.Size = new System.Drawing.Size(71, 26);
+			this.constantSurfaceSpeedInput.TabIndex = 9;
+			this.constantSurfaceSpeedInput.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+			this.constantSurfaceSpeedInput.ValueChanged += new System.EventHandler(this.constantSurfaceSpeedInput_ValueChanged);
+			// 
+			// constantSurfaceSpeedLabel
+			// 
+			this.constantSurfaceSpeedLabel.AutoSize = true;
+			this.constantSurfaceSpeedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.constantSurfaceSpeedLabel.ForeColor = System.Drawing.Color.Black;
+			this.constantSurfaceSpeedLabel.Location = new System.Drawing.Point(19, 59);
+			this.constantSurfaceSpeedLabel.Name = "constantSurfaceSpeedLabel";
+			this.constantSurfaceSpeedLabel.Size = new System.Drawing.Size(155, 16);
+			this.constantSurfaceSpeedLabel.TabIndex = 8;
+			this.constantSurfaceSpeedLabel.Text = "Constant surface speed :";
+			// 
+			// spindleSpeedLimitInput
+			// 
+			this.spindleSpeedLimitInput.DecimalPlaces = 1;
+			this.spindleSpeedLimitInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.spindleSpeedLimitInput.Location = new System.Drawing.Point(180, 19);
+			this.spindleSpeedLimitInput.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+			this.spindleSpeedLimitInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.spindleSpeedLimitInput.Name = "spindleSpeedLimitInput";
+			this.spindleSpeedLimitInput.Size = new System.Drawing.Size(71, 26);
+			this.spindleSpeedLimitInput.TabIndex = 7;
+			this.spindleSpeedLimitInput.Value = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+			this.spindleSpeedLimitInput.ValueChanged += new System.EventHandler(this.spindleSpeedLimitInput_ValueChanged);
+			// 
+			// speedLimitLabel
+			// 
+			this.speedLimitLabel.AutoSize = true;
+			this.speedLimitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.speedLimitLabel.ForeColor = System.Drawing.Color.Black;
+			this.speedLimitLabel.Location = new System.Drawing.Point(42, 24);
+			this.speedLimitLabel.Name = "speedLimitLabel";
+			this.speedLimitLabel.Size = new System.Drawing.Size(128, 16);
+			this.speedLimitLabel.TabIndex = 6;
+			this.speedLimitLabel.Text = "Spindle speed limit :";
+			// 
+			// cavaFirstSideManual
+			// 
+			this.cavaFirstSideManual.AutoSize = true;
+			this.cavaFirstSideManual.Location = new System.Drawing.Point(70, 22);
+			this.cavaFirstSideManual.Name = "cavaFirstSideManual";
+			this.cavaFirstSideManual.Size = new System.Drawing.Size(15, 14);
+			this.cavaFirstSideManual.TabIndex = 4;
+			this.cavaFirstSideManual.UseVisualStyleBackColor = true;
+			this.cavaFirstSideManual.CheckedChanged += new System.EventHandler(this.cavaFirstSideManual_CheckedChanged);
+			// 
+			// cavaSecondSideManual
+			// 
+			this.cavaSecondSideManual.AutoSize = true;
+			this.cavaSecondSideManual.Location = new System.Drawing.Point(70, 52);
+			this.cavaSecondSideManual.Name = "cavaSecondSideManual";
+			this.cavaSecondSideManual.Size = new System.Drawing.Size(15, 14);
+			this.cavaSecondSideManual.TabIndex = 5;
+			this.cavaSecondSideManual.UseVisualStyleBackColor = true;
+			this.cavaSecondSideManual.CheckedChanged += new System.EventHandler(this.cavaSecondSideManual_CheckedChanged);
+			// 
 			// MainApp
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1966,24 +1990,12 @@ namespace DXF
 			this.cavaSelectorGroup.ResumeLayout(false);
 			this.cavaSelectorGroup.PerformLayout();
 			this.manualCavaSelectorGroup.ResumeLayout(false);
+			this.manualCavaSelectorGroup.PerformLayout();
 			this.autoCavaSelectorGroup.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.visualizationPanel)).EndInit();
 			this.firstSideSelectorGroup.ResumeLayout(false);
 			this.firstSideSelectorGroup.PerformLayout();
 			this.tabSettings.ResumeLayout(false);
-			this.workplaneOriginGroup.ResumeLayout(false);
-			this.workplaneOriginGroup.PerformLayout();
-			this.spindleSpeedGroup.ResumeLayout(false);
-			this.spindleSpeedGroup.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.constantSurfaceSpeedInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.spindleSpeedLimitInput)).EndInit();
-			this.collarinoCycleGroup.ResumeLayout(false);
-			this.collarinoCycleGroup.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.collarinoFeedRateInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.collarinoZAllowanceInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.collarinoXAllowanceInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.collarinoRetractInput)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.collarinoDepthOfCutInput)).EndInit();
 			this.cavaCycleGroup.ResumeLayout(false);
 			this.cavaCycleGroup.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.cavaFeedRateInput)).EndInit();
@@ -1991,6 +2003,19 @@ namespace DXF
 			((System.ComponentModel.ISupportInitialize)(this.cavaXAllowanceInput)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.cavaRetractInput)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.cavaDepthOfCutInput)).EndInit();
+			this.collarinoCycleGroup.ResumeLayout(false);
+			this.collarinoCycleGroup.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoFeedRateInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoZAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoXAllowanceInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoRetractInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.collarinoDepthOfCutInput)).EndInit();
+			this.workplaneOriginGroup.ResumeLayout(false);
+			this.workplaneOriginGroup.PerformLayout();
+			this.spindleSpeedGroup.ResumeLayout(false);
+			this.spindleSpeedGroup.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.constantSurfaceSpeedInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.spindleSpeedLimitInput)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -2067,8 +2092,8 @@ namespace DXF
 		private System.Windows.Forms.GroupBox autoCavaSelectorGroup;
 		private System.Windows.Forms.RadioButton manualCavaButton;
 		private System.Windows.Forms.RadioButton autoCavaButton;
-		private System.Windows.Forms.RadioButton cavaSecondSideButton;
-		private System.Windows.Forms.RadioButton cavaFirstSideButton;
+		private System.Windows.Forms.RadioButton cavaSecondSideAuto;
+		private System.Windows.Forms.RadioButton cavaFirstSideAuto;
 		private System.Windows.Forms.Label setCavaSelectorGroupSecondSideLabel;
 		private System.Windows.Forms.Label setCavaSelectorFirstSideLabel;
 		private System.Windows.Forms.Button decreaseSecondSideButton;
@@ -2108,5 +2133,7 @@ namespace DXF
 		private System.Windows.Forms.Label collarinoAllowanceXLabel;
 		private System.Windows.Forms.Label collarinoRetractLabel;
 		private System.Windows.Forms.Label collarinoDepthOfCutLabel;
+		private System.Windows.Forms.CheckBox cavaSecondSideManual;
+		private System.Windows.Forms.CheckBox cavaFirstSideManual;
 	}
 }

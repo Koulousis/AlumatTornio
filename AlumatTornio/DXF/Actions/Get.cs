@@ -524,51 +524,6 @@ namespace DXF.Actions
 
 			return secondSideOuterVerticalMachiningLines;
 		}
-
-		public static List<ProfilePoint> ProfilePoints(List<Line> lines, List<Arc> arcs)
-		{
-			//Profiles points list
-			List<ProfilePoint> profilePoints = new List<ProfilePoint>();
-
-			if (lines.Count == 0 || lines == null) return profilePoints;
-			
-			//Set index list to loop through profile
-			List<int> indexes = new List<int>();
-			foreach (Line line in lines) { indexes.Add(line.Index); }
-			foreach (Arc arc in arcs) { indexes.Add(arc.Index); }
-			indexes.Sort();
-			if (lines.First().Placement == "Flipped") { indexes.Reverse(); }
-
-			foreach (int index in indexes)
-			{
-				Line dummyLine = lines.Find(line => line.Index == index);
-				Arc dummyArc = arcs.Find(arc => arc.Index == index);
-
-				if (dummyLine != null)
-				{
-					profilePoints.Add(new ProfilePoint(dummyLine.StartY * 2, dummyLine.StartX));
-					profilePoints.Add(new ProfilePoint(dummyLine.EndY * 2, dummyLine.EndX));
-				}
-				else if (dummyArc != null)
-				{
-					profilePoints.Add(new ProfilePoint(dummyArc.EndY * 2, dummyArc.EndX, dummyArc.Radius, dummyArc.Clockwise, dummyArc.AntiClockwise));
-				}
-			}
-
-			//Use the GroupBy method to group the ProfilePoints by their X,Z properties
-			var groups = profilePoints.GroupBy(p => new { p.X, p.Z });
-
-			//Create a new list from the groups, taking only the first element from each group
-			List<ProfilePoint> profilePointsWithoutDuplicates = groups.Select(g => g.First()).ToList();
-
-			//The result must be equal to (lines.Count + 1) + arcs.Count 
-			if (profilePointsWithoutDuplicates.Count != lines.Count + 1 + arcs.Count)
-			{
-				MessageBox.Show("Outer horizintal profile points amount\n are not equal to the planned amount");
-			}
-
-			return profilePointsWithoutDuplicates;
-		}
 		
 		public static List<Line> CavaLines(List<Line> lines)
 		{
@@ -695,5 +650,55 @@ namespace DXF.Actions
 
 			return collarinoArcs;
 		}
+
+		public static List<ProfilePoint> ProfilePoints(List<Line> lines, List<Arc> arcs)
+		{
+			//Profiles points list
+			List<ProfilePoint> profilePoints = new List<ProfilePoint>();
+
+			if (lines.Count == 0 || lines == null) return profilePoints;
+
+			//Set index list to loop through profile
+			List<int> indexes = new List<int>();
+			foreach (Line line in lines) { indexes.Add(line.Index); }
+			foreach (Arc arc in arcs) { indexes.Add(arc.Index); }
+			indexes.Sort();
+			if (lines.First().Placement == "Flipped") { indexes.Reverse(); }
+
+			foreach (int index in indexes)
+			{
+				Line dummyLine = lines.Find(line => line.Index == index);
+				Arc dummyArc = arcs.Find(arc => arc.Index == index);
+
+				if (dummyLine != null)
+				{
+					profilePoints.Add(new ProfilePoint(dummyLine.StartY * 2, dummyLine.StartX));
+					profilePoints.Add(new ProfilePoint(dummyLine.EndY * 2, dummyLine.EndX));
+				}
+				else if (dummyArc != null)
+				{
+					if (dummyArc.Index == indexes.First())
+					{
+						profilePoints.Add(new ProfilePoint(dummyArc.StartY * 2, dummyArc.StartX));
+					}
+					profilePoints.Add(new ProfilePoint(dummyArc.EndY * 2, dummyArc.EndX, dummyArc.Radius, dummyArc.Clockwise, dummyArc.AntiClockwise));
+				}
+			}
+
+			//Use the GroupBy method to group the ProfilePoints by their X,Z properties
+			var groups = profilePoints.GroupBy(p => new { p.X, p.Z });
+
+			//Create a new list from the groups, taking only the first element from each group
+			List<ProfilePoint> profilePointsWithoutDuplicates = groups.Select(g => g.First()).ToList();
+
+			//The result must be equal to (lines.Count + 1) + arcs.Count 
+			if (profilePointsWithoutDuplicates.Count != lines.Count + 1 + arcs.Count)
+			{
+				MessageBox.Show("Outer horizintal profile points amount\n are not equal to the planned amount");
+			}
+
+			return profilePointsWithoutDuplicates;
+		}
+
 	}
 }

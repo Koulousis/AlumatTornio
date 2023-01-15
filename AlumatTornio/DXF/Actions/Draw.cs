@@ -248,5 +248,51 @@ namespace DXF.Actions
 			visualizationPanelGraphics.FillPath(collarinoBrush, collarinoPath);
 			visualizationPanelGraphics.DrawPath(collarinoPen, collarinoPath);
 		}
+
+		public static void Cava(Graphics visualizationPanelGraphics, List<Line> cavaLines, List<Arc> cavaArcs, bool sideAppliedAuto, bool sideAppliedManual)
+		{
+			if (!sideAppliedAuto && !sideAppliedManual) return;
+
+			//Instantiate a specific Pen
+			Pen cavaPen = new Pen(Color.Lime);
+			cavaPen.Alignment = PenAlignment.Center;
+			cavaPen.ScaleTransform(0, 0);
+
+			//Indexes
+			if (cavaLines == null || cavaLines.Count == 0) return;
+			List<int> indexes = new List<int>();
+			indexes.AddRange(cavaLines.Select(line => line.Index).ToList());
+			indexes.AddRange(cavaArcs.Select(arc => arc.Index).ToList());
+
+			if (cavaLines.First().Index < cavaLines.Last().Index)
+			{ indexes.Sort(); }
+			else
+			{ indexes.Sort(); indexes.Reverse(); }
+
+			//Draw profile lines and arcs
+			GraphicsPath cavaPath = new GraphicsPath();
+			Brush cavaBrush = new HatchBrush(HatchStyle.NarrowHorizontal, Color.Lime, Color.FromArgb(0, 0, 0, 0));
+			foreach (int index in indexes)
+			{
+				foreach (Line line in cavaLines)
+				{
+					if (line.Index == index)
+					{
+						cavaPath.AddLine(line.StartX, line.StartY, line.EndX, line.EndY);
+					}
+				}
+
+				foreach (Arc arc in cavaArcs)
+				{
+					if (arc.Index == index)
+					{
+						cavaPath.AddArc(arc.RectangularCornerX, arc.RectangularCornerY, arc.Width, arc.Height, arc.EndAngle, -arc.SweepAngle);
+					}
+				}
+			}
+
+			visualizationPanelGraphics.FillPath(cavaBrush, cavaPath);
+			visualizationPanelGraphics.DrawPath(cavaPen, cavaPath);
+		}
 	}
 }
