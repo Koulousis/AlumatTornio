@@ -563,6 +563,21 @@ namespace DXF.Actions
 				}
 			}
 
+			int bottomLineIndex = cavaLines.Find(x => x.StartY == x.EndY).Index;
+			foreach (Line line in cavaLines)
+			{
+				if (line.Index != bottomLineIndex)
+				{
+					line.StartX -= 8;
+					line.EndX -= 8;
+				}
+				else if (line.Index == bottomLineIndex)
+				{
+					line.StartX -= 8;
+					break;
+				}
+			}
+
 			return cavaLines;
 		}
 
@@ -585,6 +600,22 @@ namespace DXF.Actions
 			{
 				cavaArcs.Add(arcLast.Clone());
 			}
+
+			if (cavaArcs[0].CenterX > cavaArcs[1].CenterX)
+			{
+				cavaArcs[0].CenterX -= 8;
+				cavaArcs[0].StartX -= 8;
+				cavaArcs[0].EndX -= 8;
+				cavaArcs[0].RectangularCornerX -= 8;
+			}
+			else if (cavaArcs[1].CenterX > cavaArcs[0].CenterX)
+			{
+				cavaArcs[1].CenterX -= 8;
+				cavaArcs[1].StartX -= 8;
+				cavaArcs[1].EndX -= 8;
+				cavaArcs[1].RectangularCornerX -= 8;
+			}
+			
 
 			return cavaArcs;
 		}

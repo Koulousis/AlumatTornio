@@ -286,7 +286,7 @@ namespace DXF.Actions
 				{
 					if (arc.Index == index)
 					{
-						cavaPath.AddArc(arc.RectangularCornerX, arc.RectangularCornerY, arc.Width, arc.Height, arc.EndAngle, -arc.SweepAngle);
+						cavaPath.AddArc(arc.RectangularCornerX, arc.RectangularCornerY, arc.Width, arc.Height, arc.StartAngle, arc.SweepAngle);
 					}
 				}
 			}
