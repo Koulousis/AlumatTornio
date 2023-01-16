@@ -64,8 +64,20 @@ namespace DXF
 			cavaFeedRateInput.Value = Convert.ToDecimal(Settings.Default["CavaFeedRate"]);
 
 			//Fill spindle speed inputs with saved values
-			spindleSpeedLimitInput.Value = Convert.ToDecimal(Settings.Default["SpindleSpeedLimit"]);
-			constantSurfaceSpeedInput.Value = Convert.ToDecimal(Settings.Default["ConstantSurfaceSpeed"]);
+			diametricalSpeedLimitInput.Value = Convert.ToDecimal(Settings.Default["DiametricalSpeedLimit"]);
+			diametricalSurfaceSpeedInput.Value = Convert.ToDecimal(Settings.Default["DiametricalSurfaceSpeed"]);
+			facingSpeedLimitInput.Value = Convert.ToDecimal(Settings.Default["FacingSpeedLimit"]);
+			facingSurfaceSpeedInput.Value = Convert.ToDecimal(Settings.Default["FacingSurfaceSpeed"]);
+			collarinoSpeedLimitInput.Value = Convert.ToDecimal(Settings.Default["CollarinoSpeedLimit"]);
+			collarinoSurfaceSpeedInput.Value = Convert.ToDecimal(Settings.Default["CollarinoSurfaceSpeed"]);
+			cavaSpeedLimitInput.Value = Convert.ToDecimal(Settings.Default["CavaSpeedLimit"]);
+			cavaSurfaceSpeedInput.Value = Convert.ToDecimal(Settings.Default["CavaSurfaceSpeed"]);
+
+			//Fill tool number inputs with saved values
+			diametricalToolNumberInput.Text = Convert.ToString(Settings.Default["DiametricalToolNumber"]);
+			facingToolNumberInput.Text = Convert.ToString(Settings.Default["FacingToolNumber"]);
+			collarinoToolNumberInput.Text = Convert.ToString(Settings.Default["CollarinoToolNumber"]);
+			cavaToolNumberInput.Text = Convert.ToString(Settings.Default["CavaToolNumber"]);
 
 			//Fill workplane origin parameter with saved value
 			workplaneOriginParameterInput.Text = Convert.ToString(Settings.Default["WorkplaneOriginParameter"]);
@@ -731,8 +743,19 @@ namespace DXF
 			string workplaneOriginParameter = workplaneOriginParameterInput.Text;
 			float firstSideWorkplaneValue = Parameter.DieWidth + Parameter.StockFromWidthSecondSide;
 			float secondSideWorkplaneValue = Parameter.DieWidth;
-			SpindleSpeed spindleSpeed = new SpindleSpeed(spindleSpeedLimitInput.Value, constantSurfaceSpeedInput.Value);
 
+			//Spindle speeds
+			SpindleSpeed diametricalSpindleSpeed = new SpindleSpeed(diametricalSpeedLimitInput.Value, diametricalSurfaceSpeedInput.Value);
+			SpindleSpeed facingSpindleSpeed = new SpindleSpeed(facingSpeedLimitInput.Value, facingSurfaceSpeedInput.Value);
+			SpindleSpeed collarinoSpindleSpeed = new SpindleSpeed(collarinoSpeedLimitInput.Value, collarinoSurfaceSpeedInput.Value);
+			SpindleSpeed cavaSpindleSpeed = new SpindleSpeed(cavaSpeedLimitInput.Value, cavaSurfaceSpeedInput.Value);
+
+			//Tool numbers
+			string diametricalTool = diametricalToolNumberInput.Text;
+			string facingTool = facingToolNumberInput.Text;
+			string collarinoTool = collarinoToolNumberInput.Text;
+			string cavaTool = cavaToolNumberInput.Text;
+			
 			//Set G71 and G72 Attributes
 			G72 facingCycle = new G72("10", "20", facingDepthOfCutInput.Value, facingRetractInput.Value, facingXAllowanceInput.Value, facingZAllowanceInput.Value, facingFeedRateInput.Value);
 			G71 diametricalCycle = new G71("30", "40",diametricalDepthOfCutInput.Value, diametricalRetractInput.Value, diametricalXAllowanceInput.Value, diametricalZAllowanceInput.Value, diametricalFeedRateInput.Value);
@@ -747,11 +770,11 @@ namespace DXF
 
 			//Create g code for first side
 			List<string> gCodeFirstSide = new List<string>();
-			gCodeFirstSide.AddRange(CodeBlock.LatheInitialization(workplaneOriginParameter, firstSideWorkplaneValue, spindleSpeed));
-			gCodeFirstSide.AddRange(CodeBlock.FacingProfile(facingCycle, firstSideOuterVerticalProfilePoints));
-			gCodeFirstSide.AddRange(CodeBlock.DiametricalProfile(diametricalCycle, firstSideOuterHorizontalProfilePoints));
-			gCodeFirstSide.AddRange(CodeBlock.CollarinoProfile(collarinoCycle, firstSideFemaleCollarinoProfilePoints));
-			gCodeFirstSide.AddRange(CodeBlock.CavaProfile(cavaCycle, firstSideCavaProfilePoints, cavaFirstSideAuto.Checked, cavaFirstSideManual.Checked));
+			gCodeFirstSide.AddRange(CodeBlock.LatheInitialization(workplaneOriginParameter, firstSideWorkplaneValue));
+			gCodeFirstSide.AddRange(CodeBlock.FacingProfile(facingCycle, firstSideOuterVerticalProfilePoints, facingSpindleSpeed, facingTool));
+			gCodeFirstSide.AddRange(CodeBlock.DiametricalProfile(diametricalCycle, firstSideOuterHorizontalProfilePoints, diametricalSpindleSpeed, diametricalTool));
+			gCodeFirstSide.AddRange(CodeBlock.CollarinoProfile(collarinoCycle, firstSideFemaleCollarinoProfilePoints, collarinoSpindleSpeed, collarinoTool));
+			gCodeFirstSide.AddRange(CodeBlock.CavaProfile(cavaCycle, firstSideCavaProfilePoints, cavaSpindleSpeed, cavaTool, cavaFirstSideAuto.Checked, cavaFirstSideManual.Checked));
 			gCodeFirstSide.AddRange(CodeBlock.LatheEnd());
 
 			for (int i = 0; i < gCodeFirstSide.Count; i++)
@@ -770,11 +793,11 @@ namespace DXF
 
 			//Create g code for second side
 			List<string> gCodeSecondSide = new List<string>();
-			gCodeSecondSide.AddRange(CodeBlock.LatheInitialization(workplaneOriginParameter, secondSideWorkplaneValue, spindleSpeed));
-			gCodeSecondSide.AddRange(CodeBlock.FacingProfile(facingCycle, secondSideOuterVerticalProfilePoints));
-			gCodeSecondSide.AddRange(CodeBlock.DiametricalProfile(diametricalCycle, secondSideOuterHorizontalProfilePoints));
-			gCodeSecondSide.AddRange(CodeBlock.CollarinoProfile(collarinoCycle, secondtSideFemaleCollarinoProfilePoints));
-			gCodeSecondSide.AddRange(CodeBlock.CavaProfile(cavaCycle, secondSideCavaProfilePoints, cavaSecondSideAuto.Checked, cavaSecondSideManual.Checked));
+			gCodeSecondSide.AddRange(CodeBlock.LatheInitialization(workplaneOriginParameter, secondSideWorkplaneValue));
+			gCodeSecondSide.AddRange(CodeBlock.FacingProfile(facingCycle, secondSideOuterVerticalProfilePoints, facingSpindleSpeed, facingTool));
+			gCodeSecondSide.AddRange(CodeBlock.DiametricalProfile(diametricalCycle, secondSideOuterHorizontalProfilePoints, diametricalSpindleSpeed, diametricalTool));
+			gCodeSecondSide.AddRange(CodeBlock.CollarinoProfile(collarinoCycle, secondtSideFemaleCollarinoProfilePoints, collarinoSpindleSpeed, collarinoTool));
+			gCodeSecondSide.AddRange(CodeBlock.CavaProfile(cavaCycle, secondSideCavaProfilePoints, cavaSpindleSpeed, cavaTool, cavaSecondSideAuto.Checked, cavaSecondSideManual.Checked));
 			gCodeSecondSide.AddRange(CodeBlock.LatheEnd());
 
 			//Set dot on values in case of comma
@@ -916,6 +939,24 @@ namespace DXF
 			Settings.Default["DiametricalFeedRate"] = diametricalFeedRateInput.Value;
 			Settings.Default.Save();
 		}
+
+		private void diametricalSpeedLimitInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["DiametricalSpeedLimit"] = diametricalSpeedLimitInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void diametricalSurfaceSpeedInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["DiametricalSurfaceSpeed"] = diametricalSurfaceSpeedInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void diametricalToolNumberInput_TextChanged(object sender, EventArgs e)
+		{
+			Settings.Default["DiametricalToolNumber"] = diametricalToolNumberInput.Text;
+			Settings.Default.Save();
+		}
 		#endregion
 
 		#region Facing Cycle Values Save
@@ -946,6 +987,24 @@ namespace DXF
 		private void facingFeedRateInput_ValueChanged(object sender, EventArgs e)
 		{
 			Settings.Default["FacingFeedRate"] = facingFeedRateInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void facingSpeedLimitInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["FacingSpeedLimit"] = facingSpeedLimitInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void facingSurfaceSpeedInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["FacingSurfaceSpeed"] = facingSurfaceSpeedInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void facingToolNumberInput_TextChanged(object sender, EventArgs e)
+		{
+			Settings.Default["FacingToolNumber"] = facingToolNumberInput.Text;
 			Settings.Default.Save();
 		}
 		#endregion
@@ -980,6 +1039,24 @@ namespace DXF
 			Settings.Default["CollarinoFeedRate"] = facingFeedRateInput.Value;
 			Settings.Default.Save();
 		}
+
+		private void collarinoSpeedLimitInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CollarinoSpeedLimit"] = collarinoSpeedLimitInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void collarinoSurfaceSpeedInput_ValueChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CollarinoSurfaceSpeed"] = collarinoSurfaceSpeedInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void collarinoToolNumberInput_TextChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CollarinoToolNumber"] = collarinoToolNumberInput.Text;
+			Settings.Default.Save();
+		}
 		#endregion
 
 		#region Cava Cycle Values Save
@@ -1012,18 +1089,22 @@ namespace DXF
 			Settings.Default["CavaFeedRate"] = facingFeedRateInput.Value;
 			Settings.Default.Save();
 		}
-		#endregion
 
-		#region Spindle Speed Values Save
-		private void spindleSpeedLimitInput_ValueChanged(object sender, EventArgs e)
+		private void cavaSpeedLimitInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["SpindleSpeedLimit"] = spindleSpeedLimitInput.Value;
+			Settings.Default["CavaSpeedLimit"] = cavaSpeedLimitInput.Value;
 			Settings.Default.Save();
 		}
 
-		private void constantSurfaceSpeedInput_ValueChanged(object sender, EventArgs e)
+		private void cavaSurfaceSpeedInput_ValueChanged(object sender, EventArgs e)
 		{
-			Settings.Default["ConstantSurfaceSpeed"] = constantSurfaceSpeedInput.Value;
+			Settings.Default["CavaSurfaceSpeed"] = cavaSurfaceSpeedInput.Value;
+			Settings.Default.Save();
+		}
+
+		private void cavaToolNumberInput_TextChanged(object sender, EventArgs e)
+		{
+			Settings.Default["CavaToolNumber"] = cavaToolNumberInput.Text;
 			Settings.Default.Save();
 		}
 		#endregion
@@ -1050,7 +1131,16 @@ namespace DXF
 
 
 
+
+
+
+
+
+
+
+
 		#endregion
+
 		
 	}
 }

@@ -181,31 +181,7 @@ namespace DXF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public decimal SpindleSpeedLimit {
-            get {
-                return ((decimal)(this["SpindleSpeedLimit"]));
-            }
-            set {
-                this["SpindleSpeedLimit"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public decimal ConstantSurfaceSpeed {
-            get {
-                return ((decimal)(this["ConstantSurfaceSpeed"]));
-            }
-            set {
-                this["ConstantSurfaceSpeed"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#5222")]
         public string WorkplaneOriginParameter {
             get {
                 return ((string)(this["WorkplaneOriginParameter"]));
@@ -332,6 +308,150 @@ namespace DXF.Properties {
             }
             set {
                 this["CavaFeedRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal DiametricalSpeedLimit {
+            get {
+                return ((decimal)(this["DiametricalSpeedLimit"]));
+            }
+            set {
+                this["DiametricalSpeedLimit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal DiametricalSurfaceSpeed {
+            get {
+                return ((decimal)(this["DiametricalSurfaceSpeed"]));
+            }
+            set {
+                this["DiametricalSurfaceSpeed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal FacingSpeedLimit {
+            get {
+                return ((decimal)(this["FacingSpeedLimit"]));
+            }
+            set {
+                this["FacingSpeedLimit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal FacingSurfaceSpeed {
+            get {
+                return ((decimal)(this["FacingSurfaceSpeed"]));
+            }
+            set {
+                this["FacingSurfaceSpeed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal CollarinoSpeedLimit {
+            get {
+                return ((decimal)(this["CollarinoSpeedLimit"]));
+            }
+            set {
+                this["CollarinoSpeedLimit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal CollarinoSurfaceSpeed {
+            get {
+                return ((decimal)(this["CollarinoSurfaceSpeed"]));
+            }
+            set {
+                this["CollarinoSurfaceSpeed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal CavaSpeedLimit {
+            get {
+                return ((decimal)(this["CavaSpeedLimit"]));
+            }
+            set {
+                this["CavaSpeedLimit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal CavaSurfaceSpeed {
+            get {
+                return ((decimal)(this["CavaSurfaceSpeed"]));
+            }
+            set {
+                this["CavaSurfaceSpeed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("T2W202")]
+        public string DiametricalToolNumber {
+            get {
+                return ((string)(this["DiametricalToolNumber"]));
+            }
+            set {
+                this["DiametricalToolNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("T2W202")]
+        public string FacingToolNumber {
+            get {
+                return ((string)(this["FacingToolNumber"]));
+            }
+            set {
+                this["FacingToolNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("T2W202")]
+        public string CollarinoToolNumber {
+            get {
+                return ((string)(this["CollarinoToolNumber"]));
+            }
+            set {
+                this["CollarinoToolNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("T2W202")]
+        public string CavaToolNumber {
+            get {
+                return ((string)(this["CavaToolNumber"]));
+            }
+            set {
+                this["CavaToolNumber"] = value;
             }
         }
     }

@@ -606,7 +606,7 @@ namespace DXF.Actions
 				cavaArcs[0].CenterX -= 4;
 				cavaArcs[0].StartX -= 4;
 				cavaArcs[0].EndX -= 4;
-				cavaArcs[0].RectangularCornerX -= 8;
+				cavaArcs[0].RectangularCornerX -= 4;
 			}
 			else if (cavaArcs[1].CenterX > cavaArcs[0].CenterX)
 			{

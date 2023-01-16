@@ -9,7 +9,7 @@ namespace DXF.Lathe
 {
 	public class CodeBlock
 	{
-		public static List<string> LatheInitialization(string workplaneOriginParameter, float workplaneOriginValue, SpindleSpeed spindleSpeed)
+		public static List<string> LatheInitialization(string workplaneOriginParameter, float workplaneOriginValue)
 		{
 			//Fill G Code
 			List<string> latheInitialization = new List<string>
@@ -27,16 +27,13 @@ namespace DXF.Lathe
 				"G0",
 				"G28W0",
 				$"{workplaneOriginParameter} = {workplaneOriginValue}",
-				$"G50 S{spindleSpeed.SpindleSpeedLimit}",
-				$"G96 S{spindleSpeed.ConstantSurfaceSpeed} M4",
-				"T2W202",
 				""
 			};
 
 			return latheInitialization;
 		}
 
-		public static List<string> FacingProfile(G72 g72, List<ProfilePoint> profilePoints)
+		public static List<string> FacingProfile(G72 g72, List<ProfilePoint> profilePoints, SpindleSpeed spindleSpeed, string toolNumber)
 		{
 			List<string> gCode = new List<string>();
 			if (profilePoints.Count == 0 || profilePoints == null) return gCode;
@@ -51,6 +48,9 @@ namespace DXF.Lathe
 
 			//Set g code
 			gCode.Add("(-----FACING ROUGHING-----)");
+			gCode.Add($"G50 S{spindleSpeed.SpindleSpeedLimit}");
+			gCode.Add($"G96 S{spindleSpeed.ConstantSurfaceSpeed} M4");
+			gCode.Add(toolNumber);
 			gCode.Add("(START POSITION)");
 			gCode.Add($"G0 Z{startPosition.Z}");
 			gCode.Add($"G0 X{startPosition.X}");
@@ -85,7 +85,7 @@ namespace DXF.Lathe
 			return gCode;
 		}
 
-		public static List<string> DiametricalProfile(G71 g71, List<ProfilePoint> profilePoints)
+		public static List<string> DiametricalProfile(G71 g71, List<ProfilePoint> profilePoints, SpindleSpeed spindleSpeed, string toolNumber)
 		{
 			List<string> gCode = new List<string>();
 
@@ -99,6 +99,9 @@ namespace DXF.Lathe
 
 			//Set g code
 			gCode.Add("(-----DIAMETRICAL ROUGHING-----)");
+			gCode.Add($"G50 S{spindleSpeed.SpindleSpeedLimit}");
+			gCode.Add($"G96 S{spindleSpeed.ConstantSurfaceSpeed} M4");
+			gCode.Add(toolNumber);
 			gCode.Add("(START POSITION)");
 			gCode.Add($"G0 Z{startPosition.Z}");
 			gCode.Add($"G0 X{startPosition.X}");
@@ -133,7 +136,7 @@ namespace DXF.Lathe
 			return gCode;
 		}
 		
-		public static List<string> CollarinoProfile(G72 g72, List<ProfilePoint> profilePoints)
+		public static List<string> CollarinoProfile(G72 g72, List<ProfilePoint> profilePoints, SpindleSpeed spindleSpeed, string toolNumber)
 		{
 			List<string> gCode = new List<string>();
 			if (profilePoints.Count == 0 || profilePoints == null) return gCode;
@@ -148,6 +151,9 @@ namespace DXF.Lathe
 
 			//Set g code
 			gCode.Add("(-----COLLARINO ROUGHING-----)");
+			gCode.Add($"G50 S{spindleSpeed.SpindleSpeedLimit}");
+			gCode.Add($"G96 S{spindleSpeed.ConstantSurfaceSpeed} M4");
+			gCode.Add(toolNumber);
 			gCode.Add("(START POSITION)");
 			gCode.Add($"G0 X{startPosition.X}");
 			gCode.Add($"G1 Z{startPosition.Z}");
@@ -190,7 +196,7 @@ namespace DXF.Lathe
 			return gCode;
 		}
 
-		public static List<string> CavaProfile(G71 g71, List<ProfilePoint> profilePoints, bool sideAppliedAuto, bool sideAppliedManual)
+		public static List<string> CavaProfile(G71 g71, List<ProfilePoint> profilePoints, SpindleSpeed spindleSpeed, string toolNumber, bool sideAppliedAuto, bool sideAppliedManual)
 		{
 			List<string> gCode = new List<string>();
 			if (!sideAppliedAuto && !sideAppliedManual) return gCode;
@@ -205,6 +211,9 @@ namespace DXF.Lathe
 
 			//Set g code
 			gCode.Add("(-----CAVA ROUGHING-----)");
+			gCode.Add($"G50 S{spindleSpeed.SpindleSpeedLimit}");
+			gCode.Add($"G96 S{spindleSpeed.ConstantSurfaceSpeed} M4");
+			gCode.Add(toolNumber);
 			gCode.Add("(START POSITION)");
 			gCode.Add($"G0 Z{startPosition.Z}");
 			gCode.Add($"G0 X{startPosition.X}");

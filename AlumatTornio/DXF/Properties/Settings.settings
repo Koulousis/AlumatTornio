@@ -41,14 +41,8 @@
     <Setting Name="ChockSize" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="SpindleSpeedLimit" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="ConstantSurfaceSpeed" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
     <Setting Name="WorkplaneOriginParameter" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">#5222</Value>
     </Setting>
     <Setting Name="CollarinoDepthOfCut" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
@@ -79,6 +73,42 @@
     </Setting>
     <Setting Name="CavaFeedRate" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="DiametricalSpeedLimit" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="DiametricalSurfaceSpeed" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="FacingSpeedLimit" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="FacingSurfaceSpeed" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="CollarinoSpeedLimit" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="CollarinoSurfaceSpeed" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="CavaSpeedLimit" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="CavaSurfaceSpeed" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="DiametricalToolNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)">T2W202</Value>
+    </Setting>
+    <Setting Name="FacingToolNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)">T2W202</Value>
+    </Setting>
+    <Setting Name="CollarinoToolNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)">T2W202</Value>
+    </Setting>
+    <Setting Name="CavaToolNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)">T2W202</Value>
     </Setting>
   </Settings>
 </SettingsFile>
