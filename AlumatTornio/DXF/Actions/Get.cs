@@ -568,12 +568,12 @@ namespace DXF.Actions
 			{
 				if (line.Index != bottomLineIndex)
 				{
-					line.StartX -= 8;
-					line.EndX -= 8;
+					line.StartX -= 4;
+					line.EndX -= 4;
 				}
 				else if (line.Index == bottomLineIndex)
 				{
-					line.StartX -= 8;
+					line.StartX -= 4;
 					break;
 				}
 			}
@@ -603,17 +603,17 @@ namespace DXF.Actions
 
 			if (cavaArcs[0].CenterX > cavaArcs[1].CenterX)
 			{
-				cavaArcs[0].CenterX -= 8;
-				cavaArcs[0].StartX -= 8;
-				cavaArcs[0].EndX -= 8;
+				cavaArcs[0].CenterX -= 4;
+				cavaArcs[0].StartX -= 4;
+				cavaArcs[0].EndX -= 4;
 				cavaArcs[0].RectangularCornerX -= 8;
 			}
 			else if (cavaArcs[1].CenterX > cavaArcs[0].CenterX)
 			{
-				cavaArcs[1].CenterX -= 8;
-				cavaArcs[1].StartX -= 8;
-				cavaArcs[1].EndX -= 8;
-				cavaArcs[1].RectangularCornerX -= 8;
+				cavaArcs[1].CenterX -= 4;
+				cavaArcs[1].StartX -= 4;
+				cavaArcs[1].EndX -= 4;
+				cavaArcs[1].RectangularCornerX -= 4;
 			}
 			
 
